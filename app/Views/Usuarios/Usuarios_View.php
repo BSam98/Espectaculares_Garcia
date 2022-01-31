@@ -4,11 +4,10 @@
         <meta charset = "UTF-8">
         <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content = "ie=edge"/>
-        <title>Atracciones</title>
+        <title>Usuarios</title>
         
-
         <link href="CSS/cabecera_style.css" rel="stylesheet" type="text/css">
-        <link href = "CSS/atracciones_style.css" rel = "stylesheet" type="text/css">
+        <link href = "CSS/usuarios_style.css" rel = "stylesheet" type="text/css">
         
     </head>
     
@@ -35,7 +34,7 @@
                                 
                                 <!--Sub menu de Catalago-->
                                 <ul id="subMenuCatalago">
-                                <li><a href="Atracciones">Atracciones</a></li>
+                                    <li><a href="Atracciones">Atracciones</a></li>
                                     <li><a href="Asociados">Asociados</a></li>
                                     <li><a href="Eventos">Eventos</a></li>
                                     <li><a href="Usuarios">Usuarios</a></li>
@@ -87,17 +86,15 @@
             </div>
             <!--/Contenedor Superior-->
 
-            <!--Ventana de la atracción-->
             <fieldset>
                 
-                <legend>Atracciones</legend>
+                <legend>Usuarios</legend>
 
-                <input type="search" name="buscarAtraccion" placeholder="Buscar Atracción">
+                <input type="search" name="buscarUsuario" placeholder="Buscar Usuario">
 
                 <input type="submit" value="Buscar">
 
-                <button>Nueva Atraccion</button>
-                <button id="abrir">Nuevo Propietario</button>
+                <button onClick="">Nuevo Usuario</button>
 
                 <div class="contenedorTabla">
                     
@@ -108,12 +105,14 @@
                             <!--Titulos de la tabla-->
                             <tr>
                                 <th>Nombre</th>
-                                <th>Area</th>
-                                <th>Propietario</th>
-                                <th>Capacidad maxima</th>
-                                <th>Capacidad minima</th>
-                                <th>Duración por ciclo</th>
-                                <th>Tiempo de espera</th>
+                                <th>Apellidos</th>
+                                <th>Correo electronico</th>
+                                <th>NSS</th>
+                                <th>CURP</th>
+                                <th>Usuario</th>
+                                <th>Contraseña</th>
+                                <th>Rango</th>
+                                <th>Evento</th>
                             </tr>
                             <!--/Titutlos de la tabla-->
 
@@ -127,69 +126,11 @@
 
                 </div>
             
-            </fieldset>
-            <!--/Ventana de la atracción-->
-
-            
-            <!--Contenedor del propietario-->
-            <div class = "contenedorOculto" id = "contenedorOculto">
-                
-                <div class="contenedorTablaPropietario" id = "contenedorTablaPropietario">
-                    
-                    <a href ="#" id="btn-cerrar-popup" class ="btn-cerrar-popup"></a>
-
-
-                    <!--Ventana del propietario-->
-                    <fieldset>
-                
-                        <legend>Agregar Propietario</legend>
-        
-                        <input type="search" name="buscarPropietario" placeholder="Buscar Atracción">
-        
-                        <input type="submit" value="Buscar">
-        
-                        <button onClick="">Agregar</button>
-                        
-        
-                        <div class="contenedorTabla1">
-                            
-                            <!--Tabla-->
-                            <table style ='table-layout:fixed; '>
-        
-                                <thead>
-                                    <!--Titulos de la tabla-->
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Apellido Paterno</th>
-                                        <th>Apellido Materno</th>
-                                        <th>Direccion</th>
-                                        <th>Telefono</th>
-                                        <th>Fecha de Nacimiento</th>
-                                    </tr>
-                                    <!--/Titutlos de la tabla-->
-        
-                                    <tbody>
-                                    </tbody>
-        
-                                </thead>
-        
-                            </table>
-                            <!--/Tabla-->
-                            <button id="cerrar">Guardar</button>
-        
-                        </div>
-                    
-                    </fieldset> 
-                    <!--/Ventana del propietario-->                   
-
-                </div>
-            </div>
-            <!--/Contenedor del propietario-->
+            </fieldset>            
 
         </div>
         <!--/Contenedor Principal-->
 
-        <script src="JS/atracciones.js"></script>
     </body>
     <!--/Cuerpo-->
 

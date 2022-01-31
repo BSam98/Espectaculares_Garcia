@@ -65,7 +65,7 @@
                 <br>
                 
                 <!--Esto es de JavaScript-->
-                <button onClick="window.location.href='menu_Principal.html'">Acceder</button>                   
+                <button onClick="window.location.href='Menu_Principal_Administrador'">Acceder</button>                   
             
             </div>
             <!--/Contenedor Logo-->

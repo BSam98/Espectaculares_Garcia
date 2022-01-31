@@ -4,11 +4,10 @@
         <meta charset = "UTF-8">
         <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content = "ie=edge"/>
-        <title>Atracciones</title>
+        <title>Tarjetas</title>
         
-
         <link href="CSS/cabecera_style.css" rel="stylesheet" type="text/css">
-        <link href = "CSS/atracciones_style.css" rel = "stylesheet" type="text/css">
+        <link href = "CSS/tarjetas_style.css" rel = "stylesheet" type="text/css">
         
     </head>
     
@@ -87,17 +86,16 @@
             </div>
             <!--/Contenedor Superior-->
 
-            <!--Ventana de la atracción-->
             <fieldset>
                 
-                <legend>Atracciones</legend>
+                <legend>Tarjetas</legend>
 
-                <input type="search" name="buscarAtraccion" placeholder="Buscar Atracción">
+                <input type="search" name="buscarTarjeta" placeholder="Buscar Tarjeta">
 
                 <input type="submit" value="Buscar">
 
-                <button>Nueva Atraccion</button>
-                <button id="abrir">Nuevo Propietario</button>
+                <button onClick="">Agregar Tarjeta</button>
+                <button id = "abrir">Agregar Nuevo Lote</button>
 
                 <div class="contenedorTabla">
                     
@@ -108,12 +106,14 @@
                             <!--Titulos de la tabla-->
                             <tr>
                                 <th>Nombre</th>
-                                <th>Area</th>
-                                <th>Propietario</th>
-                                <th>Capacidad maxima</th>
-                                <th>Capacidad minima</th>
-                                <th>Duración por ciclo</th>
-                                <th>Tiempo de espera</th>
+                                <th>Codigo QR</th>
+                                <th>Folio</th>
+                                <th>Fecha de Activacíon</th>
+                                <th>Status</th>
+                                <th>Tipo</th>
+                                <th>Cliente</th>
+                                <th>Lote</th>
+                                <th>Evento</th>
                             </tr>
                             <!--/Titutlos de la tabla-->
 
@@ -128,13 +128,11 @@
                 </div>
             
             </fieldset>
-            <!--/Ventana de la atracción-->
-
             
-            <!--Contenedor del propietario-->
+            <!--Contenedor del Lote-->
             <div class = "contenedorOculto" id = "contenedorOculto">
                 
-                <div class="contenedorTablaPropietario" id = "contenedorTablaPropietario">
+                <div class="contenedorTablaLote" id = "contenedorTablaLote">
                     
                     <a href ="#" id="btn-cerrar-popup" class ="btn-cerrar-popup"></a>
 
@@ -144,7 +142,7 @@
                 
                         <legend>Agregar Propietario</legend>
         
-                        <input type="search" name="buscarPropietario" placeholder="Buscar Atracción">
+                        <input type="search" name="buscarLote" placeholder="Buscar Lote">
         
                         <input type="submit" value="Buscar">
         
@@ -160,11 +158,11 @@
                                     <!--Titulos de la tabla-->
                                     <tr>
                                         <th>Nombre</th>
-                                        <th>Apellido Paterno</th>
-                                        <th>Apellido Materno</th>
-                                        <th>Direccion</th>
-                                        <th>Telefono</th>
-                                        <th>Fecha de Nacimiento</th>
+                                        <th>Material</th>
+                                        <th>Cantidad</th>
+                                        <th>Fecha de Ingreso</th>
+                                        <th>Folio Inicial</th>
+                                        <th>FolioFinal</th>
                                     </tr>
                                     <!--/Titutlos de la tabla-->
         
@@ -188,8 +186,8 @@
 
         </div>
         <!--/Contenedor Principal-->
+        <script src="JS/tarjetas.js"></script>
 
-        <script src="JS/atracciones.js"></script>
     </body>
     <!--/Cuerpo-->
 
