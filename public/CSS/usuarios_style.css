@@ -1,0 +1,15 @@
+@charset "UTF8";
+
+.contenedorPrincipal{
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedorTabla{
+    overflow:scroll;
+}
+
+table{
+    border-collapse: separate;
+    border-spacing: 30px;
+}

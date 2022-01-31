@@ -1,0 +1,19 @@
+@charset "UTF8";
+
+.contenedorPrincipal{
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedorMedio{
+    margin-top: 30px;
+}
+
+.titulo{
+    font-size: 30px;
+}
+
+.atraccion{
+    font-size: 25px;
+    margin-left:10px;
+}

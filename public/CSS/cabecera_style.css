@@ -1,0 +1,96 @@
+.contenedorSuperior{
+    background-image : url("../Img/mainbg.png");
+    background-size : cover;
+    background-repeat: no-repeat;
+}
+
+.cabecera{
+    /*
+    margin-top: 25px;
+    margin-right: 0px;
+    margin-left : 150px;
+    margin-bottom : 20px;
+    display : flex;
+    flex-direction : row;
+    */
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    /*font-family: Arial, Helvetica, sans-serif;*/
+    text-transform:capitalize;
+
+}
+
+.nav{
+    margin-top : auto;
+    margin-bottom : auto;
+    list-style:none;
+}
+
+ul, ol{
+    list-style:none;
+}
+
+.nav > li{
+    float:left;
+}
+
+/*Aqui cambio el color a morado*/
+.nav li a{
+   /* background-color: rgba(0,0,0,1);*/
+    /*background-color:#000;*/
+    color:#fff;
+    text-decoration:none;
+    padding: 10px 12px;
+    display: block;
+}
+
+
+.nav li a:hover{
+    /*background-color:rgba(238,130,238,0.9);*/
+
+   background-color:rgba(92, 7, 92, 0.5);
+}
+
+
+.nav li ul {
+    display: none;
+    position:absolute;
+    min-width:140px;
+}
+
+.nav li:hover > ul {
+    display:block;
+}
+
+.nav li ul li {
+    position:relative;
+}
+.nav li ul li ul {
+    right: -140px;
+    top: 0px;
+}
+
+/**/
+#subMenuCatalago{
+    background-color:rgba(92,7,92,0.9);
+    list-style:none;
+    /*padding: 10px 12px;*/
+    /*/display: block;*/
+    
+}
+
+#subMenuReportes{
+    background-color:rgba(92,7,92,0.9);
+    list-style:none;
+}
+/**/
+
+/*Fin de la condiguracion del menu interactivo*/
+
+/**
+body{
+    display : flex;
+    flex-direction : column;
+}
+**/

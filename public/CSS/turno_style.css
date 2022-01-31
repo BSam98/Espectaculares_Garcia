@@ -1,0 +1,6 @@
+@charset "UTF8";
+
+.contenedorPrincipal{
+    display: flex;
+    flex-direction: column;
+}

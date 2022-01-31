@@ -1,0 +1,78 @@
+@charset "UTF8";
+
+.contenedorPrincipal{
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedorMedio{
+    display:flex;
+    flex-direction: row;
+}
+
+.ventanaTabulador{
+    display:flex;
+    flex-direction:column;
+}
+
+.contenedorTabulador0{
+    display:flex;
+    flex-direction: row;
+}
+
+.contenedorTabulador1{
+    display:flex;
+    flex-direction: column;
+}
+
+.contenedorTabulador2{
+    display:flex;
+    flex-direction: column;
+}
+
+.ventanaInformacion{
+    display:flex;
+    flex-direction:column;
+}
+
+.contenedorInformacionSuperior{
+    margin-bottom:20px;
+}
+
+.contenedorInformacionMedio{
+    margin-bottom:10px;
+}
+
+.totalBaucher{
+    margin-left:40px;
+}
+
+.contenedorInformacionInferior{
+    margin-top: 10px;
+    display:flex;
+    flex-direction:column;
+}
+
+.cerrarTurno{
+    width:100px;
+}
+
+.mensaje{
+    font-size:35px;
+    margin-bottom:20px;
+}
+
+.informacion{
+    font-size:20px;
+    margin-bottom:20px;
+}
+
+.contenedorTabla{
+    overflow:scroll;
+}
+
+table{
+    border-collapse:separate;
+    border-spacing: 30px;
+    align-items:center;
+}
