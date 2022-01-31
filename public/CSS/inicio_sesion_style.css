@@ -69,7 +69,7 @@ button{
 
 body{
                 
-    /*background-image: url("../Img/mainbg.png");*/
+    background-image: url("../Img/mainbg.png");
     
     background-size: cover;
     background-repeat: no-repeat;

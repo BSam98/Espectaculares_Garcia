@@ -7,10 +7,11 @@
         <title>Inicio de Sesion</title>
 
         <!--Asi se asocian los estilos con html-->
-        <!--<link href="/public/CSS/inicio_sesion_style.css" rel="stylesheet" type="text/css">-->
+        <link href="CSS/inicio_sesion_style.css" rel="stylesheet" type="text/css">
 
 
-        <link rel = "stylesheet" type = "text/css" href = "<?= base_url()?> /CSS/inicio_sesion_style.css">
+        <!--<link rel = "stylesheet" type = "text/css" href = "<?= base_url()?> /CSS/inicio_sesion_style.css">-->
+
 </head>
 <body >
         <!--Contenedor de toda la pagina-->
@@ -20,7 +21,7 @@
             <div class="contenedorLogo">
                 <header class="logo">
                     
-                    <img src= "<?= base_url()?> /Img/logo.png" alt = "logo" width = "200px">
+                    <img src= "Img/logo.png" alt = "logo" width = "200px">
                 </header>
 
                 <!--Contenedor Usuario-->
@@ -57,7 +58,7 @@
                 <div class="contenedorHashtag">
                     <!--<img src="../../Img/hashtag.png" alt="hashtag" width="350px">-->
 
-                    <img src = "<?= base_url()?> /Img/hashtag.png" alt = "hashtag" width ="350px">
+                    <img src = "Img/hashtag.png" alt = "hashtag" width ="350px">
                 </div>
                 <!--/Contenedor imagen hashtag-->
 
