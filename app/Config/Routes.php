@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 
 //$routes->resource('Atracciones_Control');
+$routes->get('busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
 $routes->get('/Atracciones','Atracciones_Control::new');
 $routes->get('/Iniciar_Sesion_Administrador','Iniciar_Sesion_Administrador_Control::new');
 $routes->get('/Menu_Principal_Administrador','Menu_Principal_Control::new');

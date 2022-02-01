@@ -31,12 +31,13 @@ class Database extends Config
      * @var array
      */
     public $default = [
+        
         'DSN'      => '',
         'hostname' => 'database-1.cwtvba2lrzgx.us-east-1.rds.amazonaws.com',
         'username' => 'admin',
         'password' => 'KSy&Z%SyP!',
         'database' => 'dbGarcia',
-        'DBDriver' => 'sqlsrv',
+        'DBDriver' => 'SQLSRV',
         'DBPrefix' => '',
         'pConnect' => false,
         'DBDebug'  => (ENVIRONMENT !== 'production'),
@@ -48,6 +49,9 @@ class Database extends Config
         'strictOn' => false,
         'failover' => [],
         'port'     => 3306,
+        //'port' => 1433,
+        
+
     ];
 
     /**
@@ -57,6 +61,7 @@ class Database extends Config
      * @var array
      */
     public $tests = [
+        /*
         'DSN'      => '',
         'hostname' => '127.0.0.1',
         'username' => '',
@@ -74,6 +79,7 @@ class Database extends Config
         'strictOn' => false,
         'failover' => [],
         'port'     => 3306,
+        */
     ];
 
     public function __construct()
