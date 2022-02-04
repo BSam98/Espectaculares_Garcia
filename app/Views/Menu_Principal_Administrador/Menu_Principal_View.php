@@ -7,7 +7,7 @@
         <title>Menu Principal</title>
         
         <link href="CSS/cabecera_style.css" rel="stylesheet" type="text/css">
-        <link href = "CSS/menu_principal_style.css" rel = "stylesheet" type="text/css">
+        <!--link href = "CSS/menu_principal_style.css" rel = "stylesheet" type="text/css"-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
  

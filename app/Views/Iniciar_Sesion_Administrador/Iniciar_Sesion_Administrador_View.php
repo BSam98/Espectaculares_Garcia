@@ -62,10 +62,5 @@
             <div class="col-xl-6 col-md-6 col-sm-6" id="textoTitulo">SISTEMA INTEGRAL DE ACCESO</div>
         </div>
     </div>
-
-    <?php
-    
-
-    ?>
 </body>
 </html>
