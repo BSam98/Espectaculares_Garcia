@@ -8,77 +8,64 @@
 
         <!--Asi se asocian los estilos con html-->
         <link href="CSS/inicio_sesion_style.css" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
 
         <!--<link rel = "stylesheet" type = "text/css" href = "<?= base_url()?> /CSS/inicio_sesion_style.css">-->
 
 </head>
-<body >
-        <!--Contenedor de toda la pagina-->
-        <div class="contenedorPrincipal">
-
-            <!--Contenedor Logo-->
-            <div class="contenedorLogo">
-                <header class="logo">
-                    
-                    <img src= "Img/logo.png" alt = "logo" width = "200px">
-                </header>
-
-                <!--Contenedor Usuario-->
-                <div class="contenedorUsuario">
-                    
-                    <label Class="Usuario" for="Usuario">
-                        USUARIO
-                    </label>
-                    <br>
-                    <input Class ="inputUsario" typed = "text" id="Usuario" size = "55px">
-                    
-                </div>
-                <!--/Contenedor Usuario-->
-
-                <br>
-                
-                <!--Contenedor Contraseña-->
-                <div Class="contenedorContraseña">
-
-                    <label class="Contraseña" for = "Contraseña">
-                        CONTRASEÑA
-                    </label>
-
-                    <br>
-                    
-                    <input type = "password" id="Contraseña" name = "Contraseña" size ="55px">
-
-                </div>
-                <!--/Contenedor Contraseña-->
-                
-                <br>
-
-                <!--Contenedor imagen hashtag-->
-                <div class="contenedorHashtag">
-                    <!--<img src="../../Img/hashtag.png" alt="hashtag" width="350px">-->
-
-                    <img src = "Img/hashtag.png" alt = "hashtag" width ="350px">
-                </div>
-                <!--/Contenedor imagen hashtag-->
-
-                <br>
-                
-                <!--Esto es de JavaScript-->
-                <button onClick="window.location.href='Menu_Principal_Administrador'">Acceder</button>                   
-            
+<body class="body">
+    <!--div class="container">
+        <div class="row">
+            <div class="col">  
+                <form>
+                    <center><img src="./Img/logo.png" class="logo" alt="logo"></center><br>
+                    <div class="form-group col-sm-4 col-md-8 col-lg-12">
+                        <label class="Usuario" for="Usuario">USUARIO</label>
+                        <input class="inputUsario form-control" type="text" id="Usuario" placeholder="Usuario">
+                    </div>
+                    <div class="form-group col-sm-4 col-md-8 col-lg-12">
+                        <label class="Usuario" for="Usuario">CONTRASEÑA</label>
+                        <input class="form-control" type="password" id="Contraseña" name="Contraseña" placeholder="Contraseña">
+                        <br>
+                        <p id="sevive"># SE VIVE ESPECTACULAR</p>
+                    </div>
+                    <br><br>
+                    <button class="btn btn-success botac" onClick="window.location.href='Menu_Principal_Administrador'">Acceder</button>
+                </form>
+            </div>   
+            <div class="col" id="textoTitulo">
+                SISTEMA INTEGRAL DE ACCESO
+            </div>  
+        </div> 
+    </div--> 
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-md-6 col-sm-6">
+                <form method="POST" action="" class="form-horizontal">
+                    <center><img src="./Img/logo.png" class="logo" alt="logo"></center><br>
+                        <div class="form-group col-sm-4 col-md-8 col-lg-12">
+                            <label class="Usuario" for="Usuario">USUARIO</label>
+                            <input class="inputUsario form-control" type="text" name="usuario" required placeholder="Usuario">
+                        </div>
+                        <div class="form-group col-sm-4 col-md-8 col-lg-12">
+                            <label class="Contraseña" for="Contraseña">CONTRASEÑA</label>
+                            <input class="form-control" type="password" pattern="[A-Za-z_-0-9]{1,20}" required name="pass" placeholder="Contraseña">
+                            <br>
+                            <p id="sevive"># SE VIVE ESPECTACULAR</p>
+                        </div>
+                        <br><br>
+                        <!--button class="btn btn-success botac" onClick="window.location.href='Menu_Principal_Administrador'" href='menu_Principal.html'>Acceder</button-->
+                        <button class="btn btn-success botac" type="submit" name="register" value="register">Iniciar Sesion</button>
+                </form>
             </div>
-            <!--/Contenedor Logo-->
-
-            <div class ="primerTitutlo">
-                
-                <h1 class="textoTitulo">
-                    SISTEMA INTEGRAL DE ACCESO
-                </h1>
-            </div>
-
-            <br>
-            <!--/contenedorPrincipal-->      
+            <div class="col-xl-6 col-md-6 col-sm-6" id="textoTitulo">SISTEMA INTEGRAL DE ACCESO</div>
         </div>
-    </body>
+    </div>
+
+    <?php
+    
+
+    ?>
+</body>
 </html>

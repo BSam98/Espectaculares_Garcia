@@ -12,3 +12,5 @@ btnAbrirPopup.addEventListener('click',function(){
 btnCerrarPopup.addEventListener('click', function(){
     contenedorOculto.classList.remove('active');
 });
+
+
