@@ -105,23 +105,37 @@
                         <thead>
                             <!--Titulos de la tabla-->
                             <tr>
+                                <th></th>
                                 <th>Nombre</th>
                                 <th>Direccion</th>
                                 <th>Ciudad</th>
                                 <th>Estado</th>
                                 <th>Fecha de inicio</th>
                                 <th>Fecha de termino</th>
-                                <th>Status</th>
                                 <th>Atracciones</th>
                                 <th>Precios</th>
                                 <th>Usuarios</th>
                             </tr>
                             <!--/Titutlos de la tabla-->
 
-                            <tbody>
-                            </tbody>
-
                         </thead>
+                        
+                        <tbody>
+                            <?php foreach ($Eventos as $key => $dE) : ?>
+                                <tr>
+                                    <td><button>Editar</button></td>
+                                    <td><?= $dE->Nombre ?></td>
+                                    <td><?= $dE->Direccion?></td>
+                                    <td><?= $dE->Ciudad?></td>
+                                    <td><?= $dE->Estado?></td>
+                                    <td><?= $dE->FechaInicio?></td>
+                                    <td><?= $dE->FechaFinal?></td>
+                                    <td><button>Abrir</button></td>
+                                    <td><button>Abrir</button></td>
+                                    <td><button>Abrir</button></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>                        
 
                     </table>
                     <!--/Tabla-->

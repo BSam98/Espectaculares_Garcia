@@ -34,13 +34,13 @@
                                 
                                 <!--Sub menu de Catalago-->
                                 <ul id="subMenuCatalago">
-                                    <li><a href="atracciones.html">Atracciones</a></li>
-                                    <li><a href="asociados.html">Asociados</a></li>
-                                    <li><a href="eventos.html">Eventos</a></li>
-                                    <li><a href="usuarios.html">Usuarios</a></li>
-                                    <li><a href="promociones.html">Promociones</a></li>
-                                    <li><a href="tarjetas.html">Tarjetas</a></li>
-                                    <li><a href="clientes.html">Clientes</a></li>
+                                <li><a href="Atracciones">Atracciones</a></li>
+                                    <li><a href="Asociados">Asociados</a></li>
+                                    <li><a href="Eventos">Eventos</a></li>
+                                    <li><a href="Usuarios">Usuarios</a></li>
+                                    <li><a href="Promociones">Promociones</a></li>
+                                    <li><a href="Tarjetas">Tarjetas</a></li>
+                                    <li><a href="Clientes">Clientes</a></li>
                                 </ul>
                                 
                             </li>
@@ -105,6 +105,7 @@
                         <thead>
                             <!--Titulos de la tabla-->
                             <tr>
+                                <th></th>
                                 <th>Nombre</th>
                                 <th>Apellido paterno</th>
                                 <th>Apellido materno</th>
@@ -119,10 +120,26 @@
                             </tr>
                             <!--/Titutlos de la tabla-->
 
-                            <tbody>
-                            </tbody>
-
                         </thead>
+
+                        <tbody>
+                            <?php foreach ($Cliente as $key => $dC) : ?>
+                                <tr>
+                                    <td><button>Editar</button></td>
+                                    <td><?= $dC->Nombre?></td>
+                                    <td><?= $dC->ApellidoP?></td>
+                                    <td><?= $dC->ApellidoM?></td>
+                                    <td><?= $dC->CorreoE?></td>
+                                    <td><?= $dC->Contraseña?></td>
+                                    <td><?= $dC->Telefono?></td>
+                                    <td><?= $dC->Ciudad?></td>
+                                    <td><?= $dC->Estado?></td>
+                                    <td><?= $dC->FechaNacimiento?></td>
+                                    <td><button>Abrir</button></td>
+                                    <td><button>Abrir</button></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
 
                     </table>
                     <!--/Tabla-->

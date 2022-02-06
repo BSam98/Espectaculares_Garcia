@@ -104,6 +104,7 @@
                         <thead>
                             <!--Titulos de la tabla-->
                             <tr>
+                                <th></th>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
                                 <th>Correo electronico</th>
@@ -116,10 +117,24 @@
                             </tr>
                             <!--/Titutlos de la tabla-->
 
-                            <tbody>
-                            </tbody>
-
                         </thead>
+
+                        <tbody>
+                            <?php foreach ($Usuario as $key => $dU) : ?>
+                                    <tr>
+                                        <td><button>Editar</button></td>
+                                        <td><?= $dU->UsuarioNombre ?></td>
+                                        <td><?= $dU->UsuarioApellido?></td>
+                                        <td><?= $dU->CorreoE?></td>
+                                        <td><?= $dU->NSS?></td>
+                                        <td><?= $dU->CURP?></td>
+                                        <td><?= $dU->Usuario?></td>
+                                        <td><?= $dU->Contraseña?></td>
+                                        <td><?= $dU->Nombre?></td>
+                                        <td><?= $dU->Ciudad?></td>
+                                    </tr>
+                            <?php endforeach ?>
+                        </tbody>
 
                     </table>
                     <!--/Tabla-->

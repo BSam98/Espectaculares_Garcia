@@ -24,33 +24,37 @@
                     <img src= "Img/logo.png" alt = "logo" width = "200px">
                 </header>
 
-                <!--Contenedor Usuario-->
-                <div class="contenedorUsuario">
-                    
-                    <label Class="Usuario" for="Usuario">
-                        USUARIO
-                    </label>
-                    <br>
-                    <input Class ="inputUsario" typed = "text" id="Usuario" size = "55px">
-                    
-                </div>
-                <!--/Contenedor Usuario-->
-
-                <br>
-                
-                <!--Contenedor Contraseña-->
-                <div Class="contenedorContraseña">
-
-                    <label class="Contraseña" for = "Contraseña">
-                        CONTRASEÑA
-                    </label>
+                <form action= 'busqueda' method="post">
+                    <!--Contenedor Usuario-->
+                    <div class="contenedorUsuario">
+                        
+                        <label Class="Usuarios" for="Usuario">
+                            USUARIO
+                        </label>
+                        <br>
+                        <input Class ="inputUsario" typed = "text" id="Usuario" name="Usuario" size = "55px">
+                        
+                    </div>
+                    <!--/Contenedor Usuario-->
 
                     <br>
                     
-                    <input type = "password" id="Contraseña" name = "Contraseña" size ="55px">
+                    <!--Contenedor Contraseña-->
+                    <div Class="contenedorContraseña">
 
-                </div>
-                <!--/Contenedor Contraseña-->
+                        <label class="Contraseña" for = "Contraseña">
+                            CONTRASEÑA
+                        </label>
+
+                        <br>
+                        
+                        <input type = "password" id="Contraseña" name = "Contraseña" size ="55px">
+
+                    </div>
+                    <!--/Contenedor Contraseña-->
+                    
+                    <input type = "submit" value="Acceder">
+                </form>
                 
                 <br>
 
@@ -65,7 +69,7 @@
                 <br>
                 
                 <!--Esto es de JavaScript-->
-                <button onClick="window.location.href='Menu_Principal_Administrador'">Acceder</button>                   
+                <!--<button onClick="window.location.href='Menu_Principal_Administrador'">Acceder</button>-->                   
             
             </div>
             <!--/Contenedor Logo-->

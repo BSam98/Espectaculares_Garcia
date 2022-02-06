@@ -104,6 +104,7 @@
                         <thead>
                             <!--Titulos de la tabla-->
                             <tr>
+                                <th></th>
                                 <th>Nombre</th>
                                 <th>Porcentaje del propietario</th>
                                 <th>Porcentaje del asociado</th>
@@ -113,10 +114,21 @@
                             </tr>
                             <!--/Titutlos de la tabla-->
 
-                            <tbody>
-                            </tbody>
-
                         </thead>
+
+                        <tbody>
+                            <?php foreach ($Asociacion as $key => $dA) : ?>
+                                <tr>
+                                    <td><button>Editar</button></td>
+                                    <td><?= $dA->Nombre ?></td>
+                                    <td><?= $dA->Porcentaje1?></td>
+                                    <td><?= $dA->Porcentaje2?></td>
+                                    <td><?= $dA->Asociado?></td>
+                                    <td><?= $dA->Atraccion?></td>
+                                    <td><?= $dA->Evento?></td>
+                                </tr>
+                            <?php endforeach ?>   
+                        </tbody>
 
                     </table>
                     <!--/Tabla-->
@@ -153,6 +165,7 @@
                                 <thead>
                                     <!--Titulos de la tabla-->
                                     <tr>
+                                        <th></th>
                                         <th>Nombre</th>
                                         <th>Apellido Paterno</th>
                                         <th>Apellido Materno</th>
@@ -162,10 +175,21 @@
                                     </tr>
                                     <!--/Titutlos de la tabla-->
         
-                                    <tbody>
-                                    </tbody>
-        
                                 </thead>
+
+                                <tbody>
+                                    <?php foreach ($Asociados as $key => $d) : ?>
+                                        <tr>
+                                            <td><button>Editar</button></td>
+                                            <td><?= $d->Nombre ?></td>
+                                            <td><?= $d->ApellidoP?></td>
+                                            <td><?= $d->ApellidoM?></td>
+                                            <td><?= $d->Direccion?></td>
+                                            <td><?= $d->Telefono?></td>
+                                            <td><?= $d->FechaNacimiento?></td>
+                                        </tr>
+                                    <?php endforeach ?>   
+                                </tbody>
         
                             </table>
                             <!--/Tabla-->

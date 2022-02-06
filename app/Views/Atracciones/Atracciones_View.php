@@ -107,6 +107,7 @@
                         <thead>
                             <!--Titulos de la tabla-->
                             <tr>
+                                <th></th>
                                 <th>Nombre</th>
                                 <th>Area</th>
                                 <th>Propietario</th>
@@ -116,11 +117,21 @@
                                 <th>Tiempo de espera</th>
                             </tr>
                             <!--/Titutlos de la tabla-->
-
-                            <tbody>
-                            </tbody>
-
                         </thead>
+                        <tbody>
+                            <?php foreach ($Atraccion as $key => $dA) : ?>
+                                <tr>
+                                    <td><button>Editar</button></td>
+                                    <td><?= $dA->Atraccion ?></td>
+                                    <td><?= $dA->Area?></td>
+                                    <td><?= $dA->Nombre?></td>
+                                    <td><?= $dA->CapacidadMAX?></td>
+                                    <td><?= $dA->CapacidadMIN?></td>
+                                    <td><?= $dA->Tiempo?></td>
+                                    <td><?= $dA->TiempoMAX?></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
 
                     </table>
                     <!--/Tabla-->
@@ -159,6 +170,7 @@
                                 <thead>
                                     <!--Titulos de la tabla-->
                                     <tr>
+                                        <th></th>
                                         <th>Nombre</th>
                                         <th>Apellido Paterno</th>
                                         <th>Apellido Materno</th>
@@ -167,12 +179,22 @@
                                         <th>Fecha de Nacimiento</th>
                                     </tr>
                                     <!--/Titutlos de la tabla-->
-        
-                                    <tbody>
-                                    </tbody>
-        
+
                                 </thead>
-        
+
+                                <tbody>
+                                    <?php foreach ($Propietario as $key => $dP) : ?>
+                                        <tr>
+                                            <td><button>Editar</button></td>
+                                            <td><?= $dP->Nombre ?></td>
+                                            <td><?= $dP->ApellidoP?></td>
+                                            <td><?= $dP->ApellidoM?></td>
+                                            <td><?= $dP->Direccion?></td>
+                                            <td><?= $dP->Telefono?></td>
+                                            <td><?= $dP->FechaNacimiento?></td>
+                                        </tr>
+                                    <?php endforeach ?>                                    
+                                </tbody>
                             </table>
                             <!--/Tabla-->
                             <button id="cerrar">Guardar</button>
