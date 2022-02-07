@@ -42,7 +42,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-6 col-md-6 col-sm-6">
-                <form method="POST" action="" class="form-horizontal">
+                <form method="POST" action="busqueda" class="form-horizontal">
                     <center><img src="./Img/logo.png" class="logo" alt="logo"></center><br>
                         <div class="form-group col-sm-4 col-md-8 col-lg-12">
                             <label class="Usuario" for="Usuario">USUARIO</label>
