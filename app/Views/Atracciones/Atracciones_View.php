@@ -305,7 +305,6 @@
 </div-->                            
                             <!--Tabla-->
                         <table id="example" class="table table-bordered"><!--tenia id="tablas"-->
-        
                                 <thead>
                                     <!--Titulos de la tabla-->
                                         <th style="vertical-align: middle;"></th>
@@ -316,17 +315,7 @@
                                         <th style="vertical-align: middle;">Telefono</th>
                                         <th style="vertical-align: middle;">Fecha de Nacimiento</th>
                                     <!--/Titutlos de la tabla-->
-                                    <tr>
-                                        <th></th>
-                                        <th>Nombre</th>
-                                        <th>Apellido Paterno</th>
-                                        <th>Apellido Materno</th>
-                                        <th>Direccion</th>
-                                        <th>Telefono</th>
-                                        <th>Fecha de Nacimiento</th>
-                                    </tr>
-                                    <!--/Titutlos de la tabla-->
-                                </thead>>
+                                </thead>
                                     <tbody>
                                     <?php foreach ($Propietario as $key => $dP) : ?>
                                             <tr>

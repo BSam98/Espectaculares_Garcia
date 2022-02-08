@@ -135,7 +135,7 @@
                                     <td><button>Editar</button></td>
                                     <td><?= $dT->Tarjeta ?></td>
                                     <td style="position:absolute; overflow-y:scroll; width:125px; height:53px"><?= $dT->QR ?></td>
-                                    <td><?= $dT->QR ?></td>
+                                    <!--td><?= $dT->QR ?></td-->
                                     <td><?= $dT->Folio ?></td>
                                     <td><?= $dT->FechaActivacion ?></td>
                                     <td><?= $dT->Status ?></td>
