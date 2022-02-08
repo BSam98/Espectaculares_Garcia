@@ -6,7 +6,6 @@
         <meta http-equiv="X-UA-Compatible" content = "ie=edge"/>
         <title>Atracciones</title>
         
-        
         <link href="CSS/cabecera_style.css" rel="stylesheet" type="text/css">
         <link href = "CSS/atracciones_style.css" rel = "stylesheet" type="text/css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -24,7 +23,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
- 
 
     </head>
 
@@ -98,6 +96,7 @@
             </div>
             <!--Contenedor Superior-->
     <fieldset id="fieldset">
+
 <!--TABLA PRINCIPAL-->
   <!--Ventana de la atracción--> 
   <legend>Atracciones</legend>
@@ -105,7 +104,6 @@
                     <!--button class="btn btn-success">+ Nueva Atraccion</button-->
             <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Nueva Atracción</a>
             <button class="btn btn-success" id="abrir">+ Nuevo Propietario</button>
-
         </div>
     <br>
     <div class="contenedorTabla">
@@ -192,57 +190,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <hr>
-            <!--Ventana de la atracción--> 
-    <legend>Atracciones</legend>
-        <div class="container">
-            <div class="row">
-                <div class="col col-md-3">
-                    <input class="form-control" type="search" name="buscarAtraccion" placeholder="Buscar Atracción">
-                </div>
-                <div class="col">
-                    <input class="btn btn-warning" type="submit" value="Buscar">
-                    <!--button class="btn btn-success">+ Nueva Atraccion</button-->
-                    <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Nueva Atracción</a>
-                    <button class="btn btn-success" id="abrir">+ Nuevo Propietario</button>
-                </div>
-            </div>
-        </div>
-    <br>
-    <div class="contenedorTabla">
-    <!--Tabla-->
-        <table class="table table-bordered">
-            <thead>
-            <!--Titulos de la tabla-->
-                <tr>
-                    <th></th>
-                    <th>Nombre</th>
-                    <th>Area</th>
-                    <th>Propietario</th>
-                    <th>Capacidad maxima</th>
-                    <th>Capacidad minima</th>
-                    <th>Duración por ciclo</th>
-                    <th>Tiempo de espera</th>
-                </tr><!--/Titutlos de la tabla-->
-            </thead>
-            <tbody>
-                <?php foreach ($Atraccion as $key => $dA) : ?>
-                    <tr>
-                        <td><button>Editar</button></td>
-                        <td><?= $dA->Atraccion ?></td>
-                        <td><?= $dA->Area?></td>
-                        <td><?= $dA->Nombre?></td>
-                        <td><?= $dA->CapacidadMAX?></td>
-                        <td><?= $dA->CapacidadMIN?></td>
-                        <td><?= $dA->Tiempo?></td>
-                        <td><?= $dA->TiempoMAX?></td>
-                    </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
-<!--/Tabla-->
     </div>
 </fieldset>
             <!--/Ventana de la atracción-->
