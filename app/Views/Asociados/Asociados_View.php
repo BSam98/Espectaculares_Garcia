@@ -163,7 +163,7 @@
                         <td><?= $dA->Porcentaje1?></td>
                         <td><?= $dA->Porcentaje2?></td>
                         <td><?= $dA->Asociado?></td>
-                        <td style="position: fixed;overflow-x:scroll;width: 50px;"><?= $dA->Atraccion?></td>
+                        <td><?= $dA->Atraccion?></td>
                         <td><?= $dA->Evento?></td>
                     </tr>
                 <?php endforeach ?>   

@@ -8,6 +8,21 @@
         
         <link href="CSS/cabecera_style.css" rel="stylesheet" type="text/css">
         <link href = "CSS/promociones_style.css" rel = "stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+         
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css"> 
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css"> 
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
         
     </head>
     
@@ -20,13 +35,10 @@
             <!--Contenedor Superior-->
             <div Class = "contenedorSuperior">
                 
-                <!--Cabecera-->
-                <header Class = "cabecera">
-
-                    <img src = "Img/logo.png" alt = "logo" width = "170px">
-                    
-                        <!--Menu-->
-                        <ul Class = "nav">
+            <div class="container">
+                <nav class="navbar navbar-default navbar-fixed-top tm_navbar negro" role="navigation">
+                    <a class="logo" href=""><img src = "Img/logo.png"/></a>
+                    <ul class="nav sf-menu">
                             
                             <!--Menu Catalago-->
                             <li>
@@ -79,28 +91,27 @@
                             </li>
 
                         </ul>
-
-                </header>
-                <!--/Cabecera-->
+                </nav>
+            </div>
 
             </div>
             <!--/Contenedor Superior-->
 
-            <fieldset>
+            <fieldset id="fieldset">
                 
                 <legend>Dos x Uno</legend>
 
-                <input type="search" name="buscarDosxUno" placeholder="Buscar Promocíon Dos x Uno">
+                <!--input type="search" name="buscarDosxUno" placeholder="Buscar Promocíon Dos x Uno">
 
-                <input type="submit" value="Buscar">
-
+                <input type="submit" value="Buscar"-->
+                <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Agregar</a>
                 
                 <button onClick="">Agregar</button>
 
                 <div class="contenedorTabla">
-                    
+                    <br>
                     <!--Tabla-->
-                    <table style ='table-layout:fixed; '>
+                    <table id="example" class="table table-bordered">
 
                         <thead>
                             <!--Titulos de la tabla-->
@@ -124,21 +135,21 @@
             
             </fieldset>
 
-            <fieldset>
+            <fieldset id="fieldset">
                 
                 <legend>Pulsera Magica</legend>
 
-                <input type="search" name="buscarPulseraMagica" placeholder="Buscar Promocíon Pulsera Magica">
+                <!--input type="search" name="buscarPulseraMagica" placeholder="Buscar Promocíon Pulsera Magica">
 
-                <input type="submit" value="Buscar">
+                <input type="submit" value="Buscar"-->
 
                 
                 <button onClick="">Agregar</button>
 
                 <div class="contenedorTabla">
-                    
+                    <br>
                     <!--Tabla-->
-                    <table style ='table-layout:fixed; '>
+                    <table id="example2" class="table table-bordered">
 
                         <thead>
                             <!--Titulos de la tabla-->
@@ -162,21 +173,21 @@
             
             </fieldset>
 
-            <fieldset>
+            <fieldset id="fieldset">
                 
                 <legend>Juegos Gratis</legend>
 
-                <input type="search" name="buscarJuegosGratis" placeholder="Buscar Promocíon Juegos Gratis">
+                <!--input type="search" name="buscarJuegosGratis" placeholder="Buscar Promocíon Juegos Gratis">
 
-                <input type="submit" value="Buscar">
+                <input type="submit" value="Buscar"-->
 
                 
                 <button onClick="">Agregar</button>
 
                 <div class="contenedorTabla">
-                    
+                    <br>
                     <!--Tabla-->
-                    <table style ='table-layout:fixed; '>
+                    <table id="example3" class="table table-bordered">
 
                         <thead>
                             <!--Titulos de la tabla-->
@@ -201,21 +212,21 @@
             
             </fieldset>
 
-            <fieldset>
+            <fieldset id="fieldset">
                 
                 <legend>Creditos de Cortesía</legend>
 
-                <input type="search" name="buscarAtraccion" placeholder="Buscar Atracción">
+                <!--input type="search" name="buscarAtraccion" placeholder="Buscar Atracción">
 
-                <input type="submit" value="Buscar">
+                <input type="submit" value="Buscar"-->
 
                 
                 <button onClick="">Agregar</button>
 
                 <div class="contenedorTabla">
-                    
+                    <br>
                     <!--Tabla-->
-                    <table style ='table-layout:fixed; '>
+                    <table id="example4" class="table table-bordered">
 
                         <thead>
                             <!--Titulos de la tabla-->
@@ -248,3 +259,72 @@
     <!--/Cuerpo-->
 
 </html>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable( {
+            "aProcessing": true,//Activamos el procesamiento del datatables
+            "aServerSide": true,//Paginación y filtrado realizados por el servidor
+            dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [		          
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdf'
+            ],
+            "bDestroy": true,
+            "iDisplayLength": 15,//Paginación
+            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+        });
+    });
+
+    $(document).ready(function() {
+            $('#example2').DataTable( {
+                "aProcessing": true,//Activamos el procesamiento del datatables
+                "aServerSide": true,//Paginación y filtrado realizados por el servidor
+                dom: 'Bfrtip',//Definimos los elementos del control de tabla
+                buttons: [		          
+                            'copyHtml5',
+                            'excelHtml5',
+                            'csvHtml5',
+                            'pdf'
+                        ],
+                "bDestroy": true,
+                "iDisplayLength": 15,//Paginación
+                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+            });
+        });
+
+        $(document).ready(function() {
+            $('#example3').DataTable( {
+                "aProcessing": true,//Activamos el procesamiento del datatables
+                "aServerSide": true,//Paginación y filtrado realizados por el servidor
+                dom: 'Bfrtip',//Definimos los elementos del control de tabla
+                buttons: [		          
+                            'copyHtml5',
+                            'excelHtml5',
+                            'csvHtml5',
+                            'pdf'
+                        ],
+                "bDestroy": true,
+                "iDisplayLength": 15,//Paginación
+                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+            });
+        });
+
+        $(document).ready(function() {
+            $('#example4').DataTable( {
+                "aProcessing": true,//Activamos el procesamiento del datatables
+                "aServerSide": true,//Paginación y filtrado realizados por el servidor
+                dom: 'Bfrtip',//Definimos los elementos del control de tabla
+                buttons: [		          
+                            'copyHtml5',
+                            'excelHtml5',
+                            'csvHtml5',
+                            'pdf'
+                        ],
+                "bDestroy": true,
+                "iDisplayLength": 15,//Paginación
+                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+            });
+        });
+</script>

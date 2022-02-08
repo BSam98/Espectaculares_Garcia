@@ -1,11 +1,15 @@
 <?php namespace App\Controllers;
-
+use CodeIgniter\HTTP\Request;
 use App\Models\Iniciar_Sesion_Administrador_Model;
-//use App\Models\Atracciones_Model;
-use Atracciones_Model as GlobalAtracciones_Model;
-use Iniciar_Sesion_Administrador_Model as GlobalIniciar_Sesion_Administrador_Model;
 
 class Iniciar_Sesion_Administrador_Control extends BaseController {
+    protected $request;
+    //protected $model;
+
+    public function  _construct(){
+        $this->request = \Config\Services::request();
+        //$this->model = new Iniciar_Sesion_Administrador_Model();
+    }
     
     public function new (){
         return view ('Iniciar_Sesion_Administrador/Iniciar_Sesion_Administrador_View');
@@ -14,12 +18,18 @@ class Iniciar_Sesion_Administrador_Control extends BaseController {
     public function getBusqueda(){
 
         $model = new Iniciar_Sesion_Administrador_Model();
-
-       // $request = \Config\Services::request();
-        //$Usuario = $request->getPost('Usuario');
-        //$Contraseña = $request->getPost('Contraseña');
-        echo json_encode($model->findAll());
-        //$model-> insert();
+        $Usuario = $this->request->getVar('usuario');
+        $Contraseña = (binary) ($this->request->getVar('pass'));
+        //$respuesta = $this->model->where('Usuario',$Usuario ,'AND','Contraseña',$Contraseña)->findAll();
+        $respuesta =$model->where( 'usuario',$Usuario ,'AND','pass',$Contraseña)->findAll();
+        echo json_encode($respuesta);
+        
+        if(empty($respuesta)){
+            echo 'Datos incorrectos';
+        } else{
+            echo 'Datos correctos';
+            return redirect()->to(base_url('Menu_Principal_Administrador'));
+        }
     }
 
     public function create(){
