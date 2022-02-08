@@ -141,7 +141,7 @@
 <!--MODAL AGREGAR Atracciones-->
 <!-- The Modal -->
 <div class="modal" id="myModal">
-        <div class="modal-dialog modal-xxl modal-lg">
+        <div class="modal-dialog modal-lg" >
             <div class="modal-content">
 <!-- Modal Header -->
                 <div class="modal-header">
@@ -151,25 +151,29 @@
 <!-- Modal body -->
                 <div class="modal-body">
                     <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
-                        <div class="table table-striped table-responsive ">
-                            <div class="form-group">
-                                <table id="tabla">
+                        <div class="table table-striped table-responsive">
+                                <table id="tabla" class="table table-bordered">
                                     <thead>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Área</th>
-                                            <th scope="col">Renta</th>
-                                            <th scope="col">Propietario</th>
-                                            <th scope="col">Capacidad Máxima</th>
-                                            <th scope="col">Capacidad Minima</th>
-                                            <th scope="col">Tiempo</th>
-                                            <th scope="col">Tiempo Máximo</th>
+                                            <th>Nombre</th>
+                                            <th>Área</th>
+                                            <th>Renta</th>
+                                            <th>Propietario</th>
+                                            <th>Capacidad Máxima</th>
+                                            <th>Capacidad Minima</th>
+                                            <th>Tiempo</th>
+                                            <th>Tiempo Máximo</th>
                                     </thead>
                                     <tbody>
                                         <tr class="fila-fija">
                                             <td><input class="form-control" type="text"  id="na" required name="na[]" placeholder="Nombre"/></td>
                                             <td><input class="form-control" type="text"  id="are" required name="are[]" placeholder="Área"/></td>
                                             <td><input class="form-control" type="text"  id="ren" required name="ren[]" placeholder="Renta"/></td>
-                                            <td><input class="form-control" type="text"  id="pro" required name="pro[]" placeholder="Propietario"/></td>
+                                            <td>
+                                                <select class="form-control" type="text"  id="pro" required name="pro[]">
+                                                <option>Coche</option>
+                                                </select>
+                                                <!--input class="form-control" type="text"  id="pro" required name="pro[]" placeholder="Propietario"/-->
+                                            </td>
                                             <td><input class="form-control" type="text"  id="cma" required name="cma[]" placeholder="Cantidad Máxima"/></td>
                                             <td><input class="form-control" type="text"  id="cmi" required name="cmi[]" placeholder="Cantidad Mínima"/></td>
                                             <td><input class="form-control" type="text"  id="tim" required name="tim[]" placeholder="Tiempo"/></td>
@@ -179,7 +183,7 @@
                                     </tbody>
                                 </table>
                                 <button id="adicional" name="adicional" type="button" class="btn btn-warning"> + </button>
-                            </div>
+                            
                         </div>
                     </form>
                 </div>
@@ -210,7 +214,7 @@
 <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
 <div class="form-group">
       <!--label for="uni">Unidades a Cargo</label-->
-          <table id="tab">
+          <table id="tab" class="table table-bordered">
               <thead>
                   <th scope="col" style="vertical-align: middle;">Nombre</th>
                   <th scope="col" style="vertical-align: middle;">Apellido Paterno</th>

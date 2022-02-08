@@ -105,8 +105,6 @@
 
                 <input type="submit" value="Buscar"-->
                 <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Agregar</a>
-                
-                <button onClick="">Agregar</button>
 
                 <div class="contenedorTabla">
                     <br>
