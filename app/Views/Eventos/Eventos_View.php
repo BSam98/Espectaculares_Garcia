@@ -139,7 +139,7 @@
     <div class="modal-dialog modal-xxl modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Agregar Atracciones</h4>
+                <h4 class="modal-title">Agregar Evento</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -162,28 +162,40 @@
                         </div>
                         <div class="form-group">
                             <label for="usuarios">Usuarios</label>
-                            <input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Usuarios"/>
+                            <input class="form-control" type="text"  id="tma" required placeholder="Usuarios"/>
                         </div>
                         <div class="form-group">
                             <label for="status">Status</label>
-                            <input class="form-control" type="text"  id="tim" required name="tim[]" placeholder="Status"/>
+                            <input class="form-control" type="text"  id="tim" required placeholder="Status"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="fechas">Fechas</label>
+                            <input class="form-control" type="date"  id="cma" required placeholder="Fechas"/> 
+                            <input id="hours" type="time" name="time" value="09:00" />
+                            <label for="time">To </label>
+                            <input id="time" type="time" name="time" value="18:00" />
+                            <br>
+                                   
+                        </div>
+                        <div class="form-group">
+                            <label for="precios">Precios</label>
+                            <input class="form-control" type="text"  id="tim" required placeholder="Precio"/>
                         </div>
                         <div class="table table-striped table-responsive">
                             <table id="tabla">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Fecha de Inicio</th>
-                                        <th scope="col">Fecha de Termino</th>
                                         <th scope="col">Atracciones</th>
-                                        <th scope="col">Precios</th>
+                                        <th scope="col">Creditos</th>
+                                        <th scope="col">Creditos de Cortesia</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="fila-fija">
-                                        <td><input class="form-control" type="datetime-local"  id="cma" required name="cma[]" placeholder="Fecha de Inicio"/></td>
-                                        <td><input class="form-control" type="datetime-local"  id="cmi" required name="cmi[]" placeholder="Fecha de Termino"/></td>
-                                        <td><input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Atracciones"/></td>
-                                        <td><input class="form-control" type="text"  id="tim" required name="tim[]" placeholder="Precio"/></td>
+                                        
+                                    <td><input class="form-check-input" type="checkbox"  id="tma" required name="tma[]" placeholder="Atracciones"/></td>
+                                        <td><input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Creditos"/></td>
+                                        <td><input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Creditos Cortesia"/></td>
                                         <td class="eliminar"><input type="button"   value="-"/></td>
                                     </tr>
                                 </tbody>

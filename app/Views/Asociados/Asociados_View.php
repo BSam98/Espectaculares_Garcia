@@ -144,7 +144,6 @@
         <table id="example" class="table table-bordered display">
             <thead>
                 <!--Titulos de la tabla-->
-                <tr>
                     <th></th>
                     <th>Nombre</th>
                     <th>Porcentaje del propietario</th>
@@ -152,7 +151,6 @@
                     <th>Asociado</th>
                     <th>Atraccion</th>
                     <th>Evento</th>
-                </tr>
             </thead>
             <tbody>
             <?php 
@@ -184,19 +182,17 @@
                 </div>
 <!-- Modal body -->
                 <div class="modal-body">
+                    <div class="container">
                     <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
                         <div class="table table-striped table-responsive ">
-                            <div class="form-group">
-                                <table id="tabla">
+                                <table id="tabla" class="table table-bordered">
                                     <thead>
-                                        <tr>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Apellido Paterno</th>
                                         <th scope="col">Apellido Materno</th>
                                         <th scope="col">Dirección</th>
                                         <th scope="col">Teléfono</th>
                                         <th scope="col">Fecha de Nacimiento</th>
-                                        </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="fila-fija">
@@ -211,13 +207,29 @@
                                     </tbody>
                                 </table>
                                 <button id="adicional" name="adicional" type="button" class="btn btn-warning"> + </button>
-                            </div>
                         </div>
                     </form>
+                    <button name="adicional" type="button" class="btn btn-success">Agregar </button>
+                    </div>
+                    <hr>
+                    <div class="table table-striped table-responsive ">
+                        <table id="tablaAso" class="table table-bordered">
+                            <thead>
+                                <th style="vertical-align: middle;">Editar</th>
+                                <th scope="col" style="vertical-align: middle;">Nombre</th>
+                                <th scope="col" style="vertical-align: middle;">Apellido Paterno</th>
+                                <th scope="col" style="vertical-align: middle;">Apellido Materno</th>
+                                <th scope="col" style="vertical-align: middle;">Dirección</th>
+                                <th scope="col" style="vertical-align: middle;">Teléfono</th>
+                                <th scope="col" style="vertical-align: middle;">Fecha de Nacimiento</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
       <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button name="adicional" type="button" class="btn btn-success">Agregar </button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -352,6 +364,25 @@
     $( function() {
     $( "#datepicker" ).datepicker({dateFormat: 'yyyy-mm-dd'});
   });
+
+
+  $(document).ready(function() {
+    $('#tablaAso').DataTable( {
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	    buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',
+		            'csvHtml5',
+		            'pdf'
+		        ],
+		"bDestroy": true,
+		"iDisplayLength": 15,//Paginación
+	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+    });
+});
+
 </script>
     </body>
 
