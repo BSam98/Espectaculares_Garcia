@@ -45,6 +45,7 @@
                                 <!--Sub menu de Catalago-->
                                 <ul id="subMenuCatalago">
                                 <li><a href="Atracciones">Atracciones</a></li>
+                                    <li><a href="Atracciones">Atracciones</a></li>
                                     <li><a href="Asociados">Asociados</a></li>
                                     <li><a href="Eventos">Eventos</a></li>
                                     <li><a href="Usuarios">Usuarios</a></li>
@@ -113,7 +114,7 @@
 
                         <thead>
                             <!--Titulos de la tabla-->
-                            <th></th>
+                                <th></th>
                                 <th>Nombre</th>
                                 <th>Apellido paterno</th>
                                 <th>Apellido materno</th>
@@ -127,9 +128,8 @@
                                 <th>Historial</th>
                             <!--/Titutlos de la tabla-->
                         </thead>
-                            <tbody>
-
-                                <?php foreach ($Cliente as $key => $dC) : ?>
+                        <tbody>
+                            <?php foreach ($Cliente as $key => $dC) : ?>
                                     <tr>
                                         <td><button>Editar</button></td>
                                         <td><?= $dC->Nombre?></td>
@@ -144,8 +144,8 @@
                                         <td><button>Abrir</button></td>
                                         <td><button>Abrir</button></td>
                                     </tr>
-                                <?php endforeach ?>
-                            </tbody>
+                            <?php endforeach ?>
+                        </tbody>
                     </table>
                     <!--/Tabla-->
 

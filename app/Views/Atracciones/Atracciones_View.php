@@ -193,6 +193,57 @@
             </div>
         </div>
     </div>
+
+    <hr>
+            <!--Ventana de la atracción--> 
+    <legend>Atracciones</legend>
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-3">
+                    <input class="form-control" type="search" name="buscarAtraccion" placeholder="Buscar Atracción">
+                </div>
+                <div class="col">
+                    <input class="btn btn-warning" type="submit" value="Buscar">
+                    <!--button class="btn btn-success">+ Nueva Atraccion</button-->
+                    <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Nueva Atracción</a>
+                    <button class="btn btn-success" id="abrir">+ Nuevo Propietario</button>
+                </div>
+            </div>
+        </div>
+    <br>
+    <div class="contenedorTabla">
+    <!--Tabla-->
+        <table class="table table-bordered">
+            <thead>
+            <!--Titulos de la tabla-->
+                <tr>
+                    <th></th>
+                    <th>Nombre</th>
+                    <th>Area</th>
+                    <th>Propietario</th>
+                    <th>Capacidad maxima</th>
+                    <th>Capacidad minima</th>
+                    <th>Duración por ciclo</th>
+                    <th>Tiempo de espera</th>
+                </tr><!--/Titutlos de la tabla-->
+            </thead>
+            <tbody>
+                <?php foreach ($Atraccion as $key => $dA) : ?>
+                    <tr>
+                        <td><button>Editar</button></td>
+                        <td><?= $dA->Atraccion ?></td>
+                        <td><?= $dA->Area?></td>
+                        <td><?= $dA->Nombre?></td>
+                        <td><?= $dA->CapacidadMAX?></td>
+                        <td><?= $dA->CapacidadMIN?></td>
+                        <td><?= $dA->Tiempo?></td>
+                        <td><?= $dA->TiempoMAX?></td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+<!--/Tabla-->
+    </div>
 </fieldset>
             <!--/Ventana de la atracción-->
 
@@ -253,7 +304,7 @@
     </div>
 </div-->                            
                             <!--Tabla-->
-                            <table id="example" class="table table-bordered"><!--tenia id="tablas"-->
+                        <table id="example" class="table table-bordered"><!--tenia id="tablas"-->
         
                                 <thead>
                                     <!--Titulos de la tabla-->
@@ -265,7 +316,17 @@
                                         <th style="vertical-align: middle;">Telefono</th>
                                         <th style="vertical-align: middle;">Fecha de Nacimiento</th>
                                     <!--/Titutlos de la tabla-->
-                                </thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Nombre</th>
+                                        <th>Apellido Paterno</th>
+                                        <th>Apellido Materno</th>
+                                        <th>Direccion</th>
+                                        <th>Telefono</th>
+                                        <th>Fecha de Nacimiento</th>
+                                    </tr>
+                                    <!--/Titutlos de la tabla-->
+                                </thead>>
                                     <tbody>
                                     <?php foreach ($Propietario as $key => $dP) : ?>
                                             <tr>

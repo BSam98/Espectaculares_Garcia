@@ -34,17 +34,6 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 
 //$routes->resource('Atracciones_Control');
-/*
-$routes->get('busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
-$routes->get('/Atracciones','Atracciones_Control::new');
-$routes->get('/Iniciar_Sesion_Administrador','Iniciar_Sesion_Administrador_Control::new');
-$routes->get('/Menu_Principal_Administrador','Menu_Principal_Control::new');
-$routes->get('/Asociados','Asociados_Control::new');
-$routes->get('/Eventos','Eventos_Control::new');
-$routes->get('/Usuarios','Usuarios_Control::new');
-$routes->get('/Promociones','Promociones_Control::new');
-$routes->get('/Tarjetas','Tarjetas_Control::new');
-$routes->get('/Clientes','Clientes_Control::new');*/
 
 $routes->get('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
 $routes->post('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');

@@ -114,6 +114,7 @@
 
                         <thead>
                             <!--Titulos de la tabla-->
+                            <tr>
                                 <th></th>
                                 <th>Nombre</th>
                                 <th>Codigo QR</th>
@@ -127,11 +128,14 @@
                             <!--/Titutlos de la tabla-->
                         </thead>
                             <tbody>
+
+                        <tbody>
                             <?php foreach ($Tarjeta as $key => $dT) : ?>
                                 <tr>
                                     <td><button>Editar</button></td>
                                     <td><?= $dT->Tarjeta ?></td>
                                     <td style="position:absolute; overflow-y:scroll; width:125px; height:53px"><?= $dT->QR ?></td>
+                                    <td><?= $dT->QR ?></td>
                                     <td><?= $dT->Folio ?></td>
                                     <td><?= $dT->FechaActivacion ?></td>
                                     <td><?= $dT->Status ?></td>
@@ -142,7 +146,6 @@
                                 </tr>
                             <?php endforeach ?>    
                         </tbody>
-                            </tbody>
                     </table>
                     <!--/Tabla-->
 
@@ -177,7 +180,6 @@
         
                                 <thead>
                                     <!--Titulos de la tabla-->
-                                    <tr>
                                         <th></th>
                                         <th>Nombre</th>
                                         <th>Material</th>
@@ -185,9 +187,8 @@
                                         <th>Fecha de Ingreso</th>
                                         <th>Folio Inicial</th>
                                         <th>FolioFinal</th>
-                                    </tr>
+                                </thead>
                                     <!--/Titutlos de la tabla-->
-        
                                     <tbody>
                                     <?php foreach ($Lote as $key => $dL) : ?>
                                         <tr>
@@ -203,9 +204,6 @@
                                         </tr>
                                     <?php endforeach ?>
                                     </tbody>
-        
-                                </thead>
-        
                             </table>
                             <!--/Tabla-->
                             <button id="cerrar">Guardar</button>

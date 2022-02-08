@@ -1,8 +1,12 @@
 <?php namespace App\Controllers;
+
 use CodeIgniter\HTTP\Request;
 use App\Models\Iniciar_Sesion_Administrador_Model;
+//use App\Models\Atracciones_Model;
+
 
 class Iniciar_Sesion_Administrador_Control extends BaseController {
+
     protected $request;
     //protected $model;
 
