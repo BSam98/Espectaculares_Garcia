@@ -189,7 +189,7 @@
             <legend>Agregar Propietario</legend><br>
             <div class="contenedorTabla1">
             <!--AGREGAR PROPIETARIO-->                    
-            <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
+            <form method="POST" action="Agregar_Propietario" enctype="multipart/form-data" name="formulario" id="formulario">
                 <div class="table table-striped table-responsive">
                 <table id="tab" class="table table-bordered">
                     <thead>
@@ -198,6 +198,7 @@
                         <th scope="col" style="vertical-align: middle;">Apellido Materno</th>
                         <th scope="col" style="vertical-align: middle;">Dirección</th>
                         <th scope="col" style="vertical-align: middle;">Teléfono</th>
+                        <th scope="col" style="vertical-align: middle;">RFC</th>
                         <th scope="col" style="vertical-align: middle;">Fecha de Nacimiento</th>
                     </thead>
                     <tbody>
@@ -207,6 +208,7 @@
                         <td><input class="form-control" type="text"  id="apm" required name="apm[]" placeholder="Apellido Materno"/></td>
                         <td><input class="form-control" type="text"  id="dir" required name="dir[]" placeholder="Dirección"/></td>
                         <td><input class="form-control" type="number"  id="tel" required name="tel[]" placeholder="Telefono"/></td>
+                        <td><input class="form-control" type="text"  id="rfc" required name="rfc[]" placeholder="RFC"/></td>
                         <td><input class="form-control" type="date"  id="dat" required name="dat[]" placeholder="Fecha de Nacimiento"/></td>
                         <td class="elim"><input type="button" value="-"/></td>
                     </tr>
@@ -214,8 +216,8 @@
                 </table>
                 </div>
                 <button id="adi" name="adicional" type="button" class="btn btn-warning"> + </button>
+                <button class="btn btn-success" typde="submit" onClick="">Agregar</button><hr>
             </form>
-            <button class="btn btn-success" onClick="">Agregar</button><hr>
             <!--/div-->
 
 <!--div class="container">
@@ -238,6 +240,7 @@
                 <th style="vertical-align: middle;">Apellido Materno</th>
                 <th style="vertical-align: middle;">Direccion</th>
                 <th style="vertical-align: middle;">Telefono</th>
+                <th style="vertical-align: middle;">RFC</th>
                 <th style="vertical-align: middle;">Fecha de Nacimiento</th>
             </thead>
             <tbody>
@@ -249,6 +252,7 @@
                     <td><?= $dP->ApellidoM?></td>
                     <td><?= $dP->Direccion?></td>
                     <td><?= $dP->Telefono?></td>
+                    <td><?= $dP->RFC?></td>
                     <td><?= $dP->FechaNacimiento?></td>
                 </tr>
                 <?php endforeach ?>
