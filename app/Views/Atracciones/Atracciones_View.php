@@ -128,45 +128,56 @@
             </div>
 <!-- Modal body -->
                 <div class="modal-body">
-                    <form method="POST" action="Agregar_Atraccion" enctype="multipart/form-data" name="formulario" id="formulario">
-                        <div class="table table-striped table-responsive">
-                                <table id="tabla" class="table table-bordered">
-                                    <thead>
-                                            <th>Nombre</th>
-                                            <th>Área</th>
-                                            <th>Renta</th>
-                                            <th>Propietario</th>
-                                            <th>Capacidad Máxima</th>
-                                            <th>Capacidad Minima</th>
-                                            <th>Tiempo</th>
-                                            <th>Tiempo Máximo</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="fila-fija">
-                                            <td><input class="form-control" type="text"  id="na" required name="na[]" placeholder="Nombre"/></td>
-                                            <td><input class="form-control" type="text"  id="are" required name="are[]" placeholder="Área"/></td>
-                                            <td><input class="form-control" type="number"  id="ren" required name="ren[]"/></td>
+                    <form method="POST"  action="Agregar_Atraccion" enctype="multipart/form-data" name="formulario" id="formulario">
+                    <div class="table table-striped table-responsive">
+                        <table id="tabla" class="table table-bordered">
+                            <tbody>
+                                <tr class="fila-fija">
                                             <td>
+                                            <div class="form-group">
+                                                <label for="nombre">Nombre</label>
+                                                <input class="form-control" type="text"  id="na" required name="na[]" placeholder="Nombre"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="area">Área</label>
+                                                <input class="form-control" type="text"  id="are" required name="are[]" placeholder="Área"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="renta">Renta</label>
+                                                <input class="form-control" type="number"  id="ren" required name="ren[]"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="propietario">Propietario</label>
                                                 <select class="form-control" type="text"  id="pro" required name="pro[]">
                                                     <option value="0">Elige una opción</option>
                                                 <?php foreach ($Propietario as $key => $dP) : ?>
                                                     <option value = "<?= $dP->idPropietario?>"><?= $dP-> Nombre?></option>
                                                 <?php endforeach ?>
-                                                
-                                                
                                                 </select>
-                                                <!--input class="form-control" type="text"  id="pro" required name="pro[]" placeholder="Propietario"/-->
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cma">Cantidad Máxima</label>
+                                                <input class="form-control" type="number"  id="cma" required name="cma[]"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cmi">Cantidad Mínima</label>
+                                                <input class="form-control" type="number"  id="cmi" required name="cmi[]"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tiempo">Tiempo</label>
+                                                <input class="form-control" type="text"  id="tim" required name="tim[]" placeholder="Tiempo"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tma">Tiempo Máximo</label>
+                                                <input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Tiempo Máximo"/>
+                                            </div>
                                             </td>
-                                            <td><input class="form-control" type="number"  id="cma" required name="cma[]"/></td>
-                                            <td><input class="form-control" type="number"  id="cmi" required name="cmi[]"/></td>
-                                            <td><input class="form-control" type="text"  id="tim" required name="tim[]" placeholder="Tiempo"/></td>
-                                            <td><input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Tiempo Máximo"/></td>
                                             <td class="eliminar"><input type="button"   value="-"/></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <button id="adicional" name="adicional" type="button" class="btn btn-warning"> + </button>
-                        </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button id="adicional" name="adicional" type="button" class="btn btn-warning"> + </button>
+                    </div>
                         <!-- Modal footer -->
                         <div class="modal-footer">
                             <button name="adicional" type="submit" class="btn btn-success">Agregar </button>

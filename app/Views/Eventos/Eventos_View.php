@@ -161,14 +161,6 @@
                             <input class="form-control" type="text"  id="pro" required placeholder="Estado"/>
                         </div>
                         <div class="form-group">
-                            <label for="usuarios">Usuarios</label>
-                            <input class="form-control" type="text"  id="tma" required placeholder="Usuarios"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <input class="form-control" type="text"  id="tim" required placeholder="Status"/>
-                        </div>
-                        <div class="form-group">
                             <label for="fechas">Fechas</label>
                             <input class="form-control" type="date"  id="cma" required placeholder="Fechas"/> 
                             <input id="hours" type="time" name="time" value="09:00" />
