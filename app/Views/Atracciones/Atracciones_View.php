@@ -150,7 +150,7 @@
                 </div>
 <!-- Modal body -->
                 <div class="modal-body">
-                    <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
+                    <form method="POST" action="Agregar_Atraccion" enctype="multipart/form-data" name="formulario" id="formulario">
                         <div class="table table-striped table-responsive">
                                 <table id="tabla" class="table table-bordered">
                                     <thead>
@@ -170,7 +170,11 @@
                                             <td><input class="form-control" type="text"  id="ren" required name="ren[]" placeholder="Renta"/></td>
                                             <td>
                                                 <select class="form-control" type="text"  id="pro" required name="pro[]">
-                                                <option>Coche</option>
+                                                <?php foreach ($Propietario as $key => $dP) : ?>
+                                                    <option value = "<?= $dP->idPropietario?>"><?= $dP-> Nombre?></option>
+                                                <?php endforeach ?>
+                                                
+                                                
                                                 </select>
                                                 <!--input class="form-control" type="text"  id="pro" required name="pro[]" placeholder="Propietario"/-->
                                             </td>
@@ -185,12 +189,12 @@
                                 <button id="adicional" name="adicional" type="button" class="btn btn-warning"> + </button>
                             
                         </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button name="adicional" type="submit" class="btn btn-success">Agregar </button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>  
                     </form>
-                </div>
-      <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button name="adicional" type="button" class="btn btn-success">Agregar </button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

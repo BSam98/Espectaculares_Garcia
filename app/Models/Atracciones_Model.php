@@ -44,7 +44,9 @@ class Atracciones_Model extends Model{
         $builder = $db->table('Atracciones');
 
         $builder-> select(
-            'Atracciones.Nombre AS Atraccion, 
+            '
+            Atracciones.idAtraccion,
+            Atracciones.Nombre AS Atraccion, 
             Atracciones.Area ,
             Atracciones.CapacidadMAX,
             Atracciones.Tiempo,
@@ -72,7 +74,9 @@ class Atracciones_Model extends Model{
         $builder = $db->table('Propietario');
 
         $builder-> select(
-            'Propietario.Nombre, 
+            '
+            Propietario.idPropietario,
+            Propietario.Nombre, 
             Propietario.ApellidoP,
             Propietario.ApellidoM,
             Propietario.Direccion,
@@ -85,5 +89,14 @@ class Atracciones_Model extends Model{
         $datos = $query->getResultObject();
 
         return $datos;        
+    }
+
+    public function insertarAtraccion(array $datos){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Atracciones');
+
+        $builder -> insert($datos);
+
+        return 'Funciono';
     }
 }

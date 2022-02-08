@@ -23,18 +23,61 @@ class Atracciones_Control extends BaseController {
         return view ('Atracciones/Atracciones_View', $datos);
     }
 
-    public function cargarDatos(){
-        /*
-        $db = \Config\Database::connect();
-        $builder = $db->table('Atracciones');
-        //AS cambia el nombre del campo con el cual se mostrara y asi no se pierdan los datos cuando dos campos
-        //Tienen el mismo nombre
-        $builder-> select('Atracciones.Nombre AS Atraccion, Atracciones.Area,Atracciones.CapacidadMAX,Atracciones.Tiempo,Atracciones.TiempoMAX,Atracciones.Renta,Atracciones.CapacidadMIN,Propietario.Nombre,Propietario.ApellidoP');
-        $builder-> join('Propietario','Propietario.idPropietario = Atracciones.idPropietario','inner');
-        $query = $builder->get();
-        echo json_encode($query->getResult());
-        */
-        //echo $data['Atracciones'] = $this->model->listadoAtracciones();
+    public function insertarAtraccion (){
+        $model = new Atracciones_Model();
+    
+        
+        $Nombre = $_POST['na'];
+        $Area = $_POST['are'];
+        $CapacidadMAX= $_POST['cma'];
+        $Tiempo = $_POST['tim'];
+        $TiempoMAX = $_POST['tma'];
+        $Renta = $_POST['ren'];
+        $idPropietario = $_POST['pro'];
+        $CapacidadMIN = $_POST['cmi'];
+        
+        $num_elementos = 0;
+
+        
+        while($num_elementos<count($Nombre)){
+            /*
+            echo json_encode($Nombre[$num_elementos]);
+            echo json_encode($Area[$num_elementos]);
+            echo json_encode($CapacidadMAX[$num_elementos]);
+            echo json_encode($Tiempo[$num_elementos]);
+            echo json_encode($TiempoMAX[$num_elementos]);
+            echo json_encode($Renta[$num_elementos]);
+            echo json_encode($idPropietario[$num_elementos]);
+            echo json_encode($CapacidadMIN[$num_elementos]);
+            */
+
+            $datos=[
+                'Nombre' => $Nombre[$num_elementos],
+                'Area' => $Area[$num_elementos],
+                'CapacidadMAX'=>$CapacidadMAX[$num_elementos],
+                'Tiempo' => $Tiempo[$num_elementos],
+                'TiempoMAX' => $TiempoMAX[$num_elementos],
+                'Renta' => $Renta[$num_elementos],
+                'idPropietario' => $idPropietario[$num_elementos],
+                'CapacidadMIN' => $CapacidadMIN[$num_elementos],
+    
+            ];
+            
+            $respuesta = $model->insertarAtraccion($datos);
+            
+            $num_elementos = $num_elementos +1;
+        }
+        
+        
+        return redirect()->to(base_url('Atracciones'));
+    }
+
+    public function actualizarDatos(){
+        $model = new Atracciones_Model();
+        $datos=[
+            'idAtraccion' => $this->request->getPost('idAtraccion'),
+
+        ];
     }
 
     public function create(){
