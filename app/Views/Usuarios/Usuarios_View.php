@@ -108,6 +108,7 @@
                     <table id="example" class="table table-bordered">
                         <thead>
                             <!--Titulos de la tabla-->
+                                <th></th>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
                                 <th>Correo electronico</th>
@@ -119,8 +120,23 @@
                                 <th>Evento</th>
                             <!--/Titutlos de la tabla-->
                         </thead>
-                            <tbody>
-                            </tbody>
+
+                        <tbody>
+                            <?php foreach ($Usuario as $key => $dU) : ?>
+                                <tr>
+                                    <td><button>Editar</button></td>
+                                    <td><?= $dU->UsuarioNombre?></td>
+                                    <td><?= $dU->UsuarioApellido?></td>
+                                    <td><?= $dU->CorreoE?></td>
+                                    <td><?= $dU->NSS?></td>
+                                    <td><?= $dU->CURP?></td>
+                                    <td><?= $dU->Usuario?></td>
+                                    <td><?= $dU->Contraseña?></td>
+                                    <td><?= $dU->Nombre?></td>
+                                    <td><?= $dU->Ciudad?></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
                     </table>
                     <!--/Tabla-->
                 </div>
