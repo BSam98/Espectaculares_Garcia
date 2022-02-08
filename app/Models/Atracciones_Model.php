@@ -81,7 +81,9 @@ class Atracciones_Model extends Model{
             Propietario.ApellidoM,
             Propietario.Direccion,
             Propietario.Telefono,
-            Propietario.FechaNacimiento'
+            Propietario.FechaNacimiento,
+            Propietario.RFC
+            '
         );
 
         $query = $builder->get();
@@ -94,6 +96,15 @@ class Atracciones_Model extends Model{
     public function insertarAtraccion(array $datos){
         $db= \Config\Database::Connect();
         $builder = $db->table('Atracciones');
+
+        $builder -> insert($datos);
+
+        return 'Funciono';
+    }
+
+    public function insertarPropietario(array $datos){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Propietario');
 
         $builder -> insert($datos);
 

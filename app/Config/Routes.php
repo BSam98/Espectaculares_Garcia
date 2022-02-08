@@ -49,6 +49,8 @@ $routes->get('/Tarjetas','Tarjetas_Control::new');
 $routes->get('/Clientes','Clientes_Control::new');
 $routes->post('/Agregar_Atraccion','Atracciones_Control::insertarAtraccion');
 $routes->get('/Agregar_Atraccion','Atracciones_Control::insertarAtraccion');
+$routes->post('/Agregar_Propietario','Atracciones_Control::insertarPropietario');
+$routes->get('/Agregar_Propietario','Atracciones_Control::insertarPropietario');
 
 /*
  * --------------------------------------------------------------------
