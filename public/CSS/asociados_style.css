@@ -30,7 +30,7 @@
 }
 
 .contenedorTabla,.contenedorTabla1{
-    overflow:scroll;
+    overflow-y:scroll;
 }
 
 table{

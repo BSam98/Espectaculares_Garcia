@@ -254,58 +254,71 @@
                         </div>
                 </div-->
 
-        <!--Ventana del propietario-->
-            <fieldset id="fieldset">
-                <legend>Agregar Asociación</legend>
-                <hr>
-                <div class="contenedorTabla1" >
-                <!--Tabla-->
-                    <form action="">
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input class="form-control" type="text"  id="name" placeholder="Nombre"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="propietario">Propietario</label>
-                            <input class="form-control" type="text"  id="porce" placeholder="% del propietario"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="atraccion">Atraccion</label>
-                            <input class="form-control" type="text"  id="atra" placeholder="Atracción"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="evento">Evento</label>
-                            <select class="form-control" type="text"  id="eve" name="select">
-                                <option value="value1">Value 1</option>
-                                <option value="value2">Value 2</option>
-                                <option value="value3">Value 3</option>
-                            </select>
-                        </div>
-                        <div style="height: 100px; width: 510px; overflow-y:scroll;">
-                        <table id="tablae">
-                            <thead>
-                            <!--Titulos de la tabla-->
-                                <tr>
-                                    <th>Porcentaje del asociado</th>
-                                    <th>Asociado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="fila-fila">
-                                    <td><input class="form-control" type="text"  id="pas" required name="pas[]" placeholder="% del asociado"/></td>
-                                    <td><input class="form-control" type="text"  id="aso" required name="aso[]" placeholder="Asociado"/></td>
-                                    <td class="elim"><input type="button"   value="-"/></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </form>
-                    <button id="adi" name="adicional" type="button" class="btn btn-warning"> + </button>
-                    <!--/Tabla--><hr>
-                    <button class="btn btn-success" id="cerrar">Guardar</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                </div>
-            </fieldset> 
+    <!--Ventana del propietario-->
+    <fieldset id="fieldset" >
+        <div class="contenedorTabla1" >
+            <!--Tabla-->
+        <form action="">       
+        <legend>Agregar Asociación</legend>
+                <div class="table table-striped table-responsive">
+                    <table id="tabla_aso" class="table table-bordered">
+                        <tbody>
+                            <tr class="agregar_aso">
+                            <td>
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input class="form-control" type="text"  id="name" placeholder="Nombre"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="propietario">Propietario</label>
+                                    <input class="form-control" type="text"  id="porce" placeholder="% del propietario"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="atraccion">Atraccion</label>
+                                    <!--input class="form-control" type="text"  id="atra" placeholder="Atracción"/-->
+                                    <select class="form-control" type="text" id="atra" name="select">
+                                        <option value="value1">Nombre de la Atracción</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="evento">Evento</label>
+                                    <select class="form-control" type="text"  id="eve" name="select">
+                                        <option value="value1">Value 1</option>
+                                        <option value="value2">Value 2</option>
+                                        <option value="value3">Value 3</option>
+                                    </select>
+                                </div>
+                                <div style="height: 100px; width: 510px; overflow-y:scroll;">
+                                    <table id="tablae">
+                                        <thead>
+                                        <!--Titulos de la tabla-->
+                                            <tr>
+                                                <th>Porcentaje del asociado</th>
+                                                <th>Asociado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="fila-fila">
+                                                <td><input class="form-control" type="text"  id="pas" required name="pas[]" placeholder="% del asociado"/></td>
+                                                <td><input class="form-control" type="text"  id="aso" required name="aso[]" placeholder="Asociado"/></td>
+                                                <td class="elim"><input type="button"   value="-"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button id="adi" name="adicional" type="button" class="btn btn-warning">Agregar Asociado</button>
+                                </div>
+                                <td class="eliminar"><input type="button" value="-"/></td>
+                            </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button id="nuevor" name="adicional" type="button" class="btn btn-warning">Agregar Nuevo Registro </button>
+                </div> 
+            </form>
+        <button class="btn btn-success" id="cerrar">Guardar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>      
+        </div>  
+    </fieldset> 
 <!--/Ventana del propietario-->                   
         </div>
     </div>
@@ -334,6 +347,18 @@
                     // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
             $("#adi").on('click', function(){
                 $("#tablae tbody tr:eq(0)").clone().removeClass('fila-fila').appendTo("#tablae");
+            });
+        // Evento que selecciona la fila y la elimina 
+            $(document).on("click",".elim",function(){
+                var parent = $(this).parents().get(0);
+                $(parent).remove();
+            });
+        });
+
+        $(function(){
+                    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+            $("#nuevor").on('click', function(){
+                $("#tabla_aso tbody tr:eq(0)").clone().removeClass('agregar_aso').appendTo("#tabla_aso");
             });
         // Evento que selecciona la fila y la elimina 
             $(document).on("click",".elim",function(){

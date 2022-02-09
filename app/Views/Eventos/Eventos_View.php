@@ -24,7 +24,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-        
+<!--CALENDARIO-->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+
     </head>
     
     <!--Cuerpo-->
@@ -162,12 +170,21 @@
                         </div>
                         <div class="form-group">
                             <label for="fechas">Fechas</label>
-                            <input class="form-control" type="date"  id="cma" required placeholder="Fechas"/> 
+
+                            <div class="container-fluid px-1 px-sm-5 mx-auto">
+                                <div class="row d-flex justify-content-sm-center px-2">
+                                    <form autocomplete="off">
+                                        <div class="form-group row"> <input type="text" id="dp1" class="datepicker mr-2" placeholder="Select Date" name="date"><br> 
+                                        <button type="submit" class="btn btn-success">Agregar</button> </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+                            <!--input class="form-control" type="date"  id="cma" required placeholder="Fechas"/> 
                             <input id="hours" type="time" name="time" value="09:00" />
                             <label for="time">To </label>
-                            <input id="time" type="time" name="time" value="18:00" />
-                            <br>
-                                   
+                            <input id="time" type="time" name="time" value="18:00" /-->
                         </div>
                         <div class="form-group">
                             <label for="precios">Precios</label>
@@ -203,14 +220,9 @@
         </div>
     </div>
 </div>
-
-
-
-
-        </fieldset>
-
-        </div>
-        <!--/Contenedor Principal-->
+</fieldset>
+</div>
+<!--/Contenedor Principal-->
     <script>
 
     $(function(){
@@ -241,6 +253,17 @@
                 "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
             });
         });
+
+
+        $(document).ready(function(){
+
+$('.datepicker').datepicker({
+format: 'dd-mm-yyyy',
+todayHighlight: true,
+toggleActive: true
+});
+
+});
     </script>
     </body>
     <!--/Cuerpo-->
