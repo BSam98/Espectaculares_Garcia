@@ -24,6 +24,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
     </head>
 
     <!--Cuerpo-->
@@ -101,9 +103,58 @@
             </thead>
             <tbody>
                 <?php foreach ($Atraccion as $key => $dA) : ?>
+                    <form method="GET " action="Atracciones/editar">
                     <tr>
-                        <td><button>Editar</button></td>
-                        <td><?= $dA->Atraccion ?></td>
+                        <?php
+                        $id=$dA->idAtraccion;
+                        ?>
+                        <td>
+                        <button type="button" class="edit" value="<?php echo $id ?>">Editar</button>
+                        </td>
+                        <td><?= $dA->Atraccion?></td>
+                        <td><?= $dA->Area?></td>
+                        <td><?= $dA->Renta?></td>
+                        <td><?= $dA->Nombre?></td>
+                        <td><?= $dA->CapacidadMAX?></td>
+                        <td><?= $dA->CapacidadMIN?></td>
+                        <td><?= $dA->Tiempo?></td>
+                        <td><?= $dA->TiempoMAX?></td>
+                    </tr>
+                    </form>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    <!--/Tabla-->
+    </div>
+
+
+<!--MODAL MODIFICAR-->
+
+<table id="example" class="table table-bordered">
+            <thead>
+                <th style="vertical-align: middle;"></th>
+                <th style="vertical-align: middle;">Nombre</th>
+                <th style="vertical-align: middle;">Area</th>
+                <th style="vertical-align: middle;">Renta</th>
+                <th style="vertical-align: middle;">Propietario</th>
+                <th style="vertical-align: middle;">Capacidad maxima</th>
+                <th style="vertical-align: middle;">Capacidad minima</th>
+                <th style="vertical-align: middle;">Duración por ciclo</th>
+                <th style="vertical-align: middle;">Tiempo de espera</th>
+            </thead>
+            <tbody>
+                <?php foreach ($Atraccion as $key => $dA) : ?>
+                    <tr>
+                        <?php
+                        $id=$dA->idAtraccion;
+                        ?>
+                            <!--a href="#AddDate?id=1" id="Add" class="btn btn-warning" data-toggle="modal">Añadir Fecha</a-->
+                        <td>
+                            <button  type="button" class="edit" value="<?php echo $id ?>">Editar</button>
+                        </td>
+                        
+                        <td><span id="firstname<?php echo $id; ?>"><?php echo $id; ?></span></td>
+                        <td><?= $dA->Atraccion?></td>
                         <td><?= $dA->Area?></td>
                         <td><?= $dA->Renta?></td>
                         <td><?= $dA->Nombre?></td>
@@ -115,8 +166,30 @@
                 <?php endforeach ?>
             </tbody>
         </table>
-    <!--/Tabla-->
-    </div>
+        <?php include 'editar.php';?>
+<script>
+    $(document).ready(function(){
+	$(document).on('click', '.edit', function(){
+		var id=$(this).val();
+		var first=$('#firstname'+id).text();
+ 
+		$('#edit').modal('show');
+		$('#efirstname').val(first);
+	});
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--MODAL NUEVA ATRACCION-->
 <div class="modal" id="myModal">
@@ -130,7 +203,7 @@
                 <div class="modal-body">
                     <form method="POST"  action="Agregar_Atraccion" enctype="multipart/form-data" name="formulario" id="formulario">
                     <div class="table table-striped table-responsive">
-                        <table id="tabla" class="table table-bordered">
+                        <table id="tabla" class="table table-bordered" >
                             <tbody>
                                 <tr class="fila-fija">
                                             <td>
@@ -375,7 +448,6 @@
     });
     });
 </script>
-
     </body>
     <!--/Cuerpo-->
 

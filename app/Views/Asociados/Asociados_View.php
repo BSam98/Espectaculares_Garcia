@@ -258,7 +258,7 @@
     <fieldset id="fieldset" >
         <div class="contenedorTabla1" >
             <!--Tabla-->
-        <form action="">       
+        <form action="" method="POST"  enctype="multipart/form-data" name="formulario" id="formulario">       
         <legend>Agregar Asociación</legend>
                 <div class="table table-striped table-responsive">
                     <table id="tabla_aso" class="table table-bordered">

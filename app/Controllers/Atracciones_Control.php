@@ -106,4 +106,15 @@ class Atracciones_Control extends BaseController {
     public function create(){
         return "";
     }
+    public function editar(){
+        $model = new Atracciones_Model();
+        //$datos["Atraccion"] = $model->listadoAtracciones();
+        $datos =[
+            'Nombre' => $this->request->getVar('nombre'),
+            //'id' => $model->listadoPropietartios('id'),
+        ];
+        
+
+        return view('Atracciones/editar',$datos);
+    }
 }
