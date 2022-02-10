@@ -107,8 +107,7 @@
                                 <th>Evento</th>
                         </thead>
                         <tbody>
-                        <?php 
-                            foreach ($Asociacion as $key => $dA) : ?>
+                            <?php foreach ($Asociacion as $key => $dA) : ?>
                                 <tr>
                                     <td><button>Editar</button></td>
                                     <td><?= $dA->Nombre ?></td>
@@ -137,8 +136,8 @@
                         <!-- Modal body -->
                         <div class="modal-body">
                             <div class="container">
-                            <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
-                                <div class="table table-striped table-responsive ">
+                                <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
+                                    <div class="table table-striped table-responsive ">
                                         <table id="tabla" class="table table-bordered">
                                             <thead>
                                                 <th scope="col">Nombre</th>
@@ -161,9 +160,9 @@
                                             </tbody>
                                         </table>
                                         <button id="adicional" name="adicional" type="button" class="btn btn-warning"> + </button>
-                                </div>
-                            </form>
-                            <button name="adicional" type="button" class="btn btn-success">Agregar </button>
+                                    </div>
+                                </form>
+                                <button name="adicional" type="button" class="btn btn-success">Agregar </button>
                             </div>
                             <hr>
                             <div class="table table-striped table-responsive ">
@@ -178,6 +177,17 @@
                                         <th scope="col" style="vertical-align: middle;">Fecha de Nacimiento</th>
                                     </thead>
                                     <tbody>
+                                        <?php foreach ($Asociados as $key => $dAS) : ?>
+                                            <tr>
+                                                <td><button>Editar</button></td>
+                                                <td><?= $dAS->Nombre ?></td>
+                                                <td><?= $dAS->ApellidoP?></td>
+                                                <td><?= $dAS->ApellidoM?></td>
+                                                <td><?= $dAS->Direccion?></td>
+                                                <td><?= $dAS->Telefono?></td>
+                                                <td><?= $dAS->FechaNacimiento?></td>
+                                            </tr>
+                                        <?php endforeach ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -212,8 +222,8 @@
                     <fieldset id="fieldset" >
                         <div class="contenedorTabla1" >
                             <!--Tabla-->
-                        <form action="">       
-                        <legend>Agregar Asociación</legend>
+                            <form action="">       
+                                <legend>Agregar Asociación</legend>
                                 <div class="table table-striped table-responsive">
                                     <table id="tabla_aso" class="table table-bordered">
                                         <tbody>
