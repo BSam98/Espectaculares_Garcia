@@ -105,8 +105,9 @@
                                 <?php $id=$dA->idAtraccion ?>
 
                                 <tr>
-                                    <td><button type="button" class="edit" value="<?php echo $id ?>">Editar</button></td>
-                                    <td><span id="firstname<?php echo $id; ?>"><?php echo $id; ?></span></td>
+                                    <td><a href="#AddDate?id=<?php echo $id ?>" class="btn btn-warning editar" data-toggle="modal">Editar</a></td>
+                                    <?php include 'editar.php';?>
+                                    <td><span id="firstname<?php echo $id; ?>"><?= $dA->Atraccion?></span></td>
                                     <td><?= $dA->Area?></td>
                                     <td><?= $dA->Renta?></td>
                                     <td><?= $dA->Nombre?></td>
@@ -271,8 +272,6 @@
         </div>
         <!--/Contenedor Principal-->
 
-        <?php include 'editar.php';?>
-
         <script src="JS/atracciones.js"></script>
 
         <script>
@@ -372,11 +371,7 @@
 
             $(document).ready(function(){
             $(document).on('click', '.edit', function(){
-                var id=$(this).val();
-                var first=$('#firstname'+id).text();
-        
                 $('#edit').modal('show');
-                $('#efirstname').val(first);
             });
         });
         </script>
