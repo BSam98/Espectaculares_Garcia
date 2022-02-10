@@ -1,5 +1,6 @@
 var btnAbrirPopup = document.getElementById('abrir'),
     btnCerrarPopup = document.getElementById('cerrar'),
+    btnEditarPopup = document.getElementById(''),
     contenedorOculto = document.getElementById('contenedorOculto'),
     contenedorTablaPropietario = document.getElementById('contenedorTablaPropietario');
 
