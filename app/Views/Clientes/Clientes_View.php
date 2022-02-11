@@ -23,6 +23,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     </head>
     
     <!--Cuerpo-->
@@ -31,133 +32,205 @@
         <!--Contenedor Principal-->
         <div Class = "contenedorPrincipal">
 
-            <!--Contenedor Superior-->
+        <!--Contenedor Superior-->
             <div Class = "contenedorSuperior">
-            <div class="container">
-                <nav class="navbar navbar-default navbar-fixed-top tm_navbar negro" role="navigation">
-                    <a class="logo" href=""><img src = "Img/logo.png"/></a>
-                    <ul class="nav sf-menu">
-                            
-                            <!--Menu Catalago-->
+                <div class="container">
+                    <nav class="navbar navbar-default navbar-fixed-top tm_navbar negro" role="navigation">
+                        <a class="logo" href=""><img src = "Img/logo.png"/></a>
+                        <ul class="nav sf-menu">
+                        <!--Menu Catalago-->
                             <li>
                                 <a href="Menu_Principal_Administrador" Size= "50px">Catalago</a>
-                                
                                 <!--Sub menu de Catalago-->
-                                <ul id="subMenuCatalago">
-                                <li><a href="Atracciones">Atracciones</a></li>
-                                    <li><a href="Atracciones">Atracciones</a></li>
-                                    <li><a href="Asociados">Asociados</a></li>
-                                    <li><a href="Eventos">Eventos</a></li>
-                                    <li><a href="Usuarios">Usuarios</a></li>
-                                    <li><a href="Promociones">Promociones</a></li>
-                                    <li><a href="Tarjetas">Tarjetas</a></li>
-                                    <li><a href="Clientes">Clientes</a></li>
-                                </ul>
-                                
+                                    <ul id="subMenuCatalago">
+                                        <li><a href="Atracciones">Atracciones</a></li>
+                                        <li><a href="Asociados">Asociados</a></li>
+                                        <li><a href="Eventos">Eventos</a></li>
+                                        <li><a href="Usuarios">Usuarios</a></li>
+                                        <li><a href="Promociones">Promociones</a></li>
+                                        <li><a href="Tarjetas">Tarjetas</a></li>
+                                        <li><a href="Clientes">Clientes</a></li>
+                                        <li><a href="Contratos">Contratos y Polizas</a></li>
+                                    </ul>
                             </li>
                             
                             <!--Menu Reportes-->
                             <li>
                                 <a href="">Reportes</a>
-                                
                                 <!--Sub menu de Reportes-->
-                                <ul id = "subMenuReportes">
-                                    <li><a href="ingreso_Evento.html">Ingresos por evento</a></li>
-                                    <li><a href="registro_Evento.html">Utilización por evento</a></li>
-                                    <li><a href="uso_Atraccion.html">Utilizacion por atracción</a></li>
-                                </ul>
-
+                                    <ul id = "subMenuReportes">
+                                        <li><a href="ingreso_Evento.html">Ingresos por evento</a></li>
+                                        <li><a href="registro_Evento.html">Utilización por evento</a></li>
+                                        <li><a href="uso_Atraccion.html">Utilizacion por atracción</a></li>
+                                    </ul>
                             </li>
 
                             <!--Menu Taquilla-->
-                            <li>
-                                <a href="">Taquilla</a>
-                            </li>
-                            
+                            <li><a href="">Taquilla</a></li>
                             <!--Menu Superivosr-->
-                            <li>
-                                <a href="">Supervisor</a>
-                            </li>
-
+                            <li><a href="">Supervisor</a></li>
                             <!--Menu Validacion-->
-                            <li>
-                                <a href="">Validacion</a>
-                            </li>
-                            
+                            <li><a href="">Validacion</a></li>
                             <!--Menu Seguridad-->
-                            <li>
-                                <a href="">Seguridad</a>
-                            </li>
-
+                            <li><a href="">Seguridad</a></li>
                         </ul>
-                </nav>
-            </div>
-
+                    </nav>
+                </div>
             </div>
             <!--/Contenedor Superior-->
 
+            <!--TABLA PRINCIPAL-->
             <fieldset id="fieldset">
-                
                 <legend>Clientes</legend>
-
-                <input type="search" name="buscarCliente" placeholder="Buscar Cliente">
-
-                <input type="submit" value="Buscar">
-
+                    <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT">Nuevo Cliente</a>
                 
-                <button onClick="">Nuevo Cliente</button>
-
                 <div class="contenedorTabla">
-                    
-                    <!--Tabla-->
-                    <table class="table table-bordered">
-
+                    <br>
+                <!--Tabla-->
+                    <table class="table table-bordered" id="clientes">
                         <thead>
-                            <!--Titulos de la tabla-->
-                                <th></th>
-                                <th>Nombre</th>
-                                <th>Apellido paterno</th>
-                                <th>Apellido materno</th>
-                                <th>Correo electronico</th>
-                                <th>Contraseña</th>
-                                <th>Telefono</th>
-                                <th>Ciudad</th>
-                                <th>Estado</th>
-                                <th>Fecha de nacimiento</th>
-                                <th>Tarjetas asociadas</th>
-                                <th>Historial</th>
-                            <!--/Titutlos de la tabla-->
+                        <!--Titulos de la tabla-->
+                            <th></th>
+                            <th>Nombre</th>
+                            <th>Apellido paterno</th>
+                            <th>Apellido materno</th>
+                            <th>Correo electronico</th>
+                            <th>Contraseña</th>
+                            <th>Telefono</th>
+                            <th>Ciudad</th>
+                            <th>Estado</th>
+                            <th>Fecha de nacimiento</th>
+                            <th>Tarjetas asociadas</th>
+                            <th>Historial</th>
                         </thead>
                         <tbody>
                             <?php foreach ($Cliente as $key => $dC) : ?>
-                                    <tr>
-                                        <td><button>Editar</button></td>
-                                        <td><?= $dC->Nombre?></td>
-                                        <td><?= $dC->ApellidoP?></td>
-                                        <td><?= $dC->ApellidoM?></td>
-                                        <td><?= $dC->CorreoE?></td>
-                                        <td><?= $dC->Contraseña?></td>
-                                        <td><?= $dC->Telefono?></td>
-                                        <td><?= $dC->Ciudad?></td>
-                                        <td><?= $dC->Estado?></td>
-                                        <td><?= $dC->FechaNacimiento?></td>
-                                        <td><button>Abrir</button></td>
-                                        <td><button>Abrir</button></td>
-                                    </tr>
+                                <tr>
+                                    <td><a href="" class="btn btn-warning editar" data-toggle="modal">Editar</a></td>
+                                    <td><?= $dC->Nombre?></td>
+                                    <td><?= $dC->ApellidoP?></td>
+                                    <td><?= $dC->ApellidoM?></td>
+                                    <td><?= $dC->CorreoE?></td>
+                                    <td><?= $dC->Contraseña?></td>
+                                    <td><?= $dC->Telefono?></td>
+                                    <td><?= $dC->Ciudad?></td>
+                                    <td><?= $dC->Estado?></td>
+                                    <td><?= $dC->FechaNacimiento?></td>
+                                    <td><a href="" class="btn btn-warning editar" data-toggle="modal">Abrir</a></td>
+                                    <td><a href="" class="btn btn-warning editar" data-toggle="modal">Abrir</a></td>
+                                </tr>
                             <?php endforeach ?>
                         </tbody>
-                    </table>
-                    <!--/Tabla-->
-
+                    </table> 
                 </div>
-            
+
+                <!--MODAL NUEVO CLIENTE-->
+                <div class="modal" id="myModalT">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Agregar Clientes</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form method="POST"  action="" enctype="multipart/form-data" name="formulario" id="formulario">
+                                    <div class="table table-striped table-responsive">
+                                        <table id="newCli" class="table table-bordered">
+                                            <tbody>
+                                                <tr class="addcli">
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <label for="name">Nombre</label>
+                                                            <input class="form-control" type="text" id="nomb" required name="nomb[]" placeholder="Nombre"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="app">Apellido Paterno</label>
+                                                            <input class="form-control" type="text" id="app" required name="app[]" placeholder="Apellido Paterno"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="apm">Apellido Materno</label>
+                                                            <input class="form-control" type="number" id="apm" name="apm[]" placeholder="Apellido Materno"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="ce">Correo Electronico</label>
+                                                            <input class="form-group" type="date" id="ce" required name="ce[]" placeholder="Correo Electronico">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="contra">Contraseña</label>
+                                                            <input class="form-control" type="Password" id="contra" required name="contra[]" placeholder="Contraseña"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tel">Teléfono</label>
+                                                            <input class="form-control" type="number" id="tel" required name="tel[]" placeholder="Teléfono"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="city">Ciudad</label>
+                                                            <input class="form-control" type="text" id="city" required name="city[]" placeholder="Ciudad"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="state">Estado</label>
+                                                            <select class="form-control" type="text"  id="state" required name="state[]">
+                                                                <option value="0">Elige una opción</option>
+                                                                        <option value = ""></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="date">Fecha de Nacimiento</label>
+                                                            <input class="form-control" type="date" id="date" required name="date[]"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tarjeta">Tarjetas</label>
+                                                            <input class="form-control" type="text" id="tarjeta" required name="tarjeta[]" placeholder="Tarjetas"/>
+                                                        </div>
+                                                    </td>
+                                                    <td class="elim"><input type="button"   value="-"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button id="agre" name="agre" type="button" class="btn btn-warning"> + </button>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button name="adicional" type="submit" class="btn btn-success">Agregar </button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>  
+                                </form>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
             </fieldset>
-         
-
         </div>
-        <!--/Contenedor Principal-->
-
     </body>
-    <!--/Cuerpo-->
-
 </html>
+
+<script>
+    $(function(){
+            $("#agre").on('click', function(){
+            $("#newCli tbody tr:eq(0)").clone().removeClass('addCli').appendTo("#newCli");
+            });
+            // Evento que selecciona la fila y la elimina 
+            $(document).on("click",".elim",function(){
+                var parent = $(this).parents().get(0);
+            $(parent).remove();
+            });
+        });
+
+    $(document).ready(function() {
+        $('#clientes').DataTable( {
+            "aProcessing": true,//Activamos el procesamiento del datatables
+            "aServerSide": true,//Paginación y filtrado realizados por el servidor
+            dom: 'Bfrtip',//Definimos los elementos del control de tabla
+                buttons: [		          
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdf'
+                ],
+                "bDestroy": true,
+                "iDisplayLength": 15,//Paginación
+                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+            });
+        });
+</script>

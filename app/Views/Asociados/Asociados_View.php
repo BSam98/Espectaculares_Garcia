@@ -82,16 +82,10 @@
             <!--/Contenedor Superior-->
 
             <fieldset id="fieldset">
-                <div class="container-fluid">
                     <legend>Asociaciones</legend>
-                        <!--div class="col col-md-3">
-                            <input class="form-control" type="search" name="buscarAsociado" placeholder="Buscar Asociado">
-                        </div-->
-                            <!--input  class="btn btn-warning" type="submit" value="Buscar"-->
-                            <button class="btn btn-success" id="abrir">Agregar Asociación</button>
-                            <!-- Button to Open the Modal -->
-                            <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Agregar Asociado</a>
-                </div>
+                        <button class="btn btn-success" id="abrir">Agregar Asociación</button>
+                        <!-- Button to Open the Modal -->
+                        <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Agregar Asociado</a>
                 <div class="contenedorTabla">
                     <br>
                     <!--Tabla-->
@@ -109,7 +103,7 @@
                         <tbody>
                             <?php foreach ($Asociacion as $key => $dA) : ?>
                                 <tr>
-                                    <td><button>Editar</button></td>
+                                    <td><a href="" class="btn btn-warning editar" data-toggle="modal">Editar</a></td>
                                     <td><?= $dA->Nombre ?></td>
                                     <td><?= $dA->Porcentaje1?></td>
                                     <td><?= $dA->Porcentaje2?></td>
@@ -179,7 +173,7 @@
                                     <tbody>
                                         <?php foreach ($Asociados as $key => $dAS) : ?>
                                             <tr>
-                                                <td><button>Editar</button></td>
+                                                <td><a href="" class="btn btn-warning editar" data-toggle="modal">Editar</a></td>
                                                 <td><?= $dAS->Nombre ?></td>
                                                 <td><?= $dAS->ApellidoP?></td>
                                                 <td><?= $dAS->ApellidoM?></td>
@@ -206,18 +200,6 @@
                 <div class="contenedorTablaAsociado" id = "contenedorTablaAsociado">
 
                     <a href ="#" id="btn-cerrar-popup" class ="btn-cerrar-popup"></a>
-                    <!--legend>Agregar Asociación</legend>
-                        <div class="container">
-                                <div class="row">
-                                    <div class="col col-md-4">
-                                        <input class="form-control" type="search" name="buscarAsociado" placeholder="Buscar Asociado">
-                                    </div>
-                                    <div class="col">
-                                        <input class="btn btn-warning" type="submit" value="Buscar">
-                                    </div>
-                                </div>
-                        </div-->
-
                     <!--Ventana del propietario-->
                     <fieldset id="fieldset" >
                         <div class="contenedorTabla1" >
