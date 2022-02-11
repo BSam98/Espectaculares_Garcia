@@ -20,4 +20,5 @@ class Usuarios_Control extends BaseController {
     public function create(){
         return "";
     }
+
 }

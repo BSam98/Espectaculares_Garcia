@@ -79,13 +79,12 @@
                 <!--TABLA PRINCIPAL-->
                 <!--Ventana de la atracción--> 
                 <legend>Atracciones</legend>
-                    <div class="container">
                         <!--button class="btn btn-success">+ Nueva Atraccion</button-->
                         <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Nueva Atracción</a>
                         <button class="btn btn-success" id="abrir">+ Nuevo Propietario</button>
-                    </div><br>
 
                 <div class="contenedorTabla">
+                    <br>
                     <!--Tabla-->
                     <table id="example" class="table table-bordered">
                         <thead>
@@ -231,7 +230,8 @@
                                 </div>
                                 <button id="adi" name="adicional" type="button" class="btn btn-warning"> + </button>
                                 <button class="btn btn-success" typde="submit" onClick="">Agregar</button><hr>
-                            </form>     
+                            </form>   
+                              
                             <div class="table table-striped table-responsive ">
                                 <!--Tabla-->
                                 <table id="examplePro" class="table table-bordered"><!--tenia id="tablas"-->

@@ -124,7 +124,7 @@
                         <tbody>
                             <?php foreach ($Usuario as $key => $dU) : ?>
                                 <tr>
-                                    <td><button>Editar</button></td>
+                                    <td><a href="#" class="btn btn-warning editar" data-toggle="modal">Editar</a></td>
                                     <td><?= $dU->UsuarioNombre?></td>
                                     <td><?= $dU->UsuarioApellido?></td>
                                     <td><?= $dU->CorreoE?></td>
@@ -140,66 +140,97 @@
                     </table>
                     <!--/Tabla-->
                 </div>
-            
+
+                <!--AGREGAR USUARIOS-->
                 <div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Agregar Atracciones</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input class="form-control" type="text"  id="na" required placeholder="Nombre"/>
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Agregar Usuarios</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
+                                <div class="table table-striped table-responsive">
+                                        <table id="agregarU" class="table table-bordered">
+                                            <tbody>
+                                                <tr class="filaU">
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <label for="nombre">Nombre</label>
+                                                            <input class="form-control" type="text"  id="name" required placeholder="Nombre"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="apellidos">Apellidos</label>
+                                                            <input class="form-control" type="text"  id="ape" required placeholder="Apellidos"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="correo">Correo Electrónico</label>
+                                                            <input class="form-control" type="text"  id="corre" required placeholder="Correo Electronico"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="nss">Número de Seguro Social</label>
+                                                            <input class="form-control" type="number"  id="nss" required placeholder="Número de Seguro Social"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="curp">CURP</label>
+                                                            <input class="form-control" type="text" id="curp" required placeholder="CURP"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="user">Usuario</label>
+                                                            <input class="form-control" type="text" id="user" required placeholder="Usuario"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="pass">Contraseña</label>
+                                                            <input class="form-control" type="text"  id="pass" required placeholder="Contraseña"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="rango">Rango</label>
+                                                            <select name="rango" id="rango" class="form-control" type="text">
+                                                                <option value="">Elige una opción</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="even">Evento</label>
+                                                            <select name="evento" id="even" class="form-control" type="text">
+                                                                <option value="">Elige una opción</option>
+                                                            </select>
+                                                        </div>
+                                                        </td>
+                                                    <td class="elimU"><input type="button"   value="-"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button id="addU" name="adicional" type="button" class="btn btn-warning"> + </button>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button name="adicional" type="submit" class="btn btn-success">Agregar </button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>  
+                                </form>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="direccion">Apellidos</label>
-                            <input class="form-control" type="text"  id="are" required placeholder="Apellidos"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="ciudad">Correo Electronico</label>
-                            <input class="form-control" type="text"  id="ren" required placeholder="Correo Electronico"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="estado">Número de Seguro Social</label>
-                            <input class="form-control" type="text"  id="pro" required placeholder="Número de Seguro Social"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="usuarios">CURP</label>
-                            <input class="form-control" type="text"  id="tma" required placeholder="CURP"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Usuario</label>
-                            <input class="form-control" type="text"  id="tim" required placeholder="Usuario"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Contraseña</label>
-                            <input class="form-control" type="text"  id="tim" required placeholder="Contraseña"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Rango</label>
-                            <input class="form-control" type="text"  id="tim" required placeholder="Rango"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Evento</label>
-                            <input class="form-control" type="text"  id="tim" required placeholder="Evento"/>
-                        </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button name="adicional" type="button" class="btn btn-success">Agregar </button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
+                    </div>
+                </div>
             </fieldset>            
 
         </div>
         <!--/Contenedor Principal-->
 
         <script>
+        $(function(){
+                    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+            $("#addU").on('click', function(){
+            $("#agregarU tbody tr:eq(0)").clone().removeClass('filaU').appendTo("#agregarU");
+            });
+            // Evento que selecciona la fila y la elimina 
+            $(document).on("click",".elimU",function(){
+                var parent = $(this).parents().get(0);
+            $(parent).remove();
+            });
+        });
+
         $(document).ready(function() {
             $('#example').DataTable( {
                 "aProcessing": true,//Activamos el procesamiento del datatables
