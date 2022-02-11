@@ -51,8 +51,8 @@ $routes->post('/Agregar_Atraccion','Atracciones_Control::insertarAtraccion');
 $routes->get('/Agregar_Atraccion','Atracciones_Control::insertarAtraccion');
 $routes->post('/Agregar_Propietario','Atracciones_Control::insertarPropietario');
 $routes->get('/Agregar_Propietario','Atracciones_Control::insertarPropietario');
-$routes->post('/Atracciones/editar','Atracciones_Control::editar');
-$routes->get('/Atracciones/editar','Atracciones_Control::editar');
+$routes->post('/Atracciones/Editar_Atraccion','Atracciones_Control::actualizarAtraccion');
+$routes->get('/Atracciones/Editar_Atraccion','Atracciones_Control::actualizarAtraccion');
 
 
 /*
