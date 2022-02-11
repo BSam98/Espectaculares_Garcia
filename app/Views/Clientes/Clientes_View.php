@@ -50,7 +50,7 @@
                                         <li><a href="Promociones">Promociones</a></li>
                                         <li><a href="Tarjetas">Tarjetas</a></li>
                                         <li><a href="Clientes">Clientes</a></li>
-                                        <li><a href="Contratos">Contratos y Polizas</a></li>
+                                        <li><a href="Contratos">Contratos</a></li>
                                     </ul>
                             </li>
                             
