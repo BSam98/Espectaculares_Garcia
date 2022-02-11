@@ -106,11 +106,11 @@ class Atracciones_Control extends BaseController {
             'Tiempo' => $this->request->getVar('Tiempo'),
             'TiempoMAX' => $this->request->getVar('TiempoMAX'),
             'Renta' => $this->request->getVar('Renta'),
-            'idPropietario' => $this->request->getVar('propi'),
+            'idPropietario' => $this->request->getVar('Nombre'),
             'CapacidadMIN' => $this->request->getVar('CapacidadMIN'),
         ];
-        //echo json_encode($datos);
-        //echo $idAtraccion;
+        echo json_encode($datos);
+        echo $idAtraccion;
         $respuesta = $model->actualizarAtraccion($idAtraccion,$datos);
         return redirect()->to(base_url('Atracciones'));
     }

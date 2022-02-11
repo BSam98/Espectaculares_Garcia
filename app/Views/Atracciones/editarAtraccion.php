@@ -1,4 +1,4 @@
-<div class="modal fade" id="AddDate?id=<?php echo $id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="eAtraccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
         <!-- Modal Header -->
@@ -8,44 +8,45 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST"  action="" enctype="multipart/form-data" name="formulario" id="formulario">
+                <form method="POST"  action="Atracciones/Editar_Atraccion" enctype="multipart/form-data" name="formulario" id="formulario">
                     <div class="container-fluid">
-                        <input type="hidden" class="form-control" value="<?php echo $id ?>">
+                        <input type="text" class="form-control" id = "idAtraccion" name = "idAtraccion" value="">
+                       
                         <div class="form-group">
                             <label for="atraccion">Atracción</label>
-                            <input type="text" class="form-control" value="<?php echo $dA->Atraccion?>">
+                            <input type="text" class="form-control" id = "Atraccion" name = "Atraccion" value="">
                         </div>
                         <div class="form-group">
                             <label for="area">Área</label>
-                            <input type="text"  class="form-control" value="<?php echo $dA->Area?>">
+                            <input type="text"  class="form-control" id = "Area" name = "Area" value="">
                         </div>
                         <div class="form-group">
                             <label for="atraccion">Renta</label>
-                            <input type="text" class="form-control" value="<?php echo $dA->Renta?>">
+                            <input type="number" class="form-control" id = "Renta" name = "Renta" value="">
                         </div>
                         <div class="form-group">
                             <label for="area">Propietario</label>
-                            <select class="form-control" type="text"  name="propi" id="propi">
+                            <select class="form-control" type="text" name="Nombre" id="Nombre">
                                 <?php foreach ($Propietario as $key => $dP) : ?>
-                                    <option value="<?= $dA->idPropietario?>" <?php if($dA->idPropietario == $dP->idPropietario) echo 'selected';?>><?= $dP->Nombre?></option>
+                                    <option  value="<?=$dP->idPropietario?>"><?= $dP->Nombre?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="atraccion">Capacidad Máxima</label>
-                            <input type="text" class="form-control" value="<?php echo $dA->CapacidadMAX?>">
+                            <input type="number" class="form-control" id = "CapacidadMAX" name = "CapacidadMAX" value="">
                         </div>
                         <div class="form-group">
                             <label for="area">Capacidad Mínima</label>
-                            <input type="text"  class="form-control" value="<?php echo $dA->CapacidadMIN?>">
+                            <input type="number"  class="form-control" id = "CapacidadMIN" name = "CapacidadMIN" value="">
                         </div>
                         <div class="form-group">
                             <label for="atraccion">Tiempo</label>
-                            <input type="text" class="form-control" value="<?php echo $dA->Tiempo?>">
+                            <input type="text" class="form-control" id = "Tiempo" name = "Tiempo" value="">
                         </div>
                         <div class="form-group">
                             <label for="area">Tiempo Máximo</label>
-                            <input type="text"  class="form-control" value="<?php echo $dA->TiempoMAX?>">
+                            <input type="text"  class="form-control" id = "TiempoMAX" name = "TiempoMAX" value="">
                         </div>
                     </div>
                     <div class="modal-footer">

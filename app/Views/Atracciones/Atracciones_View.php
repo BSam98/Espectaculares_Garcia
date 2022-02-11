@@ -104,7 +104,7 @@
                                 
 
                                 <tr>
-                                    <td><a href="#eAtraccion" class ="editarAtraccion" data-toggle="modal" data-book-id='{"idAtraccion":<?= $dA->idAtraccion?>,"Atraccion":"<?= $dA->Atraccion?>"}'>Editar</a></td>
+                                    <td><a href="#eAtraccion" class ="editarAtraccion" data-toggle="modal" data-book-id='{"idAtraccion":<?= $dA->idAtraccion?>,"Atraccion":"<?= $dA->Atraccion?>","Area":"<?= $dA->Area?>","Renta":<?= $dA->Renta?>,"Nombre":"<?= $dA->Nombre?>","CapacidadMAX":<?= $dA->CapacidadMAX?>,"CapacidadMIN":<?= $dA->CapacidadMIN?>,"Tiempo":"<?= $dA->Tiempo?>","TiempoMAX":"<?= $dA->TiempoMAX?>"}'>Editar</a></td>
                                     <td><?= $dA->Atraccion?></td>
                                     <td><?= $dA->Area?></td>
                                     <td><?= $dA->Renta?></td>
@@ -366,24 +366,9 @@
             });
             });
 
-                
-
-                $(document).on('click','.editarAtraccion', function(){
-                    
-                    var a = $(this).data('book-id');
-
-                    console.log(a['Atraccion']);
-
-
-
-                    
-                   $(".modal-body #bookId").val(a['idAtraccion']);
-                   $(".modal-body #atraccion").val(a['Atraccion']);
-
-                });
 
         </script>
-    <?php include('editar.php')?>
+    <?php include('editarAtraccion.php')?>
     </body>
     <!--/Cuerpo-->
 
