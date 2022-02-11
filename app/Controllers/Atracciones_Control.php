@@ -95,26 +95,27 @@ class Atracciones_Control extends BaseController {
         return redirect()->to(base_url('Atracciones'));
     }
 
-    public function actualizarDatos(){
+    public function actualizarAtraccion(){
         $model = new Atracciones_Model();
-        $datos=[
-            'idAtraccion' => $this->request->getPost('idAtraccion'),
 
+        $idAtraccion = $_POST['idAtraccion'];
+        $datos=[
+            'Nombre' => $this->request->getVar('Atraccion'),
+            'Area' => $this->request->getVar('Area'),
+            'CapacidadMAX' => $this->request->getVar('CapacidadMAX'),
+            'Tiempo' => $this->request->getVar('Tiempo'),
+            'TiempoMAX' => $this->request->getVar('TiempoMAX'),
+            'Renta' => $this->request->getVar('Renta'),
+            'idPropietario' => $this->request->getVar('Nombre'),
+            'CapacidadMIN' => $this->request->getVar('CapacidadMIN'),
         ];
+        echo json_encode($datos);
+        echo $idAtraccion;
+        $respuesta = $model->actualizarAtraccion($idAtraccion,$datos);
+        return redirect()->to(base_url('Atracciones'));
     }
 
     public function create(){
         return "";
-    }
-    public function editar(){
-        $model = new Atracciones_Model();
-        //$datos["Atraccion"] = $model->listadoAtracciones();
-        $datos =[
-            'Nombre' => $this->request->getVar('nombre'),
-            //'id' => $model->listadoPropietartios('id'),
-        ];
-        
-
-        return view('Atracciones/editar',$datos);
     }
 }

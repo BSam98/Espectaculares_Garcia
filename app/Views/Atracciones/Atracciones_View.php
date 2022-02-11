@@ -101,12 +101,11 @@
                         <tbody>
                             <?php foreach ($Atraccion as $key => $dA) : ?>
                                 
-                                <?php $id=$dA->idAtraccion ?>
+                                
 
                                 <tr>
-                                    <td><a href="#AddDate?id=<?php echo $id ?>" class="btn btn-warning editar" data-toggle="modal">Editar</a></td>
-                                    <?php include 'editar.php';?>
-                                    <td><span id="firstname<?php echo $id; ?>"><?= $dA->Atraccion?></span></td>
+                                    <td><a href="#eAtraccion" class ="editarAtraccion" data-toggle="modal" data-book-id='{"idAtraccion":<?= $dA->idAtraccion?>,"Atraccion":"<?= $dA->Atraccion?>","Area":"<?= $dA->Area?>","Renta":<?= $dA->Renta?>,"Nombre":"<?= $dA->Nombre?>","CapacidadMAX":<?= $dA->CapacidadMAX?>,"CapacidadMIN":<?= $dA->CapacidadMIN?>,"Tiempo":"<?= $dA->Tiempo?>","TiempoMAX":"<?= $dA->TiempoMAX?>"}'>Editar</a></td>
+                                    <td><?= $dA->Atraccion?></td>
                                     <td><?= $dA->Area?></td>
                                     <td><?= $dA->Renta?></td>
                                     <td><?= $dA->Nombre?></td>
@@ -249,7 +248,7 @@
                                     <tbody>
                                         <?php foreach ($Propietario as $key => $dP) : ?>
                                             <tr>
-                                                <td><a href="" class="btn btn-warning editar" data-toggle="modal">Editar</a></td>
+                                            <td><a href="#ePropietario?id=<?php echo $dP->idPropietario ?>" class="btn btn-warning editarPropietario" data-toggle="modal">Editar</a></td>
                                                 <td><?= $dP->Nombre ?></td>
                                                 <td><?= $dP->ApellidoP?></td>
                                                 <td><?= $dP->ApellidoM?></td>
@@ -271,7 +270,6 @@
             <!--/Contenedor del propietario-->
         </div>
         <!--/Contenedor Principal-->
-
         <script src="JS/atracciones.js"></script>
 
         <script>
@@ -369,14 +367,8 @@
             });
 
 
-            $(document).ready(function(){
-            $(document).on('click', '.edit', function(){
-                $('#edit').modal('show');
-            });
-            });
         </script>
-
-
+    <?php include('editarAtraccion.php')?>
     </body>
     <!--/Cuerpo-->
 
