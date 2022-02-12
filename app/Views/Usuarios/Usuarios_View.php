@@ -124,7 +124,7 @@
                         <tbody>
                             <?php foreach ($Usuario as $key => $dU) : ?>
                                 <tr>
-                                    <td><a href="#" class="btn btn-warning editar" data-toggle="modal">Editar</a></td>
+                                    <td><a href="#eUsuario" class="btn btn-warning editarUsuario" data-book-id='{"idUsuario":<?=$dU->idUsuario?>,"UsuarioNombre":"<?=$dU->UsuarioNombre?>","UsuarioApellido":"<?=$dU->UsuarioApellido?>","CorreoE":"<?=$dU->CorreoE?>","NSS":<?=$dU->NSS?>,"CURP":"<?=$dU->CURP?>","Usuario":"<?=$dU->Usuario?>","Contraseña":"<?=$dU->Contraseña?>"}' data-toggle="modal">Editar</a></td>
                                     <td><?= $dU->UsuarioNombre?></td>
                                     <td><?= $dU->UsuarioApellido?></td>
                                     <td><?= $dU->CorreoE?></td>
@@ -150,50 +150,56 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
-                                <div class="table table-striped table-responsive">
+                                <form method="POST" action="Usuarios/Agregar_Usuario" enctype="multipart/form-data" name="formulario" id="formulario">
+                                    <div class="table table-striped table-responsive">
                                         <table id="agregarU" class="table table-bordered">
                                             <tbody>
                                                 <tr class="filaU">
                                                     <td>
                                                         <div class="form-group">
                                                             <label for="nombre">Nombre</label>
-                                                            <input class="form-control" type="text"  id="name" required placeholder="Nombre"/>
+                                                            <input class="form-control" type="text"  id="nombre" required name="nombre[]" required placeholder="Nombre"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="apellidos">Apellidos</label>
-                                                            <input class="form-control" type="text"  id="ape" required placeholder="Apellidos"/>
+                                                            <input class="form-control" type="text"  id="apellidos" required name="apellidos[]" required placeholder="Apellidos"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="correo">Correo Electrónico</label>
-                                                            <input class="form-control" type="text"  id="corre" required placeholder="Correo Electronico"/>
+                                                            <input class="form-control" type="text"  id="correo" required name="correo[]"  required placeholder="Correo Electronico"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="nss">Número de Seguro Social</label>
-                                                            <input class="form-control" type="number"  id="nss" required placeholder="Número de Seguro Social"/>
+                                                            <input class="form-control" type="number"  id="nss" required name="nss[]" required placeholder="Número de Seguro Social"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="curp">CURP</label>
-                                                            <input class="form-control" type="text" id="curp" required placeholder="CURP"/>
+                                                            <input class="form-control" type="text" id="curp" required name="curp[]" required placeholder="CURP"/>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="user">Usuario</label>
-                                                            <input class="form-control" type="text" id="user" required placeholder="Usuario"/>
+                                                            <label for="usuario">Usuario</label>
+                                                            <input class="form-control" type="text" id="usuario" required name="usuario[]" required placeholder="Usuario"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="pass">Contraseña</label>
-                                                            <input class="form-control" type="text"  id="pass" required placeholder="Contraseña"/>
+                                                            <input class="form-control" type="text"  id="pass" required name="pass[]" required placeholder="Contraseña"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="rango">Rango</label>
-                                                            <select name="rango" id="rango" class="form-control" type="text">
-                                                                <option value="">Elige una opción</option>
+                                                            <select name="rango" id="rango" required name="rango[]" class="form-control" type="text">
+                                                                <option value="0">Elige una opción</option>
+                                                                <?php foreach ($Rango as $key => $dR) : ?>
+                                                                    <option value = "<?= $dR->idRango?>"><?= $dR-> Nombre?></option>
+                                                                <?php endforeach ?>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="even">Evento</label>
-                                                            <select name="evento" id="even" class="form-control" type="text">
-                                                                <option value="">Elige una opción</option>
+                                                            <select name="evento" id="evento" required name="evento[]" class="form-control" type="text">
+                                                                <option value="0">Elige una opción</option>
+                                                                <?php foreach ($Evento as $key => $dE) : ?>
+                                                                    <option value = "<?= $dE->idEvento?>"><?= $dE-> Ciudad?></option>
+                                                                <?php endforeach ?>
                                                             </select>
                                                         </div>
                                                         </td>
@@ -217,7 +223,7 @@
 
         </div>
         <!--/Contenedor Principal-->
-
+        <script src="JS/usuarios.js"></script>
         <script>
         $(function(){
                     // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
@@ -248,6 +254,8 @@
             });
         });
         </script>
+
+        <?php include('editarUsuarios.php') ?>
 
     </body>
     <!--/Cuerpo-->

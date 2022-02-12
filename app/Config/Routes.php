@@ -55,6 +55,10 @@ $routes->post('/Atracciones/Editar_Atraccion','Atracciones_Control::actualizarAt
 $routes->get('/Atracciones/Editar_Atraccion','Atracciones_Control::actualizarAtraccion');
 $routes->post('/Atracciones/Editar_Propietario','Atracciones_Control::actualizarPropietario');
 $routes->get('/Atracciones/Editar_Propietario','Atracciones_Control::actualizarPropietario');
+$routes->post('/Usuarios/Agregar_Usuario','Usuarios_Control::agregarUsuarios');
+$routes->get('/Usuarios/Agregar_Usuario','Usuarios_Control::agregarUsuarios');
+$routes->post('/Usuarios/Editar_Usuario','Usuarios_Control::actualizarUsuario');
+$routes->get('/Usuarios/Editar_Usuario','Usuarios_Control::actualizarUsuario');
 
 
 /*
