@@ -103,7 +103,7 @@
                     <tbody>
                         <?php foreach ($Tarjeta as $key => $dT) : ?>
                             <tr>
-                                <td><a href="" class="btn btn-warning editar" data-toggle="modal">Editar</a></td>
+                                <td><a href="#eTarjeta" class="btn btn-warning editar"  data-toggle="modal" data-book-id="">Editar</a></td>
                                 <td><?= $dT->Tarjeta ?></td>
                                 <td style="display: block; scroll-behavior: smooth; overflow-y:scroll; width:117px; height:53px"><?= $dT->QR ?></td>
                                 <!--td><?= $dT->QR ?></td-->
@@ -155,7 +155,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="cma">Status</label>
-                                                        <input class="form-control" type="number"  id="sta" required name="sta[]"/>
+                                                        <input class="form-control" type="text"  id="sta" required name="sta[]"/>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="cmi">Tipo</label>
@@ -167,13 +167,20 @@
                                                     </div-->
                                                     <div class="form-group">
                                                         <label for="tma">Lote</label>
-                                                        <input class="form-control" type="number"  id="lote" required name="lote[]" placeholder="Lote"/>
+                                                        <select class="form-control" type="text"  id="lote" required name="lote[]" placeholder="Lote">
+                                                            <option value="0">Elige una opción</option>
+                                                                <?php foreach ($Lote as $key => $dL) : ?>
+                                                                    <option value = "<?= $dL->idLote?>"><?= $dL->Nombre?></option>
+                                                                <?php endforeach ?>
+                                                        </select>
                                                     </div>
                                                     <div>
                                                         <label for="evento">Evento</label>
                                                         <select class="form-control" type="text"  id="even" required name="even[]">
                                                             <option value="0">Elige una opción</option>
-                                                                    <option value = ""></option>
+                                                                <?php foreach ($Evento as $key => $dE) : ?>
+                                                                    <option value = "<?= $dE->idEvento?>"><?= $dE->Ciudad?></option>
+                                                                <?php endforeach ?>
                                                         </select>
                                                     </div>
                                                 </td>
@@ -203,7 +210,7 @@
                 <fieldset id="fieldset">
                     <legend>Nuevo Lote</legend>
                         <div class="contenedorTabla1">
-                            <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
+                            <form method="POST" action="" enctype="multipart/form-data" name="formulario2" id="formulario2">
                                 <div class="table table-striped table-responsive">
                                 <!--Tabla AGREGAR LOTES-->
                                     <table class="table table-bordered" id="agregar">
@@ -212,18 +219,27 @@
                                             <th scope="col" style="vertical-align: middle;">Nombre</th>
                                             <th scope="col" style="vertical-align: middle;">Material</th>
                                             <th scope="col" style="vertical-align: middle;">Cantidad</th>
-                                            <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
                                             <th scope="col" style="vertical-align: middle;">Folio Inicial</th>
-                                            <th scope="col" style="vertical-align: middle;">FolioFinal</th>
+                                            <th scope="col" style="vertical-align: middle;">Folio Final</th>
+                                            <th scope="col" style="vertical-align: middle;">Serial</th>
+                                            <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
+                                            <th scope="col" style="vertical-align: middle;">Usuario</th>
                                         </thead>
                                         <tbody>
                                             <tr class="filas">
                                                 <td><input type="text" class="form-grup" placeholder="Nombre"></td>
                                                 <td><input type="text" class="form-grup" placeholder="Material"></td>
                                                 <td><input type="number" class="form-grup" placeholder="Cantidad"></td>
+                                                <td><input type="number" class="form-grup" placeholder="Folio Inicial"></td>
+                                                <td><input type="number" class="form-grup" placeholder="Folio Final"></td>
+                                                <td><input type="number" class="form-grup" placeholder="Serie"></td>
                                                 <td><input type="date" class="form-grup" placeholder="Fecha de ingreso"></td>
-                                                <td><input type="number" class="form-grup" placeholder="Folio inicial"></td>
-                                                <td><input type="number" class="form-grup" placeholder="Folio final"></td>
+                                                <td><select class="form-control" type="text" id ="usuario" name ="usuario">
+                                                    <option value ="0">Elige una opcion</option>
+                                                        <?php foreach ($Usuario as $key => $dU) : ?>
+                                                            <option value = "<?= $dU->idUsuario?>"><?= $dU->UsuarioNombre?></option>
+                                                        <?php endforeach ?>
+                                                </select></td>
                                                 <td class="deletef"><input type="button" value="-"/></td>
                                             </tr>
                                         </tbody>
@@ -239,24 +255,29 @@
                                     <thead>
                                         <th style="vertical-align: middle;"></th>
                                         <th style="vertical-align: middle;">Nombre</th>
-                                        <th style="vertical-align: middle;">Apellido Paterno</th>
-                                        <th style="vertical-align: middle;">Apellido Materno</th>
-                                        <th style="vertical-align: middle;">Direccion</th>
-                                        <th style="vertical-align: middle;">Telefono</th>
-                                        <th style="vertical-align: middle;">RFC</th>
-                                        <th style="vertical-align: middle;">Fecha de Nacimiento</th>
+                                        <th style="vertical-align: middle;">Material</th>
+                                        <th style="vertical-align: middle;">Cantidad</th>
+                                        <th style="vertical-align: middle;">Folio Inicial</th>
+                                        <th style="vertical-align: middle;">Folio Final</th>
+                                        <th style="vertical-align: middle;">Serie</th>
+                                        <th style="vertical-align: middle;">Fecha de Ingreso</th>
+                                        <th style="vertical-align: middle;">Usuario</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><a href="" class="btn btn-warning editar" data-toggle="modal">Editar</a></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        <?php foreach ($Lote as $key => $dL) : ?>
+                                            <tr>
+                                                <td><a href="#eLote" class="btn btn-warning editarLote" data-toggle="modal" data-book-id='{"idLote":<?=$dL->idLote?>,"Nombre":"<?=$dL->Nombre?>","Material":"<?=$dL->Material?>","Cantidad":<?=$dL->Cantidad?>,"FolioInicial":<?=$dL->FolioInicial?>,"FolioFinal":<?=$dL->FolioFinal?>,"Serie":"<?=$dL->Serie?>","FechaIngreso":"<?=$dL->FechaIngreso?>"}'>Editar</a></td>
+                                                <td><?=$dL->Nombre?></td>
+                                                <td><?=$dL->Material?></td>
+                                                <td><?=$dL->Cantidad?></td>
+                                                <td><?=$dL->FolioInicial?></td>
+                                                <td><?=$dL->FolioFinal?></td>
+                                                <td><?=$dL->Serie?></td>
+                                                <td><?=$dL->FechaIngreso?></td>
+                                                <td><?=$dL->Usuario?></td>
+                                            </tr>
+                                        <?php endforeach ?> 
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -328,5 +349,7 @@
             });
         });
     </script>
+    <?php include('editarLote.php')?>
+    
     </body>
 </html>
