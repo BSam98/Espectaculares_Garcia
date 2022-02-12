@@ -122,5 +122,13 @@ class Atracciones_Model extends Model{
         return 'Funciono';
     }
 
-    public function actualizarPropietario($idPropietario, array $datos){}
+    public function actualizarPropietario($idPropietario, array $datos){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Propietario');
+
+        $builder->where('idPropietario',$idPropietario);
+        $builder->update($datos);
+
+        return 'Funciono';
+    }
 }

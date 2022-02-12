@@ -248,7 +248,7 @@
                                     <tbody>
                                         <?php foreach ($Propietario as $key => $dP) : ?>
                                             <tr>
-                                            <td><a href="#ePropietario?id=<?php echo $dP->idPropietario ?>" class="btn btn-warning editarPropietario" data-toggle="modal">Editar</a></td>
+                                            <td><a href="#ePropietario" class="btn btn-warning editarPropietario" data-book-id='{"idPropietario":<?=$dP->idPropietario?>,"Nombre":"<?=$dP->Nombre?>","ApellidoP":"<?=$dP->ApellidoP?>","ApellidoM":"<?=$dP->ApellidoM?>","Direccion":"<?=$dP->Direccion?>","Telefono":"<?=$dP->Telefono?>","RFC":"<?=$dP->RFC?>","FechaNacimiento":"<?=$dP->FechaNacimiento?>"}' data-toggle="modal">Editar</a></td>
                                                 <td><?= $dP->Nombre ?></td>
                                                 <td><?= $dP->ApellidoP?></td>
                                                 <td><?= $dP->ApellidoM?></td>
@@ -368,6 +368,7 @@
 
 
         </script>
+    <?php include('editarPropietario.php')?>
     <?php include('editarAtraccion.php')?>
     </body>
     <!--/Cuerpo-->

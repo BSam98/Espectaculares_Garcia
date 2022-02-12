@@ -53,6 +53,8 @@ $routes->post('/Agregar_Propietario','Atracciones_Control::insertarPropietario')
 $routes->get('/Agregar_Propietario','Atracciones_Control::insertarPropietario');
 $routes->post('/Atracciones/Editar_Atraccion','Atracciones_Control::actualizarAtraccion');
 $routes->get('/Atracciones/Editar_Atraccion','Atracciones_Control::actualizarAtraccion');
+$routes->post('/Atracciones/Editar_Propietario','Atracciones_Control::actualizarPropietario');
+$routes->get('/Atracciones/Editar_Propietario','Atracciones_Control::actualizarPropietario');
 
 
 /*

@@ -8,9 +8,9 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST"  action="Atracciones/Editar_Atraccion" enctype="multipart/form-data" name="formulario" id="formulario">
+                <form method="POST"  action="Atracciones/Editar_Atraccion" enctype="multipart/form-data" name="formulario1" id="formulario1">
                     <div class="container-fluid">
-                        <input type="text" class="form-control" id = "idAtraccion" name = "idAtraccion" value="">
+                        <input type="hidden" class="form-control" id = "idAtraccion" name = "idAtraccion" value="">
                        
                         <div class="form-group">
                             <label for="atraccion">Atracción</label>

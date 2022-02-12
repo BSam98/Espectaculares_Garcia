@@ -115,6 +115,25 @@ class Atracciones_Control extends BaseController {
         return redirect()->to(base_url('Atracciones'));
     }
 
+    public function actualizarPropietario(){
+        $model = new Atracciones_Model();
+
+        $idPropietario = $_POST['idPropietario'];
+        $datos=[
+            'Nombre' => $this->request->getVar('Nombre'),
+            'ApellidoP' => $this->request->getVar('ApellidoP'),
+            'ApellidoM' => $this->request->getVar('ApellidoM'),
+            'Direccion' => $this->request->getVar('Direccion'),
+            'Telefono' => $this->request->getVar('Telefono'),
+            'FechaNacimiento' => $this->request->getVar('FechaNacimiento'),
+            'RFC' => $this->request->getVar('RFC'),
+        ];
+        echo json_encode($datos);
+        echo $idPropietario;
+        $respuesta = $model->actualizarPropietario($idPropietario,$datos);
+        return redirect()->to(base_url('Atracciones'));
+    }
+
     public function create(){
         return "";
     }
