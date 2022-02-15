@@ -209,19 +209,23 @@
                                                 <th scope="col" style="vertical-align: middle;">Nombre</th>
                                                 <th scope="col" style="vertical-align: middle;">Material</th>
                                                 <th scope="col" style="vertical-align: middle;">Cantidad</th>
-                                                <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
                                                 <th scope="col" style="vertical-align: middle;">Folio Inicial</th>
                                                 <th scope="col" style="vertical-align: middle;">FolioFinal</th>
+                                                <th scope="col" style="vertical-align: middle;">Serial</th>
+                                                <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
+                                                <th scope="col" style="vertical-align: middle;">Usuario</th>
                                             </thead>
                                             <tbody>
                                                 <tr class="filas">
                                                     <td><input type="text" class="form-grup" placeholder="Nombre"></td>
                                                     <td><input type="text" class="form-grup" placeholder="Material"></td>
                                                     <td><input type="number" class="form-grup" placeholder="Cantidad"></td>
-                                                    <td><input type="date" class="form-grup" placeholder="Fecha de ingreso"></td>
                                                     <td><input type="number" class="form-grup" placeholder="Folio inicial"></td>
                                                     <td><input type="number" class="form-grup" placeholder="Folio final"></td>
-                                                    <td class="deletef"><input type="button" value="-"/></td>
+                                                    <td><input type="number" class="form-grup" placeholder="Serial"></td>
+                                                    <td><input type="date" class="form-grup" placeholder="Fecha de Ingreso"></td>
+                                                    <td><input type="text" class="form-grup" placeholder="Usuario"></td>
+                                                    <td class="deletef"><input type="button" value="-"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -246,6 +250,7 @@
                                         </thead>
                                         <tbody>
                                             <tr class="filas">
+                                                <td></td>
                                                 <td><input type="text" class="form-grup" placeholder="Nombre"></td>
                                                 <td><input type="text" class="form-grup" placeholder="Material"></td>
                                                 <td><input type="number" class="form-grup" placeholder="Cantidad"></td>
