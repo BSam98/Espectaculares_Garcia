@@ -103,7 +103,7 @@
                     <tbody>
                         <?php foreach ($Tarjeta as $key => $dT) : ?>
                             <tr>
-                                <td><a href="#eTarjeta" class="btn btn-warning editar"  data-toggle="modal" data-book-id="">Editar</a></td>
+                                <td><a href="#eTarjeta" class="btn btn-warning editarTarjeta"  data-toggle="modal" data-book-id='{"idTarjeta":<?=$dT->idTarjeta?>,"Tarjeta":"<?=$dT->Tarjeta?>","Status":<?=$dT->Status?>,"FechaActivacion":<?=$dT->FechaActivacion?>,"Cliente":<?=$dT->Cliente?>,"Evento":<?=$dT->idEvento?>}'>Editar</a></td>
                                 <td><?= $dT->Tarjeta ?></td>
                                 <td style="display: block; scroll-behavior: smooth; overflow-y:scroll; width:117px; height:53px"><?= $dT->QR ?></td>
                                 <!--td><?= $dT->QR ?></td-->
@@ -350,6 +350,7 @@
         });
     </script>
     <?php include('editarLote.php')?>
+    <?php include('editarTarjetas.php')?>
     
     </body>
 </html>

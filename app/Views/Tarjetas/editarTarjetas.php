@@ -3,30 +3,30 @@
         <div class="modal-content">
         <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Editar Lote</h4>
+                <h4 class="modal-title">Editar Tarjeta</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST"  action="Tarjetas/Editar_Lote" enctype="multipart/form-data" name="formulario2" id="formulario2">
+                <form method="POST"  action="Tarjetas/Editar_Tarjeta" enctype="multipart/form-data" name="formulario2" id="formulario2">
                     <div class="container-fluid">
-                        <input type="hidden" class="form-control" id = "idLote" name = "idLote" value="">
+                        <input type="hidden" class="form-control" id = "idTarjeta" name = "idTarjeta" value="">
                        
                         <div class="form-group">
-                            <label for="Nombre">Nombre</label>
-                            <input type="text" class="form-control" id = "Nombre" name = "Nombre" value="">
+                            <label for="Nombre">Nombre de la tarjeta</label>
+                            <input type="text" class="form-control" id = "Tarjeta" name = "Tarjeta" value="">
                         </div>
                         <div class="form-group">
-                            <label for="area">Material</label>
-                            <input type="text"  class="form-control" id = "Material" name = "Material" value="">
+                            <label for="area">Status</label>
+                            <input type="text"  class="form-control" id = "Status" name = "Status" value="">
                         </div>
                         <div class="form-group">
-                            <label for="atraccion">Cantidad</label>
-                            <input type="number" class="form-control" id = "Cantidad" name = "Cantidad" value="">
+                            <label for="atraccion">Fecha de activación</label>
+                            <input type="number" class="form-control" id = "FechaActivacion" name = "FechaActivacion" value="">
                         </div>
                         <div class="form-group">
-                            <label for="atraccion">Folio Inicial</label>
-                            <input type="number" class="form-control" id = "FolioInicial" name = "FolioInicial" value="">
+                            <label for="atraccion">Cliente</label>
+                            <input type="number" class="form-control" id = "Cliente" name = "Cliente" value="">
                         </div>
                         <div class="form-group">
                             <label for="area">Folio Final</label>

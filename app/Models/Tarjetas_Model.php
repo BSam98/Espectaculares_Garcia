@@ -15,13 +15,17 @@ class Tarjetas_Model extends Model{
 
         $builder-> select(
             '
+            Tarjetas.idTarjeta,
             Tarjetas.QR,
             Tarjetas.Nombre AS Tarjeta,
             Tarjetas.FechaActivacion,
             Tarjetas.Status,
             Tarjetas.Tipo,
+            Clientes.idCliente,
             Clientes.Nombre AS Cliente,
+            Lotes.idLote,
             Lotes.Nombre AS Lote,
+            Eventos.idEvento,
             Eventos.Ciudad,
             Tarjetas.Folio
             '
@@ -142,5 +146,31 @@ class Tarjetas_Model extends Model{
 
         return $datos;
     }
+
+    public function listadoClientes(){
+
+        $db = \Config\Database::connect();
+        $builder = $db->table('Clientes');
+
+        $builder-> select(
+            '
+            Nombre,
+            ApellidoP,
+            ApellidoM,
+            CorreoE,
+            Contraseña,
+            Telefono,
+            Ciudad,
+            Estado,
+            FechaNacimiento
+            '
+        );
+
+        $query = $builder->get();
+     
+        $datos = $query->getResultObject();
+
+        return $datos;
+    } 
 
 }
