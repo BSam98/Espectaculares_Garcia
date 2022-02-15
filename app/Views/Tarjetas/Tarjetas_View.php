@@ -238,18 +238,28 @@
                                             <th scope="col" style="vertical-align: middle;">Nombre</th>
                                             <th scope="col" style="vertical-align: middle;">Material</th>
                                             <th scope="col" style="vertical-align: middle;">Cantidad</th>
-                                            <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
                                             <th scope="col" style="vertical-align: middle;">Folio Inicial</th>
-                                            <th scope="col" style="vertical-align: middle;">FolioFinal</th>
+                                            <th scope="col" style="vertical-align: middle;">Folio Final</th>
+                                            <th scope="col" style="vertical-align: middle;">Serial</th>
+                                            <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
+                                            <th scope="col" style="vertical-align: middle;">Usuario</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><a href="" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr class="filas">
+                                                <td><input type="text" class="form-grup" placeholder="Nombre"></td>
+                                                <td><input type="text" class="form-grup" placeholder="Material"></td>
+                                                <td><input type="number" class="form-grup" placeholder="Cantidad"></td>
+                                                <td><input type="number" class="form-grup" placeholder="Folio Inicial"></td>
+                                                <td><input type="number" class="form-grup" placeholder="Folio Final"></td>
+                                                <td><input type="number" class="form-grup" placeholder="Serie"></td>
+                                                <td><input type="date" class="form-grup" placeholder="Fecha de ingreso"></td>
+                                                <td><select class="form-control" type="text" id ="usuario" name ="usuario">
+                                                    <option value ="0">Elige una opcion</option>
+                                                        <?php foreach ($Usuario as $key => $dU) : ?>
+                                                            <option value = "<?= $dU->idUsuario?>"><?= $dU->UsuarioNombre?></option>
+                                                        <?php endforeach ?>
+                                                </select></td>
+                                                <td class="deletef"><input type="button" value="-"/></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -323,3 +333,8 @@
             });
         });
     </script>
+    <?php include('editarLote.php')?>
+    <?php include('editarTarjetas.php')?>
+    
+    </body>
+</html>

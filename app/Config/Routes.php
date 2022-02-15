@@ -62,7 +62,6 @@ $routes->get('/Usuarios/Editar_Usuario','Usuarios_Control::actualizarUsuario');
 $routes->post('/Tarjetas/EditarLote','Tarjetas_Control::actualizarLote');
 $routes->get('/Tarjetas/EditarLote','Tarjetas_Control::actualizarLote');
 /*
-/*
  * --------------------------------------------------------------------
  * Additional Routing
  * --------------------------------------------------------------------
