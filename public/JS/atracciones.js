@@ -14,7 +14,6 @@ btnCerrarPopup.addEventListener('click', function(){
     contenedorOculto.classList.remove('active');
 });
 
-console.log('hay algo');
 $(document).on('click','.editarAtraccion', function(){
                     
     var a = $(this).data('book-id');
@@ -32,4 +31,20 @@ $(document).on('click','.editarAtraccion', function(){
    $(".modal-body #Tiempo").val(a['Tiempo']);
    $(".modal-body #TiempoMAX").val(a['TiempoMAX']);
 
+});
+
+$(document).on('click','.editarPropietario', function(){
+                    
+    var propietario = $(this).data('book-id');
+
+
+    console.log(propietario);
+    $(".modal-body #idPropietario").val(propietario['idPropietario']);
+   $(".modal-body #Nombre").val(propietario['Nombre']);
+   $(".modal-body #ApellidoP").val(propietario['ApellidoP']);
+   $(".modal-body #ApellidoM").val(propietario['ApellidoM']);
+   $(".modal-body #Direccion").val(propietario['Direccion']);
+   $(".modal-body #Telefono").val(propietario['Telefono']);
+   $(".modal-body #RFC").val(propietario['RFC']);
+   $(".modal-body #FechaNacimiento").val(propietario['FechaNacimiento']);
 });

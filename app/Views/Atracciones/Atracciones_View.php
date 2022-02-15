@@ -27,15 +27,15 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
     </head>
-
+    <body>
         <!--Contenedor Principal-->
-        <div Class = "contenedorPrincipal">
+        <div Class = "contenedorPrincipal" style="background-image: url('./Img/mainbg.png');">
             <!--Contenedor Superior-->
             
             <div Class = "contenedorSuperior">
                 <div class="container">
                     <nav class="navbar navbar-fixed-top tm_navbar negro" role="navigation">
-                        <a class="logo" href=""><img src = "Img/logo.png"/></a>
+                        <a class="logo" href="Menu_Principal_Administrador"><img src = "Img/logo.png"/></a>
                         <ul class="nav navbar-nav sf-menu">
                             <!--li class="active"><a href="#">Home</a></li-->
                                 <!--Menu Catalago-->
@@ -73,161 +73,82 @@
                     </nav>
                 </div> 
             </div>
-
+            
             <!--Contenedor Superior-->
-            <fieldset id="fieldset">
-                <!--TABLA PRINCIPAL-->
+            <fieldset id="fieldset" style="background-color: white;color:black;">
+
+            <!--TABLA PRINCIPAL-->
+
                 <!--Ventana de la atracción--> 
-                <legend>Atracciones</legend>
-                        <!--button class="btn btn-success">+ Nueva Atraccion</button-->
-                    <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Nueva Atracción</a>
-                    <button class="btn btn-success" id="abrir">+ Nuevo Propietario</button>
-
-                <div class="contenedorTabla">
-                    <br>
-                    <!--Tabla-->
-                    <table id="example" class="table table-bordered">
-                        <thead>
-                            <th style="vertical-align: middle;"></th>
-                            <th style="vertical-align: middle;">Nombre</th>
-                            <th style="vertical-align: middle;">Area</th>
-                            <th style="vertical-align: middle;">Renta</th>
-                            <th style="vertical-align: middle;">Propietario</th>
-                            <th style="vertical-align: middle;">Capacidad maxima</th>
-                            <th style="vertical-align: middle;">Capacidad minima</th>
-                            <th style="vertical-align: middle;">Duración por ciclo</th>
-                            <th style="vertical-align: middle;">Tiempo de espera</th>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($Atraccion as $key => $dA) : ?>
-                                
-                                
-
-                                <tr>
-                                    <td><a href="#eAtraccion" class ="editarAtraccion" data-toggle="modal" data-book-id='{"idAtraccion":<?= $dA->idAtraccion?>,"Atraccion":"<?= $dA->Atraccion?>","Area":"<?= $dA->Area?>","Renta":<?= $dA->Renta?>,"Nombre":"<?= $dA->Nombre?>","CapacidadMAX":<?= $dA->CapacidadMAX?>,"CapacidadMIN":<?= $dA->CapacidadMIN?>,"Tiempo":"<?= $dA->Tiempo?>","TiempoMAX":"<?= $dA->TiempoMAX?>"}'>Editar</a></td>
-                                    <td><?= $dA->Atraccion?></td>
-                                    <td><?= $dA->Area?></td>
-                                    <td><?= $dA->Renta?></td>
-                                    <td><?= $dA->Nombre?></td>
-                                    <td><?= $dA->CapacidadMAX?></td>
-                                    <td><?= $dA->CapacidadMIN?></td>
-                                    <td><?= $dA->Tiempo?></td>
-                                    <td><?= $dA->TiempoMAX?></td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
-                    <!--/Tabla-->
-                </div>
-
-                <!--MODAL NUEVA ATRACCION-->
-                <div class="modal" id="myModal">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Agregar Atracciones</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <form method="POST"  action="Agregar_Atraccion" enctype="multipart/form-data" name="formulario" id="formulario">
-                                    <div class="table table-striped table-responsive">
-                                        <table id="tabla" class="table table-bordered">
-                                            <tbody>
-                                                <tr class="fila-fija">
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <label for="nombre">Nombre</label>
-                                                            <input class="form-control" type="text"  id="na" required name="na[]" placeholder="Nombre"/>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="area">Área</label>
-                                                            <input class="form-control" type="text"  id="are" required name="are[]" placeholder="Área"/>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="renta">Renta</label>
-                                                            <input class="form-control" type="number"  id="ren" required name="ren[]"/>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="propietario">Propietario</label>
-                                                            <select class="form-control" type="text"  id="pro" required name="pro[]">
-                                                                <option value="0">Elige una opción</option>
-                                                            <?php foreach ($Propietario as $key => $dP) : ?>
-                                                                <option value = "<?= $dP->idPropietario?>"><?= $dP-> Nombre?></option>
-                                                            <?php endforeach ?>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="cma">Cantidad Máxima</label>
-                                                            <input class="form-control" type="number"  id="cma" required name="cma[]"/>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="cmi">Cantidad Mínima</label>
-                                                            <input class="form-control" type="number"  id="cmi" required name="cmi[]"/>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="tiempo">Tiempo</label>
-                                                            <input class="form-control" type="text"  id="tim" required name="tim[]" placeholder="Tiempo"/>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="tma">Tiempo Máximo</label>
-                                                            <input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Tiempo Máximo"/>
-                                                        </div>
-                                                    </td>
-                                                    <td class="eliminar"><input type="button"   value="-"/></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <button id="adicional" name="adicional" type="button" class="btn btn-warning"> + </button>
-                                    </div>
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button name="adicional" type="submit" class="btn btn-success">Agregar </button>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    </div>  
-                                </form>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
-                <!--</div>-->
+                <label><h1>Atracciones</h1></label>
+                    <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="bi bi-plus-circle"></i>&nbsp;Nueva Atracción</a>
+                    <button class="btn btn-success" id="abrir"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Propietario</button><br>
+                    <div class="contenedorTabla"><br>
+                        <!--Tabla-->
+                        <table id="example" class="table table-bordered border-primary">
+                            <thead>
+                                <th style="vertical-align: middle;"></th>
+                                <th style="vertical-align: middle;">NOMBRE</th>
+                                <th style="vertical-align: middle;">RENTA</th>
+                                <th style="vertical-align: middle;">PROPIETARIO</th>
+                                <th style="vertical-align: middle;">Capacidad maxima</th>
+                                <th style="vertical-align: middle;">Capacidad minima</th>
+                                <th style="vertical-align: middle;">Duración por ciclo</th>
+                                <th style="vertical-align: middle;">Tiempo de espera</th>   
+                            </thead>
+                            <tbody>
+                                <?php foreach ($Atraccion as $key => $dA) : ?>
+                                    <tr>
+                                        <td style="vertical-align: middle;"><a href="#eAtraccion" class ="btn btn-warning editarAtraccion" data-toggle="modal" data-book-id='{"idAtraccion":<?= $dA->idAtraccion?>,"Atraccion":"<?= $dA->Atraccion?>","Renta":<?= $dA->Renta?>,"Nombre":"<?= $dA->Nombre?>","CapacidadMAX":<?= $dA->CapacidadMAX?>,"CapacidadMIN":<?= $dA->CapacidadMIN?>,"Tiempo":"<?= $dA->Tiempo?>","TiempoMAX":"<?= $dA->TiempoMAX?>"}'><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
+                                        <td style="vertical-align: middle;"><?= $dA->Atraccion?></td>
+                                        <td style="vertical-align: middle;"><?= $dA->Renta?></td>
+                                        <td style="vertical-align: middle;"><?= $dA->Nombre?></td>
+                                        <td style="vertical-align: middle;"><?= $dA->CapacidadMAX?></td>
+                                        <td style="vertical-align: middle;"><?= $dA->CapacidadMIN?></td>
+                                        <td style="vertical-align: middle;"><?= $dA->Tiempo?></td>
+                                        <td style="vertical-align: middle;"><?= $dA->TiempoMAX?></td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    </div>
             </fieldset><!--/Ventana de la atracción-->
 
             <!--Contenedor del propietario-->
-            <div class = "contenedorOculto" id = "contenedorOculto">
-                <div class="contenedorTablaPropietario" id = "contenedorTablaPropietario">
+            <div class = "contenedorOculto" id = "contenedorOculto" style="background-image: url('./Img/mainbg.png'); color:black;">
+                <div class="contenedorTablaPropietario" id = "contenedorTablaPropietario" style="background-image: url('./Img/mainbg.png'); color:black;">
                     <a href ="#" id="btn-cerrar-popup" class ="btn-cerrar-popup"></a>
                     <!--Ventana del propietario-->
                     <fieldset id="fieldset">
-                        <legend>Agregar Propietario</legend><br>
+                        <label><h2>Agregar Propietario</h2></label>
                         <div class="contenedorTabla1">
                             <!--AGREGAR PROPIETARIO-->                    
                             <form method="POST" action="Agregar_Propietario" enctype="multipart/form-data" name="formulario" id="formulario">
-                                <div class="table table-striped table-responsive">
-                                    <table id="tab" class="table table-bordered">
-                                        <thead>
-                                            <th scope="col" style="vertical-align: middle;">Nombre</th>
-                                            <th scope="col" style="vertical-align: middle;">Apellido Paterno</th>
-                                            <th scope="col" style="vertical-align: middle;">Apellido Materno</th>
-                                            <th scope="col" style="vertical-align: middle;">Dirección</th>
-                                            <th scope="col" style="vertical-align: middle;">Teléfono</th>
-                                            <th scope="col" style="vertical-align: middle;">RFC</th>
-                                            <th scope="col" style="vertical-align: middle;">Fecha de Nacimiento</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="fila-fila">
-                                                <td><input class="form-control" type="text"  id="na" required name="na[]" placeholder="Nombre"/></td>
-                                                <td><input class="form-control" type="text"  id="app" required name="app[]" placeholder="Apellido Paterno"/></td>
-                                                <td><input class="form-control" type="text"  id="apm" required name="apm[]" placeholder="Apellido Materno"/></td>
-                                                <td><input class="form-control" type="text"  id="dir" required name="dir[]" placeholder="Dirección"/></td>
-                                                <td><input class="form-control" type="number"  id="tel" required name="tel[]" placeholder="Telefono"/></td>
-                                                <td><input class="form-control" type="text"  id="rfc" required name="rfc[]" placeholder="RFC"/></td>
-                                                <td><input class="form-control" type="date"  id="dat" required name="dat[]" placeholder="Fecha de Nacimiento"/></td>
-                                                <td class="elim"><input type="button" value="-"/></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    <div class="table table-striped table-responsive">
+                                        <table id="tab" class="table table-bordered">
+                                            <thead>
+                                                <th scope="col" style="vertical-align: middle;">Nombre</th>
+                                                <th scope="col" style="vertical-align: middle;">Apellido Paterno</th>
+                                                <th scope="col" style="vertical-align: middle;">Apellido Materno</th>
+                                                <th scope="col" style="vertical-align: middle;">Dirección</th>
+                                                <th scope="col" style="vertical-align: middle;">Teléfono</th>
+                                                <th scope="col" style="vertical-align: middle;">RFC</th>
+                                                <th scope="col" style="vertical-align: middle;">Fecha de Nacimiento</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="fila-fila">
+                                                    <td><input class="form-control" type="text"  id="na" required name="na[]" placeholder="Nombre"/></td>
+                                                    <td><input class="form-control" type="text"  id="app" required name="app[]" placeholder="Apellido Paterno"/></td>
+                                                    <td><input class="form-control" type="text"  id="apm" required name="apm[]" placeholder="Apellido Materno"/></td>
+                                                    <td><input class="form-control" type="text"  id="dir" required name="dir[]" placeholder="Dirección"/></td>
+                                                    <td><input class="form-control" type="number"  id="tel" required name="tel[]" placeholder="Telefono"/></td>
+                                                    <td><input class="form-control" type="text"  id="rfc" required name="rfc[]" placeholder="RFC"/></td>
+                                                    <td><input class="form-control" type="date"  id="dat" required name="dat[]" placeholder="Fecha de Nacimiento"/></td>
+                                                    <td class="elim"><input type="button" value="-"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 <button id="adi" name="adicional" type="button" class="btn btn-warning"> + </button>
                                 <button class="btn btn-success" typde="submit" onClick="">Agregar</button><hr>
                             </form>   
@@ -248,7 +169,7 @@
                                     <tbody>
                                         <?php foreach ($Propietario as $key => $dP) : ?>
                                             <tr>
-                                            <td><a href="#ePropietario?id=<?php echo $dP->idPropietario ?>" class="btn btn-warning editarPropietario" data-toggle="modal">Editar</a></td>
+                                                <td><a href="#ePropietario" class="btn btn-warning editarPropietario" data-book-id='{"idPropietario":<?=$dP->idPropietario?>,"Nombre":"<?=$dP->Nombre?>","ApellidoP":"<?=$dP->ApellidoP?>","ApellidoM":"<?=$dP->ApellidoM?>","Direccion":"<?=$dP->Direccion?>","Telefono":"<?=$dP->Telefono?>","RFC":"<?=$dP->RFC?>","FechaNacimiento":"<?=$dP->FechaNacimiento?>"}' data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
                                                 <td><?= $dP->Nombre ?></td>
                                                 <td><?= $dP->ApellidoP?></td>
                                                 <td><?= $dP->ApellidoM?></td>
@@ -270,106 +191,96 @@
             <!--/Contenedor del propietario-->
         </div>
         <!--/Contenedor Principal-->
-        <script src="JS/atracciones.js"></script>
-
-        <script>
-            $(function(){
-                    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-            $("#adicional").on('click', function(){
-            $("#tabla tbody tr:eq(0)").clone().removeClass('fila-fija').appendTo("#tabla");
-            });
-            // Evento que selecciona la fila y la elimina 
-            $(document).on("click",".eliminar",function(){
-                var parent = $(this).parents().get(0);
-            $(parent).remove();
-            });
-            });
-
-            $(function(){
-                    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-            $("#adi").on('click', function(){
-            $("#tab tbody tr:eq(0)").clone().removeClass('fila-fila').appendTo("#tab");
-            });
-            // Evento que selecciona la fila y la elimina 
-            $(document).on("click",".elim",function(){
-                var parent = $(this).parents().get(0);
-            $(parent).remove();
-            });
-            });
-
-            
-
-            $(document).ready(function() {
-            $('#examplePro').DataTable( {
-                "aProcessing": true,//Activamos el procesamiento del datatables
-                "aServerSide": true,//Paginación y filtrado realizados por el servidor
-                dom: 'Bfrtip',//Definimos los elementos del control de tabla
-                buttons: [		          
-                            'copyHtml5',
-                            'excelHtml5',
-                            'csvHtml5',
-                            'pdf'
-                        ],
-                "bDestroy": true,
-                "iDisplayLength": 15,//Paginación
-                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
-            });
-            });
-
-            $(document).ready(function() {
-            $('#tab').DataTable( {
-                "aProcessing": true,//Activamos el procesamiento del datatables
-                "aServerSide": true,//Paginación y filtrado realizados por el servidor
-                dom: 'Bfrtip',//Definimos los elementos del control de tabla
-                buttons: [		          
-                            'copyHtml5',
-                            'excelHtml5',
-                            'csvHtml5',
-                            'pdf'
-                        ],
-                "bDestroy": true,
-                "iDisplayLength": 15,//Paginación
-                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
-            });
-            });
-
-            $(document).ready(function() {
-            $('#exampleAtr').DataTable( {
-                "aProcessing": true,//Activamos el procesamiento del datatables
-                "aServerSide": true,//Paginación y filtrado realizados por el servidor
-                dom: 'Bfrtip',//Definimos los elementos del control de tabla
-                buttons: [		          
-                            'copyHtml5',
-                            'excelHtml5',
-                            'csvHtml5',
-                            'pdf'
-                        ],
-                "bDestroy": true,
-                "iDisplayLength": 15,//Paginación
-                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
-            });
-            });
-            $(document).ready(function() {
-            $('#example').DataTable( {
-                "aProcessing": true,//Activamos el procesamiento del datatables
-                "aServerSide": true,//Paginación y filtrado realizados por el servidor
-                dom: 'Bfrtip',//Definimos los elementos del control de tabla
-                buttons: [		          
-                            'copyHtml5',
-                            'excelHtml5',
-                            'csvHtml5',
-                            'pdf'
-                        ],
-                "bDestroy": true,
-                "iDisplayLength": 15,//Paginación
-                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
-            });
-            });
-
-
-        </script>
-    <?php include('editarAtraccion.php')?>
+       
+        <?php //include('editarPropietario.php')?>
+        <?php 
+           include 'editarAtraccion.php' ;
+           include 'nuevaAtr.php';
+        ?>
     </body>
     <!--/Cuerpo-->
-
 </html>
+<script src="JS/atracciones.js"></script>
+
+<script>
+    $(function(){
+            // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+    $("#adi").on('click', function(){
+    $("#tab tbody tr:eq(0)").clone().removeClass('fila-fila').appendTo("#tab");
+    });
+    // Evento que selecciona la fila y la elimina 
+    $(document).on("click",".elim",function(){
+        var parent = $(this).parents().get(0);
+    $(parent).remove();
+    });
+    });
+
+    $(document).ready(function() {
+    $('#examplePro').DataTable( {
+        "aProcessing": true,//Activamos el procesamiento del datatables
+        "aServerSide": true,//Paginación y filtrado realizados por el servidor
+        dom: 'Bfrtip',//Definimos los elementos del control de tabla
+        buttons: [		          
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdf'
+                ],
+        "bDestroy": true,
+        "iDisplayLength": 15,//Paginación
+        "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+    });
+    });
+
+    $(document).ready(function() {
+    $('#tab').DataTable( {
+        "aProcessing": true,//Activamos el procesamiento del datatables
+        "aServerSide": true,//Paginación y filtrado realizados por el servidor
+        dom: 'Bfrtip',//Definimos los elementos del control de tabla
+        buttons: [		          
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdf'
+                ],
+        "bDestroy": true,
+        "iDisplayLength": 15,//Paginación
+        "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+    });
+    });
+
+    $(document).ready(function() {
+    $('#exampleAtr').DataTable( {
+        "aProcessing": true,//Activamos el procesamiento del datatables
+        "aServerSide": true,//Paginación y filtrado realizados por el servidor
+        dom: 'Bfrtip',//Definimos los elementos del control de tabla
+        buttons: [		          
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdf'
+                ],
+        "bDestroy": true,
+        "iDisplayLength": 15,//Paginación
+        "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+    });
+    });
+
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        "aProcessing": true,//Activamos el procesamiento del datatables
+        "aServerSide": true,//Paginación y filtrado realizados por el servidor
+        dom: 'Bfrtip',//Definimos los elementos del control de tabla
+        buttons: [		          
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdf'
+                ],
+        "bDestroy": true,
+        "iDisplayLength": 15,//Paginación
+        "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+    });
+    });
+    
+</script>

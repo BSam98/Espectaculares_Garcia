@@ -10,7 +10,7 @@ class Atracciones_Model extends Model{
     protected $primaryKey = 'idAtraccion';
     protected $returnType = "array";
 
-    protected $allowedFields = ['Nombre,Nombre','Area','CapacidadMAX','Tiempo','TiempoMAX','Renta','idPropietario','CapacidadMIN'];
+    protected $allowedFields = ['Nombre,Nombre','CapacidadMAX','Tiempo','TiempoMAX','Renta','idPropietario','CapacidadMIN'];
 
     public function _construct(){
         parent :: _construct();
@@ -47,7 +47,6 @@ class Atracciones_Model extends Model{
             '
             Atracciones.idAtraccion,
             Atracciones.Nombre AS Atraccion, 
-            Atracciones.Area ,
             Atracciones.CapacidadMAX,
             Atracciones.Tiempo,
             Atracciones.TiempoMAX,
@@ -122,5 +121,13 @@ class Atracciones_Model extends Model{
         return 'Funciono';
     }
 
-    public function actualizarPropietario($idPropietario, array $datos){}
+    public function actualizarPropietario($idPropietario, array $datos){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Propietario');
+
+        $builder->where('idPropietario',$idPropietario);
+        $builder->update($datos);
+
+        return 'Funciono';
+    }
 }

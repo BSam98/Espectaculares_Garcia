@@ -53,8 +53,15 @@ $routes->post('/Agregar_Propietario','Atracciones_Control::insertarPropietario')
 $routes->get('/Agregar_Propietario','Atracciones_Control::insertarPropietario');
 $routes->post('/Atracciones/Editar_Atraccion','Atracciones_Control::actualizarAtraccion');
 $routes->get('/Atracciones/Editar_Atraccion','Atracciones_Control::actualizarAtraccion');
-
-
+$routes->post('/Atracciones/Editar_Propietario','Atracciones_Control::actualizarPropietario');
+$routes->get('/Atracciones/Editar_Propietario','Atracciones_Control::actualizarPropietario');
+$routes->post('/Usuarios/Agregar_Usuario','Usuarios_Control::agregarUsuarios');
+$routes->get('/Usuarios/Agregar_Usuario','Usuarios_Control::agregarUsuarios');
+$routes->post('/Usuarios/Editar_Usuario','Usuarios_Control::actualizarUsuario');
+$routes->get('/Usuarios/Editar_Usuario','Usuarios_Control::actualizarUsuario');
+$routes->post('/Tarjetas/EditarLote','Tarjetas_Control::actualizarLote');
+$routes->get('/Tarjetas/EditarLote','Tarjetas_Control::actualizarLote');
+/*
 /*
  * --------------------------------------------------------------------
  * Additional Routing

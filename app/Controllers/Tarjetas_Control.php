@@ -15,11 +15,15 @@ class Tarjetas_Control extends BaseController {
 
         $datos = [
             'Tarjeta' => $model->listadoTarjetas(),
-            'Lote' => $model->listadoLotes()
+            'Lote' => $model->listadoLotes(),
+            'Evento' => $model->listadoEvento(),
+            'Usuario' => $model->listadoUsuarios(),
         ];
 
         return view ('Tarjetas/Tarjetas_View',$datos);
     }
+
+    public function actualizarLote(){}
 
     public function create(){
         return "";

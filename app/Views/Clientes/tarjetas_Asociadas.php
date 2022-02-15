@@ -28,13 +28,13 @@
     <body>
         <!--Contenedor Principal-->
         <div Class = "contenedorPrincipal" style="background-image: url('./Img/mainbg.png');">
-            <!--Contenedor Superior-->
-            <div class="modal fade" id="historial_Tarjetas" style="background-image: url('./Img/mainbg.png');color:black;">
+
+            <div class="modal fade" id="tarjetas_Aso" style="background-image: url('./Img/mainbg.png');color:black;">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Historial</h4>
+                            <h4 class="modal-title">Tarjetas Asociadas</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal body -->
@@ -43,12 +43,16 @@
                                 <table id="example" class="table table-bordered border-primary  display">
                                     <thead>
                                             <th></th>
-                                            <th>Atraccion</th>
+                                            <th>Nombre</th>
+                                            <th>Saldo</th>
                                             <th>Creditos</th>
-                                            <th>Tarjetas Utilizadas</th>
-                                            <th>Fecha</th>
+                                            <th>Creditos de Cortesia</th>
+                                            <th>Fecha de Recarga</th>
+                                            <th>Vigencia de Saldo</th>
                                     </thead>
                                     <tbody>  
+                                        <td></td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -61,6 +65,6 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </body>
 </html>

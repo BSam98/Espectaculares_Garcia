@@ -1,9 +1,6 @@
 @charset "UTF8";
 
-.contenedorPrincipal{
-    display: flex;
-    flex-direction: column;
-}
+
 
 .contenedorOculto{
     background:rgba(0,0,0,.3);

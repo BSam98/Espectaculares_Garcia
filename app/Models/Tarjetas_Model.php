@@ -58,6 +58,7 @@ class Tarjetas_Model extends Model{
 
         $builder-> select(
             '
+            Lotes.idLote,
             Lotes.Nombre,
             Lotes.Material,
             Lotes.Cantidad,
@@ -72,6 +73,66 @@ class Tarjetas_Model extends Model{
         $builder -> join(
             'Usuarios',
             'Usuarios.idUsuario = Lotes.idUsuario',
+            'inner'
+        );
+
+        $query = $builder->get();
+     
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function listadoEvento(){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Eventos');
+
+        $builder-> select(
+            '
+            idEvento,
+            Nombre, 
+            Direccion,
+            Ciudad,
+            Estado,
+            FechaInicio,
+            FechaFinal'
+        );
+
+        $query = $builder->get();
+    
+        $datos = $query->getResultObject();
+
+        return $datos;          
+    }
+
+    public function listadoUsuarios(){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Usuarios');
+
+        $builder-> select(
+            '
+            Usuarios.idUsuario,
+            Usuarios.Nombre AS UsuarioNombre,
+            Usuarios.Apellidos AS UsuarioApellido,
+            Usuarios.CorreoE,
+            Usuarios.NSS,
+            Usuarios.CURP,
+            Usuarios.Usuario,
+            Usuarios.Contraseña,
+            Rangos.Nombre,
+            Eventos.Ciudad
+            '
+        );
+
+        $builder-> join(
+            'Rangos',
+            'Rangos.idRango = Usuarios.idRango',
+            'inner'
+        );
+
+        $builder-> join(
+            'Eventos',
+            'Eventos.idEvento = Usuarios.idEvento',
             'inner'
         );
 

@@ -14,6 +14,7 @@ class Atracciones_Control extends BaseController {
 
     public function new (){
         $model = new Atracciones_Model();
+
         //$datos["Atraccion"] = $model->listadoAtracciones();
         $datos =[
             'Atraccion' => $model->listadoAtracciones(),
@@ -24,40 +25,18 @@ class Atracciones_Control extends BaseController {
     }
 
     public function insertarAtraccion (){
+
         $model = new Atracciones_Model();
-    
-        
-        $Nombre = $_POST['na'];
-        $Area = $_POST['are'];
-        $CapacidadMAX= $_POST['cma'];
-        $Tiempo = $_POST['tim'];
-        $TiempoMAX = $_POST['tma'];
-        $Renta = $_POST['ren'];
-        $idPropietario = $_POST['pro'];
-        $CapacidadMIN = $_POST['cmi'];
-        
-        $num_elementos = 0;
-
-        
-        while($num_elementos<count($Nombre)){
-
-            $datos=[
-                'Nombre' => $Nombre[$num_elementos],
-                'Area' => $Area[$num_elementos],
-                'CapacidadMAX'=>$CapacidadMAX[$num_elementos],
-                'Tiempo' => $Tiempo[$num_elementos],
-                'TiempoMAX' => $TiempoMAX[$num_elementos],
-                'Renta' => $Renta[$num_elementos],
-                'idPropietario' => $idPropietario[$num_elementos],
-                'CapacidadMIN' => $CapacidadMIN[$num_elementos],
-            ];
-            
-            $respuesta = $model->insertarAtraccion($datos);
-            
-            $num_elementos = $num_elementos +1;
-        }
-        
-        
+        $datos=[
+            'Nombre' => $this->request->getVar('na'),
+            'CapacidadMAX' => $this->request->getVar('cma'),
+            'Tiempo' => $this->request->getVar('tim'),
+            'TiempoMAX' => $this->request->getVar('tma'),
+            'Renta' => $this->request->getVar('ren'),
+            'idPropietario' => $this->request->getVar('pro'),
+            'CapacidadMIN' => $this->request->getVar('cmi'),
+        ];
+        $respuesta = $model->insertarAtraccion($datos);
         return redirect()->to(base_url('Atracciones'));
     }
 
@@ -72,28 +51,29 @@ class Atracciones_Control extends BaseController {
         $RFC = $_POST['rfc'];
         $FechaN = $_POST['dat'];
 
-        $num_elementos = 0;
-
+            $num_elementos = 0;
         
-        while($num_elementos<count($Nombre)){
-
-            $datos=[
-                'Nombre'=> $Nombre[$num_elementos],
-                'ApellidoP'=> $ApellidoP[$num_elementos],
-                'ApellidoM'=> $ApellidoM[$num_elementos],
-                'Direccion'=> $Direccion[$num_elementos],
-                'Telefono'=> $Telefono[$num_elementos],
-                'FechaNacimiento'=> $FechaN[$num_elementos],
-                'RFC'=> $RFC[$num_elementos],
-            ];
-            
-            $respuesta = $model->insertarPropietario($datos);
-            
-            $num_elementos = $num_elementos +1;
-        }
-
-        return redirect()->to(base_url('Atracciones'));
+            while($num_elementos<count($Nombre)){
+    
+                $datos=[
+                    'Nombre'=> $Nombre[$num_elementos],
+                    'ApellidoP'=> $ApellidoP[$num_elementos],
+                    'ApellidoM'=> $ApellidoM[$num_elementos],
+                    'Direccion'=> $Direccion[$num_elementos],
+                    'Telefono'=> $Telefono[$num_elementos],
+                    'FechaNacimiento'=> $FechaN[$num_elementos],
+                    'RFC'=> $RFC[$num_elementos],
+                
+                ];
+                
+                $respuesta = $model->insertarPropietario($datos);
+                
+                $num_elementos = $num_elementos +1;
+            }
+    
+            return redirect()->to(base_url('Atracciones'));
     }
+
 
     public function actualizarAtraccion(){
         $model = new Atracciones_Model();
@@ -115,7 +95,27 @@ class Atracciones_Control extends BaseController {
         return redirect()->to(base_url('Atracciones'));
     }
 
+    public function actualizarPropietario(){
+        $model = new Atracciones_Model();
+
+        $idPropietario = $_POST['idPropietario'];
+        $datos=[
+            'Nombre' => $this->request->getVar('Nombre'),
+            'ApellidoP' => $this->request->getVar('ApellidoP'),
+            'ApellidoM' => $this->request->getVar('ApellidoM'),
+            'Direccion' => $this->request->getVar('Direccion'),
+            'Telefono' => $this->request->getVar('Telefono'),
+            'FechaNacimiento' => $this->request->getVar('FechaNacimiento'),
+            'RFC' => $this->request->getVar('RFC'),
+        ];
+        $respuesta = $model->actualizarPropietario($idPropietario,$datos);
+        return redirect()->to(base_url('Atracciones'));
+    }
+
     public function create(){
         return "";
     }
+     /*public function menu(){
+        return view ('menu').view('Atracciones/Atracciones_View');
+    }*/
 }
