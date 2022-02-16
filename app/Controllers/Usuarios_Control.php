@@ -37,9 +37,9 @@ class Usuarios_Control extends BaseController {
         $idEvento = $_POST['evento'];
         
         $num_elementos = 0;
-
-        while($num_elementos<count($Nombre)){
-            
+        $contador = count($Nombre);
+       /*
+        if(1==$contador){
             $datos=[
                 'Nombre' =>$Nombre[$num_elementos],
                 'Apellidos' =>$Apellidos[$num_elementos],
@@ -53,9 +53,28 @@ class Usuarios_Control extends BaseController {
             ];
 
             $respuesta = $model->insertarUsuario($datos);
-
-            return redirect()->to(base_url('Usuarios'));
         }
+        else{*/
+            while($num_elementos<=$contador){
+            
+                $datos=[
+                    'Nombre' =>$Nombre[$num_elementos],
+                    'Apellidos' =>$Apellidos[$num_elementos],
+                    'CorreoE' =>$CorreoE[$num_elementos],
+                    'NSS' =>$NSS[$num_elementos],
+                    'CURP' => $Curp[$num_elementos],
+                    'Usuario' =>$Usuario[$num_elementos],
+                    'Contraseña'=> $Contraseña[$num_elementos],
+                    'idRango' => $idRango[$num_elementos],
+                    'idEvento' => $idEvento[$num_elementos],
+                ];
+    
+                //$respuesta = $model->insertarUsuario($datos);
+                $num_elementos = $num_elementos + 1;
+                echo json_encode($datos);
+            }
+      //  }
+        echo json_encode(array('respuesta'=>true,'msj'=>'asdasdasd'));
     }
 
     public function actualizarUsuario(){
@@ -76,7 +95,7 @@ class Usuarios_Control extends BaseController {
         ];
 
         $respuesta = $model->actualizarUsuario($datos,$idUsuario);
-        return redirect()->to(base_url('Usuarios'));
+        echo json_encode(array('respuesta'=>true,'msj'=>'asdasdasd'));
     }
 
     public function create(){

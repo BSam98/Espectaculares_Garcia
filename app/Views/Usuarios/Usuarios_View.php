@@ -120,7 +120,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="Usuarios/Agregar_Usuario" enctype="multipart/form-data" name="formulario" id="formulario">
+                        <form  enctype="multipart/form-data" name="formulario" id="formularioAgregarUsuario">
                             <div class="table table-striped table-responsive">
                                 <table id="agregarU" class="table table-bordered">
                                     <tbody>
@@ -181,7 +181,7 @@
                             </div>
                             <!-- Modal footer -->
                             <div class="modal-footer">
-                                <button name="adicional" type="submit" class="btn btn-success">Agregar </button>
+                                <button name="adicional" type="submit" class="btn btn-success" id="agregarUsuario">Agregar </button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                             </div>  
                         </form>
@@ -195,6 +195,7 @@
         <?php include('editarUsuarios.php') ?>
     </body>
 </html>
+<script src="JS/usuarios.js"></script>
 <script>
         $(function(){
                     // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
