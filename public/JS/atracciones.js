@@ -14,6 +14,121 @@ btnCerrarPopup.addEventListener('click', function(){
     contenedorOculto.classList.remove('active');
 });
 
+
+/*
+$(document).on('click','.agregar', function(){
+    $("#formularioNuevaAtraccion").submit(function (e){
+    
+        $.ajax({
+            type:"POST",
+            url: 'Agregar_Atraccion',
+            data: $("#formularioNuevaAtraccion").serialize(),
+            contentType:false,
+            processData: false,
+            error:function(){
+                alert("Se produjo un error");
+            },
+            succes:function(data){
+                if(data.respuesta){
+                    location.reload();
+                }
+                else{
+                    alert(data.msj);
+                }
+            },
+            
+            dataType: "JSON",
+            
+        });
+        
+    });
+});
+*/
+$("#enviarAtraccion").click(function(){
+    $.ajax({
+        type: "POST",
+        url: 'Agregar_Atraccion',
+        data: $("#formularioNuevaAtraccion").serialize(),
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+        success: function (data){              
+            alert(data.msj);
+            if(data.respuesta)
+                location.reload();
+        },
+        dataType: 'JSON'
+    });
+});
+
+$("#agregarPropietario").click(function(){
+    $.ajax({
+        type: "POST",
+        url: 'Agregar_Propietario',
+        data: $("#formularioAgregarPropietario").serialize(),
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+        success: function (data){            
+            alert(data.msj);
+            if(data.respuesta)
+                console.log(data.dato);
+        },
+        dataType: 'JSON'
+    });
+});
+
+$("#agregarPropietarioPorAtraccion").click(function(){
+    $.ajax({
+        type: "POST",
+        url: 'Agregar_Propietario',
+        data: $("#formularioAgregarPropietarioPorAtraccion").serialize(),
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+        success: function (data){            
+            alert(data.msj);
+            if(data.respuesta)
+                console.log(data.dato);
+        },
+        dataType: 'JSON'
+    });
+});
+
+$("#actualizarAtraccion").click(function(){
+    $.ajax({
+        type: "POST",
+        url: 'Atracciones/Editar_Atraccion',
+        data: $("#formularioEditarAtraccion").serialize(),
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+        success: function (data){            
+            alert(data.msj);
+            if(data.respuesta)
+                console.log(data.dato);
+        },
+        dataType: 'JSON'
+    });
+});
+
+$("#actualizarPropietario").click(function(){
+    $.ajax({
+        type: "POST",
+        url: 'Atracciones/Editar_Propietario',
+        data: $("#formularioEditarPropietario").serialize(),
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+        success: function (data){            
+            alert(data.msj);
+            if(data.respuesta)
+                console.log(data.dato);
+        },
+        dataType: 'JSON'
+    });
+});
+
 $(document).on('click','.editarAtraccion', function(){
                     
     var a = $(this).data('book-id');

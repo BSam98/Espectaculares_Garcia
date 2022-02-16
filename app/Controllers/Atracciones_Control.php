@@ -7,11 +7,23 @@ class Atracciones_Control extends BaseController {
     protected $model;
     protected $request;
 
+
     public function _construct(){
        // $this->model = new Atracciones_Model();
         $this->request = \Config\Services::request();
     }
 
+    public function index(){
+        $model = new Atracciones_Model();
+
+        //$datos["Atraccion"] = $model->listadoAtracciones();
+        $datos =[
+            'Atraccion' => $model->listadoAtracciones(),
+            'Propietario' => $model->listadoPropietartios()
+        ];
+
+        return view ('Atracciones/Atracciones_View', $datos);
+    }
     public function new (){
         $model = new Atracciones_Model();
 
@@ -25,7 +37,7 @@ class Atracciones_Control extends BaseController {
     }
 
     public function insertarAtraccion (){
-
+        
         $model = new Atracciones_Model();
         $datos=[
             'Nombre' => $this->request->getVar('na'),
@@ -36,8 +48,14 @@ class Atracciones_Control extends BaseController {
             'idPropietario' => $this->request->getVar('pro'),
             'CapacidadMIN' => $this->request->getVar('cmi'),
         ];
+        
+        /*
         $respuesta = $model->insertarAtraccion($datos);
         return redirect()->to(base_url('Atracciones'));
+        */
+        $respuesta = $model->insertarAtraccion($datos);
+        echo json_encode(array('respuesta'=>true,'msj'=>'asdasdasd'));
+      
     }
 
     public function insertarPropietario(){
@@ -51,10 +69,27 @@ class Atracciones_Control extends BaseController {
         $RFC = $_POST['rfc'];
         $FechaN = $_POST['dat'];
 
-            $num_elementos = 0;
-        
-            while($num_elementos<count($Nombre)){
-    
+        $num_elementos = 0;
+        $cantidad = count($Nombre);
+
+        if(1==$cantidad){
+            $datos=[
+                'Nombre'=> $Nombre[$num_elementos],
+                'ApellidoP'=> $ApellidoP[$num_elementos],
+                'ApellidoM'=> $ApellidoM[$num_elementos],
+                'Direccion'=> $Direccion[$num_elementos],
+                'Telefono'=> $Telefono[$num_elementos],
+                'FechaNacimiento'=> $FechaN[$num_elementos],
+                'RFC'=> $RFC[$num_elementos],
+            
+            ];
+            
+            $respuesta = $model->insertarPropietario($datos);
+            
+        }
+        else{
+            while($num_elementos<=$cantidad){
+
                 $datos=[
                     'Nombre'=> $Nombre[$num_elementos],
                     'ApellidoP'=> $ApellidoP[$num_elementos],
@@ -70,8 +105,9 @@ class Atracciones_Control extends BaseController {
                 
                 $num_elementos = $num_elementos +1;
             }
+        }
     
-            return redirect()->to(base_url('Atracciones'));
+        echo json_encode(array('respuesta'=>true,'msj'=>'asdasdasd'));
     }
 
 
@@ -79,9 +115,9 @@ class Atracciones_Control extends BaseController {
         $model = new Atracciones_Model();
 
         $idAtraccion = $_POST['idAtraccion'];
+        //$idAtraccion = $_GET['idAtraccion'];
         $datos=[
             'Nombre' => $this->request->getVar('Atraccion'),
-            'Area' => $this->request->getVar('Area'),
             'CapacidadMAX' => $this->request->getVar('CapacidadMAX'),
             'Tiempo' => $this->request->getVar('Tiempo'),
             'TiempoMAX' => $this->request->getVar('TiempoMAX'),
@@ -89,10 +125,8 @@ class Atracciones_Control extends BaseController {
             'idPropietario' => $this->request->getVar('Nombre'),
             'CapacidadMIN' => $this->request->getVar('CapacidadMIN'),
         ];
-        echo json_encode($datos);
-        echo $idAtraccion;
         $respuesta = $model->actualizarAtraccion($idAtraccion,$datos);
-        return redirect()->to(base_url('Atracciones'));
+        echo json_encode(array('respuesta'=>true,'msj'=>'actualizar modelo'));
     }
 
     public function actualizarPropietario(){
@@ -109,7 +143,7 @@ class Atracciones_Control extends BaseController {
             'RFC' => $this->request->getVar('RFC'),
         ];
         $respuesta = $model->actualizarPropietario($idPropietario,$datos);
-        return redirect()->to(base_url('Atracciones'));
+        echo json_encode(array('respuesta'=>true,'msj'=>'asdasdasd'));
     }
 
     public function create(){

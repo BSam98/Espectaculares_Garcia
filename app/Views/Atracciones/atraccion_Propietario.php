@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="Agregar_Propietario" enctype="multipart/form-data" name="formulario" id="formulario">
+                <form  enctype="multipart/form-data" name="formulario" id="formularioAgregarPropietarioPorAtraccion">
                   <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input class="form-control" type="text"  id="na" name="na[]" placeholder="Nombre"/></td>
@@ -36,7 +36,7 @@
                         <label for="fechan">Fecha de Nacimiento</label>
                         <input class="form-control" type="date"  id="dat" required name="dat[]" placeholder="Fecha de Nacimiento"/></td>
                     </div>
-                    <button class="btn btn-success" typde="submit" id="enlace">Agregar</button><hr>    
+                    <button class="btn btn-success" typde="submit" id="agregarPropietarioPorAtraccion">Agregar</button><hr>    
                 </form>
             </div>
         </div>

@@ -118,7 +118,7 @@ class Atracciones_Model extends Model{
         $builder->where('idAtraccion',$idAtraccion);
         $builder->update($datos);
 
-        return 'Funciono';
+        //return 'Funciono';
     }
 
     public function actualizarPropietario($idPropietario, array $datos){

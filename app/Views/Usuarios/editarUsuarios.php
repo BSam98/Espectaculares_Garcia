@@ -8,7 +8,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST"  action="Usuarios/Editar_Usuario" enctype="multipart/form-data" name="formulario1" id="formulario1">
+                <form  enctype="multipart/form-data" name="formulario1" id="formularioEditarUsuario">
                     <input type="hidden" class="form-control" id = "idUsuario" name = "idUsuario" value="">
                         <div class="form-group">
                             <label for="atraccion">Nombre</label>
@@ -55,7 +55,7 @@
                             </select>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">Actualizar</button>
+                            <button type="submit" class="btn btn-success" id="actualizarUsuario">Actualizar</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                         </div>
                 </form>

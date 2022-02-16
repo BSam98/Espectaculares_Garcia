@@ -1,3 +1,37 @@
+$("#agregarUsuario").click(function(){
+    $.ajax({
+        type: "POST",
+        url: 'Usuarios/Agregar_Usuario',
+        data: $("#formularioAgregarUsuario").serialize(),
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+        success: function (data){              
+            alert(data.msj);
+            if(data.respuesta)
+                location.reload();
+        },
+        dataType: 'JSON'
+    });
+});
+
+$("#actualizarUsuario").click(function(){
+    $.ajax({
+        type: "POST",
+        url: 'Usuarios/Editar_Usuario',
+        data: $("#formularioEditarUsuario").serialize(),
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+        success: function (data){              
+            alert(data.msj);
+            if(data.respuesta)
+                location.reload();
+        },
+        dataType: 'JSON'
+    });
+});
+
 $(document).on('click','.editarUsuario', function(){
                     
     var usuario = $(this).data('book-id');
