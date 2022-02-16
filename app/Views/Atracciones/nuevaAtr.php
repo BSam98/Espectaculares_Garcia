@@ -8,7 +8,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST"  action="Agregar_Atraccion" enctype="multipart/form-data" name="formulario" id="formulario">
+                <form  enctype="multipart/form-data" name="formulario" id="formularioNuevaAtraccion">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input class="form-control" type="text"  id="na" required name="na" placeholder="Nombre"/>
@@ -44,7 +44,7 @@
                         <input class="form-control" type="text"  id="tma" required name="tma" placeholder="Tiempo Máximo"/>
                     </div>
                     <div class="modal-footer">
-                        <button name="adicional" type="submit" class="btn btn-success">Agregar </button>
+                        <button name="adicional" type="submit" class="btn btn-success" id ="enviarAtraccion">Agregar </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                     </div>  
                 </form>

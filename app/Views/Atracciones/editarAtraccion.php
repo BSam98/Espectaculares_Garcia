@@ -8,16 +8,12 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST"  action="Atracciones/Editar_Atraccion" enctype="multipart/form-data" name="formulario" id="formulario">
+                <form  enctype="multipart/form-data" name="formulario" id="formularioEditarAtraccion">
 
                     <input type="hidden" class="form-control" id = "idAtraccion" name = "idAtraccion" value="">
                     <div class="form-group">
                         <label for="atraccion">Atracción</label>
                         <input type="text" class="form-control" id = "Atraccion" name = "Atraccion" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="area">Área</label>
-                        <input type="text"  class="form-control" id = "Area" name = "Area" value="">
                     </div>
                     <div class="form-group">
                         <label for="atraccion">Renta</label>
@@ -48,7 +44,7 @@
                         <input type="text"  class="form-control" id = "TiempoMAX" name = "TiempoMAX" value="">
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Actualizar</button>
+                        <button type="submit" class="btn btn-success" id = "actualizarAtraccion">Actualizar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>

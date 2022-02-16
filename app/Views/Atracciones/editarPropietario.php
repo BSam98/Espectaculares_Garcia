@@ -8,10 +8,9 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST"  action="Atracciones/Editar_Propietario" enctype="multipart/form-data" name="formulario" id="formulario">
-                    <div class="container-fluid">
-                        <input type="hidden" class="form-control" id = "idPropietario" name = "idPropietario" value="">
-                       
+                <form  enctype="multipart/form-data" name="formulario" id="formularioEditarPropietario">
+                    <input type="hidden" class="form-control" id = "idPropietario" name = "idPropietario" value="">
+                        
                         <div class="form-group">
                             <label for="Nombre">Nombre</label>
                             <input type="text" class="form-control" id = "Nombre" name = "Nombre" value="">
@@ -20,7 +19,7 @@
                             <label for="area">Apellido Paterno</label>
                             <input type="text"  class="form-control" id = "ApellidoP" name = "ApellidoP" value="">
                         </div>
-                        <div class="form-group">
+                        <div class="form-groupx">
                             <label for="atraccion">Apellido Materno</label>
                             <input type="text" class="form-control" id = "ApellidoM" name = "ApellidoM" value="">
                         </div>
@@ -40,9 +39,8 @@
                             <label for="area">Fecha de Nacimiento</label>
                             <input type="text"  class="form-control" id = "FechaNacimiento" name = "FechaNacimiento" value="">
                         </div>
-                    </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Actualizar</button>
+                        <button type="submit" class="btn btn-success" id = "actualizarPropietario">Actualizar</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>

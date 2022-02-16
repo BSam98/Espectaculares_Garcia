@@ -123,7 +123,7 @@
                         <label><h2>Agregar Propietario</h2></label>
                         <div class="contenedorTabla1">
                             <!--AGREGAR PROPIETARIO-->                    
-                            <form method="POST" action="Agregar_Propietario" enctype="multipart/form-data" name="formulario" id="formulario">
+                            <form enctype="multipart/form-data" name="formulario" id="formularioAgregarPropietario">
                                     <div class="table table-striped table-responsive">
                                         <table id="tab" class="table table-bordered">
                                             <thead>
@@ -150,7 +150,7 @@
                                         </table>
                                     </div>
                                 <button id="adi" name="adicional" type="button" class="btn btn-warning"> + </button>
-                                <button class="btn btn-success" typde="submit" onClick="">Agregar</button><hr>
+                                <button name="adicional" type="submit" class="btn btn-success" id ="agregarPropietario">Agregar </button>
                             </form>   
                               
                             <div class="table table-striped table-responsive ">
@@ -196,6 +196,7 @@
         <?php 
            include 'editarAtraccion.php' ;
            include 'nuevaAtr.php';
+           include 'editarPropietario.php';
         ?>
     </body>
     <!--/Cuerpo-->
@@ -282,5 +283,4 @@
         "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
     });
     });
-    
 </script>
