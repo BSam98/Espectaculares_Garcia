@@ -42,13 +42,14 @@
                                 <li class="dropdown">
                                     <a href="Menu_Principal_Administrador" Size= "50px" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><!--i class="bi bi-stars"></i--><i class="bi bi-folder-fill"></i>&nbsp;Catalago</a>
                                         <ul class="dropdown-submenu" id="subMenuCatalago">
-                                            <li><a href="Atracciones">Atracciones</a></li>
-                                            <li><a href="Asociados">Asociados</a></li>
-                                            <li><a href="Eventos">Eventos</a></li>
-                                            <li><a href="Usuarios">Usuarios</a></li>
-                                            <li><a href="Promociones">Promociones</a></li>
-                                            <li><a href="Tarjetas">Tarjetas</a></li>
-                                            <li><a href="Clientes">Clientes</a></li>
+                                            <li><a href="Tarjetas" id="button"><span>Tarjetas</span></a></li>
+                                            <li><a href="Atracciones" id="button"><span>Atracciones</span></a></li>
+                                            <li><a href="Tarjetas" id="button"><span>Contratos</span></a></li>
+                                            <li><a href="Eventos" id="button"><span>Eventos</span></a></li>
+                                            <!--li><a href="Asociados">Asociados</a></li-->
+                                            <li><a href="Usuarios" id="button"><span>Usuarios</span></a></li>
+                                            <li><a href="Clientes" id="button"><span>Clientes</span></a></li>
+                                            <li><a href="Promociones" id="button"><span>Promociones</span></a></li>
                                         </ul>  
                                 </li>
                                 <!--Menu Reportes-->
@@ -56,9 +57,9 @@
                                     <a href="" Size= "50px" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-pencil-square"></i>&nbsp;Reportes</a>
                                     <!--Sub menu de Reportes-->
                                         <ul class="dropdown-submenu" id = "subMenuReportes">
-                                            <li><a href="ingreso_Evento.html">Ingresos por evento</a></li>
-                                            <li><a href="registro_Evento.html">Utilización por evento</a></li>
-                                            <li><a href="uso_Atraccion.html">Utilizacion por atracción</a></li>
+                                            <li><a href="ingreso_Evento.html" id="button"><span>Ingresos por evento</span></a></li>
+                                            <li><a href="registro_Evento.html" id="button">Utilización por evento</a></li>
+                                            <li><a href="uso_Atraccion.html" id="button">Utilizacion por atracción</a></li>
                                         </ul>
                                 </li>
                                 <!--Menu Taquilla-->
@@ -124,7 +125,7 @@
                         <div class="contenedorTabla1">
                             <!--AGREGAR PROPIETARIO-->                    
                             <form method="POST" action="Agregar_Propietario" enctype="multipart/form-data" name="formulario" id="formulario">
-                                    <div class="table table-striped table-responsive">
+                                    <div class="table ">
                                         <table id="tab" class="table table-bordered">
                                             <thead>
                                                 <th scope="col" style="vertical-align: middle;">Nombre</th>

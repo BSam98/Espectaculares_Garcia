@@ -75,15 +75,49 @@
         <!--/Contenedor Superior-->
         <!--TABLA PRINCIPAL-->
         <fieldset id="fieldset" style="background-color: white;color:black;"> 
-            <label><h1>Tarjetas</h1></label>
+            <label><h1>Lotes</h1></label>
                     <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Tarjeta</a-->
                     <button class="btn btn-success" id="abrir"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Lote</button>
-                <div class="contenedorTabla">
-                    <br>
+                <div class="contenedorTabla"><br>
                 <!--Tabla-->
-                    <table class="table table-bordered  border-primary" id="searchT">
+                <!--TABLA DE LOTES-->
+                <div class="table table-striped table-responsive">
+                    <table id="searchL" class="table table-bordered">
                         <thead>
-                        <!--Titulos de la tabla-->
+                            <th></th>
+                            <th scope="col" style="vertical-align: middle;">Nombre</th>
+                            <th scope="col" style="vertical-align: middle;">Material</th>
+                            <th scope="col" style="vertical-align: middle;">Cantidad</th>
+                            <th scope="col" style="vertical-align: middle;">Folio Inicial</th>
+                            <th scope="col" style="vertical-align: middle;">Folio Final</th>
+                            <th scope="col" style="vertical-align: middle;">Serial</th>
+                            <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
+                            <th scope="col" style="vertical-align: middle;">Usuario</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td><input type="text" class="form-grup" placeholder="Nombre"></td>
+                                <td><input type="text" class="form-grup" placeholder="Material"></td>
+                                <td><input type="number" class="form-grup" placeholder="Cantidad"></td>
+                                <td><input type="number" class="form-grup" placeholder="Folio Inicial"></td>
+                                <td><input type="number" class="form-grup" placeholder="Folio Final"></td>
+                                <td><input type="number" class="form-grup" placeholder="Serie"></td>
+                                <td><input type="date" class="form-grup" placeholder="Fecha de ingreso"></td>
+                                <td>
+                                    <select class="form-control" type="text" id ="usuario" name ="usuario">
+                                        <option value ="0">Elige una opcion</option>
+                                        <?php foreach ($Usuario as $key => $dU) : ?>
+                                            <option value = "<?= $dU->idUsuario?>"><?= $dU->UsuarioNombre?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                    <!--table class="table table-bordered  border-primary" id="searchT">
+                        <thead>
                             <tr>
                                 <th></th>
                                 <th>Nombre</th>
@@ -103,7 +137,7 @@
                                     <td><a href="" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
                                     <td><?= $dT->Tarjeta ?></td>
                                     <td style="display: block; scroll-behavior: smooth; overflow-y:scroll; width:117px; height:53px"><?= $dT->QR ?></td>
-                                    <!--td><?= $dT->QR ?></td-->
+                                    
                                     <td><?= $dT->Folio ?></td>
                                     <td><?= $dT->FechaActivacion ?></td>
                                     <td><?= $dT->Status ?></td>
@@ -114,8 +148,7 @@
                                 </tr>
                             <?php endforeach ?>    
                         </tbody>
-                    </table>
-                    <!--/Tabla-->
+                    </table-->
                 </div>
 
                 <!--MODAL NUEVA TARJETA-->
@@ -234,41 +267,6 @@
                                     <button id="save" name="save" type="button" class="btn btn-success">Guardar</button>
                                 </form><hr>
 
-                                <!--TABLA DE LOTES-->
-                                <div class="table table-striped table-responsive">
-                                    <table id="searchL" class="table table-bordered"><!--tenia id="tablas"-->
-                                        <thead>
-                                            <th></th>
-                                            <th scope="col" style="vertical-align: middle;">Nombre</th>
-                                            <th scope="col" style="vertical-align: middle;">Material</th>
-                                            <th scope="col" style="vertical-align: middle;">Cantidad</th>
-                                            <th scope="col" style="vertical-align: middle;">Folio Inicial</th>
-                                            <th scope="col" style="vertical-align: middle;">Folio Final</th>
-                                            <th scope="col" style="vertical-align: middle;">Serial</th>
-                                            <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
-                                            <th scope="col" style="vertical-align: middle;">Usuario</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="filas">
-                                                <td></td>
-                                                <td><input type="text" class="form-grup" placeholder="Nombre"></td>
-                                                <td><input type="text" class="form-grup" placeholder="Material"></td>
-                                                <td><input type="number" class="form-grup" placeholder="Cantidad"></td>
-                                                <td><input type="number" class="form-grup" placeholder="Folio Inicial"></td>
-                                                <td><input type="number" class="form-grup" placeholder="Folio Final"></td>
-                                                <td><input type="number" class="form-grup" placeholder="Serie"></td>
-                                                <td><input type="date" class="form-grup" placeholder="Fecha de ingreso"></td>
-                                                <td><select class="form-control" type="text" id ="usuario" name ="usuario">
-                                                    <option value ="0">Elige una opcion</option>
-                                                        <?php foreach ($Usuario as $key => $dU) : ?>
-                                                            <option value = "<?= $dU->idUsuario?>"><?= $dU->UsuarioNombre?></option>
-                                                        <?php endforeach ?>
-                                                </select></td>
-                                                <td class="deletef"><input type="button" value="-"/></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                                 <button id="cerrar" class="btn btn-danger">Cerrar</button>
                             </div>
                     </fieldset>                    

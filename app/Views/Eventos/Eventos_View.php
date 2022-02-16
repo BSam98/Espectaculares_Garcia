@@ -25,11 +25,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     </head>
-
+    <body>
         <!--Contenedor Principal-->
         <div Class = "contenedorPrincipal">
             <!--Contenedor Superior-->
-            
             <div Class = "contenedorSuperior">
                 <div class="container">
                     <nav class="navbar navbar-fixed-top tm_navbar negro" role="navigation">
@@ -40,13 +39,13 @@
                                 <li class="dropdown">
                                     <a href="Menu_Principal_Administrador" Size= "50px" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><!--i class="bi bi-stars"></i--><i class="bi bi-folder-fill"></i>&nbsp;Catalago</a>
                                         <ul class="dropdown-submenu" id="subMenuCatalago">
-                                            <li><a href="Atracciones">Atracciones</a></li>
-                                            <li><a href="Asociados">Asociados</a></li>
-                                            <li><a href="Eventos">Eventos</a></li>
-                                            <li><a href="Usuarios">Usuarios</a></li>
-                                            <li><a href="Promociones">Promociones</a></li>
-                                            <li><a href="Tarjetas">Tarjetas</a></li>
-                                            <li><a href="Clientes">Clientes</a></li>
+                                            <li><a href="Atracciones" id="button"><span>Atracciones</span></a></li>
+                                            <li><a href="Asociados" id="button"><span>Asociados</span></a></li>
+                                            <li><a href="Eventos" id="button"><span>Eventos</span></a></li>
+                                            <li><a href="Usuarios" id="button"><span>Usuarios</span></a></li>
+                                            <li><a href="Promociones" id="button"><span>Promociones</span></a></li>
+                                            <li><a href="Tarjetas" id="button"><span>Tarjetas</span></a></li>
+                                            <li><a href="Clientes" id="button"><span>Clientes</span></a></li>
                                         </ul>  
                                 </li>
                                 <!--Menu Reportes-->
@@ -54,9 +53,9 @@
                                     <a href="" Size= "50px" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-pencil-square"></i>&nbsp;Reportes</a>
                                     <!--Sub menu de Reportes-->
                                         <ul class="dropdown-submenu" id = "subMenuReportes">
-                                            <li><a href="ingreso_Evento.html">Ingresos por evento</a></li>
-                                            <li><a href="registro_Evento.html">Utilización por evento</a></li>
-                                            <li><a href="uso_Atraccion.html">Utilizacion por atracción</a></li>
+                                            <li><a href="ingreso_Evento.html" id="button"><span>Ingresos por evento</span></a></li>
+                                            <li><a href="registro_Evento.html" id="button"><span>Utilización por evento</span></a></li>
+                                            <li><a href="uso_Atraccion.html" id="button"><span>Utilizacion por atracción</span></a></li>
                                         </ul>
                                 </li>
                                 <!--Menu Taquilla-->
@@ -75,7 +74,7 @@
 
             <fieldset id="fieldset">
                 <label><h1>Eventos</h1></label>
-                <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="bi bi-plus-circle"></i>&nbsp; Nuevo Evento</a>
+                <a href="#myModal" type="button" class="btn btn-success" data-toggle="modal"><i class="bi bi-plus-circle"></i>&nbsp; Nuevo Evento</a>
 
                 <div class="contenedorTabla">
                     <br>
@@ -90,155 +89,120 @@
                             <th style="vertical-align: middle;">Estado</th>
                             <th style="vertical-align: middle;">Fecha de inicio</th>
                             <th style="vertical-align: middle;">Fecha de termino</th>
-                            <th style="vertical-align: middle;">Status</th>
+                            <th>Opciones</th>
+                            <!--th style="vertical-align: middle;">Status</th>
                             <th style="vertical-align: middle;">Atracciones</th>
-                            <th style="vertical-align: middle;">Precios</th>
+                            <th-- style="vertical-align: middle;">Precios</th-->
                             
                             <!--/Titutlos de la tabla-->
                         </thead>
                         <tbody>
                             <?php foreach ($Eventos as $key => $dE) : ?>
                                 <tr>
-                                    <td><a href=""><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
-                                    <td><?= $dE->Nombre ?></td>
-                                    <td><?= $dE->Direccion?></td>
-                                    <td><?= $dE->Ciudad?></td>
-                                    <td><?= $dE->Estado?></td>
-                                    <td><?= $dE->FechaInicio?></td>
-                                    <td><?= $dE->FechaFinal?></td>
-                                    <td><button>Abrir</button></td>
-                                    <td><button>Abrir</button></td>
-                                    <td><button>Abrir</button></td>
+                                    <td style="vertical-align: middle;"><a href="#editarEvento" type="button" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
+                                    <td style="vertical-align: middle;"><?= $dE->Nombre ?></td>
+                                    <td style="vertical-align: middle;"><?= $dE->Direccion?></td>
+                                    <td style="vertical-align: middle;"><?= $dE->Ciudad?></td>
+                                    <td style="vertical-align: middle;"><?= $dE->Estado?></td>
+                                    <td style="vertical-align: middle;"><?= $dE->FechaInicio?></td>
+                                    <td style="vertical-align: middle;"><?= $dE->FechaFinal?></td>
+                                    <td style="vertical-align: middle;">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <ul class="circulo">
+                                                        <li><a href="#AgregarL" type="button" data-toggle="modal">Tarjetas</a></li>
+                                                        <li><a href="#Atracciones" type="button" data-toggle="modal">Atracciones</a></li>
+                                                        <li><a href="#Asociados" type="button" data-toggle="modal">Asociados</a></li>
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul class="circulo">
+                                                        <li><a href="#Asociacion" type="button" data-toggle="modal">Asociación</a></li>
+                                                        <li><a href="#Promociones" type="button" data-toggle="modal">Promociones</a></li>
+                                                        <li><a href="#Creditos" type="button" data-toggle="modal">Créditos de Cortesia</a></li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                        
+                                    </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
                     </table>
                     <!--/Tabla-->
                 </div>
-
-                <div class="modal" id="myModal">
-                    <div class="modal-dialog modal-xxl modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Agregar Evento</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre</label>
-                                        <input class="form-control" type="text"  id="na" required placeholder="Nombre"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="direccion">Dirección</label>
-                                        <input class="form-control" type="text"  id="are" required placeholder="Dirección"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="ciudad">Ciudad</label>
-                                        <input class="form-control" type="text"  id="ren" required placeholder="Ciudad"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="estado">Estado</label>
-                                        <input class="form-control" type="text"  id="pro" required placeholder="Estado"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="fechas">Fechas</label>
-
-                                        <div class="container-fluid px-1 px-sm-5 mx-auto">
-                                            <div class="row d-flex justify-content-sm-center px-2">
-                                                <form autocomplete="off">
-                                                    <div class="form-group row"> <input type="text" id="dp1" class="datepicker mr-2" placeholder="Select Date" name="date"><br> 
-                                                    <button type="submit" class="btn btn-success">Agregar</button> </div>
-                                                </form>
-                                            </div>
-                                        </div>
-
-
-                                        <!--input class="form-control" type="date"  id="cma" required placeholder="Fechas"/> 
-                                        <input id="hours" type="time" name="time" value="09:00" />
-                                        <label for="time">To </label>
-                                        <input id="time" type="time" name="time" value="18:00" /-->
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="precios">Precios</label>
-                                        <input class="form-control" type="text"  id="tim" required placeholder="Precio"/>
-                                    </div>
-                                    <div class="table table-striped table-responsive">
-                                        <table id="tabla">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Atracciones</th>
-                                                    <th scope="col">Creditos</th>
-                                                    <th scope="col">Creditos de Cortesia</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="fila-fija">
-                                                    
-                                                <td><input class="form-check-input" type="checkbox"  id="tma" required name="tma[]" placeholder="Atracciones"/></td>
-                                                    <td><input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Creditos"/></td>
-                                                    <td><input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Creditos Cortesia"/></td>
-                                                    <td class="eliminar"><input type="button"   value="-"/></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <button id="adicional" name="adicional" type="button" class="btn btn-warning"> + </button>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button name="adicional" type="button" class="btn btn-success">Agregar </button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </fieldset>
         </div>
         <!--/Contenedor Principal-->
-        <script>
-
-            $(function(){
-                        // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-            $("#adicional").on('click', function(){
-            $("#tabla tbody tr:eq(0)").clone().removeClass('fila-fija').appendTo("#tabla");
-            });
-                // Evento que selecciona la fila y la elimina 
-            $(document).on("click",".eliminar",function(){
-                var parent = $(this).parents().get(0);
-            $(parent).remove();
-            });
-            });
-
-            $(document).ready(function() {
-                $('#example').DataTable( {
-                    "aProcessing": true,//Activamos el procesamiento del datatables
-                    "aServerSide": true,//Paginación y filtrado realizados por el servidor
-                    dom: 'Bfrtip',//Definimos los elementos del control de tabla
-                    buttons: [		          
-                                'copyHtml5',
-                                'excelHtml5',
-                                'csvHtml5',
-                                'pdf'
-                            ],
-                    "bDestroy": true,
-                    "iDisplayLength": 15,//Paginación
-                    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
-                });
-            });
-
-
-            $(document).ready(function(){
-
-                $('.datepicker').datepicker({
-                format: 'dd-mm-yyyy',
-                todayHighlight: true,
-                toggleActive: true
-                });
-
-            });
-        </script>
     </body>
     <!--/Cuerpo-->
-
 </html>
+
+<?php
+    include 'agregar_Evento.php';
+    include 'editar_Eventos.php';
+    include 'agregar_Asociados.php';
+    include 'agregar_Asociacion.php';
+    include 'agregar_Promociones.php';
+    include 'agregar_Atracciones.php';
+    include 'creditos_Cortesia.php';
+    include 'agregar_Lotes.php';
+?>
+    <script>
+        $(function(){
+                    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+            $("#adi").on('click', function(){
+                $("#tablae tbody tr:eq(0)").clone().removeClass('fila-fila').appendTo("#tablae");
+            });
+        // Evento que selecciona la fila y la elimina 
+            $(document).on("click",".elim",function(){
+                var parent = $(this).parents().get(0);
+                $(parent).remove();
+            });
+        });
+
+        $(function(){
+                    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+        $("#adicional").on('click', function(){
+        $("#tabla tbody tr:eq(0)").clone().removeClass('fila-fija').appendTo("#tabla");
+        });
+            // Evento que selecciona la fila y la elimina 
+        $(document).on("click",".eliminar",function(){
+            var parent = $(this).parents().get(0);
+        $(parent).remove();
+        });
+        });
+
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                "aProcessing": true,//Activamos el procesamiento del datatables
+                "aServerSide": true,//Paginación y filtrado realizados por el servidor
+                dom: 'Bfrtip',//Definimos los elementos del control de tabla
+                buttons: [		          
+                            'copyHtml5',
+                            'excelHtml5',
+                            'csvHtml5',
+                            'pdf'
+                        ],
+                "bDestroy": true,
+                "iDisplayLength": 15,//Paginación
+                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+            });
+        });
+
+
+        $(document).ready(function(){
+
+            $('.datepicker').datepicker({
+            format: 'dd-mm-yyyy',
+            todayHighlight: true,
+            toggleActive: true
+            });
+
+        });
+    </script>

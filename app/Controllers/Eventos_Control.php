@@ -22,4 +22,8 @@ class Eventos_Control extends BaseController {
     public function create(){
         return "";
     }
+    /*public function menu(){
+        $estructura=view('Eventos/header').view('Eventos/Eventos_View');
+        return $estructura;
+    }*/
 }

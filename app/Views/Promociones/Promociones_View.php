@@ -72,57 +72,39 @@
                 </div> 
             </div>
             <!--/Contenedor Superior-->
-
+<!--ESTA TABLA ENTRARIA EN UN CICLO PARA HACER UNA TABLA POR PROMOCION-->
             <fieldset id="fieldset">
-                
-                <legend>Dos x Uno</legend>
-
-                <!--input type="search" name="buscarDosxUno" placeholder="Buscar Promocíon Dos x Uno">
-
-                <input type="submit" value="Buscar"-->
-                <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Agregar</a>
-
+                <label><h2>Promocion Dos x Uno</h2></label>
                 <div class="contenedorTabla">
                     <br>
                     <!--Tabla-->
                     <table id="example" class="table table-bordered">
-
                         <thead>
                             <!--Titulos de la tabla-->
                             <tr>
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Calendario</th>
-                                <th>Evento</th>
+                                <th>Calendario</th>
                             </tr>
                             <!--/Titutlos de la tabla-->
-
                             <tbody>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tbody>
-
                         </thead>
-
                     </table>
-                    <!--/Tabla-->
-
                 </div>
-            
             </fieldset>
 
             <fieldset id="fieldset">
                 
                 <legend>Pulsera Magica</legend>
-
-                <!--input type="search" name="buscarPulseraMagica" placeholder="Buscar Promocíon Pulsera Magica">
-
-                <input type="submit" value="Buscar"-->
-
                 
-                <button onClick="">Agregar</button>
-
                 <div class="contenedorTabla">
                     <br>
-                    <!--Tabla-->
                     <table id="example2" class="table table-bordered">
 
                         <thead>
@@ -187,21 +169,10 @@
             </fieldset>
 
             <fieldset id="fieldset">
-                
-                <legend>Creditos de Cortesía</legend>
-
-                <!--input type="search" name="buscarAtraccion" placeholder="Buscar Atracción">
-
-                <input type="submit" value="Buscar"-->
-
-                
-                <button onClick="">Agregar</button>
-
-                <div class="contenedorTabla">
-                    <br>
+                <label><h2>Creditos de Cortesía</h2></label>
+                <div class="contenedorTabla"><br>
                     <!--Tabla-->
                     <table id="example4" class="table table-bordered">
-
                         <thead>
                             <!--Titulos de la tabla-->
                             <tr>
@@ -209,20 +180,18 @@
                                 <th>Precio</th>
                                 <th>Creditos</th>
                                 <th>Eventos</th>
-
                             </tr>
                             <!--/Titutlos de la tabla-->
-
                             <tbody>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tbody>
-
                         </thead>
-
                     </table>
                     <!--/Tabla-->
-
                 </div>
-            
             </fieldset>            
 
 
