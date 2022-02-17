@@ -173,4 +173,25 @@ class Tarjetas_Model extends Model{
         return $datos;
     } 
 
+    public function insertarTarjeta($datos){
+        $numeros =0;
+
+            for($i=$datos['FolioInicial']; $i<=$datos['FolioFinal'];$i++){
+                $i++;
+                $numeros++;
+            }
+   
+
+        return $numeros;
+    }
+
+    public function insertarLote($datos){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Lotes');
+
+        $builder -> insert($datos);
+
+        return 'Funciono';
+    }
+
 }

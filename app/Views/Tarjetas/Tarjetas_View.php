@@ -46,36 +46,66 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Nombre</th>
-                            <th>Codigo QR</th>
-                            <th>Folio</th>
-                            <th>Fecha de Activacíon</th>
-                            <th>Status</th>
-                            <th>Tipo</th>
-                            <th>Cliente</th>
-                            <th>Lote</th>
-                            <th>Evento</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($Tarjeta as $key => $dT) : ?>
+                            <th scope="col" style="vertical-align: middle;">Nombre</th>
+                            <th scope="col" style="vertical-align: middle;">Material</th>
+                            <th scope="col" style="vertical-align: middle;">Cantidad</th>
+                            <th scope="col" style="vertical-align: middle;">Folio Inicial</th>
+                            <th scope="col" style="vertical-align: middle;">Folio Final</th>
+                            <th scope="col" style="vertical-align: middle;">Serial</th>
+                            <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
+                            <th scope="col" style="vertical-align: middle;">Usuario</th>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($Lote as $key => $dL) : ?>
+                                <tr>
+                                    <td><a href="#eLote" class="btn btn-warning editarLote" data-book-id='{"idLote":<?=$dL->idLote?>,"Nombre":"<?=$dL->Nombre?>","Material":<?=$dL->Material?>,"Cantidad":<?=$dL->Cantidad?>,"FolioInicial":<?=$dL->FolioInicial?>,"FolioFinal":<?=$dL->FolioFinal?>,"Serie":"<?=$dL->Serie?>","FechaIngreso":<?=$dL->FechaIngreso?>,"Usuario":"<?=$dL->Usuario?>"}'  data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
+                                    <td><?= $dL->Nombre ?></td>
+                                    <td><?= $dL->Material?></td>
+                                    <td><?= $dL->Cantidad?></td>
+                                    <td><?= $dL->FolioInicial?></td>
+                                    <td><?= $dL->FolioFinal?></td>
+                                    <td><?= $dL->Serie?></td>
+                                    <td><?= $dL->FechaIngreso?></td>
+                                    <td><?= $dL->Usuario?></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+                    <!--table class="table table-bordered  border-primary" id="searchT">
+                        <thead>
                             <tr>
-                                <td><a href="" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
-                                <td><?= $dT->Tarjeta ?></td>
-                                <td style="display: block; scroll-behavior: smooth; overflow-y:scroll; width:117px; height:53px"><?= $dT->QR ?></td>
-                                
-                                <td><?= $dT->Folio ?></td>
-                                <td><?= $dT->FechaActivacion ?></td>
-                                <td><?= $dT->Status ?></td>
-                                <td><?= $dT->Tipo ?></td>
-                                <td><?= $dT->Cliente ?></td>
-                                <td><?= $dT->Lote ?></td>
-                                <td><?= $dT->Ciudad ?></td>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Codigo QR</th>
+                                <th>Folio</th>
+                                <th>Fecha de Activacíon</th>
+                                <th>Status</th>
+                                <th>Tipo</th>
+                                <th>Cliente</th>
+                                <th>Lote</th>
+                                <th>Evento</th>
                             </tr>
-                        <?php endforeach ?>    
-                    </tbody>
-                </table-->
-            </div>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($Tarjeta as $key => $dT) : ?>
+                                <tr>
+                                    <td><a href="" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
+                                    <td><?= $dT->Tarjeta ?></td>
+                                    <td style="display: block; scroll-behavior: smooth; overflow-y:scroll; width:117px; height:53px"><?= $dT->QR ?></td>
+                                    
+                                    <td><?= $dT->Folio ?></td>
+                                    <td><?= $dT->FechaActivacion ?></td>
+                                    <td><?= $dT->Status ?></td>
+                                    <td><?= $dT->Tipo ?></td>
+                                    <td><?= $dT->Cliente ?></td>
+                                    <td><?= $dT->Lote ?></td>
+                                    <td><?= $dT->Ciudad ?></td>
+                                </tr>
+                            <?php endforeach ?>    
+                        </tbody>
+                    </table-->
+                </div>
 
             <!--MODAL NUEVA TARJETA-->
             <div class="modal" id="myModalT"  style="background-image: url('./Img/mainbg.png');color:black;">
@@ -159,7 +189,7 @@
                     <fieldset id="fieldset">
                         <label><h2>Nuevo Lote</h2></label>
                             <div class="contenedorTabla1">
-                                <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
+                                <form enctype="multipart/form-data" name="formulario" id="formularioAgregarLote">
                                     <div class="table table-striped table-responsive">
                                     <!--Tabla AGREGAR LOTES-->
                                         <table class="table table-bordered" id="agregar">
@@ -176,21 +206,21 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="filas">
-                                                    <td><input type="text" class="form-grup" placeholder="Nombre"></td>
-                                                    <td><input type="text" class="form-grup" placeholder="Material"></td>
-                                                    <td><input type="number" class="form-grup" placeholder="Cantidad"></td>
-                                                    <td><input type="number" class="form-grup" placeholder="Folio inicial"></td>
-                                                    <td><input type="number" class="form-grup" placeholder="Folio final"></td>
-                                                    <td><input type="number" class="form-grup" placeholder="Serial"></td>
-                                                    <td><input type="date" class="form-grup" placeholder="Fecha de Ingreso"></td>
-                                                    <td><input type="text" class="form-grup" placeholder="Usuario"></td>
+                                                    <td><input type="text" class="form-grup" id = "Nombre" name = "Nombre" placeholder="Nombre"></td>
+                                                    <td><input type="text" class="form-grup" id = "Material" name = "Material" placeholder="Material"></td>
+                                                    <td><input type="number" class="form-grup" id = "Cantidad" name = "Cantidad" placeholder="Cantidad"></td>
+                                                    <td><input type="number" class="form-grup" id = "FolioInicial" name = "FolioInicial" placeholder="Folio inicial"></td>
+                                                    <td><input type="number" class="form-grup" id = "FolioFinal" name = "FolioFinal" placeholder="Folio final"></td>
+                                                    <td><input type="number" class="form-grup" id = "Serie" name = "Serie" placeholder="Serie"></td>
+                                                    <td><input type="date" class="form-grup" id = "FechaIngreso" name = "FechaIngreso" placeholder="Fecha de Ingreso"></td>
+                                                    <td><input type="text" class="form-grup" id = "Usuario" name = "Usuario" placeholder="Usuario"></td>
                                                     <td class="deletef"><input type="button" value="-"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <button id="addf" name="adicional" type="button" class="btn btn-warning"> + </button>
-                                    <button id="save" name="save" type="button" class="btn btn-success">Guardar</button>
+                                    <button  name="save" type="submit" class="btn btn-success" id = "agregarLote">Guardar</button>
                                 </form><hr>
 
                                 <button id="cerrar" class="btn btn-danger">Cerrar</button>
