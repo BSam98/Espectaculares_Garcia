@@ -16,14 +16,15 @@ class Eventos_Control extends BaseController {
             'Eventos' => $model->listadoEventos(),
             'AtraccionesEvento' => $model->listado_Atracciones_Por_Evento()
         ];
-        return view ('Eventos/Eventos_View', $datos);
+
+        echo view('../Views/header');
+        echo view('../Views/menu');
+        echo view ('Eventos/Eventos_View', $datos);
+        echo view('../Views/piePagina');
     }
 
     public function create(){
         return "";
     }
-    /*public function menu(){
-        $estructura=view('Eventos/header').view('Eventos/Eventos_View');
-        return $estructura;
-    }*/
+
 }

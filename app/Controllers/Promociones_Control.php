@@ -2,7 +2,10 @@
 
 class Promociones_Control extends BaseController {
     public function new (){
-        return view ('Promociones/Promociones_View');
+        echo view('../Views/header');
+        echo view('../Views/menu');
+        echo view ('Promociones/Promociones_View');
+        echo view('../Views/piePagina');
     }
 
     public function create(){

@@ -2,7 +2,10 @@
 
 class Menu_Principal_Control extends BaseController {
     public function new (){
-        return view('Menu_Principal_Administrador/Menu_Principal_View.php');
+        echo view('../Views/header');
+        echo view('../Views/menu');
+        echo view('Menu_Principal_Administrador/Menu_Principal_View.php');
+        echo view('../Views/piePagina');
     }
 
     public function create (){
