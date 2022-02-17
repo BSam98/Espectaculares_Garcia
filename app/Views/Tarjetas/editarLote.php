@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group">
                             <label for="area">Usuario</label>
-                            <select class="form-control" type="text" name="" id="">
+                            <select class="form-control" type="text" name="Usuario" id="Usuario">
                                 <?php foreach ($Usuario as $key => $dU) : ?>
                                     <option  value="<?=$dU->idUsuario?>"><?= $dU->UsuarioNombre?></option>
                                 <?php endforeach ?>

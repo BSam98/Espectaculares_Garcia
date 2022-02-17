@@ -95,24 +95,19 @@
                             <th scope="col" style="vertical-align: middle;">Usuario</th>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td><input type="text" class="form-grup" placeholder="Nombre"></td>
-                                <td><input type="text" class="form-grup" placeholder="Material"></td>
-                                <td><input type="number" class="form-grup" placeholder="Cantidad"></td>
-                                <td><input type="number" class="form-grup" placeholder="Folio Inicial"></td>
-                                <td><input type="number" class="form-grup" placeholder="Folio Final"></td>
-                                <td><input type="number" class="form-grup" placeholder="Serie"></td>
-                                <td><input type="date" class="form-grup" placeholder="Fecha de ingreso"></td>
-                                <td>
-                                    <select class="form-control" type="text" id ="usuario" name ="usuario">
-                                        <option value ="0">Elige una opcion</option>
-                                        <?php foreach ($Usuario as $key => $dU) : ?>
-                                            <option value = "<?= $dU->idUsuario?>"><?= $dU->UsuarioNombre?></option>
-                                        <?php endforeach ?>
-                                    </select>
-                                </td>
-                            </tr>
+                            <?php foreach ($Lote as $key => $dL) : ?>
+                                <tr>
+                                    <td><a href="#eLote" class="btn btn-warning editarLote" data-book-id='{"idLote":<?=$dL->idLote?>,"Nombre":"<?=$dL->Nombre?>","Material":<?=$dL->Material?>,"Cantidad":<?=$dL->Cantidad?>,"FolioInicial":<?=$dL->FolioInicial?>,"FolioFinal":<?=$dL->FolioFinal?>,"Serie":"<?=$dL->Serie?>","FechaIngreso":<?=$dL->FechaIngreso?>,"Usuario":"<?=$dL->Usuario?>"}'  data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
+                                    <td><?= $dL->Nombre ?></td>
+                                    <td><?= $dL->Material?></td>
+                                    <td><?= $dL->Cantidad?></td>
+                                    <td><?= $dL->FolioInicial?></td>
+                                    <td><?= $dL->FolioFinal?></td>
+                                    <td><?= $dL->Serie?></td>
+                                    <td><?= $dL->FechaIngreso?></td>
+                                    <td><?= $dL->Usuario?></td>
+                                </tr>
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>
@@ -233,7 +228,7 @@
                     <fieldset id="fieldset">
                         <label><h2>Nuevo Lote</h2></label>
                             <div class="contenedorTabla1">
-                                <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
+                                <form enctype="multipart/form-data" name="formulario" id="formularioAgregarLote">
                                     <div class="table table-striped table-responsive">
                                     <!--Tabla AGREGAR LOTES-->
                                         <table class="table table-bordered" id="agregar">
@@ -250,21 +245,21 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="filas">
-                                                    <td><input type="text" class="form-grup" placeholder="Nombre"></td>
-                                                    <td><input type="text" class="form-grup" placeholder="Material"></td>
-                                                    <td><input type="number" class="form-grup" placeholder="Cantidad"></td>
-                                                    <td><input type="number" class="form-grup" placeholder="Folio inicial"></td>
-                                                    <td><input type="number" class="form-grup" placeholder="Folio final"></td>
-                                                    <td><input type="number" class="form-grup" placeholder="Serial"></td>
-                                                    <td><input type="date" class="form-grup" placeholder="Fecha de Ingreso"></td>
-                                                    <td><input type="text" class="form-grup" placeholder="Usuario"></td>
+                                                    <td><input type="text" class="form-grup" id = "Nombre" name = "Nombre" placeholder="Nombre"></td>
+                                                    <td><input type="text" class="form-grup" id = "Material" name = "Material" placeholder="Material"></td>
+                                                    <td><input type="number" class="form-grup" id = "Cantidad" name = "Cantidad" placeholder="Cantidad"></td>
+                                                    <td><input type="number" class="form-grup" id = "FolioInicial" name = "FolioInicial" placeholder="Folio inicial"></td>
+                                                    <td><input type="number" class="form-grup" id = "FolioFinal" name = "FolioFinal" placeholder="Folio final"></td>
+                                                    <td><input type="number" class="form-grup" id = "Serie" name = "Serie" placeholder="Serie"></td>
+                                                    <td><input type="date" class="form-grup" id = "FechaIngreso" name = "FechaIngreso" placeholder="Fecha de Ingreso"></td>
+                                                    <td><input type="text" class="form-grup" id = "Usuario" name = "Usuario" placeholder="Usuario"></td>
                                                     <td class="deletef"><input type="button" value="-"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <button id="addf" name="adicional" type="button" class="btn btn-warning"> + </button>
-                                    <button id="save" name="save" type="button" class="btn btn-success">Guardar</button>
+                                    <button  name="save" type="submit" class="btn btn-success" id = "agregarLote">Guardar</button>
                                 </form><hr>
 
                                 <button id="cerrar" class="btn btn-danger">Cerrar</button>
