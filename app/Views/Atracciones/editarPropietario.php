@@ -1,4 +1,4 @@
-<div class="modal fade" id="ePropietario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="ePropietario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="color:black;">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
         <!-- Modal Header -->
