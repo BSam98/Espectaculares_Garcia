@@ -25,4 +25,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     </head>
-<body>
+    <body>
+        <!--Contenedor Principal-->
+        <div Class = "contenedorPrincipal" style="background-image: url('./Img/mainbg.png');">

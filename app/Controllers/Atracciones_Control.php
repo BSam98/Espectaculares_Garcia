@@ -21,8 +21,9 @@ class Atracciones_Control extends BaseController {
             'Atraccion' => $model->listadoAtracciones(),
             'Propietario' => $model->listadoPropietartios()
         ];
-
+        
         return view ('Atracciones/Atracciones_View', $datos);
+        
     }
     public function new (){
         $model = new Atracciones_Model();
@@ -32,8 +33,10 @@ class Atracciones_Control extends BaseController {
             'Atraccion' => $model->listadoAtracciones(),
             'Propietario' => $model->listadoPropietartios()
         ];
-
-        return view ('Atracciones/Atracciones_View', $datos);
+        echo view('../Views/header');
+        echo view('../Views/menu');
+        echo view ('Atracciones/Atracciones_View', $datos);
+        echo view('../Views/piePagina');
     }
 
     public function insertarAtraccion (){
@@ -149,7 +152,5 @@ class Atracciones_Control extends BaseController {
     public function create(){
         return "";
     }
-     /*public function menu(){
-        return view ('menu').view('Atracciones/Atracciones_View');
-    }*/
+
 }

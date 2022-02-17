@@ -19,8 +19,10 @@ class Tarjetas_Control extends BaseController {
             'Evento' => $model->listadoEvento(),
             'Usuario' => $model->listadoUsuarios(),
         ];
-
-        return view ('Tarjetas/Tarjetas_View',$datos);
+        echo view('../Views/header');
+        echo view('../Views/menu');
+        echo view ('Tarjetas/Tarjetas_View',$datos);
+        echo view('../Views/piePagina');
     }
 
     public function actualizarLote(){}

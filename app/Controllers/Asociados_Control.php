@@ -14,8 +14,10 @@ class Asociados_Control extends BaseController {
             'Asociacion'=>$model->listadoAsociacion(),
             'Asociados' => $model->listadoAsociados()
         ];
-
-        return view ('Asociados/Asociados_View',$datos);
+        echo view('../Views/header');
+        echo view('../Views/menu');
+        echo view ('Asociados/Asociados_View',$datos);
+        echo view('../Views/piePagina');
     }
 
     public function create(){

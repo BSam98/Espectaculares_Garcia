@@ -1,6 +1,5 @@
-</div>
+        </div>
         <!--/Contenedor Principal-->
-</body>
+    </body>
     <!--/Cuerpo-->
-
 </html>

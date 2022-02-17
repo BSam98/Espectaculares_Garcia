@@ -15,8 +15,10 @@ class Clientes_Control extends BaseController {
         $datos = [
             'Cliente' => $model ->listadoClientes()
         ];
-
-        return view ('Clientes/Clientes_View',$datos);
+        echo view('../Views/header');
+        echo view('../Views/menu');
+        echo view ('Clientes/Clientes_View',$datos);
+        echo view('../Views/piePagina');
     }
 
     public function create(){

@@ -19,8 +19,10 @@ class Usuarios_Control extends BaseController {
             'Rango' =>$model->listadoRango(),
             'Evento' =>$model->listadoEventos(),
         ];
-
-        return view ('Usuarios/Usuarios_View', $datos);
+        echo view('../Views/header');
+        echo view('../Views/menu');
+        echo view ('Usuarios/Usuarios_View', $datos);
+        echo view('../Views/piePagina');
     }
 
     public function agregarUsuarios(){
