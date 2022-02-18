@@ -211,7 +211,7 @@
 
 .contenedorPrincipal{
 	background-image: url('./Img/mainbg.png');
-	color:white;
+	color:black;
     display: flex;
     flex-direction: column;
 }
@@ -257,11 +257,13 @@ ul.circulo {list-style-type: circle;}
 	opacity: 1;
 	right: 0;
   }
+
+  #tituloTabla{
+	background-image: linear-gradient(#A569BD, white); 
+	border:2px solid #2980B9;
+  }
+
 /**************************CODIGO  ORIGINAL**************************************/
-
-
-
-
 
 
 

@@ -6,50 +6,46 @@
                 <div class="contenedorTabla">
                     <br>
                     <!--Tabla-->
-                    <table id="example" class="table table-bordered">
+                    <table id="example" class="table table-striped table-bordered">
                         <thead>
-                            <!--Titulos de la tabla-->
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Calendario</th>
-                                <th>Calendario</th>
-                            </tr>
-                            <!--/Titutlos de la tabla-->
-                            <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tbody>
+                        <!--Titulos de la tabla-->
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Calendario</th>
+                            <th>Calendario</th>
+                        <!--/Titutlos de la tabla-->
                         </thead>
+                        <tbody>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tbody>
                     </table>
                 </div>
             </fieldset>
 
             <fieldset id="fieldset">
                 
-                <legend>Pulsera Magica</legend>
+                <label><h2>Pulsera Mágica</h2></label>
                 
                 <div class="contenedorTabla">
                     <br>
                     <table id="example2" class="table table-bordered">
-
                         <thead>
-                            <!--Titulos de la tabla-->
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Calendario</th>
-                                <th>Evento</th>
-                            </tr>
-                            <!--/Titutlos de la tabla-->
-
-                            <tbody>
-                            </tbody>
-
+                        <!--Titulos de la tabla-->
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Calendario</th>
+                            <th>Evento</th>
+                        <!--/Titutlos de la tabla-->
                         </thead>
-
+                        <tbody>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tbody>
                     </table>
                     <!--/Tabla-->
 
@@ -59,41 +55,28 @@
 
             <fieldset id="fieldset">
                 
-                <legend>Juegos Gratis</legend>
-
-                <!--input type="search" name="buscarJuegosGratis" placeholder="Buscar Promocíon Juegos Gratis">
-
-                <input type="submit" value="Buscar"-->
-
-                
-                <button onClick="">Agregar</button>
-
+                <label><h2>Juegos Grátis</h2></label>
                 <div class="contenedorTabla">
                     <br>
                     <!--Tabla-->
                     <table id="example3" class="table table-bordered">
-
                         <thead>
-                            <!--Titulos de la tabla-->
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Calendario</th>
-                                <th>Evento</th>
-
-                            </tr>
-                            <!--/Titutlos de la tabla-->
-
-                            <tbody>
-                            </tbody>
-
+                        <!--Titulos de la tabla-->
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Calendario</th>
+                            <th>Evento</th>
                         </thead>
-
+                        <!--/Titutlos de la tabla-->
+                        <tbody>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tbody>
                     </table>
                     <!--/Tabla-->
-
                 </div>
-            
             </fieldset>
 
             <fieldset id="fieldset">
@@ -102,13 +85,12 @@
                     <!--Tabla-->
                     <table id="example4" class="table table-bordered">
                         <thead>
-                            <!--Titulos de la tabla-->
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Creditos</th>
-                                <th>Eventos</th>
-                            </tr>
+                        <!--Titulos de la tabla-->
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Creditos</th>
+                            <th>Eventos</th>
+                        </thead>
                             <!--/Titutlos de la tabla-->
                             <tbody>
                                 <td></td>
@@ -116,7 +98,6 @@
                                 <td></td>
                                 <td></td>
                             </tbody>
-                        </thead>
                     </table>
                     <!--/Tabla-->
                 </div>

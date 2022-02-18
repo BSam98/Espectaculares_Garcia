@@ -7,7 +7,7 @@
             <br>
             <!--Tabla-->
             <table id="example" class="table table-bordered">
-                <thead style="background-image: linear-gradient(#A569BD, white); border:2px solid #2980B9; ">
+                <thead id="tituloTabla">
                     <!--Titulos de la tabla-->
                     <th style="vertical-align: middle;"></th>
                     <th style="vertical-align: middle;">Nombre</th>

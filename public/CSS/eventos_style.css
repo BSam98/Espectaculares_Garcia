@@ -104,12 +104,6 @@ thead tr:nth-child(3) th {
     background-color: #eee
 }
 
-.active {
-    border-radius: 50% !important;
-    background-image: linear-gradient(#90CAF9, #64B5F6) !important;
-    color: #fff !important
-}
-
 .prev,
 .next,
 .datepicker-switch {

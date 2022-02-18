@@ -1,10 +1,9 @@
+
 var btnAbrirPopup = document.getElementById('abrir'),
     btnCerrarPopup = document.getElementById('cerrar'),
     btnEditarPopup = document.getElementById(''),
     contenedorOculto = document.getElementById('contenedorOculto'),
     contenedorTablaPropietario = document.getElementById('contenedorTablaPropietario');
-
-
 
 btnAbrirPopup.addEventListener('click',function(){
     contenedorOculto.classList.add('active');
@@ -127,6 +126,22 @@ $("#actualizarPropietario").click(function(){
         },
         dataType: 'JSON'
     });
+});
+
+
+$("#editarPropietario").click(function(){
+    var propietario = $(this).data('book-id');
+
+
+    console.log(propietario);
+    $(".modal-body #idPropietario").val(propietario['idPropietario']);
+   $(".modal-body #Nombre").val(propietario['Nombre']);
+   $(".modal-body #ApellidoP").val(propietario['ApellidoP']);
+   $(".modal-body #ApellidoM").val(propietario['ApellidoM']);
+   $(".modal-body #Direccion").val(propietario['Direccion']);
+   $(".modal-body #Telefono").val(propietario['Telefono']);
+   $(".modal-body #RFC").val(propietario['RFC']);
+   $(".modal-body #FechaNacimiento").val(propietario['FechaNacimiento']);
 });
 
 $(document).on('click','.editarAtraccion', function(){

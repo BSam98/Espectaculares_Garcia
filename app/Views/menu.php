@@ -10,13 +10,13 @@
                         <a href="Menu_Principal_Administrador" Size= "50px" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><!--i class="bi bi-stars"></i--><i class="bi bi-folder-fill"></i>&nbsp;Catalago</a>
                             <ul class="dropdown-submenu" id="subMenuCatalago">
                                 <li><a href="Atracciones" id="button"><span>Atracciones</span></a></li>
-                                <li><a href="Asociados" id="button"><span>Asociados</span></a></li>
+                                <li><a href="Tarjetas" id="button"><span>Lotes</span></a></li>
+                                <!--li><a href="Asociados" id="button"><span>Asociados</span></a></li-->
                                 <li><a href="Eventos" id="button"><span>Eventos</span></a></li>
-                                <li><a href="Usuarios" id="button"><span>Usuarios</span></a></li>
                                 <li><a href="Promociones" id="button"><span>Promociones</span></a></li>
-                                <li><a href="Tarjetas" id="button"><span>Tarjetas</span></a></li>
+                                <li><a href="Usuarios" id="button"><span>Usuarios</span></a></li>
                                 <li><a href="Clientes" id="button"><span>Clientes</span></a></li>
-                                <li><a href="Atracciones" id="button"><span>Contratos y Polizas</span></a></li>
+                                <!--li><a href="Contratos" id="button"><span>Contratos y Polizas</span></a></li-->
                             </ul>  
                     </li>
                     <!--Menu Reportes-->

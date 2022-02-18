@@ -3,6 +3,7 @@
         <!--Ventana de la atracción--> 
         <label><h1>Atracciones</h1></label>
             <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="bi bi-plus-circle"></i>&nbsp;Nueva Atracción</a>
+            <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarPropi"><i class="bi bi-plus-circle"></i>&nbsp;Nueva Atracción</a-->
             <button class="btn btn-success" id="abrir"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Propietario</button><br>
             <div class="contenedorTabla"><br>
                 <!--Tabla-->
@@ -34,11 +35,11 @@
                 </table>
             </div>
     </fieldset><!--/Ventana de la atracción-->
-
     <!--Contenedor del propietario-->
-    <div class = "contenedorOculto" id = "contenedorOculto" style="color:black;">
+    <div class = "contenedorOculto" id ="contenedorOculto" style="color:black;">
         <div class="contenedorTablaPropietario" id = "contenedorTablaPropietario" style="color:black;">
             <a href ="#" id="btn-cerrar-popup" class ="btn-cerrar-popup"></a>
+            <button type="button" class="close" data-dismiss="modal" onclick="cerrar">&times;</button>
             <!--Ventana del propietario-->
             <fieldset id="fieldset">
                 <label><h2>Agregar Propietario</h2></label>

@@ -2,8 +2,9 @@
     <!--TABLA PRINCIPAL-->
     <fieldset id="fieldset" style="background-color: white;color:black;"> 
         <label><h1>Lotes</h1></label>
-                <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Tarjeta</a-->
-                <button class="btn btn-success" id="abrir"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Lote</button>
+            <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Tarjeta</a-->
+            <a href="#agregarL" type="button" class="btn btn-success" data-toggle="modal"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Lote</a>
+                <!--button class="btn btn-success" id="abrir"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Lote</button-->
             <div class="contenedorTabla"><br>
             <!--Tabla-->
             <!--TABLA DE LOTES-->
@@ -18,26 +19,21 @@
                         <th scope="col" style="vertical-align: middle;">Folio Final</th>
                         <th scope="col" style="vertical-align: middle;">Serial</th>
                         <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
+                        <th scope="col" style="vertical-align: middle;">Tarjetas</th>
                         <th scope="col" style="vertical-align: middle;">Usuario</th>
                     </thead>
                     <tbody>
                         <tr>
                             <td></td>
-                            <td><input type="text" class="form-grup" placeholder="Nombre"></td>
-                            <td><input type="text" class="form-grup" placeholder="Material"></td>
-                            <td><input type="number" class="form-grup" placeholder="Cantidad"></td>
-                            <td><input type="number" class="form-grup" placeholder="Folio Inicial"></td>
-                            <td><input type="number" class="form-grup" placeholder="Folio Final"></td>
-                            <td><input type="number" class="form-grup" placeholder="Serie"></td>
-                            <td><input type="date" class="form-grup" placeholder="Fecha de ingreso"></td>
-                            <td>
-                                <select class="form-control" type="text" id ="usuario" name ="usuario">
-                                    <option value ="0">Elige una opcion</option>
-                                    <?php foreach ($Usuario as $key => $dU) : ?>
-                                        <option value = "<?= $dU->idUsuario?>"><?= $dU->UsuarioNombre?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><a href="" class="btn btn-success" data-toggle="modal" data-target="#verTarjetas">Ver Tarjetas</a></button></td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
@@ -72,7 +68,7 @@
                         </tbody>
                     </table>
                 </div>
-                    <!--table class="table table-bordered  border-primary" id="searchT">
+                    <table class="table table-bordered  border-primary" id="searchT">
                         <thead>
                             <tr>
                                 <th></th>
@@ -181,55 +177,6 @@
             </div>
     </fieldset>
 
-        <!--Contenedor del Lote-->
-        <div class = "contenedorOculto" id = "contenedorOculto" style="background-image: url('./Img/mainbg.png'); color:black;">
-            <div class="contenedorTablaLote" id = "contenedorTablaLote" style="background-image: url('./Img/mainbg.png'); color:black;">
-                <a href ="#" id="btn-cerrar-popup" class ="btn-cerrar-popup"></a>
-                <!--Ventana del lote-->
-                    <fieldset id="fieldset">
-                        <label><h2>Nuevo Lote</h2></label>
-                            <div class="contenedorTabla1">
-                                <form enctype="multipart/form-data" name="formulario" id="formularioAgregarLote">
-                                    <div class="table table-striped table-responsive">
-                                    <!--Tabla AGREGAR LOTES-->
-                                        <table class="table table-bordered" id="agregar">
-                                            <thead>
-                                            <!--Titulos de la tabla-->
-                                                <th scope="col" style="vertical-align: middle;">Nombre</th>
-                                                <th scope="col" style="vertical-align: middle;">Material</th>
-                                                <th scope="col" style="vertical-align: middle;">Cantidad</th>
-                                                <th scope="col" style="vertical-align: middle;">Folio Inicial</th>
-                                                <th scope="col" style="vertical-align: middle;">FolioFinal</th>
-                                                <th scope="col" style="vertical-align: middle;">Serial</th>
-                                                <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
-                                                <th scope="col" style="vertical-align: middle;">Usuario</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="filas">
-                                                    <td><input type="text" class="form-grup" id = "Nombre" name = "Nombre" placeholder="Nombre"></td>
-                                                    <td><input type="text" class="form-grup" id = "Material" name = "Material" placeholder="Material"></td>
-                                                    <td><input type="number" class="form-grup" id = "Cantidad" name = "Cantidad" placeholder="Cantidad"></td>
-                                                    <td><input type="number" class="form-grup" id = "FolioInicial" name = "FolioInicial" placeholder="Folio inicial"></td>
-                                                    <td><input type="number" class="form-grup" id = "FolioFinal" name = "FolioFinal" placeholder="Folio final"></td>
-                                                    <td><input type="number" class="form-grup" id = "Serie" name = "Serie" placeholder="Serie"></td>
-                                                    <td><input type="date" class="form-grup" id = "FechaIngreso" name = "FechaIngreso" placeholder="Fecha de Ingreso"></td>
-                                                    <td><input type="text" class="form-grup" id = "Usuario" name = "Usuario" placeholder="Usuario"></td>
-                                                    <td class="deletef"><input type="button" value="-"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <button id="addf" name="adicional" type="button" class="btn btn-warning"> + </button>
-                                    <button  name="save" type="submit" class="btn btn-success" id = "agregarLote">Guardar</button>
-                                </form><hr>
-
-                                <button id="cerrar" class="btn btn-danger">Cerrar</button>
-                            </div>
-                    </fieldset>                    
-            </div>
-        </div>
-        <!--/Contenedor del Lote-->
-
 <script src="JS/tarjetas.js"></script>
     <script>
         $(function(){
@@ -290,5 +237,9 @@
             });
         });
     </script>
-    <?php include('editarLote.php')?>
-    <?php include('editarTarjetas.php')?>
+    <?php 
+        include 'editarLote.php';
+        include 'editarTarjetas.php';
+        include 'agregar_Lotes.php';
+        include 'ver_Tarjetas.php';
+    ?>
