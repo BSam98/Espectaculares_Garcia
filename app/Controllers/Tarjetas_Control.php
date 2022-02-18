@@ -14,7 +14,7 @@ class Tarjetas_Control extends BaseController {
         $model = new Tarjetas_Model();
 
         $datos = [
-            'Tarjeta' => $model->listadoTarjetas(),
+            //'Tarjeta' => $model->listadoTarjetas(),
             'Lote' => $model->listadoLotes(),
             'Evento' => $model->listadoEvento(),
             'Usuario' => $model->listadoUsuarios(),
@@ -23,6 +23,17 @@ class Tarjetas_Control extends BaseController {
         echo view('../Views/menu');
         echo view ('Tarjetas/Tarjetas_View',$datos);
         echo view('../Views/piePagina');
+    }
+
+    public function listadoTarjetas(){
+        $model = new Tarjetas_Model();
+
+        $datos=[
+            'idLote' => $this->request->getVar('idLote')
+        ];
+
+        $respuesta = $model->listadoTarjetas($datos);
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
     }
 
     public function insertarTarjeta(){}

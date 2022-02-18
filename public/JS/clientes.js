@@ -9,7 +9,6 @@ $(document).on('click','.mostrarTarjetasAsociadas', function(){
         dataType: 'JSON'
     }).done(function(data){
         alert(data.msj[0]['Nombre']);
-        $(".modal-body #cantidad").val(data.msj.length);
 
         var html ='';
         for(var i = 0;i<data.msj.length; i++){

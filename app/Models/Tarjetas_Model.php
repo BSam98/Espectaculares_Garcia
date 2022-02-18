@@ -9,7 +9,7 @@ class Tarjetas_Model extends Model{
 
     public function  _construct(){}
 
-    public function listadoTarjetas(){
+    public function listadoTarjetas($datos){
         $db = \Config\Database::connect();
         $builder = $db->table('Tarjetas');
 
@@ -21,11 +21,7 @@ class Tarjetas_Model extends Model{
             Tarjetas.FechaActivacion,
             Tarjetas.Status,
             Tarjetas.Tipo,
-            Clientes.idCliente,
             Clientes.Nombre AS Cliente,
-            Lotes.idLote,
-            Lotes.Nombre AS Lote,
-            Eventos.idEvento,
             Eventos.Ciudad,
             Tarjetas.Folio
             '
@@ -48,6 +44,8 @@ class Tarjetas_Model extends Model{
             'Eventos.idEvento = Tarjetas.idEvento',
             'inner'
         );
+
+        $builder->where('Tarjetas.idLote',$datos['idLote']);
 
         $query = $builder->get();
      
