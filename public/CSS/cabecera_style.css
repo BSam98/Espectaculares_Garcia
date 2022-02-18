@@ -211,7 +211,7 @@
 
 .contenedorPrincipal{
 	background-image: url('./Img/mainbg.png');
-	color:white;
+	color:black;
     display: flex;
     flex-direction: column;
 }

@@ -34,7 +34,8 @@
                                     <td><?= $dC->Ciudad?></td>
                                     <td><?= $dC->Estado?></td>
                                     <td><?= $dC->FechaNacimiento?></td>
-                                    <td><a href="#tarjetas_Aso" class="btn btn-warning editar" data-toggle="modal">Abrir</a></td>
+                                    <!--<td><a href="#tarjetas_Aso" class="btn btn-warning mostrarTarjetasAsociadas" data-toggle="modal" data-book-id='{"idCliente":<?= $dC->idCliente?>}' >Abrir</a></td>-->
+                                    <td><a href="#tarjetas_Aso" class="btn btn-warning mostrarTarjetasAsociadas" data-toggle="modal" data-book-id='{"idCliente":<?= $dC->idCliente?>}' >Abrir</a></td>
                                     <td><a href="#historial_Tarjetas" class="btn btn-warning editar" data-toggle="modal">Abrir</a></td>
                                 </tr>
                             <?php endforeach ?>
@@ -125,7 +126,7 @@
             include 'tarjetas_Asociadas.php';
             include 'historial.php';
         ?>
-
+    <script src = "JS/clientes.js"></script>
 <script>
     $(function(){
             $("#agre").on('click', function(){
