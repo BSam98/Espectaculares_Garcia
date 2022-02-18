@@ -29,7 +29,6 @@ $("#agregarLote").click(function(){
 
 $(document).on('click','.mostrarTarjetasLote', function(){
     var idLote = $(this).data('book-id');
-    alert(idLote);
     $.ajax({
         type: "POST",
         url: 'Tarjetas/Tarjetas',
@@ -40,7 +39,6 @@ $(document).on('click','.mostrarTarjetasLote', function(){
         var html ='';
         for(var i = 0;i<data.msj.length; i++){
 
-            alert(data.msj[i]['Tarjeta']);
             
             html += '<tr>'+
             '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
