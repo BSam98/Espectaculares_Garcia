@@ -14,7 +14,13 @@
                                 <tr class="Prom">
                                     <td-->
                                         <div class="form-group">
-                                            <label for="promocion">Nombre de la Promoción</label>
+                                            <label for="promocion">Elige el tipo de Promoción</label>
+                                            <select name="promo" id="promo" class="form-control">
+                                                <option value="1">Dos x Uno</option>
+                                                <option value="2">Juegos Grátis</option>
+                                                <option value="3">Pulcera Mágica</option>
+                                            </select><br>
+                                            <label for="nombreP">Nombre de la Promoción</label>
                                             <input type="text" name="promo" id="promo" class="form-control" placeholder="Nombre de la Promocion">
                                         </div>
                                         <div class="form-group">

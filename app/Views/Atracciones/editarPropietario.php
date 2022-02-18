@@ -1,6 +1,6 @@
 <div class="modal fade" id="ePropietario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <div class="modal-content">
+        <div class="modal-content" >
         <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Editar Propietario</h4>

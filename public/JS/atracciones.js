@@ -1,18 +1,20 @@
-var btnAbrirPopup = document.getElementById('abrir'),
-    btnCerrarPopup = document.getElementById('cerrar'),
-    btnEditarPopup = document.getElementById(''),
-    contenedorOculto = document.getElementById('contenedorOculto'),
-    contenedorTablaPropietario = document.getElementById('contenedorTablaPropietario');
 
 
 
-btnAbrirPopup.addEventListener('click',function(){
-    contenedorOculto.classList.add('active');
-});
+    function mostrar() {
+        div = document.getElementById('contenedorOculto');
+        div.style.display = '';
+        prin = document.getElementById('principal');
+        prin.style.display = 'none';
+    }
 
-btnCerrarPopup.addEventListener('click', function(){
-    contenedorOculto.classList.remove('active');
-});
+    function cerrar() {
+        div = document.getElementById('principal');
+        div.style.display = '';
+        prin = document.getElementById('contenedorOculto');
+        prin.style.display = 'none';
+
+    }
 
 
 /*
@@ -129,6 +131,22 @@ $("#actualizarPropietario").click(function(){
     });
 });
 
+
+$("#editarPropietario").click(function(){
+    var propietario = $(this).data('book-id');
+
+
+    console.log(propietario);
+    $(".modal-body #idPropietario").val(propietario['idPropietario']);
+   $(".modal-body #Nombre").val(propietario['Nombre']);
+   $(".modal-body #ApellidoP").val(propietario['ApellidoP']);
+   $(".modal-body #ApellidoM").val(propietario['ApellidoM']);
+   $(".modal-body #Direccion").val(propietario['Direccion']);
+   $(".modal-body #Telefono").val(propietario['Telefono']);
+   $(".modal-body #RFC").val(propietario['RFC']);
+   $(".modal-body #FechaNacimiento").val(propietario['FechaNacimiento']);
+});
+
 $(document).on('click','.editarAtraccion', function(){
                     
     var a = $(this).data('book-id');
@@ -162,4 +180,86 @@ $(document).on('click','.editarPropietario', function(){
    $(".modal-body #Telefono").val(propietario['Telefono']);
    $(".modal-body #RFC").val(propietario['RFC']);
    $(".modal-body #FechaNacimiento").val(propietario['FechaNacimiento']);
+});
+
+
+/******************TODO LO RELACIONADO A LAS TABLAS**********************/
+$(function(){
+    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+$("#adi").on('click', function(){
+$("#tab tbody tr:eq(0)").clone().removeClass('fila-fila').appendTo("#tab");
+});
+// Evento que selecciona la fila y la elimina 
+$(document).on("click",".elim",function(){
+var parent = $(this).parents().get(0);
+$(parent).remove();
+});
+});
+
+$(document).ready(function() {
+$('#examplePro').DataTable( {
+"aProcessing": true,//Activamos el procesamiento del datatables
+"aServerSide": true,//Paginación y filtrado realizados por el servidor
+dom: 'Bfrtip',//Definimos los elementos del control de tabla
+buttons: [		          
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdf'
+        ],
+"bDestroy": true,
+"iDisplayLength": 15,//Paginación
+"order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+});
+});
+
+$(document).ready(function() {
+$('#tab').DataTable( {
+"aProcessing": true,//Activamos el procesamiento del datatables
+"aServerSide": true,//Paginación y filtrado realizados por el servidor
+dom: 'Bfrtip',//Definimos los elementos del control de tabla
+buttons: [		          
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdf'
+        ],
+"bDestroy": true,
+"iDisplayLength": 15,//Paginación
+"order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+});
+});
+
+$(document).ready(function() {
+$('#exampleAtr').DataTable( {
+"aProcessing": true,//Activamos el procesamiento del datatables
+"aServerSide": true,//Paginación y filtrado realizados por el servidor
+dom: 'Bfrtip',//Definimos los elementos del control de tabla
+buttons: [		          
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdf'
+        ],
+"bDestroy": true,
+"iDisplayLength": 15,//Paginación
+"order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+});
+});
+
+$(document).ready(function() {
+$('#example').DataTable( {
+"aProcessing": true,//Activamos el procesamiento del datatables
+"aServerSide": true,//Paginación y filtrado realizados por el servidor
+dom: 'Bfrtip',//Definimos los elementos del control de tabla
+buttons: [		          
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdf'
+        ],
+"bDestroy": true,
+"iDisplayLength": 15,//Paginación
+"order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+});
 });
