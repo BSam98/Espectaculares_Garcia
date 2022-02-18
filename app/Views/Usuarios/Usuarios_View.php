@@ -38,7 +38,7 @@
         </div>
 
         <!--AGREGAR USUARIOS-->
-        <div class="modal" id="myModal" style="background-image: url('./Img/mainbg.png');color:black;">
+        <div class="modal" id="myModal" style="color:black;">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
