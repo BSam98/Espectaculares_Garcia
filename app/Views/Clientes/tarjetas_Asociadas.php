@@ -11,7 +11,7 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal body -->
-                        <div class="modal-body">
+                        <div class="modal-body" id ="contenedorTarjetas">
                             <div class="container">
                                 <table id="example" class="table table-bordered border-primary  display">
                                     <thead>
@@ -23,14 +23,8 @@
                                             <th>Fecha de Recarga</th>
                                             <th>Vigencia de Saldo</th>
                                     </thead>
-                                    <tbody>  
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <!--La tabla se crea en el archivo clientes.js-->
+                                    <tbody id = "datosTarjetas">
                                     </tbody>
                                 </table>
                             </div>

@@ -21,6 +21,17 @@ class Clientes_Control extends BaseController {
         echo view('../Views/piePagina');
     }
 
+    public function tarjetasAsociadas(){
+        $model = new Clientes_Model();
+
+        $datos=[
+            'idCliente' => $this->request->getVar('idCliente')
+        ];
+
+        $respuesta = $model->listadoTarjetas($datos);
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
+
     public function create(){
         return "";
     }

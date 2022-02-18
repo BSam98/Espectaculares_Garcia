@@ -17,6 +17,7 @@ class Clientes_Model extends Model{
 
         $builder-> select(
             '
+            idCliente,
             Nombre,
             ApellidoP,
             ApellidoM,
@@ -28,6 +29,36 @@ class Clientes_Model extends Model{
             FechaNacimiento
             '
         );
+
+        $query = $builder->get();
+     
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function listadoTarjetas($datos){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Tarjetas');
+
+        $builder-> select(
+            '
+            Tarjetas.idTarjeta,
+            Tarjetas.Nombre,
+            Saldo.SaldoAc,
+            Saldo.CreditoN,
+            Saldo.CreditoC,
+            Saldo.FechaR,
+            Saldo.VigenciaS
+            '
+        );
+
+        $builder->join(
+            'Saldo',
+            'Saldo.idTarjeta = Tarjetas.idTarjeta',
+            'inner'
+        );
+        $builder->where('Tarjetas.idCliente',$datos['idCliente']);
 
         $query = $builder->get();
      
