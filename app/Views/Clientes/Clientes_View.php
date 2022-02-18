@@ -1,46 +1,54 @@
+<!--TABLA PRINCIPAL-->
+<fieldset id="fieldset" style="background-color: white;color:black;">
+    <label><h1>Clientes</h1></label>
+        <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Cliente</a>
+    
+    <div class="contenedorTabla"><br>
+    <!--Tabla-->
+        <table class="table table-bordered  border-primary" id="clientes">
+            <thead>
+                <th></th>
+                <th>Nombre</th>
+                <th>Apellido paterno</th>
+                <th>Apellido materno</th>
+                <th>Correo electronico</th>
+                <th>Contraseña</th>
+                <th>Telefono</th>
+                <th>Ciudad</th>
+                <th>Estado</th>
+                <th>Fecha de nacimiento</th>
+                <th>Tarjetas asociadas</th>
+                <th>Historial</th>
+            </thead>
+            <tbody>
+                <?php foreach ($Cliente as $key => $dC) : ?>
+                    <tr>
+                        <td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
+                        <td><?= $dC->Nombre?></td>
+                        <td><?= $dC->ApellidoP?></td>
+                        <td><?= $dC->ApellidoM?></td>
+                        <td><?= $dC->CorreoE?></td>
+                        <td><?= $dC->Contraseña?></td>
+                        <td><?= $dC->Telefono?></td>
+                        <td><?= $dC->Ciudad?></td>
+                        <td><?= $dC->Estado?></td>
+                        <td><?= $dC->FechaNacimiento?></td>
+                        <!--<td><a href="#tarjetas_Aso" class="btn btn-warning mostrarTarjetasAsociadas" data-toggle="modal" data-book-id='{"idCliente":<?= $dC->idCliente?>}' >Abrir</a></td>-->
+                        <td><a href="#tarjetas_Aso" class="btn btn-warning mostrarTarjetasAsociadas" data-toggle="modal" data-book-id='{"idCliente":<?= $dC->idCliente?>}' >Abrir</a></td>
+                        <td><a href="#historial_Tarjetas" class="btn btn-warning editar" data-toggle="modal">Abrir</a></td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table> 
+    </div>
 
-            <!--TABLA PRINCIPAL-->
-            <fieldset id="fieldset" style="background-color: white;color:black;">
-                <label><h1>Clientes</h1></label>
-                    <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Cliente</a>
-                
-                <div class="contenedorTabla"><br>
-                <!--Tabla-->
-                    <table class="table table-bordered  border-primary" id="clientes">
-                        <thead>
-                            <th></th>
-                            <th>Nombre</th>
-                            <th>Apellido paterno</th>
-                            <th>Apellido materno</th>
-                            <th>Correo electronico</th>
-                            <th>Contraseña</th>
-                            <th>Telefono</th>
-                            <th>Ciudad</th>
-                            <th>Estado</th>
-                            <th>Fecha de nacimiento</th>
-                            <th>Tarjetas asociadas</th>
-                            <th>Historial</th>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($Cliente as $key => $dC) : ?>
-                                <tr>
-                                    <td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
-                                    <td><?= $dC->Nombre?></td>
-                                    <td><?= $dC->ApellidoP?></td>
-                                    <td><?= $dC->ApellidoM?></td>
-                                    <td><?= $dC->CorreoE?></td>
-                                    <td><?= $dC->Contraseña?></td>
-                                    <td><?= $dC->Telefono?></td>
-                                    <td><?= $dC->Ciudad?></td>
-                                    <td><?= $dC->Estado?></td>
-                                    <td><?= $dC->FechaNacimiento?></td>
-                                    <!--<td><a href="#tarjetas_Aso" class="btn btn-warning mostrarTarjetasAsociadas" data-toggle="modal" data-book-id='{"idCliente":<?= $dC->idCliente?>}' >Abrir</a></td>-->
-                                    <td><a href="#tarjetas_Aso" class="btn btn-warning mostrarTarjetasAsociadas" data-toggle="modal" data-book-id='{"idCliente":<?= $dC->idCliente?>}' >Abrir</a></td>
-                                    <td><a href="#historial_Tarjetas" class="btn btn-warning editar" data-toggle="modal">Abrir</a></td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table> 
+    <!--MODAL NUEVO CLIENTE-->
+    <div class="modal" id="myModalT" style="color:black;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar Clientes</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal body -->
                 <form method="POST"  action="" enctype="multipart/form-data" name="formulario" id="formulario">
@@ -100,7 +108,7 @@
                             </table>
                             <button id="agre" name="agre" type="button" class="btn btn-warning"> + </button>
                         </div>
-                        </div>
+                    </div>
                         <!-- Modal footer -->
                         <div class="modal-footer">
                             <button name="adicional" type="submit" class="btn btn-success">Agregar </button>
@@ -112,12 +120,12 @@
     </div>
 </fieldset>
        
-        <?php 
-            include 'editarCliente.php';
-            include 'tarjetas_Asociadas.php';
-            include 'historial.php';
-        ?>
-    <script src = "JS/clientes.js"></script>
+<?php 
+    include 'editarCliente.php';
+    include 'tarjetas_Asociadas.php';
+    include 'historial.php';
+?>
+<script src = "JS/clientes.js"></script>
 <script>
     $(function(){
             $("#agre").on('click', function(){

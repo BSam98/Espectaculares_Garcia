@@ -26,7 +26,8 @@
                             </div>
                             <div class="form-group col-sm-4 col-md-8 col-lg-12">
                                 <label class="Contraseña" for="Contraseña">CONTRASEÑA</label>
-                                <input class="form-control" type="password" pattern="[A-Za-z_-0-9]{1,20}" required name="pass" placeholder="Contraseña">
+                                <input class="form-control" type="password" required name="pass" placeholder="Contraseña">
+                                <!-- pattern="[A-Za-z_-0-9]{1,20}"-->
                                 <br>
                                 <p id="sevive"># SE VIVE ESPECTACULAR</p>
                             </div>

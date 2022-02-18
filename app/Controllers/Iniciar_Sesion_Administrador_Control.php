@@ -20,11 +20,40 @@ class Iniciar_Sesion_Administrador_Control extends BaseController {
     }
 
     public function getBusqueda(){
+        
+        $Usuario = new Iniciar_Sesion_Administrador_Model();
+        
+       // $usuario = $this->request->getPost('usuario');
+       // $password = $this->request->getPost('pass');
 
+        
+      //  echo json_encode($datosUsuario);
+       // if(count($datosUsuario) > 0){
+
+            $data = [
+                "Usuario" => $this->request->getVar('usuario'),
+                "Contraseña" => $this->request->getVar('pass')
+            ];
+
+            $datosUsuario = $Usuario->obtenerUsuario($data);
+            echo json_encode($datosUsuario);
+
+            if($datosUsuario > 0){
+                $session = session();
+                echo $session->set($data);
+
+                return redirect()->to(base_url('Menu_Principal_Administrador'));
+            }else{
+                echo "Error, datos no encontrados";
+            }
+  //  }
+
+
+   /* public function getBusqueda(){
+        $session = \Config\Services::session();
         $model = new Iniciar_Sesion_Administrador_Model();
         $Usuario = $this->request->getVar('usuario');
         $Contraseña = (binary) ($this->request->getVar('pass'));
-        //$respuesta = $this->model->where('Usuario',$Usuario ,'AND','Contraseña',$Contraseña)->findAll();
         $respuesta =$model->where( 'usuario',$Usuario ,'AND','pass',$Contraseña)->findAll();
         echo json_encode($respuesta);
         
@@ -34,6 +63,8 @@ class Iniciar_Sesion_Administrador_Control extends BaseController {
             echo 'Datos correctos';
             return redirect()->to(base_url('Menu_Principal_Administrador'));
         }
+    }
+*/
     }
 
     public function create(){
