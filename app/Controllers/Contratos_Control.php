@@ -24,4 +24,23 @@ class Contratos_Control extends BaseController {
         return "";  
     }
 
+    public function guardar_archivo(){
+        
+        $mi_archivo = 'upload';
+        $config['upload_path']='../upload/';
+        $config['allowed_types']='png';
+        $config['max_size']='5000';
+        $config['max_width']='2000';
+        $config['max_height']='2000';
+
+        $this->load->library('upload');
+
+        if(!$this->upload->do_upload($mi_archivo)){
+            echo $this->upload->display_errors();
+            return;
+        }
+
+        var_dump($this->upload->data());
+
+    }
 }

@@ -44,31 +44,6 @@
                         <input class="form-control" type="text"  id="pesos" required placeholder="Pesos"/>
                         <input class="form-control" type="text"  id="creditos" required placeholder="Creditos"/>
                     </div>
-                    <!--div class="form-group">
-                        <label for="precios">Precios</label>
-                        <input class="form-control" type="text"  id="tim" required placeholder="Precio"/>
-                    </div>
-                    <div-- class="table table-striped table-responsive">
-                        <table id="tabla">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Atracciones</th>
-                                    <th scope="col">Creditos</th>
-                                    <th scope="col">Creditos de Cortesia</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="fila-fija">
-                                    
-                                <td><input class="form-check-input" type="checkbox"  id="tma" required name="tma[]" placeholder="Atracciones"/></td>
-                                    <td><input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Creditos"/></td>
-                                    <td><input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Creditos Cortesia"/></td>
-                                    <td class="eliminar"><input type="button"   value="-"/></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div-->
-                <!--button id="adicional" name="adicional" type="button" class="btn btn-warning"> + </button-->
                     <div class="modal-footer">
                         <button name="adicional" type="button" class="btn btn-success">Agregar </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
