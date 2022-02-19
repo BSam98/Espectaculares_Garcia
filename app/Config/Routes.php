@@ -42,7 +42,17 @@ $routes->get('/Atracciones/Datos','Atracciones_Control::cargarDatos');
 $routes->get('/Iniciar_Sesion_Administrador','Iniciar_Sesion_Administrador_Control::new');
 $routes->get('/Menu_Principal_Administrador','Menu_Principal_Control::new');
 $routes->get('/Asociados','Asociados_Control::new');
+
 $routes->get('/Eventos','Eventos_Control::new');
+$routes->get('/Eventos/Mostrar_Atracciones','Eventos_Control::mostrarAtracciones');
+$routes->post('/Eventos/Mostrar_Atracciones','Eventos_Control::mostrarAtracciones');
+$routes->get('/Eventos/Agregar_Evento','Eventos_Control::agregarEvento');
+$routes->post('/Eventos/Agregar_Evento','Eventos_Control::agregarEvento');
+$routes->get('/Eventos/Mostrar_Tarjetas','Eventos_Control::mostrarTarjetas');
+$routes->post('/Eventos/Mostrar_Tarjetas','Eventos_Control::mostrarTarjetas');
+$routes->get('/Eventos/Mostrar_Asociacion','Eventos_Control::mostrarAsociacion');
+$routes->post('/Eventos/Mostrar_Asociacion','Eventos_Control::mostrarAsociacion');
+
 $routes->get('/Usuarios','Usuarios_Control::new');
 $routes->get('/Promociones','Promociones_Control::new');
 $routes->get('/Tarjetas','Tarjetas_Control::new');
