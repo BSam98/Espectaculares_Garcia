@@ -8,7 +8,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form  enctype="multipart/form-data" name="formulario" id="formularioNuevaAtraccion">
+                <form  enctype="multipart/form-data" name="formulario" id="formularioAgregarLote">
                     <div class="table table-striped table-responsive">
                     <!--Tabla AGREGAR LOTES-->
                         <table class="table table-bordered" id="agregar">

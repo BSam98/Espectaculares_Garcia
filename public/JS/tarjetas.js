@@ -10,6 +10,7 @@ var btnAbrirPopup = document.getElementById('abrir'),
 
 
 $("#agregarLote").click(function(){
+    alert('Minimo entra');
     $.ajax({
         type: "POST",
         url: 'Agregar_Lote',
@@ -17,10 +18,10 @@ $("#agregarLote").click(function(){
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
-        success: function (data){            
+        success: function (data){         
             alert(data.msj);
             if(data.respuesta)
-                console.log(data.dato);
+                console.log(data.msj);
         },
         dataType: 'JSON'
     });
