@@ -48,15 +48,7 @@
                             <th scope="col" style="vertical-align: middle;">Status</th>
                             <th scope="col" style="vertical-align: middle;">Tipo</th>
                         </thead>
-                        <tbody>
-                            <tr class="filas">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                        <tbody id ="tarjetasEvento">
                         </tbody>
                     </table>
                 </div>

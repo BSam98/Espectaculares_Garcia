@@ -39,16 +39,16 @@
                                     <tr>
                                         <td>
                                             <ul class="circulo">
-                                                <li><a href="#AgregarL" type="button" data-toggle="modal">Tarjetas</a></li>
-                                                <li><a href="#Atracciones" type="button" data-toggle="modal">Atracciones</a></li>
-                                                <li><a href="#Asociados" type="button" data-toggle="modal">Asociados</a></li>
+                                                <li><a href="#AgregarL" class ="mostrarTarjetasEvento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}' >Tarjetas</a></li>
+                                                <li><a href="#Atracciones" class ="mostrarAtraccionesEvento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Atracciones</a></li>
+                                                <li><a href="#Asociados" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}' >Asociados</a></li>
                                             </ul>
                                         </td>
                                         <td>
                                             <ul class="circulo">
-                                                <li><a href="#Asociacion" type="button" data-toggle="modal">Asociación</a></li>
-                                                <li><a href="#Promociones" type="button" data-toggle="modal">Promociones</a></li>
-                                                <li><a href="#Creditos" type="button" data-toggle="modal">Créditos de Cortesia</a></li>
+                                                <li><a href="#Asociacion" class = "mostrarAsociacionEvento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Asociación</a></li>
+                                                <li><a href="#Promociones" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Promociones</a></li>
+                                                <li><a href="#Creditos" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Créditos de Cortesia</a></li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -66,7 +66,7 @@
     </fieldset>
 
 <?php
-    include 'agregar_Evento.php';
+   include 'agregar_Evento.php';
     include 'editar_Eventos.php';
     include 'agregar_Asociados.php';
     include 'agregar_Asociacion.php';
@@ -75,6 +75,8 @@
     include 'creditos_Cortesia.php';
     include 'agregar_Lotes.php';
 ?>
+<script src ="JS/evento.js"></script>
+ 
     <script>
         $(function(){
                     // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
@@ -87,7 +89,7 @@
                 $(parent).remove();
             });
         });
-
+    
         $(function(){
         $("#adicional").on('click', function(){
         $("#tabla tbody tr:eq(0)").clone().removeClass('fila-fija').appendTo("#tabla");
@@ -97,6 +99,7 @@
         $(parent).remove();
         });
         });
+        
 
         $(document).ready(function() {
             $('#example').DataTable( {
@@ -115,7 +118,7 @@
             });
         });
 
-
+        
         $(document).ready(function(){
 
             $('.datepicker').datepicker({
@@ -125,4 +128,5 @@
             });
 
         });
+        
     </script>

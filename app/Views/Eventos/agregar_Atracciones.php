@@ -63,15 +63,7 @@
                         <th>Contrato</th>
                         <th>Poliza</th>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                        <tbody id = "atraccionesEvento">
                         </tbody>
                     </table>
                 </div>
