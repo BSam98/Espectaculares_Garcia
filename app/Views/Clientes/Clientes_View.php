@@ -1,6 +1,6 @@
 <!--TABLA PRINCIPAL-->
-<fieldset id="fieldset" style="background-color: white;color:black;">
-    <label><h1>Clientes</h1></label>
+<fieldset id="fieldset" style="background-color: white;color:black;" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000"> 
+    <center><label><h1>CLIENTES</h1></label></center>
         <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Cliente</a>
     
     <div class="contenedorTabla"><br>
@@ -43,7 +43,7 @@
     </div>
 
     <!--MODAL NUEVO CLIENTE-->
-    <div class="modal" id="myModalT" style="color:black;">
+    <div class="modal fade" id="myModalT" style="color:black;">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">

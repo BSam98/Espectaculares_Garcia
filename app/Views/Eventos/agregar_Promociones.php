@@ -1,5 +1,5 @@
 <!--AGREGAR PROMOCIONES-->
-<div class="modal" id="Promociones" style="color:black;">
+<div class="modal fade" id="Promociones" style="color:black;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

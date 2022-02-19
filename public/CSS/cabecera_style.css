@@ -49,7 +49,7 @@
 .tm_navbar .nav li {
 	float: left;
 	/*padding: 0 26px 0 27px;*/
-    padding: 10px;
+    padding: 15px;
 	position: relative;
 	zoom: 1;
 	background: url(../images/bullet1.png) no-repeat left center;
@@ -58,7 +58,7 @@
 	text-decoration: none;
 	color: #ffffff;
 	font-family: 'Georgia', serif;
-	font-size: 22px;
+	font-size: 20px;
 	line-height: 24px;
 	font-weight: normal;
 	background: transparent;
@@ -262,6 +262,35 @@ ul.circulo {list-style-type: circle;}
 	background-image: linear-gradient(#A569BD, white); 
 	border:2px solid #2980B9;
   }
+
+  .prin:hover,
+  .prin:focus {
+	box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+	transform: translateY(-0.25em);
+  }
+  
+/************************EFECTO BOTON CLASE THIRD*********************/
+  .third {
+	border-color: #803279;
+	color: #fff;
+	box-shadow: 0 0 40px 40px #b36ff3 inset, 0 0 0 0 #b36ff3;
+	-webkit-transition: all 150ms ease-in-out;
+	transition: all 150ms ease-in-out;
+  }
+  .third:hover {
+	box-shadow: 0 0 10px 0 #b36ff3 inset, 0 0 10px 4px #b36ff3;
+  }
+
+  h1 {
+	letter-spacing: 0.25em;
+  }
+
+
+
+
+
+
+
 
 /**************************CODIGO  ORIGINAL**************************************/
 

@@ -5,13 +5,9 @@ var btnAbrirPopup = document.getElementById('abrir'),
 
 
 
-btnAbrirPopup.addEventListener('click',function(){
-    contenedorOculto.classList.add('active');
-});
 
-btnCerrarPopup.addEventListener('click', function(){
-    contenedorOculto.classList.remove('active');
-});
+
+
 
 $("#agregarLote").click(function(){
     $.ajax({
@@ -30,7 +26,40 @@ $("#agregarLote").click(function(){
     });
 });
 
+
+$(document).on('click','.mostrarTarjetasLote', function(){
+    var idLote = $(this).data('book-id');
+    $.ajax({
+        type: "POST",
+        url: 'Tarjetas/Tarjetas',
+        data: idLote,
+        dataType: 'JSON'
+    }).done(function(data){
+
+        var html ='';
+        for(var i = 0;i<data.msj.length; i++){
+
+            
+            html += '<tr>'+
+            '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+            '<td>'+data.msj[i]['Tarjeta']+'</td>'+
+            '<td>'+data.msj[i]['Folio']+'</td>'+
+            '<td>'+data.msj[i]['FechaActivacion']+'</td>'+
+            '<td>'+data.msj[i]['Status']+'</td>'+
+            '<td>'+data.msj[i]['Tipo']+'</td>'+
+            '<td>'+data.msj[i]['Ciudad']+'</td>'+
+            '</tr>';
+            
+        }
+        
+        $("#tarjetasLote").html(html);
+        
+
+    });
+});
+
 $(document).on('click','.editarLote', function(){
+    alert('a');
                     
     var Lote = $(this).data('book-id');
 
