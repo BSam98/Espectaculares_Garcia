@@ -1,7 +1,7 @@
-    <!--/Contenedor Superior-->
+<!--/Contenedor Superior-->
     <!--TABLA PRINCIPAL-->
-    <fieldset id="fieldset" style="background-color: white;color:black;"> 
-        <label><h1>Lotes</h1></label>
+    <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000" style="background-color: white;color:black;"> 
+        <center><label><h1>LOTES</h1></label></center>
             <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Tarjeta</a-->
             <a href="#agregarL" type="button" class="btn btn-success" data-toggle="modal"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Lote</a>
                 <!--button class="btn btn-success" id="abrir"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Lote</button-->
@@ -44,7 +44,7 @@
             </div>
 
             <!--MODAL NUEVA TARJETA-->
-            <div class="modal" id="myModalT"  style="background-image: url('./Img/mainbg.png');color:black;">
+            <div class="modal fade" id="myModalT"  style="background-image: url('./Img/mainbg.png');color:black;">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">

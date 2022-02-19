@@ -1,11 +1,11 @@
     <!--/Contenedor Superior-->
-    <fieldset id="fieldset" style="background-color: white;color:black;">
-        <label><h1>Usuarios</h1></label>
+    <fieldset id="fieldset" style="background-color: white;color:black;" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+        <center><label><h1>USUARIOS</h1></label></center>
         <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Usuario</a>
         <!--button onClick="">Nuevo Usuario</button-->
         <div class="contenedorTabla"><br>
         <!--Tabla Principal-->
-            <table id="example" class="table table-bordered  border-primary">
+            <table id="example" class="table table-striped">
                 <thead>
                     <th></th>
                     <th>Nombre</th>
@@ -38,7 +38,7 @@
         </div>
 
         <!--AGREGAR USUARIOS-->
-        <div class="modal" id="myModal" style="color:black;">
+        <div class="modal fade" id="myModal" style="color:black;">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">

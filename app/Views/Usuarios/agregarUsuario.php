@@ -1,5 +1,5 @@
  <!--AGREGAR USUARIOS-->
- <div class="modal" id="usuario" style="color:black;">
+ <div class="modal fade" id="usuario" style="color:black;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

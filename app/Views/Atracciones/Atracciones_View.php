@@ -1,14 +1,16 @@
     <div id="principal">
     <!--Contenedor Superior-->
-    <fieldset id="fieldset" style="background-color: white;color:black;">
+    <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000" style="background-color: white;color:black;">
         <!--Ventana de la atracción--> 
-        <label><h1>Atracciones</h1></label>
-            <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="bi bi-plus-circle"></i>&nbsp;Nueva Atracción</a>
+        <center><label><h1>ATRACCIONES</h1></label></center>
+            
             <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarPropi"><i class="bi bi-plus-circle"></i>&nbsp;Nueva Atracción</a-->
+            <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" style="transition-duration: 3s, 5s;"><i class="bi bi-plus-circle"></i>&nbsp;Nueva Atracción</a>
             <a href="javascript:mostrar();" class="btn btn-success"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Propietario</a><br>
+            
             <div class="contenedorTabla"><br>
                 <!--Tabla-->
-                <table id="example" class="table table-bordered border-primary">
+                <table id="example" class="table table-striped">
                     <thead>
                         <th style="vertical-align: middle;"></th>
                         <th style="vertical-align: middle;">Nombre</th>

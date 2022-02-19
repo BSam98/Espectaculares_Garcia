@@ -1,13 +1,13 @@
 
-    <fieldset id="fieldset">
-        <label><h1>Eventos</h1></label>
+    <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+        <center><label><h1>EVENTOS</h1></label></center>
         <a href="#myModal" type="button" class="btn btn-success" data-toggle="modal"><i class="bi bi-plus-circle"></i>&nbsp; Nuevo Evento</a>
 
         <div class="contenedorTabla">
             <br>
             <!--Tabla-->
-            <table id="example" class="table table-bordered">
-                <thead id="tituloTabla">
+            <table id="example" class="table table-striped">
+                <thead>
                     <!--Titulos de la tabla-->
                     <th style="vertical-align: middle;"></th>
                     <th style="vertical-align: middle;">Nombre</th>

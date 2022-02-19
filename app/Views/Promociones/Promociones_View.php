@@ -1,7 +1,7 @@
 
             <!--/Contenedor Superior-->
 <!--ESTA TABLA ENTRARIA EN UN CICLO PARA HACER UNA TABLA POR PROMOCION-->
-            <fieldset id="fieldset">
+            <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
                 <label><h2>Promocion Dos x Uno</h2></label>
                 <div class="contenedorTabla">
                     <br>
@@ -25,7 +25,7 @@
                 </div>
             </fieldset>
 
-            <fieldset id="fieldset">
+            <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
                 
                 <label><h2>Pulsera Mágica</h2></label>
                 
@@ -53,7 +53,7 @@
             
             </fieldset>
 
-            <fieldset id="fieldset">
+            <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
                 
                 <label><h2>Juegos Grátis</h2></label>
                 <div class="contenedorTabla">
@@ -79,7 +79,7 @@
                 </div>
             </fieldset>
 
-            <fieldset id="fieldset">
+            <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
                 <label><h2>Creditos de Cortesía</h2></label>
                 <div class="contenedorTabla"><br>
                     <!--Tabla-->

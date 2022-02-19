@@ -1,5 +1,5 @@
 <!--AGREGAR ASOCIADOS-->
-<div class="modal" id="Asociados" style="color:black;">
+<div class="modal fade" id="Asociados" style="color:black;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

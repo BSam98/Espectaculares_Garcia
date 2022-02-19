@@ -1,5 +1,5 @@
 <!--MODAL AGREGAR ATRACCIONES-->
-<div class="modal" id="AgregarL" style="color:black;">
+<div class="modal fade" id="AgregarL" style="color:black;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
