@@ -57,17 +57,14 @@
                     <table id="tA" class="table table-bordered">
                         <thead>
                             <th></th>
+                            <th>Nombre</th>
                             <th>Atracción</th>
+                            <th>Propietario</th>
                             <th>Porcentaje del Propietario</th>
                             <th>Asociado</th>
                             <th>Porcentaje del Asociado</th>
                         </thead>
-                        <tbody>
-                            <td></td>
-                            <td><input type="text" name="" id=""></td>
-                            <td><input type="text" name="" id=""></td>
-                            <td><input type="text" name="" id=""></td>
-                            <td><input type="text" name="" id=""></td>
+                        <tbody id = "asociacionEvento">
                         </tbody>
                     </table>
                 </div>

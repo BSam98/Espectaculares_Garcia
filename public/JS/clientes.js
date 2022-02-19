@@ -8,7 +8,6 @@ $(document).on('click','.mostrarTarjetasAsociadas', function(){
         data: a,
         dataType: 'JSON'
     }).done(function(data){
-        alert(data.msj[0]['Nombre']);
 
         var html ='';
         for(var i = 0;i<data.msj.length; i++){

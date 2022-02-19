@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Agregar Lote</h4>
-                <button type="button" class="close" data-dismiss="modal" onclick="cerrar">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" onclick="cerrar"></button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
