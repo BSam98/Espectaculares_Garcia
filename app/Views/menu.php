@@ -32,7 +32,11 @@
                 <!--Menu Taquilla-->
                 <li><a href=""><i class="bi bi-shop-window"></i>&nbsp;Taquilla</a></li>
                 <!--Menu Superivosr-->
-                <li><a href=""><i class="bi bi-zoom-in"></i>&nbsp;Supervisor</a></li>
+                <li><a href=""><i class="bi bi-zoom-in"></i>&nbsp;Supervisor</a>
+                    <ul class="dropdown-submenu" id="subMenuCatalago">
+                        <li><a href="Taquillas" id="button"><span>Supervisar Taquilla</span></a></li>
+                    </ul>
+                </li>
                 <!--Menu Validacion-->
                 <li><a href=""><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;Validacion</a></li>
                 <!--Menu Seguridad-->

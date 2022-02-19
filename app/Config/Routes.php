@@ -77,6 +77,7 @@ $routes->get('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociadas
 $routes->post('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociadas');
 $routes->get('/Contratos','Contratos_Control::new');
 
+$routes->get('/Taquillas','Taquillas_Control::new');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
