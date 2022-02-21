@@ -28,6 +28,8 @@ class Eventos_Model extends Model{
             '
         );
 
+        $builder->orderBy('idEvento', 'DESC');
+
         $query = $builder->get();
     
         $datos = $query->getResultObject();
