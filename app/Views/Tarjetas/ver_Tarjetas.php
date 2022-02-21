@@ -9,13 +9,11 @@
                         <!-- Modal body -->
                                 <table id="newTarjet" class="table table-bordered">
                                 <thead>
-                                    <td></td>
                                     <td>Nombre</td>
                                     <td>Folio</td>
                                     <td>Fecha de activación</td>
                                     <td>Status</td>
                                     <td>Tipo</td>
-                                    <td>Evento</td>
                                 </thead>
                                 <tbody id = "tarjetasLote">
                                 </tbody>
