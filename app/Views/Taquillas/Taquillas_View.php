@@ -12,7 +12,8 @@
             <table id="example" class="table table-striped">
                 <thead>
                     <!--Titulos de la tabla-->
-                    <th style="vertical-align: middle;"></th>
+                    <!--FILTRAR POR PUNTOS DE VENTA-->
+                    <th style="vertical-align: middle;">Área Taquillas</th>
                     <th style="vertical-align: middle;">Responsable</th>
                     <th style="vertical-align: middle;">Tarjetas Asignadas</th>
                     <th style="vertical-align: middle;">Fondo de Caja</th>
