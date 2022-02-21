@@ -16,7 +16,7 @@ class Iniciar_Sesion_Administrador_Control extends BaseController {
     }
     
     public function new (){
-        return view ('Iniciar_Sesion_Administrador/Iniciar_Sesion_Administrador_View');
+        return view ('Administrador/Iniciar_Sesion_Administrador/Iniciar_Sesion_Administrador_View');
     }
 
     public function getBusqueda(){

@@ -16,7 +16,7 @@ class Asociados_Control extends BaseController {
         ];
         echo view('../Views/header');
         echo view('../Views/menu');
-        echo view ('Asociados/Asociados_View',$datos);
+        echo view ('Administrador/Asociados/Asociados_View',$datos);
         echo view('../Views/piePagina');
     }
 

@@ -14,7 +14,7 @@ class Taquillas_Control extends BaseController {
     public function new (){
         echo view('../Views/header');
         echo view('../Views/menu');
-        echo view ('Taquillas/Taquillas_View');
+        echo view ('Administrador/Taquillas/Taquillas_View');
         echo view('../Views/piePagina');
     }
 

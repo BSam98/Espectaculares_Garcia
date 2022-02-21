@@ -22,7 +22,7 @@ class Eventos_Control extends BaseController {
 
         echo view('../Views/header');
         echo view('../Views/menu');
-        echo view ('Eventos/Eventos_View', $datos);
+        echo view ('Administrador/Eventos/Eventos_View', $datos);
         echo view('../Views/piePagina');
     }
 

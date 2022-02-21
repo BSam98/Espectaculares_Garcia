@@ -79,6 +79,11 @@ $routes->post('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociada
 $routes->get('/Contratos','Contratos_Control::new');
 
 $routes->get('/Taquillas','Taquillas_Control::new');
+
+$routes->get('/Iniciar_Sesion_User','Iniciar_Sesion_User_Control::new');
+$routes->post('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
+$routes->get('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
+$routes->get('/Menu_Principal_User','Menu_Principal_User_Control::new');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

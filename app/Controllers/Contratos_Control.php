@@ -16,7 +16,7 @@ class Contratos_Control extends BaseController {
         $model = new Contratos_Model();
         echo view('../Views/header');
         echo view('../Views/menu');
-        echo view ('Contratos/Contratos_View');
+        echo view ('Administrador/Contratos/Contratos_View');
         echo view('../Views/piePagina');
     }
 

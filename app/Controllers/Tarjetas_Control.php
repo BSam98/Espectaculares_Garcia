@@ -23,7 +23,7 @@ class Tarjetas_Control extends BaseController {
         ];
         echo view('../Views/header');
         echo view('../Views/menu');
-        echo view ('Tarjetas/Tarjetas_View',$datos);
+        echo view ('Administrador/Tarjetas/Tarjetas_View',$datos);
         echo view('../Views/piePagina');
     }
 

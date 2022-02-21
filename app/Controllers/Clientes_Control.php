@@ -17,7 +17,7 @@ class Clientes_Control extends BaseController {
         ];
         echo view('../Views/header');
         echo view('../Views/menu');
-        echo view ('Clientes/Clientes_View',$datos);
+        echo view ('Administrador/Clientes/Clientes_View',$datos);
         echo view('../Views/piePagina');
     }
 

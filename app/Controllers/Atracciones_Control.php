@@ -22,7 +22,7 @@ class Atracciones_Control extends BaseController {
             'Propietario' => $model->listadoPropietartios()
         ];
         
-        return view ('Atracciones/Atracciones_View', $datos);
+        return view ('Administrador/Atracciones/Atracciones_View', $datos);
         
     }
     public function new (){
@@ -35,7 +35,7 @@ class Atracciones_Control extends BaseController {
         ];
         echo view('../Views/header');
         echo view('../Views/menu');
-        echo view ('Atracciones/Atracciones_View', $datos);
+        echo view ('Administrador/Atracciones/Atracciones_View', $datos);
         echo view('../Views/piePagina');
     }
 
