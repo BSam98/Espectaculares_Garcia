@@ -7,7 +7,9 @@ class Tarjetas_Control extends BaseController {
     protected $model;
     protected $request;
 
-    public function _construct(){}
+    public function _construct(){
+        $this->request = \Config\Services::request();
+    }
 
     public function new (){
 
@@ -41,23 +43,24 @@ class Tarjetas_Control extends BaseController {
     public function insertarLote(){
         $model = new Tarjetas_Model();
         $datos=[
-            'Nombre' => $this->request->getVar('Nombre'),
-            'Material' => $this->request->getVar('Material'),
-            'Cantidad' => $this->request->getVar('Cantidad'),
-            'FolioInicial' => $this->request->getVar('FolioInicial'),
-            'FolioFinal' => $this->request->getVar('FolioFinal'),
-            'Serie' => $this->request->getVar('Serie'),
-            'FechaIngreso' => $this->request->getVar('FechaIngreso'),
-            'idUsuario' => $this->request->getVar('Usuario'),
+            'Nombre' => $this->request->getVar('NombreL'),
+            'Material' => $this->request->getVar('MaterialL'),
+            'Cantidad' => $this->request->getVar('CantidadL'),
+            'FechaIngreso' => $this->request->getVar('FechaIngresoL'),
+            'idUsuario' => $this->request->getVar('UsuarioL'),
+            'FolioInicial' => $this->request->getVar('FolioInicialL'),
+            'FolioFinal' => $this->request->getVar('FolioFinalL'),
+            'Serie' => $this->request->getVar('SerieL'),
         ];
         
         /*
         $respuesta = $model->insertarAtraccion($datos);
         return redirect()->to(base_url('Atracciones'));
         */
-        //$respuesta = $model->insertarLote($datos);
+        $respuesta = json_encode(array('idLote'=> $model->insertarLote($datos)));
+
         $respuesta1 = $model->insertarTarjeta($datos);
-        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta1));
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
     }
 
     public function actualizarLote(){}

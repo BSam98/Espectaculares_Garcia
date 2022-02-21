@@ -175,7 +175,6 @@ class Tarjetas_Model extends Model{
         $numeros =0;
 
             for($i=$datos['FolioInicial']; $i<=$datos['FolioFinal'];$i++){
-                $i++;
                 $numeros++;
             }
    
@@ -185,11 +184,42 @@ class Tarjetas_Model extends Model{
 
     public function insertarLote($datos){
         $db= \Config\Database::Connect();
+
+        /*
+        $db->query(
+            "INSERT INTO Lotes (
+                Nombre,
+                Material,
+                Cantidad,
+                FechaIngreso,
+                idUsuario,
+                FolioInicial,
+                FolioFinal,
+                Serie
+            )
+            VALUES (
+                '$datos[Nombre]',
+                '$datos[Material],
+                $datos[Cantidad],
+                '$datos[FechaIngreso]',
+                $datos[idUsuario],
+                $datos[FolioInicial],
+                $datos[FolioFinal],
+                '$datos[Serie]'
+            );
+            SELECT <SCOPE_IDENTITY></SCOPE_IDENTITY>
+            ");
+
+        */
+
         $builder = $db->table('Lotes');
 
-        $builder -> insert($datos);
-
-        return 'Funciono';
+        if( $builder -> insert($datos)){
+            return $db->insertID();
+        }
+        else{
+            return False;
+        }
     }
 
 }

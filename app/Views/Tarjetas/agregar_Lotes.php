@@ -8,7 +8,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form  enctype="multipart/form-data" name="formulario" id="formularioAgregarLote">
+                <form  enctype="multipart/form-data" name="formularioAgregarLote" id="formularioAgregarLote">
                     <div class="table table-striped table-responsive">
                     <!--Tabla AGREGAR LOTES-->
                         <table class="table table-bordered" id="agregar">
@@ -25,21 +25,28 @@
                             </thead>
                             <tbody>
                                 <tr class="filas">
-                                    <td><input type="text" class="form-grup" id = "Nombre" name = "Nombre" placeholder="Nombre"></td>
-                                    <td><input type="text" class="form-grup" id = "Material" name = "Material" placeholder="Material"></td>
-                                    <td><input type="number" class="form-grup" id = "Cantidad" name = "Cantidad" placeholder="Cantidad"></td>
-                                    <td><input type="number" class="form-grup" id = "FolioInicial" name = "FolioInicial" placeholder="Folio inicial"></td>
-                                    <td><input type="number" class="form-grup" id = "FolioFinal" name = "FolioFinal" placeholder="Folio final"></td>
-                                    <td><input type="number" class="form-grup" id = "Serie" name = "Serie" placeholder="Serie"></td>
-                                    <td><input type="date" class="form-grup" id = "FechaIngreso" name = "FechaIngreso" placeholder="Fecha de Ingreso"></td>
-                                    <td><input type="text" class="form-grup" id = "Usuario" name = "Usuario" placeholder="Usuario"></td>
+                                    <td><input type="text" class="form-grup" id = "NombreL" name = "NombreL" placeholder="Nombre"></td>
+                                    <td><input type="text" class="form-grup" id = "MaterialL" name = "MaterialL" placeholder="Material"></td>
+                                    <td><input type="number" class="form-grup" id = "CantidadL" name = "CantidadL" placeholder="Cantidad"></td>
+                                    <td><input type="number" class="form-grup" id = "FolioInicialL" name = "FolioInicialL" placeholder="Folio inicial"></td>
+                                    <td><input type="number" class="form-grup" id = "FolioFinalL" name = "FolioFinalL" placeholder="Folio final"></td>
+                                    <td><input type="text" class="form-grup" id = "SerieL" name = "SerieL" placeholder="Serie"></td>
+                                    <td><input type="date" class="form-grup" id = "FechaIngresoL" name = "FechaIngresoL" placeholder="Fecha de Ingreso"></td>
+                                    <td>
+                                        <select class="form-control" type="text"  id="UsuarioL" name = "UsuarioL" required name="pro">
+                                            <option value="0">Seleccionar Propietario</option>
+                                            <?php foreach ($Usuario as $key => $dU) : ?>
+                                                <option value = "<?= $dU->idUsuario?>"><?= $dU-> UsuarioNombre ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </td>
                                     <td class="deletef"><input type="button" value="-"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <button id="addf" name="adicional" type="button" class="btn btn-warning"> + </button>
-                    <button  name="save" type="submit" class="btn btn-success" id = "agregarLote">Guardar</button>
+                    <button  name="z" type="submit" class="btn btn-success" id = "z">Guardar</button>
                 </form>
             </div>
         </div>

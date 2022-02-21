@@ -2,14 +2,8 @@ var btnAbrirPopup = document.getElementById('abrir'),
     btnCerrarPopup = document.getElementById('cerrar'),
     contenedorOculto = document.getElementById('contenedorOculto'),
     contenedorTablaLote = document.getElementById('contenedorTablaLote');
-
-
-
-
-
-
-
-$("#agregarLote").click(function(){
+    
+$("#z").click(function(){
     alert('Minimo entra');
     $.ajax({
         type: "POST",
@@ -19,7 +13,7 @@ $("#agregarLote").click(function(){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
         success: function (data){         
-            alert(data.msj);
+            alert('El id del lote es: '+data.msj);
             if(data.respuesta)
                 console.log(data.msj);
         },

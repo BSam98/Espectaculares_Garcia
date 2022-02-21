@@ -72,7 +72,8 @@ $routes->post('/Usuarios/Agregar_Usuario','Usuarios_Control::agregarUsuarios');
 $routes->get('/Usuarios/Agregar_Usuario','Usuarios_Control::agregarUsuarios');
 $routes->post('/Usuarios/Editar_Usuario','Usuarios_Control::actualizarUsuario');
 $routes->get('/Usuarios/Editar_Usuario','Usuarios_Control::actualizarUsuario');
-$routes->post('/Agregar_Lote','Tarjetas_Control::insertarLote');//
+$routes->post('/Agregar_Lote','Tarjetas_Control::insertarLote');
+$routes->get('/Agregar_Lote','Tarjetas_Control::insertarLote');//
 $routes->get('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociadas');
 $routes->post('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociadas');
 $routes->get('/Contratos','Contratos_Control::new');
