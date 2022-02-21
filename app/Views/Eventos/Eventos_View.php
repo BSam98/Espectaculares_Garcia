@@ -50,6 +50,7 @@
                                                 <li><a href="#Asociacion" class = "mostrarAsociacionEvento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Asociación</a></li>
                                                 <li><a href="#Promociones" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Promociones</a></li>
                                                 <li><a href="#Creditos" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Créditos de Cortesia</a></li>
+                                                <li><a href="#Areas" type="button" data-toggle="modal">Asignar Áreas</a></li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -76,6 +77,7 @@
     include 'creditos_Cortesia.php';
     include 'agregar_Lotes.php';
     include 'taquillas.php';
+    include 'asignar_Areas.php';
 ?>
 <script src ="JS/evento.js"></script>
  
@@ -116,7 +118,7 @@
                         ],
                 "bDestroy": true,
                 "iDisplayLength": 15,//Paginación
-                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+                "order": false //Ordenar (columna,orden)
             });
         });
 

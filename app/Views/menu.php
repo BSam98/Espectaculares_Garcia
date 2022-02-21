@@ -34,11 +34,15 @@
                 <!--Menu Superivosr-->
                 <li><a href=""><i class="bi bi-zoom-in"></i>&nbsp;Supervisor</a>
                     <ul class="dropdown-submenu" id="subMenuCatalago">
-                        <li><a href="Taquillas" id="button"><span>Supervisar Taquilla</span></a></li>
+                        <li><a href="Taquillas" id="button"><span>Supervisar Atracciones</span></a></li>
                     </ul>
                 </li>
                 <!--Menu Validacion-->
-                <li><a href=""><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;Validacion</a></li>
+                <li><a href=""><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;Validacion</a>
+                    <ul class="dropdown-submenu" id="subMenuCatalago">
+                        <li><a href="" id="button"><span>Reponer Saldo</span></a></li>
+                    </ul>
+                </li>
                 <!--Menu Seguridad-->
                 <li><a href=""><i class="bi bi-file-lock2"></i>&nbsp;Seguridad</a></li>
                 <li><a href=""><i class="bi bi-box-arrow-right"></i>&nbsp;Salir</a></li>
