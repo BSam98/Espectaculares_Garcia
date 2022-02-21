@@ -21,27 +21,13 @@ class Tarjetas_Model extends Model{
             Tarjetas.FechaActivacion,
             Tarjetas.Status,
             Tarjetas.Tipo,
-            Clientes.Nombre AS Cliente,
-            Eventos.Ciudad,
             Tarjetas.Folio
             '
-        );
-
-        $builder-> join(
-            'Clientes',
-            'Clientes.idCliente = Tarjetas.idCliente',
-            'inner'
         );
 
         $builder->join(
             'Lotes',
             'Lotes.idLote = Tarjetas.idLote',
-            'inner'
-        );
-
-        $builder-> join(
-            'Eventos',
-            'Eventos.idEvento = Tarjetas.idEvento',
             'inner'
         );
 
@@ -171,12 +157,21 @@ class Tarjetas_Model extends Model{
         return $datos;
     } 
 
-    public function insertarTarjeta($datos){
-        $numeros =0;
+    public function insertarTarjeta($idLote,$Nombre,$Material,$FechaIngreso,$folioInicial,$folioFinal){
 
-            for($i=$datos['FolioInicial']; $i<=$datos['FolioFinal'];$i++){
-                $numeros++;
-            }
+        $db = \Config\Database::connect();
+        $numeros = $folioInicial;
+
+        for($i=$folioInicial; $i<=$folioFinal;$i++){
+            
+            
+            $numeros = $i;
+            $db->query(
+                "INSERT INTO Tarjetas(Nombre, FechaActivacion,Status,Tipo,idLote,Folio) 
+                VALUES ('$Nombre Tarjeta $numeros','$FechaIngreso','N','$Material',$idLote,$numeros);
+                "
+            );
+        }
    
 
         return $numeros;
@@ -184,33 +179,6 @@ class Tarjetas_Model extends Model{
 
     public function insertarLote($datos){
         $db= \Config\Database::Connect();
-
-        /*
-        $db->query(
-            "INSERT INTO Lotes (
-                Nombre,
-                Material,
-                Cantidad,
-                FechaIngreso,
-                idUsuario,
-                FolioInicial,
-                FolioFinal,
-                Serie
-            )
-            VALUES (
-                '$datos[Nombre]',
-                '$datos[Material],
-                $datos[Cantidad],
-                '$datos[FechaIngreso]',
-                $datos[idUsuario],
-                $datos[FolioInicial],
-                $datos[FolioFinal],
-                '$datos[Serie]'
-            );
-            SELECT <SCOPE_IDENTITY></SCOPE_IDENTITY>
-            ");
-
-        */
 
         $builder = $db->table('Lotes');
 

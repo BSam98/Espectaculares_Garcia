@@ -9,13 +9,16 @@ $("#z").click(function(){
         type: "POST",
         url: 'Agregar_Lote',
         data: $("#formularioAgregarLote").serialize(),
+        
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
+        
         success: function (data){         
             alert('El id del lote es: '+data.msj);
             if(data.respuesta)
                 console.log(data.msj);
+                location.reload();
         },
         dataType: 'JSON'
     });
@@ -30,19 +33,16 @@ $(document).on('click','.mostrarTarjetasLote', function(){
         data: idLote,
         dataType: 'JSON'
     }).done(function(data){
-
         var html ='';
         for(var i = 0;i<data.msj.length; i++){
 
             
             html += '<tr>'+
-            '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
             '<td>'+data.msj[i]['Tarjeta']+'</td>'+
             '<td>'+data.msj[i]['Folio']+'</td>'+
             '<td>'+data.msj[i]['FechaActivacion']+'</td>'+
             '<td>'+data.msj[i]['Status']+'</td>'+
             '<td>'+data.msj[i]['Tipo']+'</td>'+
-            '<td>'+data.msj[i]['Ciudad']+'</td>'+
             '</tr>';
             
         }

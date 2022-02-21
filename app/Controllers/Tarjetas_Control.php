@@ -57,10 +57,10 @@ class Tarjetas_Control extends BaseController {
         $respuesta = $model->insertarAtraccion($datos);
         return redirect()->to(base_url('Atracciones'));
         */
-        $respuesta = json_encode(array('idLote'=> $model->insertarLote($datos)));
-
-        $respuesta1 = $model->insertarTarjeta($datos);
-        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+        //$respuesta = json_encode(array('idLote'=> $model->insertarLote($datos),'Nombre'=>$datos['Nombre'],'Material'=>$datos['Material'],'FechaActivacion'=>$datos['FechaIngreso'],'FolioInicial'=>$datos['FolioInicial'],'FolioFinal'=>$datos['FolioFinal']));
+        //$respuesta1 = $model->insertarTarjeta($respuesta);
+        $respuesta1 = $model->insertarTarjeta($model->insertarLote($datos),$datos['Nombre'],$datos['Material'],$datos['FechaIngreso'],$datos['FolioInicial'],$datos['FolioFinal']);
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta1));
     }
 
     public function actualizarLote(){}
