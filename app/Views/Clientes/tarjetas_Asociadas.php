@@ -22,6 +22,7 @@
                                             <th>Creditos de Cortesia</th>
                                             <th>Fecha de Recarga</th>
                                             <th>Vigencia de Saldo</th>
+                                            <th>Status</th>
                                     </thead>
                                     <!--La tabla se crea en el archivo clientes.js-->
                                     <tbody id = "datosTarjetas">
