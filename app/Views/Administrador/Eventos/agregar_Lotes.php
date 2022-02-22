@@ -21,8 +21,11 @@
                             <tbody>
                                 <tr class="filas">
                                     <td>
-                                        <select class="form-control" name="lote" id="lote">
-                                            <option value="">Elige un Lote</option>
+                                        <select class="form-control" name="idLote" id="idLote">
+                                            <option value="0">Selecciona un lote</option>
+                                            <?php foreach ($Lotes as $key => $dL) : ?>
+                                                <option value ='idLote=<?= $dL->idLote?>'><?= $dL-> Nombre?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </td>
                                     <td><input type="text" class="form-control" value="" disabled></td>

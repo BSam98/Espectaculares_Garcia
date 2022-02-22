@@ -37,6 +37,24 @@ class Eventos_Model extends Model{
         return $datos;        
     }
 
+    public function listadoLotes(){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Lotes');
+
+        $builder-> select(
+            '
+            Lotes.idLote,
+            Lotes.Nombre,
+            '
+        );
+
+        $query = $builder->get();
+     
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
     public function listado_Atracciones_Por_Evento (){
         $db = \Config\Database::connect();
         $builder = $db->table('Atraccion_Evento');
@@ -185,6 +203,26 @@ class Eventos_Model extends Model{
         );
 
         $builder->where('Asociacion.idEvento',$datos['idEvento']);
+
+        $query = $builder->get();
+    
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function mostrar_Tarjetas_Nuevas($datos){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Tarjetas');
+
+        $builder->select(
+            '
+            Folio
+            '
+        );
+
+        $builder ->where('idLote',$datos['idLote']);
+        //$builder->where('idEvento IS NULL');
 
         $query = $builder->get();
     

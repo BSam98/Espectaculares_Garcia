@@ -1,6 +1,8 @@
 $(document).on('click','.mostrarTarjetasAsociadas', function(){
                     
     var a = $(this).data('book-id');
+    console.log(a);
+    alert(a);
     
     $.ajax({
         type: "POST",
