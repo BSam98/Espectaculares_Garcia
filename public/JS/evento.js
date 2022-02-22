@@ -14,6 +14,61 @@ $("#agregarEvento").click(function(){
     });
 });
 
+/*
+$("#idLote").on('change',function(event){
+    //var idLote = $("#idLote").val();
+    var b = '{idLote:0}';
+    console.log(b);
+    alert(b);
+    $.ajax({
+        type: "POST",
+        url: 'Eventos/Mostrar_Tarjetas_Nuevas',
+        data: a,
+        dataType: 'JSON'
+    }).done(function(data){
+
+        alert(data.msj);
+        console.log(data.msj);
+        
+        var html ='';
+        for(var i = 0;i<data.msj.length; i++){
+
+            
+            html += '<tr>'+
+            '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+            '<td>'+data.msj[i]['Atraccion']+'</td>'+
+            '<td>'+data.msj[i]['Creditos']+'</td>'+
+            '<td></td>'+
+            '<td>'+data.msj[i]['Contrato']+'</td>'+
+            '<td>'+data.msj[i]['Poliza']+'</td>'+
+            '</tr>';
+            
+        }
+        
+        $("#atraccionesEvento").html(html);
+        
+
+    });
+});
+*/
+
+$(document).on('change', '#idLote', function(event) {
+    const opcion = ($("#idLote option:selected").val());
+
+    alert (opcion);
+    console.log(opcion);
+    $.ajax({
+        type: "GET",
+        url: 'Eventos/Mostrar_Tarjetas_Nuevas',
+        data: opcion,
+        dataType: 'JSON'
+    }).done(function(data){
+
+        alert(data.msj);
+        console.log(data.msj);
+    });
+});
+
 $(document).on('click','.mostrarAtraccionesEvento', function(){
     var idEvento = $(this).data('book-id');
     $.ajax({

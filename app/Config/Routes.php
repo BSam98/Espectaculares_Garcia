@@ -50,6 +50,10 @@ $routes->get('/Eventos/Agregar_Evento','Eventos_Control::agregarEvento');
 $routes->post('/Eventos/Agregar_Evento','Eventos_Control::agregarEvento');
 $routes->get('/Eventos/Mostrar_Tarjetas','Eventos_Control::mostrarTarjetas');
 $routes->post('/Eventos/Mostrar_Tarjetas','Eventos_Control::mostrarTarjetas');
+
+$routes->get('/Eventos/Mostrar_Tarjetas_Nuevas','Eventos_Control::mostrar_Tarjetas_Nuevas');
+$routes->post('/Eventos/Mostrar_Tarjetas_Nuevas','Eventos_Control::mostrar_Tarjetas_Nuevas');
+
 $routes->get('/Eventos/Mostrar_Asociacion','Eventos_Control::mostrarAsociacion');
 $routes->post('/Eventos/Mostrar_Asociacion','Eventos_Control::mostrarAsociacion');
 

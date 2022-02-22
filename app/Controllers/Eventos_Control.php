@@ -17,6 +17,7 @@ class Eventos_Control extends BaseController {
 
         $datos = [
             'Eventos' => $model->listadoEventos(),
+            'Lotes' => $model->listadoLotes(),
             'AtraccionesEvento' => $model->listado_Atracciones_Por_Evento()
         ];
 
@@ -75,6 +76,21 @@ class Eventos_Control extends BaseController {
 
         $respuesta = $model->mostrarAsociacion($datos);
         echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
+
+    public function mostrar_Tarjetas_Nuevas(){
+        $model = new Eventos_Model();
+      echo  $idLote = $_GET['idLote'];
+        
+        /*
+        $datos = [
+            'idLote' => $this->request->getVar('idLote')
+        ];
+        */
+        $datos =['id' =>1];
+        
+        //$respuesta = $model->mostrar_Tarjetas_Nuevas($datos);
+        echo json_encode(array('respuesta'=>true, 'msj'=>$datos));
     }
 
     public function create(){
