@@ -27,6 +27,6 @@
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     </head>
-    <body>
+    <body style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;">
         <!--Contenedor Principal-->
-        <div Class = "contenedorPrincipal" style="background-image: url('./Img/mainbg.png');">
+        <div Class = "contenedorPrincipal">

@@ -268,17 +268,30 @@ ul.circulo {list-style-type: circle;}
 	box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
 	transform: translateY(-0.25em);
   }
-  
+
+  .not-active { 
+	pointer-events: none; 
+	cursor: default; 
+} 
+
+#botonesMenu{
+	border: white 2px solid;
+}
+
+/*SVG*/
+#Circulo---imagotipo {
+	fill: white;
+  }
 /************************EFECTO BOTON CLASE THIRD*********************/
   .third {
 	border-color: #803279;
-	color: #fff;
-	box-shadow: 0 0 40px 40px #b36ff3 inset, 0 0 0 0 #b36ff3;
+	color:#fff;
+	box-shadow: 0 0 5px 5px #6fd9f3 inset, 0 0 0 0 #6fd9f3;
 	-webkit-transition: all 150ms ease-in-out;
 	transition: all 150ms ease-in-out;
   }
   .third:hover {
-	box-shadow: 0 0 10px 0 #b36ff3 inset, 0 0 10px 4px #b36ff3;
+	box-shadow: 0 0 5px 0 #7c03b4 inset, 0 0 5px 2px #7c03b4;
   }
 
   h1 {
