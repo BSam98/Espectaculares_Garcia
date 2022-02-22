@@ -76,22 +76,175 @@
 <div id="puntoVenta" style="display: none;">
 
 <fieldset id="fieldset">
-        <svg xmlns="http://www.w3.org/2000/svg" width="250" height="180" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
-            <path  fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
-            <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
-            <path  d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
-            <path  d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
-            </svg>
+    <center><h2>INICIAR TURNO</h2></center>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <label for="">Evento</label>
+        <div class="form-group">
+            <select name="" id="" class="form-control">
+                <option value="">Monterrey</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="">Tarjetas</label><br>
+            <input type="text" name="" id="" placeholder="Folio Inicial">
+            <input type="text" name="" id="" placeholder="Folio Final">
+        </div>
+        <div class="form-group">
+            <label for="">Fondo de Caja</label>
+            <input type="text" class="form-control" name="" id="" placeholder="Ingresa la Cantidad">
+        </div>
+        <div class="form-group">
+            <label for="">Punto de Venta</label>
+            <select name="" id="" class="form-control">
+                <option value="">Nombre de la Taquilla</option>
+            </select>
+        </div>
+        <a href="javascript:cobrar();" class="btn btn-success">Aceptar</a>
+    </form>
 </fieldset>
             
 </div>
 
 
+
+<div id="mCobrar" style="display: none;">
+
+<fieldset id="fieldset">
+    <center><h2>MÓDULO DE COBRO</h2></center>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <label for="tarjeta">Tarjeta</label>
+        <div class="form-group">
+            <input type="text" class="form-control" name="tarjeta" id="tarjeta">
+        </div>
+        
+        <div class="form-group">
+            <h6>Recargar</h6>
+            <label for="recarga">Ingrese la cantidad</label><br>
+            <input type="text" name="recarga" id="recarga" placeholder="Folio Inicial">
+            <!--button class="btn btn-success">Agregar</button-->
+        </div>
+        <div class="form-group">
+        <table class="table table-striped" border="1">
+            <th>Promociones</th>
+            <th>Información</th>
+            <tr>
+                <td>
+                    <label class="btn btn-success" value="100">$100 x 115 Creditos</label><br>
+                    <label class="btn btn-success" value="200">$200 x 230 Creditos</label><br>
+                    <label class="btn btn-success" value="500">$500 x 600 Creditos</label><br>
+                    <label class="btn btn-success" value="50">$50 x Dos x Uno</label><br>
+                    <label class="btn btn-success" value="1000">$1000 x Juegos grátis</label><br>
+                    <label class="btn btn-success" value="200">$200 x Pulcera Magica</label><br>
+                </td>
+                <td>
+                <table class="table table-striped">
+                        <th>Producto</th>
+                        <th>Dinero</th>
+                        <th>Créditos</th>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" name="valor1" id="valor1" disabled><br><!--NOMBRE-->
+                                <p style="display: none;">Saldo: </p>
+                                <input type="text" name="promo" id="promo" disabled style="display: none;">
+                            </td>
+                            <td>
+                                <br><br>
+                                <input type="text" name="pesos" id="pesos" disabled style="display: none;"><!--DINERO-->
+                                <input type="text" name="dpromo" id="dpromo" disabled style="display: none;">
+                            </td>
+                            <td>
+                                <br><br>
+                                <input disabled type="text" name="credito" id="credito" style="display: none;"><!--CREDITOS-->
+                                <input type="text" name="cpromo" id="cpromo" disabled style="display: none;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h6>Formas de Pago</h6><br>
+                                <input type="radio" name="pago" value="1">Efectivo <br>
+                                <input type="radio" name="pago" value="2">Tarjeta de Débito <br>
+                                <input type="radio" name="pago" value="3">Tarjeta de Crédito <br>
+                            </td>
+                            <td>
+                                <h6>Total:</h6><br>
+                                <input disabled type="text" name="total" id="total">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </td>
+            </tr>
+        </table>
+
+            <button>cobrar</button>
+        </div>
+        <a href="javascript:cobrar();" class="btn btn-success">Aceptar</a>
+    </form>
+</fieldset>
+</div>
+
 <script>
+
+//VALOR DE LOS BOTONES
+$(function(){
+    
+     $('label').click(function(e){
+
+          var p = $(this).attr('value');
+
+          if(p == 100){
+              var cred = 115;
+              $('#promo').show().val('PROMOCION 1');
+              $('#dpromo').show().val(p);
+              $('#cpromo').show().val(cred);
+          }else if(p == 200){
+              var cred = 230;
+              $('#promo').show().val('PROMOCION 2');
+              $('#dpromo').show().val(p);
+              $('#cpromo').show().val(cred);
+          }
+       });
+  });
+
+//SCRIPT PARA ALMACENAR LOS DATOS DE TARJETAS DEL INPUT
+
+    $('#tarjeta').change(function () {
+        //var value = document.getElementById('tarjeta').value;
+        //alert(value);
+        valor_inicial = $(this).val();
+        $('#valor1').val(valor_inicial);
+        //$('input[name=valor1]').val($(this).val());
+
+    });
+    
+    $('#recarga').change(function () {
+        /*var value = document.getElementById('recarga').value;
+        alert(value);
+        $('input[name=recargas]').val($(this).val());*/
+        valor_inicial = $(this).val();
+
+        const creditos = 1;
+        const pesos = 0.80;
+        
+        r = (valor_inicial * creditos)/pesos;
+        $( "p" ).show();
+        $('#pesos').val(valor_inicial).show();
+        $('#credito').val(r).show();
+
+    });
+
     function mostrar() {
         div = document.getElementById('puntoVenta');
         div.style.display = '';
         prin = document.getElementById('menu');
+        prin.style.display = 'none';
+    }
+
+    function cobrar() {
+        div = document.getElementById('mCobrar');
+        div.style.display = '';
+        prin = document.getElementById('puntoVenta');
         prin.style.display = 'none';
     }
 
