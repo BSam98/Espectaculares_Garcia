@@ -106,9 +106,10 @@ $("#actualizarAtraccion").click(function(){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
         success: function (data){            
-            alert(data.msj);
+            
             if(data.respuesta)
                 console.log(data.dato);
+                location.reload();
         },
         dataType: 'JSON'
     });
@@ -123,9 +124,9 @@ $("#actualizarPropietario").click(function(){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
         success: function (data){            
-            alert(data.msj);
             if(data.respuesta)
                 console.log(data.dato);
+                location.reload();
         },
         dataType: 'JSON'
     });

@@ -27,7 +27,7 @@
                     <tbody>
                         <?php foreach ($Lote as $key => $dL) : ?>
                             <tr>
-                                <td style="vertical-align: middle;"><a href="#eLote" class ="btn btn-warning editarAtraccion" data-toggle="modal" data-book-id='{}'><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
+                                <td style="vertical-align: middle;"><a href="#eLote" class ="btn btn-warning editarLotes"  data-book-id='{"idLote":<?= $dL->idLote?>,"Nombre":"<?= $dL->Nombre?>","Material":"<?= $dL->Material?>","Cantidad":<?= $dL->Cantidad?>,"Serie":"<?= $dL->Serie?>","Usuario":"<?= $dL->Usuario?>"}' data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning" ></i></a></td>
                                 <td style="vertical-align: middle;"><?= $dL->Nombre?></td>
                                 <td style="vertical-align: middle;"><?= $dL->Material?></td>
                                 <td style="vertical-align: middle;"><?= $dL->Cantidad?></td>
