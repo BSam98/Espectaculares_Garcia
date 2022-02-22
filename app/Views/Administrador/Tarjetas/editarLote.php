@@ -8,7 +8,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST"  action="Tarjetas/Editar_Lote" enctype="multipart/form-data" name="formulario2" id="formulario2">
+                <form  enctype="multipart/form-data" name="formularioEditarLote" id="formularioEditarLote">
                     <div class="container-fluid">
                         <input type="hidden" class="form-control" id = "idLote" name = "idLote" value="">
                        
@@ -25,20 +25,8 @@
                             <input type="number" class="form-control" id = "Cantidad" name = "Cantidad" value="">
                         </div>
                         <div class="form-group">
-                            <label for="atraccion">Folio Inicial</label>
-                            <input type="number" class="form-control" id = "FolioInicial" name = "FolioInicial" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="area">Folio Final</label>
-                            <input type="number"  class="form-control" id = "FolioFinal" name = "FolioFinal" value="">
-                        </div>
-                        <div class="form-group">
                             <label for="atraccion">Serie</label>
                             <input type="text" class="form-control" id = "Serie" name = "Serie" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="area">Fecha de Ingreso</label>
-                            <input type="text"  class="form-control" id = "FechaIngreso" name = "FechaIngreso" value="">
                         </div>
                         <div class="form-group">
                             <label for="area">Usuario</label>
@@ -50,7 +38,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Actualizar</button>
+                        <button type="submit" class="btn btn-success" id = "actualizarLote">Actualizar</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>

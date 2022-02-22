@@ -168,7 +168,7 @@ class Tarjetas_Model extends Model{
             $numeros = $i;
             $db->query(
                 "INSERT INTO Tarjetas(Nombre, FechaActivacion,Status,Tipo,idLote,Folio) 
-                VALUES ('$Nombre Tarjeta $numeros','$FechaIngreso','N','$Material',$idLote,$numeros);
+                VALUES ('Tarjeta $numeros $FechaIngreso','$FechaIngreso','N','$Material',$idLote,$numeros);
                 "
             );
         }
@@ -188,6 +188,16 @@ class Tarjetas_Model extends Model{
         else{
             return False;
         }
+    }
+
+    public function actualizarLote($idLote,$datos){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Lotes');
+
+        $builder->where('idLote',$idLote);
+        $builder->update($datos);
+
+        return 'Funciono';
     }
 
 }

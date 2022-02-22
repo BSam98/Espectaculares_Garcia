@@ -63,7 +63,19 @@ class Tarjetas_Control extends BaseController {
         echo json_encode(array('respuesta'=>true,'msj'=>$respuesta1));
     }
 
-    public function actualizarLote(){}
+    public function actualizarLote(){
+        $model = new Tarjetas_Model();
+        $idLote = $_POST['idLote'];
+        $datos = [
+            'Nombre' => $this->request->getVar('Nombre'),
+            'Material' => $this->request->getVar('Material'),
+            'Cantidad' => $this->request->getVar('Cantidad'),
+            'idUsuario' => $this->request->getVar('Usuario'),
+            'Serie' => $this->request->getVar('Serie'),
+        ];
+        $respuesta = $model->actualizarLote($idLote,$datos);
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
 
     public function create(){
         return "";

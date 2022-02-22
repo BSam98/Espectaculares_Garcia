@@ -15,9 +15,25 @@ $("#z").click(function(){
         },
         
         success: function (data){         
-            alert('El id del lote es: '+data.msj);
             if(data.respuesta)
                 console.log(data.msj);
+                location.reload();
+        },
+        dataType: 'JSON'
+    });
+});
+
+$("#actualizarLote").click(function(){
+    $.ajax({
+        type: "POST",
+        url: 'Tarjetas/EditarLote',
+        data: $("#formularioEditarLote").serialize(),
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+        success: function (data){            
+            if(data.respuesta)
+                console.log(data.dato);
                 location.reload();
         },
         dataType: 'JSON'
@@ -53,8 +69,7 @@ $(document).on('click','.mostrarTarjetasLote', function(){
     });
 });
 
-$(document).on('click','.editarLote', function(){
-    alert('a');
+$(document).on('click','.editarLotes', function(){
                     
     var Lote = $(this).data('book-id');
 
@@ -64,10 +79,7 @@ $(document).on('click','.editarLote', function(){
    $(".modal-body #Nombre").val(Lote['Nombre']);
    $(".modal-body #Material").val(Lote['Material']);
    $(".modal-body #Cantidad").val(Lote['Cantidad']);
-   $(".modal-body #FolioInicial").val(Lote['FolioInicial']);
-   $(".modal-body #FolioFinal").val(Lote['FolioFinal']);
    $(".modal-body #Serie").val(Lote['Serie']);
-   $(".modal-body #FechaIngreso").val(Lote['FechaIngreso']);
    $(".modal-body #Usuario").val(Lote['Usuario']);
 });
 

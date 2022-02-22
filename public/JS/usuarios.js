@@ -7,7 +7,6 @@ $("#agregarUsuario").click(function(){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
         success: function (data){              
-            alert(data.msj);
             if(data.respuesta)
                 location.reload();
         },
@@ -24,7 +23,6 @@ $("#actualizarUsuario").click(function(){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
         success: function (data){              
-            alert(data.msj);
             if(data.respuesta)
                 location.reload();
         },
