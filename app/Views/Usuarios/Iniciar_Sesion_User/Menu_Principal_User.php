@@ -1,3 +1,34 @@
+<!DOCTYPE html>
+<html lang = "es">
+    <head>
+        <meta charset = "UTF-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content = "ie=edge"/>
+        <title>Espectaculares García</title>
+        <link href="CSS/cabecera_style.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css"> 
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css"> 
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    </head>
+    <body style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;">
+        <!--Contenedor Principal-->
+        <div Class = "contenedorPrincipal">
 <br><br>
 <div class="container" id="menu">
     <div class="row">
@@ -114,98 +145,157 @@
     <form action="" method="POST" enctype="multipart/form-data">
         <label for="tarjeta">Tarjeta</label>
         <div class="form-group">
-            <input type="text" class="form-control" name="tarjeta" id="tarjeta">
+            <input type="text" class="form-control" name="tarjeta" id="tarjeta" onblur="ingresarTarjeta()">
         </div>
-        
         <div class="form-group">
             <h6>Recargar</h6>
             <label for="recarga">Ingrese la cantidad</label><br>
-            <input type="text" name="recarga" id="recarga" placeholder="Folio Inicial">
+            <input class="form-control" type="number" name="recarga" id="recarga">
             <!--button class="btn btn-success">Agregar</button-->
         </div>
         <div class="form-group">
-        <table class="table table-striped" border="1">
-            <th>Promociones</th>
-            <th>Información</th>
-            <tr>
-                <td>
-                    <label class="btn btn-success" value="100">$100 x 115 Creditos</label><br>
-                    <label class="btn btn-success" value="200">$200 x 230 Creditos</label><br>
-                    <label class="btn btn-success" value="500">$500 x 600 Creditos</label><br>
-                    <label class="btn btn-success" value="50">$50 x Dos x Uno</label><br>
-                    <label class="btn btn-success" value="1000">$1000 x Juegos grátis</label><br>
-                    <label class="btn btn-success" value="200">$200 x Pulcera Magica</label><br>
-                </td>
-                <td>
-                <table class="table table-striped">
-                        <th>Producto</th>
-                        <th>Dinero</th>
-                        <th>Créditos</th>
+            <div class="table table-striped table-responsive">
+                <table class="table table-bordered">
+                    <th>Promociones</th>
+                    <th>Información</th>
+                    <tr>
+                        <td>
+                            <label class="btn btn-success" id="promo1" value="100">$100 x 115 Creditos</label><br>
+                            <label class="btn btn-success" id="promocion2" value="200">$200 x 230 Creditos</label><br>
+                            <label class="btn btn-success" id="promocion3" value="500">$500 x 600 Creditos</label><br>
+                            <label class="btn btn-success" value="50">$50 x Dos x Uno</label><br>
+                            <label class="btn btn-success" value="1000">$1000 x Juegos grátis</label><br>
+                            <label class="btn btn-success" value="200">$200 x Pulcera Magica</label><br>
+                            <label class="btn btn-success" id="agregar">Agregar nuevo elementos</label>
+                        </td>
+                        <td>
+                            <table class="table table-striped">
+                                    <th>Producto</th>
+                                    <th>Dinero</th>
+                                    <th>Créditos</th>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" name="valor1" id="valor1" disabled style="background : inherit; border:0;"><hr><!--NOMBRE-->
+                                            <input name="saldo" id="saldo" style="display: none; background : inherit; border:0;">
+                                            <div id="promo1-elementos"></div>
+                                            <div id="promo2-elementos"></div>
+                                            <div id="promo3-elementos"></div>
+                                        </td>
+                                        <td>
+                                            <br><br><br>
+                                            <input type="number" name="pesos" id="pesos" disabled style="display: none; background : inherit; border:0;" class="monto"><!--DINERO-->
+                                            <div id="elementos"></div>
+                                            <div id="elementos2"></div>
+                                            <div id="elementos3"></div>
+                                        </td>
+                                        <td>
+                                            <br><br><br>
+                                            <input disabled type="text" name="credito" id="credito" style="display: none; background : inherit; border:0;" class="credi"><!--CREDITOS-->
+                                            <div id="creditop1"></div>
+                                            <div id="creditop2"></div>
+                                            <div id="creditop3"></div>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <section>
+            <div class="table table-striped table-responsive">
+                <table class="table table-bordered">
+                    <th>Formas de Pago</th>
+                    <th>Total Pesos:</th>
+                    <th>Total Creditos</th>
                     <tbody>
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" name="valor1" id="valor1" disabled><br><!--NOMBRE-->
-                                <p style="display: none;">Saldo: </p>
-                                <input type="text" name="promo" id="promo" disabled style="display: none;">
-                            </td>
-                            <td>
-                                <br><br>
-                                <input type="text" name="pesos" id="pesos" disabled style="display: none;"><!--DINERO-->
-                                <input type="text" name="dpromo" id="dpromo" disabled style="display: none;">
-                            </td>
-                            <td>
-                                <br><br>
-                                <input disabled type="text" name="credito" id="credito" style="display: none;"><!--CREDITOS-->
-                                <input type="text" name="cpromo" id="cpromo" disabled style="display: none;">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <h6>Formas de Pago</h6><br>
-                                <input type="radio" name="pago" value="1">Efectivo <br>
-                                <input type="radio" name="pago" value="2">Tarjeta de Débito <br>
-                                <input type="radio" name="pago" value="3">Tarjeta de Crédito <br>
-                            </td>
-                            <td>
-                                <h6>Total:</h6><br>
-                                <input disabled type="text" name="total" id="total">
-                            </td>
-                        </tr>
+                        <td>
+                            <input type="radio" name="pago" value="1">Efectivo <br>
+                            <input type="radio" name="pago" value="2">Tarjeta de Débito <br>
+                            <input type="radio" name="pago" value="3">Tarjeta de Crédito <br>
+                        </td>
+                        <td>
+                            $<input disabled type="text" name="total" id="total">
+                        </td>
+                        <td>
+                            <input disabled type="text" name="totalc" id="totalc">
+                        </td>
                     </tbody>
                 </table>
-                </td>
-            </tr>
-        </table>
-
+            </div>
+        </section>
             <button>cobrar</button>
-        </div>
         <a href="javascript:cobrar();" class="btn btn-success">Aceptar</a>
     </form>
 </fieldset>
 </div>
+        </div>
+
+    </body>
+</html>
 
 <script>
 
-//VALOR DE LOS BOTONES
-$(function(){
-    
-     $('label').click(function(e){
+        $("#promo1").click(function(){
+        let htmlE = "<label name='promo' id='promo' disabled style='display: none;'>$100 x 115 creditos</label>";
+        let htmlE2 = '$<input type="number" name="dpromo1" id="dpromo1" disabled style="display: none; background : inherit; border:0;" class="monto">';
+        let htmlE3 = '<input type="number" name="cpromo1" id="cpromo1" class="credi" disabled style="display: none; background : inherit; border:0;">';
+        $("#promo1-elementos").append(htmlE);
+        $("#elementos").append(htmlE2);
+        $("#creditop1").append(htmlE3);
+        
+        });
 
-          var p = $(this).attr('value');
+        $("#promocion2").click(function(){ 
+            let im = "<label name='promo2' id='promo2' disabled style='display: none;'>$200 x 260 creditos</label>";
+            let hmo = '$<input type="number" name="dpromo2" id="dpromo2" disabled style="display: none; background : inherit; border:0;" class="monto">';
+            let htmlE3 = '<input type="number" name="cpromo2" id="cpromo2" class="credi" disabled style="display: none; background : inherit; border:0;">';
+        $("#promo2-elementos").append(im);
+        $("#elementos2").append(hmo);
+        $("#creditop2").append(htmlE3);
+        });
 
-          if(p == 100){
-              var cred = 115;
-              $('#promo').show().val('PROMOCION 1');
-              $('#dpromo').show().val(p);
-              $('#cpromo').show().val(cred);
-          }else if(p == 200){
-              var cred = 230;
-              $('#promo').show().val('PROMOCION 2');
-              $('#dpromo').show().val(p);
-              $('#cpromo').show().val(cred);
-          }
-       });
-  });
+        $("#promocion3").click(function(){ 
+            let htmlE = "<label name='promo3' id='promo3' disabled style='display: none;'>$500 x 600 creditos</label>";
+            let hmo = '$<input type="number" name="dpromo3" id="dpromo3" disabled style="display: none; background : inherit; border:0;" class="monto">';
+            let htmlE3 = '<input type="number" name="cpromo3" id="cpromo3" class="credi" disabled style="display: none; background : inherit; border:0;">';
+        $("#promo3-elementos").append(htmlE);
+        $("#elementos3").append(hmo);
+        $("#creditop3").append(htmlE3);
+        });
+
+    //VALOR DE LOS BOTONES
+    $('label').click(function(e){
+        var p = $(this).attr('value');
+        if(p == 100){
+            var cred = 115;
+            $('#promo').show(); 
+           // $('#promo').show().val('PROMOCION 1');
+            $('#dpromo1').show().val(p);
+            $('#cpromo1').show().val(cred);
+            sumar();
+            credi();
+        }
+        if(p == 200){
+            var cred = 230;
+            $('#promo2').show().val('PROMOCION 2');
+            $('#dpromo2').show().val(p);
+            $('#cpromo2').show().val(cred);
+            sumar();
+            credi();
+        }
+        if(p == 500){
+            var cred = 230;
+            $('#promo3').show().val('PROMOCION 3');
+            $('#dpromo3').show().val(p);
+            $('#cpromo3').show().val(cred);
+            sumar();
+            credi();
+        }
+    });
 
 //SCRIPT PARA ALMACENAR LOS DATOS DE TARJETAS DEL INPUT
 
@@ -228,11 +318,36 @@ $(function(){
         const pesos = 0.80;
         
         r = (valor_inicial * creditos)/pesos;
-        $( "p" ).show();
+        $( "#saldo" ).show().val('Saldo');
         $('#pesos').val(valor_inicial).show();
         $('#credito').val(r).show();
-
+        sumar();
+        credi();
     });
+
+    function sumar() {
+        var total = 0;
+        $(".monto").each(function() {
+            if (isNaN(parseFloat($(this).val()))) {
+            total += 0;
+            } else {
+            total += parseFloat($(this).val());
+            }
+        });
+        $('#total').val(total);
+    }
+
+    function credi() {
+        var total = 0;
+        $(".credi").each(function() {
+            if (isNaN(parseFloat($(this).val()))) {
+            total += 0;
+            } else {
+            total += parseFloat($(this).val());
+            }
+        });
+        $('#totalc').val(total);
+    }
 
     function mostrar() {
         div = document.getElementById('puntoVenta');
