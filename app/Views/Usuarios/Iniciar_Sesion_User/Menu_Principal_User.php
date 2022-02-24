@@ -1,4 +1,3 @@
-<br><br>
 <div class="container" id="menu">
     <div class="row">
         <div class="col-xs-2 col-md-4" style="padding: 10px;">
@@ -72,5 +71,3 @@
         </div>
     </div>
 </div>
-
-

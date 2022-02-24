@@ -1,7 +1,7 @@
 <!--Contenedor Superior-->
     <div class="container">
         <nav class="navbar navbar-fixed-top tm_navbar negro" role="navigation">
-            <a class="logo" href="Menu_Principal_Administrador"><img src = "Img/logo.png"/></a>
+            <a href="Menu_Principal_Administrador"><img src = "Img/logo.png" style="width: 70px; height:7   0px;"/></a>
             <ul class="nav navbar-nav sf-menu">
                 <!--li class="active"><a href="#">Home</a></li-->
                 <!--Menu Catalago-->

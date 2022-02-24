@@ -129,11 +129,11 @@
     <script>
         $(function(){
         // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-            $("#addf").on('click', function(){
-            $("#agregar tbody tr:eq(0)").clone().removeClass('filas').appendTo("#agregar");
+            $("#agregar-Filas").on('click', function(){
+            $("#agregarLotes tbody tr:eq(0)").clone().removeClass('filas-lote').appendTo("#agregarLotes");
             });
             // Evento que selecciona la fila y la elimina 
-            $(document).on("click",".deletef",function(){
+            $(document).on("click",".eliminar-Filasl",function(){
                 var parent = $(this).parents().get(0);
             $(parent).remove();
             });
