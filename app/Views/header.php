@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content = "ie=edge"/>
         <title>Espectaculares García</title>
         <link href="CSS/cabecera_style.css" rel="stylesheet" type="text/css">
-        <link href = "CSS/eventos_style.css" rel = "stylesheet" type="text/css">
+        <!--link href = "CSS/eventos_style.css" rel = "stylesheet" type="text/css"-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

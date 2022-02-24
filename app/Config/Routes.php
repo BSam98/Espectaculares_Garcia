@@ -88,6 +88,12 @@ $routes->get('/Iniciar_Sesion_User','Iniciar_Sesion_User_Control::new');
 $routes->post('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
 $routes->get('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
 $routes->get('/Menu_Principal_User','Menu_Principal_User_Control::new');
+$routes->post('/Menu_Principal_User','Menu_Principal_User_Control::new');
+$routes->post('/PuntoVenta','Menu_Principal_User_Control::venta');
+$routes->get('/PuntoVenta','Menu_Principal_User_Control::venta');
+$routes->post('/Cobro','Menu_Principal_User_Control::cobrar');
+$routes->get('/Cobro','Menu_Principal_User_Control::cobrar');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
