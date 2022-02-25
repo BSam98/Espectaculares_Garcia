@@ -7,9 +7,10 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
+                <form method="POST" action="" enctype="multipart/form-data" name="formularioAgregarTarjetasEvento" id="formularioAgregarTarjetasEvento">
                     <div class="table table-striped table-responsive">
                     <!--Tabla AGREGAR LOTES-->
+                        <input type="hidden" class="form-control" id = "idEvento" name = "idEvento" value="">
                         <table class="table table-bordered" id="agregar">
                             <thead>
                             <!--Titulos de la tabla-->
@@ -24,20 +25,20 @@
                                         <select class="form-control" name="idLote" id="idLote">
                                             <option value="0">Selecciona un lote</option>
                                             <?php foreach ($Lotes as $key => $dL) : ?>
-                                                <option value ='idLote=<?= $dL->idLote?>'><?= $dL-> Nombre?></option>
+                                                <option value ="<?=$dL->idLote?>"><?= $dL-> Nombre?></option>
                                             <?php endforeach ?>
                                         </select>
                                     </td>
-                                    <td><input type="text" class="form-control" value="" disabled></td>
-                                    <td><input type="number" class="form-control" placeholder="Folio Inicial"></td>
-                                    <td><input type="number" class="form-control" placeholder="Folio Final"></td>
+                                    <td><input type="text" class="form-control" id="folios" name="folios" value=""></td>
+                                    <td><input type="number" class="form-control" placeholder="Folio Inicial" id="folioInicial" name = "folioInicial"></td>
+                                    <td><input type="number" class="form-control" placeholder="Folio Final" id = "folioFinal" name = "folioFinal"></td>
                                     <td class="deletef"><input type="button" value="-"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <button id="addf" name="adicional" type="button" class="btn btn-warning"> + </button>
-                    <button id="save" name="save" type="button" class="btn btn-success">Guardar</button>
+                    <button id="asociarTarjetas" name="asociarTarjetas" type="button" class="btn btn-success">Guardar</button>
                 </form><hr>
 
                 <!--TABLA DE LOTES-->
