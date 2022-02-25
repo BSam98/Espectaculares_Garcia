@@ -13,18 +13,6 @@ class Atracciones_Control extends BaseController {
         $this->request = \Config\Services::request();
     }
 
-    public function index(){
-        $model = new Atracciones_Model();
-
-        //$datos["Atraccion"] = $model->listadoAtracciones();
-        $datos =[
-            'Atraccion' => $model->listadoAtracciones(),
-            'Propietario' => $model->listadoPropietartios()
-        ];
-        
-        return view ('Administrador/Atracciones/Atracciones_View', $datos);
-        
-    }
     public function new (){
         $model = new Atracciones_Model();
 

@@ -222,7 +222,7 @@ class Eventos_Model extends Model{
         );
 
         $builder ->where('idLote',$datos['idLote']);
-        //$builder->where('idEvento IS NULL');
+        $builder->where('idEvento IS NULL');
 
         $query = $builder->get();
     
