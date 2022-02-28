@@ -61,12 +61,16 @@ $routes->get('/Eventos/Mostrar_Asociacion','Eventos_Control::mostrarAsociacion')
 $routes->post('/Eventos/Mostrar_Asociacion','Eventos_Control::mostrarAsociacion');
 
 $routes->get('/Usuarios','Usuarios_Control::new');
+
 $routes->get('/Promociones','Promociones_Control::new');
+
 $routes->get('/Tarjetas','Tarjetas_Control::new');
 $routes->post('/Tarjetas/EditarLote','Tarjetas_Control::actualizarLote');
 $routes->get('/Tarjetas/EditarLote','Tarjetas_Control::actualizarLote');
 $routes->post('/Tarjetas/Tarjetas','Tarjetas_Control::listadoTarjetas');
+
 $routes->get('/Clientes','Clientes_Control::new');
+
 $routes->post('/Agregar_Atraccion','Atracciones_Control::insertarAtraccion');
 $routes->get('/Agregar_Atraccion','Atracciones_Control::insertarAtraccion');
 $routes->post('/Agregar_Propietario','Atracciones_Control::insertarPropietario');
@@ -75,14 +79,18 @@ $routes->post('/Atracciones/Editar_Atraccion','Atracciones_Control::actualizarAt
 $routes->get('/Atracciones/Editar_Atraccion','Atracciones_Control::actualizarAtraccion');
 $routes->post('/Atracciones/Editar_Propietario','Atracciones_Control::actualizarPropietario');
 $routes->get('/Atracciones/Editar_Propietario','Atracciones_Control::actualizarPropietario');
+
 $routes->post('/Usuarios/Agregar_Usuario','Usuarios_Control::agregarUsuarios');
 $routes->get('/Usuarios/Agregar_Usuario','Usuarios_Control::agregarUsuarios');
 $routes->post('/Usuarios/Editar_Usuario','Usuarios_Control::actualizarUsuario');
 $routes->get('/Usuarios/Editar_Usuario','Usuarios_Control::actualizarUsuario');
+
 $routes->post('/Agregar_Lote','Tarjetas_Control::insertarLote');
 $routes->get('/Agregar_Lote','Tarjetas_Control::insertarLote');//
+
 $routes->get('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociadas');
 $routes->post('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociadas');
+
 $routes->get('/Contratos','Contratos_Control::new');
 
 $routes->get('/Taquillas','Taquillas_Control::new');
@@ -92,8 +100,10 @@ $routes->post('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
 $routes->get('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
 $routes->get('/Menu_Principal_User','Menu_Principal_User_Control::new');
 $routes->post('/Menu_Principal_User','Menu_Principal_User_Control::new');
+
 $routes->post('/PuntoVenta','Menu_Principal_User_Control::venta');
 $routes->get('/PuntoVenta','Menu_Principal_User_Control::venta');
+
 $routes->post('/Cobro','Menu_Principal_User_Control::cobrar');
 $routes->get('/Cobro','Menu_Principal_User_Control::cobrar');
 

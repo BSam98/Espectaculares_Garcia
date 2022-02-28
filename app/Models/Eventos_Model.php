@@ -231,6 +231,26 @@ class Eventos_Model extends Model{
         return $datos;
     }
 
+    public function agregar_Tarjetas_Evento($datos){
+        $db = \Config\Database::connect();
+
+        for($i=$datos['folioInicial'];$i<=$datos['folioFinal'];$i++){
+
+            $db->query(
+                "UPDATE 
+                    Tarjetas 
+                SET
+                    idEvento = '$datos[idEvento]'
+                WHERE 
+                    Folio = $i
+                AND
+                    idLote = '$datos[idLote]'
+                ");
+        }
+
+        return 'Funciono';
+    }
+
     public function listado_Precios_Por_Evento(){}
 
     public function listado_Usuarios_Por_Evento(){}

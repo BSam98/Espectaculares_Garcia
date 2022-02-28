@@ -62,8 +62,9 @@ $("#asociarTarjetas").click(function(){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
     }).done(function(data){
-        if(data.respuesta)
+        if(data.respuesta){
             location.reload();
+        }
     }
     );
 });

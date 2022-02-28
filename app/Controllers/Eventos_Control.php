@@ -92,11 +92,16 @@ class Eventos_Control extends BaseController {
 
     public function agregar_Tarjetas_Evento(){
         $model = new Eventos_Model();
+
         $datos= [
             'idEvento' => $this->request->getVar('idEvento'),
             'idLote' => $this->request->getVar('idLote'),
             'folioInicial' => $this->request->getVar('folioInicial'),
+            'folioFinal' => $this->request->getVar('folioFinal')
         ];
+
+        $respuesta = $model->agregar_Tarjetas_Evento($datos);
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
 
     }
 
