@@ -46,27 +46,46 @@ class Tarjetas_Control extends BaseController {
         $Nombre = $_POST['nom'];
         $Material = $_POST['mate'];
         $Cantidad = $_POST['cant'];
-        $FechaIngreso = $_POST['fi'];
-        $idUsuario = $_POST[''];
+        $FechaIngreso = $_POST['date'];
+        $idUsuario = $_POST['user'];
+        $FolioInicial = $_POST['fi'];
+        $FolioFinal = $_POST['ff'];
+        $Serie = $_POST['ser'];
 
-        $datos=[
-            'Nombre' => $this->request->getVar('NombreL'),
-            'Material' => $this->request->getVar('MaterialL'),
-            'Cantidad' => $this->request->getVar('CantidadL'),
-            'FechaIngreso' => $this->request->getVar('FechaIngresoL'),
-            'idUsuario' => $this->request->getVar('UsuarioL'),
-            'FolioInicial' => $this->request->getVar('FolioInicialL'),
-            'FolioFinal' => $this->request->getVar('FolioFinalL'),
-            'Serie' => $this->request->getVar('SerieL'),
-        ];
+        $num_elementos = 0;
+        $cantidad = count($Nombre);
+
+        if(1==$cantidad){
+            $datos=[
+                'Nombre' => $Nombre[$num_elementos],
+                'Material' => $Material[$num_elementos],
+                'Cantidad' => $Cantidad[$num_elementos],
+                'FechaIngreso' => $FechaIngreso[$num_elementos],
+                'idUsuario' => $idUsuario[$num_elementos],
+                'FolioInicial' => $FolioInicial[$num_elementos],
+                'FolioFinal' => $FolioFinal[$num_elementos],
+                'Serie' => $Serie[$num_elementos],
+            ];
+            $respuesta1 = $model->insertarTarjeta($model->insertarLote($datos),$datos['Nombre'],$datos['Material'],$datos['FechaIngreso'],$datos['FolioInicial'],$datos['FolioFinal']);
+        }
+        else{
+            while($num_elementos<=$cantidad){
+
+                $datos=[
+                    'Nombre' => $Nombre[$num_elementos],
+                    'Material' => $Material[$num_elementos],
+                    'Cantidad' => $Cantidad[$num_elementos],
+                    'FechaIngreso' => $FechaIngreso[$num_elementos],
+                    'idUsuario' => $idUsuario[$num_elementos],
+                    'FolioInicial' => $FolioInicial[$num_elementos],
+                    'FolioFinal' => $FolioFinal[$num_elementos],
+                    'Serie' => $Serie[$num_elementos],
+                ];
+                $respuesta1 = $model->insertarTarjeta($model->insertarLote($datos),$datos['Nombre'],$datos['Material'],$datos['FechaIngreso'],$datos['FolioInicial'],$datos['FolioFinal']);
+                $num_elementos = $num_elementos +1;
+            }
+        }
         
-        /*
-        $respuesta = $model->insertarAtraccion($datos);
-        return redirect()->to(base_url('Atracciones'));
-        */
-        //$respuesta = json_encode(array('idLote'=> $model->insertarLote($datos),'Nombre'=>$datos['Nombre'],'Material'=>$datos['Material'],'FechaActivacion'=>$datos['FechaIngreso'],'FolioInicial'=>$datos['FolioInicial'],'FolioFinal'=>$datos['FolioFinal']));
-        //$respuesta1 = $model->insertarTarjeta($respuesta);
-        $respuesta1 = $model->insertarTarjeta($model->insertarLote($datos),$datos['Nombre'],$datos['Material'],$datos['FechaIngreso'],$datos['FolioInicial'],$datos['FolioFinal']);
         echo json_encode(array('respuesta'=>true,'msj'=>$respuesta1));
     }
 
