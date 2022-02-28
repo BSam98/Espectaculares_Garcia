@@ -42,6 +42,13 @@ class Tarjetas_Control extends BaseController {
 
     public function insertarLote(){
         $model = new Tarjetas_Model();
+
+        $Nombre = $_POST['nom'];
+        $Material = $_POST['mate'];
+        $Cantidad = $_POST['cant'];
+        $FechaIngreso = $_POST['fi'];
+        $idUsuario = $_POST[''];
+
         $datos=[
             'Nombre' => $this->request->getVar('NombreL'),
             'Material' => $this->request->getVar('MaterialL'),
