@@ -14,7 +14,7 @@
             Punto de Venta</a>
         </div>
         <div class="col-xs-2 col-md-4" style="padding: 15px;">
-            <a href="" class="btn third" id="botonesMenu">
+            <a href="ReporteVenta" class="btn third" id="botonesMenu">
             <br>
             <svg xmlns="http://www.w3.org/2000/svg" width="250" height="180" fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
             <path id="Circulo---imagotipo" d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>

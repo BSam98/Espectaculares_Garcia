@@ -11,7 +11,7 @@
                     <div class="table table-striped table-responsive">
                     <!--Tabla AGREGAR LOTES-->
                         <input type="hidden" class="form-control" id = "idEvento" name = "idEvento" value="">
-                        <table class="table table-bordered" id="agregar">
+                        <table class="table table-bordered">
                             <thead>
                             <!--Titulos de la tabla-->
                                 <th scope="col" style="vertical-align: middle;">Nombre del Lote</th>
@@ -20,7 +20,7 @@
                                 <th scope="col" style="vertical-align: middle;">Folio Final</th>
                             </thead>
                             <tbody>
-                                <tr class="filas">
+                                <tr>
                                     <td>
                                         <select class="form-control" name="idLote" id="idLote">
                                             <option value="0">Selecciona un lote</option>
@@ -29,15 +29,15 @@
                                             <?php endforeach ?>
                                         </select>
                                     </td>
-                                    <td><input type="text" class="form-control" id="folios" name="folios" value=""></td>
+                                    <td>
+                                        <textarea id="folios" name="folios" cols="30" rows="2" disabled></textarea>
+                                        <!--input type="text" class="form-control" id="folios" name="folios" value=""--></td>
                                     <td><input type="number" class="form-control" placeholder="Folio Inicial" id="folioInicial" name = "folioInicial"></td>
                                     <td><input type="number" class="form-control" placeholder="Folio Final" id = "folioFinal" name = "folioFinal"></td>
-                                    <td class="deletef"><input type="button" value="-"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <button id="addf" name="adicional" type="button" class="btn btn-warning"> + </button>
                     <button id="asociarTarjetas" name="asociarTarjetas" type="button" class="btn btn-success">Guardar</button>
                 </form><hr>
 
@@ -61,17 +61,4 @@
         </div>
     </div>
 </div>
-        <!--/Contenedor del Lote-->
-<script>
-    $(function(){
-        // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-            $("#addf").on('click', function(){
-            $("#agregar tbody tr:eq(0)").clone().removeClass('filas').appendTo("#agregar");
-            });
-            // Evento que selecciona la fila y la elimina 
-            $(document).on("click",".deletef",function(){
-                var parent = $(this).parents().get(0);
-            $(parent).remove();
-            });
-        });
-</script>
+ 

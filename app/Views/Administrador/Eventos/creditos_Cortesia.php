@@ -30,6 +30,8 @@
                                         <input id="creditosinicio" class="form-control" type="datetime-local">
                                         <label for="horaf">Hora de Finalizacion</label>
                                         <input id="creditosfin" class="form-control" type="datetime-local"> 
+                                        <label for="precios">Precio</label>
+                                        <input id="precios" class="form-control" type="number" placeholder="Ingresa el precio"> 
                                     </div>
                                 </td>
                                 <td>
@@ -37,6 +39,7 @@
                                         <tr>
                                             <th>Hora Inicio</th>
                                             <th>Hora Fin</th>
+                                            <th>Precio</th>
                                             <th>Eliminar</th>
                                         </tr>
                                     </table>
@@ -62,6 +65,10 @@
         $('#creditosfin').change(function () {
             var value = document.getElementById('creditosfin').value;
             alert('agrego fecha' + value);
+        }); 
+        $('#precios').change(function () {
+            var value = document.getElementById('precios').value;
+            alert('precio' + value);
         });     
     </script>
 
@@ -69,8 +76,9 @@
         $('#adicionar2').click(function() {
         var nombre = document.getElementById("creditosinicio").value;
         var nombre2 = document.getElementById("creditosfin").value;
+        var precios = document.getElementById("precios").value;
         var i = 1; //contador para asignar id al boton que borrara la fila
-        var fila = '<tr id="row' + i + '"><td>' + nombre + '</td><td>' + nombre2 + '</td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+        var fila = '<tr id="row' + i + '"><td>' + nombre + '</td><td>' + nombre2 + '</td><td>' + precios + '</td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
 
         i++;
 
@@ -83,6 +91,8 @@
             document.getElementById("creditosinicio").focus();
             document.getElementById("creditosfin").value = "";
             document.getElementById("creditosfin").focus();
+            document.getElementById("precios").value = "";
+            document.getElementById("precios").focus();
         });
         $(document).on('click', '.btn_remove', function() {
         var button_id = $(this).attr("id");

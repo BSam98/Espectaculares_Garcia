@@ -9,44 +9,42 @@
             <div class="modal-body">
                 <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
                     <div class="table table-striped table-responsive">
-                        <table id="agregarA" class="table table-bordered">
+                        <table id="agregarAtracciones" class="table table-bordered">
                             <tbody>
-                                <tr class="agregarFilas">
+                                <tr class="f-Atracciones">
                                     <td>
                                         <div class="form-group">
                                             <label for="nombreatra">Nombre de la Atracción</label>
-                                            <select name="atraccion" id="atraccion" class="form-control">
+                                            <select name="atraccion[]" id="atraccion" class="form-control">
                                                 <option value="">Seleccionar Atracción</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="creditos">Creditos</label>
-                                            <input type="text" class="form-control" name="credito" id="credito" placeholder="Créditos">
+                                            <input type="text" class="form-control" name="credito[]" id="credito" placeholder="Créditos">
                                         </div>
                                         <div class="form-group">
                                             <label for="poliza">Promociones:</label>
-                                            <input type="checkbox">2x1
-                                            <input type="checkbox">gratis
-                                            <input type="checkbox">xxx
+                                            <input type="checkbox" name="promo[]" id="promo">2x1
                                         </div>
                                         <div class="form-group">
                                             <label for="contrato">Agregar Contrato</label>
-                                            <select name="contrato" id="contrato" class="form-control">
+                                            <select name="contrato[]" id="contrato" class="form-control">
                                                 <option value="">Seleccionar Contrato</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="poliza">Agregar Poliza</label>
-                                            <select name="poliza" id="poliza" class="form-control">
+                                            <select name="poliza[]" id="poliza" class="form-control">
                                                 <option value="">Seleccionar Poliza</option>
                                             </select>
                                         </div>
                                     </td>
-                                    <td class="eliminar"><input type="button" value="-"/></td>
+                                    <td class="eliminarAt"><input type="button" value="-"/></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <button id="nuevor" name="adicional" type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Registro </button>
+                        <button id="nuevaAt" name="nuevaAt" type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Registro </button>
                     </div>
                     <button name="adicional" type="submit" class="btn btn-success">Agregar </button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -76,11 +74,11 @@
 <script>
     $(function(){
                 // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-        $("#nuevor").on('click', function(){
-            $("#agregarA tbody tr:eq(0)").clone().removeClass('agregarFilas').appendTo("#agregarA");
+        $("#nuevaAt").on('click', function(){
+            $("#agregarAtracciones tbody tr:eq(0)").clone().removeClass('f-Atracciones').appendTo("#agregarAtracciones");
         });
     // Evento que selecciona la fila y la elimina 
-        $(document).on("click",".eliminar",function(){
+        $(document).on("click",".eliminarAt",function(){
             var parent = $(this).parents().get(0);
             $(parent).remove();
         });

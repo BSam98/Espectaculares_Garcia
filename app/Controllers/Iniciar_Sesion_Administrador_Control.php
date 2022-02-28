@@ -7,67 +7,60 @@ use App\Models\Iniciar_Sesion_Administrador_Model;
 
 class Iniciar_Sesion_Administrador_Control extends BaseController {
 
-    protected $request;
-    //protected $model;
-
     public function  _construct(){
         $this->request = \Config\Services::request();
         //$this->model = new Iniciar_Sesion_Administrador_Model();
     }
     
-    public function new (){
+    public function getBusqueda(){
+        $session = \Config\Services::session();
+        $session = session();
+        $model = new Iniciar_Sesion_Administrador_Model();
+
+		$username = $this->request->getPost('usuario');
+		$password = (binary) ($this->request->getPost('pass'));
+
+        //echo $username;
+        //echo $password;
+        $datos = $model->where([
+                                'Usuario' => $username,
+                                'Contraseña' => $password
+                                ])->findAll();
+        json_encode($datos);
+        
+        if(empty($datos)){
+            echo "<script>alert('Usuario o Contraseña Incorrecta'); window.location= 'SesionAdmin'</script>"; 
+           // return redirect()->to(base_url('SesionAdmin'));
+        } else{
+            session()->set('Usuario', $username);
+            //echo 'Datos correctos';
+
+        return redirect()->to(base_url('Menu_Principal_Administrador'));
+        }
+	}
+
+    /*public function demo4()
+		{
+			$productModel = new ProductModel();
+			$data['products'] = $productModel->where('status', 1)->orderBy('price', 'desc')->select('id, name, price')->findAll(3);
+			return view('demo/index', $data);
+		}
+*/
+
+    public function logout(){
+        $session = \Config\Services::session();
+        $session->destroy();
+		//session()->remove('username');
+		return $this->response->redirect(site_url(''));
+	}
+
+
+   /* public function new (){
         return view ('Administrador/Iniciar_Sesion_Administrador/Iniciar_Sesion_Administrador_View');
     }
 
-    public function getBusqueda(){
-        
-        $Usuario = new Iniciar_Sesion_Administrador_Model();
-        
-       // $usuario = $this->request->getPost('usuario');
-       // $password = $this->request->getPost('pass');
-
-        
-      //  echo json_encode($datosUsuario);
-       // if(count($datosUsuario) > 0){
-
-            $data = [
-                "Usuario" => $this->request->getVar('usuario'),
-                "Contraseña" => $this->request->getVar('pass')
-            ];
-
-            $datosUsuario = $Usuario->obtenerUsuario($data);
-            echo json_encode($datosUsuario);
-
-            if($datosUsuario > 0){
-                $session = session();
-                echo $session->set($data);
-
-                return redirect()->to(base_url('Menu_Principal_Administrador'));
-            }else{
-                echo "Error, datos no encontrados";
-            }
-  //  }
-
-
-   /* public function getBusqueda(){
-        $session = \Config\Services::session();
-        $model = new Iniciar_Sesion_Administrador_Model();
-        $Usuario = $this->request->getVar('usuario');
-        $Contraseña = (binary) ($this->request->getVar('pass'));
-        $respuesta =$model->where( 'usuario',$Usuario ,'AND','pass',$Contraseña)->findAll();
-        echo json_encode($respuesta);
-        
-        if(empty($respuesta)){
-            echo 'Datos incorrectos';
-        } else{
-            echo 'Datos correctos';
-            return redirect()->to(base_url('Menu_Principal_Administrador'));
-        }
-    }
-*/
-    }
 
     public function create(){
         return "";
-    }
+    }*/
 }

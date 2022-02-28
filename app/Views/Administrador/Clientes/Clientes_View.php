@@ -1,11 +1,11 @@
 <!--TABLA PRINCIPAL-->
 <fieldset id="fieldset" style="background-color: white;color:black;" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000"> 
     <center><label><h1>CLIENTES</h1></label></center>
-        <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Cliente</a>
+        <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nuevo Cliente</a>
     
     <div class="contenedorTabla"><br>
     <!--Tabla-->
-        <table class="table table-bordered  border-primary" id="clientes">
+        <table class="table table-striped table-responsive" id="clientes">
             <thead>
                 <th></th>
                 <th>Nombre</th>
@@ -23,7 +23,7 @@
             <tbody>
                 <?php foreach ($Cliente as $key => $dC) : ?>
                     <tr>
-                        <td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
+                        <td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
                         <td><?= $dC->Nombre?></td>
                         <td><?= $dC->ApellidoP?></td>
                         <td><?= $dC->ApellidoM?></td>
@@ -34,8 +34,8 @@
                         <td><?= $dC->Estado?></td>
                         <td><?= $dC->FechaNacimiento?></td>
                         <!--<td><a href="#tarjetas_Aso" class="btn btn-warning mostrarTarjetasAsociadas" data-toggle="modal" data-book-id='{"idCliente":<?= $dC->idCliente?>}' >Abrir</a></td>-->
-                        <td><a href="#tarjetas_Aso" class="btn btn-warning mostrarTarjetasAsociadas" data-toggle="modal" data-book-id='{"idCliente":<?= $dC->idCliente?>}' >Abrir</a></td>
-                        <td><a href="#historial_Tarjetas" class="btn btn-warning editar" data-toggle="modal">Abrir</a></td>
+                        <td><a href="#tarjetas_Aso" class="btn btn-outline-success mostrarTarjetasAsociadas" data-toggle="modal" data-book-id='{"idCliente":<?= $dC->idCliente?>}'><i class="fa fa-credit-card" aria-hidden="true"></i></a></td>
+                        <td><a href="#historial_Tarjetas" class="btn btn-outline-danger editar" data-toggle="modal"><i class="fa fa-history" aria-hidden="true"></i></a></td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
