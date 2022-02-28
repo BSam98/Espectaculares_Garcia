@@ -25,13 +25,13 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <table id="tablae" class="table table-bordered">
+                                        <table id="tablaAsoci" class="table table-bordered">
                                             <thead>
                                                 <th style="vertical-align: middle;">Asociado</th>
                                                 <th style="vertical-align: middle;">Porcentaje</th>
                                             </thead>
                                             <tbody>
-                                                <tr class="fila-fila">
+                                                <tr class="asociacion">
                                                     <td>
                                                         <select name="area[]" id="area" class="form-control">
                                                             <option value="">Nombre del Asociado-RFC</option>
@@ -40,11 +40,11 @@
                                                     <td>
                                                         <input type="text" name="porcentajeaso[]" id="porcentajeaso" placeholder="Porcentaje del Asociado">
                                                     </td>
-                                                    <td class="elim"><input type="button"   value="-"/></td>
+                                                    <td class="elimAsoci"><input type="button"   value="-"/></td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <button id="adi" name="adicional" type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Asociado</button>
+                                        <button id="adiAso" name="adicional" type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Asociado</button>
                                     </td>&nbsp;
                                 </tr>
                             </tbody>
@@ -75,6 +75,18 @@
 </div>
 <!--AGREGAR ASOCIACION-->
 <script>
+        $(function(){
+                    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+            $("#adiAso").on('click', function(){
+                $("#tablaAsoci tbody tr:eq(0)").clone().removeClass('asociacion').appendTo("#tablaAsoci");
+            });
+            // Evento que selecciona la fila y la elimina 
+            $(document).on("click",".elimAsoci",function(){
+                var parent = $(this).parents().get(0);
+                $(parent).remove();
+            });
+        });
+
     $(document).ready(function() {
         $('#tA').DataTable( {
             "aProcessing": true,//Activamos el procesamiento del datatables

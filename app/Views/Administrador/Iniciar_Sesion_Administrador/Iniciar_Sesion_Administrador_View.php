@@ -22,7 +22,7 @@
                         <center><img src="./Img/logo.png" class="logo" alt="logo"></center><br>
                             <div class="form-group col-sm-4 col-md-8 col-lg-12">
                                 <label class="Usuario" for="Usuario">USUARIO</label>
-                                <input class="inputUsario form-control" type="text" name="usuario" required placeholder="Usuario">
+                                <input class="inputUsario form-control" type="text" name="usuario" id="usuario" required placeholder="Usuario">
                             </div>
                             <div class="form-group col-sm-4 col-md-8 col-lg-12">
                                 <label class="Contraseña" for="Contraseña">CONTRASEÑA</label>

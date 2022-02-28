@@ -6,32 +6,11 @@ use CodeIgniter\Model;
 
 class Iniciar_Sesion_Administrador_Model extends Model{
     
-    public function obtenerUsuario($data){
-
-        $db = \Config\Database::connect();
-        $builder = $db->table('Usuarios');
-
-       /* $builder-> select(
-            '
-            Usuarios.idUsuario,
-            Usuarios.Nombre, 
-            Usuarios.Usuario,
-            Usuarios.Contraseña
-            '
-        );*/
-        $builder->where( 'Usuario',$data['Usuario'] ,'AND','Contraseña',$data['Contraseña']);
-        $query = $builder->get();
+        protected $table = 'Usuarios';
     
-        $datos = $query->getResultObject();
-
-        return $datos;
-    }
-  
-   protected $table = 'Usuarios';
-    protected $primaryKey = 'idUsuario';
-
-    protected $returnType = 'array';
-    //protected $useSoftDeletes = true;
-
-    protected $allowedFields = ['Usuario','Contraseña'];
+        protected $primaryKey = 'idUsuario';
+    
+        protected $returnType = 'array';
+    
+        protected $allowedFields = ['idUsuario','Usuario', 'Contraseña'];
 }

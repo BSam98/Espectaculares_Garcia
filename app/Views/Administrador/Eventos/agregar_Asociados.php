@@ -9,45 +9,45 @@
             <div class="modal-body">
                 <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
                     <div class="table table-striped table-responsive ">
-                        <table id="tabla" class="table table-bordered">
+                        <table id="tablaAsociados" class="table table-bordered">
                             <tbody>
-                                <tr class="fila-fija">
+                                <tr class="f-Asociados">
                                     <td>
                                         <div class="form-group">
                                             <label for="nombre">Nombre del Asociado</label>
-                                            <input class="form-control" type="text" placeholder="Nombre del Asociado">
+                                            <input class="form-control" type="text" name="nAso[]" id="nAso" placeholder="Nombre del Asociado">
                                         </div>
                                         <div class="form-group">
                                             <label for="apellidoAso">Apellido Paterno</label>
-                                            <input class="form-control" type="text" placeholder="Apellido Paterno">
+                                            <input class="form-control" type="text" name="apAso[]" id="apAso" placeholder="Apellido Paterno">
                                         </div>
                                         <div class="form-group">
                                             <label for="apellidoMat">Apellido Materno</label>
-                                            <input class="form-control" type="text" placeholder="Apellido Materno">
+                                            <input class="form-control" type="text" name="amAso[]" id="amAso" placeholder="Apellido Materno">
                                         </div>
                                         <div class="form-group">
                                             <label for="rfcAsociado">Registro Federal de Contribuyente(RFC)</label>
-                                            <input class="form-control" type="text" placeholder="RFC">
+                                            <input class="form-control" type="text" name="rfcAso[]" id="rfcAso" placeholder="RFC">
                                         </div>
                                         <div class="form-group">
                                             <label for="direccionAso">Dirección del Asociado</label>
-                                            <input class="form-control" type="text" placeholder="Direccion">
+                                            <input class="form-control" type="text" name="dirAso[]" id="dirAso" placeholder="Direccion">
                                         </div>
                                         <div class="form-group">
                                             <label for="telefono">Teléfono</label>
-                                            <input class="form-control" type="text" placeholder="Teléfono">
+                                            <input class="form-control" type="text" name="celAso[]" id="celAso" placeholder="Teléfono">
                                         </div>
                                         <div class="form-group">
                                             <label for="date">Fecha de Nacimiento</label>
-                                            <input class="form-control" type="date" placeholder="Fecha de Nacimiento">
+                                            <input class="form-control" type="date" name="dAso[]" id="dAso" placeholder="Fecha de Nacimiento">
                                         </div>
                                     </td>
-                                    <td class="eliminar"><input type="button" value="-"/></td>
+                                    <td class="eliminarAso"><input type="button" value="-"/></td>
                                 </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <button id="add" name="add" type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Registro </button>
+                        <button id="n-Asociado" name="n-Asociado" type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Registro </button>
                     </div>
                     <button name="adicional" type="submit" class="btn btn-success">Agregar </button>
                 </form>
@@ -92,11 +92,11 @@
 <script>
     $(function(){
                 // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-        $("#add").on('click', function(){
-            $("#tabla tbody tr:eq(0)").clone().removeClass('fila-fija').appendTo("#tabla");
+        $("#n-Asociado").on('click', function(){
+            $("#tablaAsociados tbody tr:eq(0)").clone().removeClass('f-Asociados').appendTo("#tablaAsociados");
         });
     // Evento que selecciona la fila y la elimina 
-        $(document).on("click",".eliminar",function(){
+        $(document).on("click",".eliminarAso",function(){
             var parent = $(this).parents().get(0);
             $(parent).remove();
         });

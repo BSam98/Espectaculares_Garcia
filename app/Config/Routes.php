@@ -39,7 +39,7 @@ $routes->get('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
 $routes->post('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
 $routes->get('/Atracciones','Atracciones_Control::new');
 $routes->get('/Atracciones/Datos','Atracciones_Control::cargarDatos');
-$routes->get('/Iniciar_Sesion_Administrador','Iniciar_Sesion_Administrador_Control::new');
+//$routes->get('/Iniciar_Sesion_Administrador','Iniciar_Sesion_Administrador_Control::new');
 $routes->get('/Menu_Principal_Administrador','Menu_Principal_Control::new');
 $routes->get('/Asociados','Asociados_Control::new');
 
@@ -93,6 +93,16 @@ $routes->post('/PuntoVenta','Menu_Principal_User_Control::venta');
 $routes->get('/PuntoVenta','Menu_Principal_User_Control::venta');
 $routes->post('/Cobro','Menu_Principal_User_Control::cobrar');
 $routes->get('/Cobro','Menu_Principal_User_Control::cobrar');
+$routes->get('/SesionAdmin','Home::admin');
+$routes->post('/SesionAdmin','Home::admin');
+$routes->get('/SesionUser','Home::user');
+$routes->post('/SesionUser','Home::user');
+$routes->get('/CerrarSesion','Iniciar_Sesion_Administrador_Control::logout');
+$routes->post('/CerrarSesion','Iniciar_Sesion_Administrador_Control::logout');
+$routes->get('/ReporteVenta','reporte_Venta_Control::index');
+$routes->post('/ReporteVenta','reporte_Venta_Control::index');
+
+
 
 /*
  * --------------------------------------------------------------------

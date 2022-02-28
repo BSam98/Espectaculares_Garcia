@@ -2,15 +2,15 @@
     <!--Contenedor Superior-->
     <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000" style="background-color: white;color:black;">
         <!--Ventana de la atracción--> 
-        <center><label><h1>ATRACCIONES</h1></label></center>
+        <center><label><h2>ATRACCIONES</h2></label></center>
             
             <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarPropi"><i class="bi bi-plus-circle"></i>&nbsp;Nueva Atracción</a-->
-            <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" style="transition-duration: 3s, 5s;"><i class="bi bi-plus-circle"></i>&nbsp;Nueva Atracción</a>
-            <a href="javascript:mostrar();" class="btn btn-success"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Propietario</a><br>
+            <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" style="transition-duration: 3s, 5s;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nueva Atracción</a>
+            <a href="javascript:mostrar();" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nuevo Propietario</a><br>
             
             <div class="contenedorTabla"><br>
                 <!--Tabla-->
-                <table id="example" class="table table-striped">
+                <table id="example" class="table table-striped table-responsive table-bordered">
                     <thead>
                         <th style="vertical-align: middle;"></th>
                         <th style="vertical-align: middle;">Nombre</th>
@@ -24,7 +24,7 @@
                     <tbody>
                         <?php foreach ($Atraccion as $key => $dA) : ?>
                             <tr>
-                                <td style="vertical-align: middle;"><a href="#eAtraccion" class ="btn btn-warning editarAtraccion" data-toggle="modal" data-book-id='{"idAtraccion":<?= $dA->idAtraccion?>,"Atraccion":"<?= $dA->Atraccion?>","Renta":<?= $dA->Renta?>,"Nombre":"<?= $dA->Nombre?>","CapacidadMAX":<?= $dA->CapacidadMAX?>,"CapacidadMIN":<?= $dA->CapacidadMIN?>,"Tiempo":"<?= $dA->Tiempo?>","TiempoMAX":"<?= $dA->TiempoMAX?>"}'><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
+                                <td style="vertical-align: middle;"><a href="#eAtraccion" class ="btn btn-outline-warning editarAtraccion" data-toggle="modal" data-book-id='{"idAtraccion":<?= $dA->idAtraccion?>,"Atraccion":"<?= $dA->Atraccion?>","Renta":<?= $dA->Renta?>,"Nombre":"<?= $dA->Nombre?>","CapacidadMAX":<?= $dA->CapacidadMAX?>,"CapacidadMIN":<?= $dA->CapacidadMIN?>,"Tiempo":"<?= $dA->Tiempo?>","TiempoMAX":"<?= $dA->TiempoMAX?>"}'><i class="fa fa-paint-brush" aria-hidden="true"></i></a></td>
                                 <td style="vertical-align: middle;"><?= $dA->Atraccion?></td>
                                 <td style="vertical-align: middle;"><?= $dA->Renta?></td>
                                 <td style="vertical-align: middle;"><?= $dA->Nombre?></td>
@@ -95,7 +95,7 @@
                             <tbody>
                                 <?php foreach ($Propietario as $key => $dP) : ?>
                                     <tr>
-                                        <td><a href="#ePropietario" class="btn btn-warning editarPropietario" data-book-id='{"idPropietario":<?=$dP->idPropietario?>,"Nombre":"<?=$dP->Nombre?>","ApellidoP":"<?=$dP->ApellidoP?>","ApellidoM":"<?=$dP->ApellidoM?>","Direccion":"<?=$dP->Direccion?>","Telefono":"<?=$dP->Telefono?>","RFC":"<?=$dP->RFC?>","FechaNacimiento":"<?=$dP->FechaNacimiento?>"}' data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
+                                        <td><a href="#ePropietario" class="editarPropietario" data-book-id='{"idPropietario":<?=$dP->idPropietario?>,"Nombre":"<?=$dP->Nombre?>","ApellidoP":"<?=$dP->ApellidoP?>","ApellidoM":"<?=$dP->ApellidoM?>","Direccion":"<?=$dP->Direccion?>","Telefono":"<?=$dP->Telefono?>","RFC":"<?=$dP->RFC?>","FechaNacimiento":"<?=$dP->FechaNacimiento?>"}' data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
                                         <td><?= $dP->Nombre ?></td>
                                         <td><?= $dP->ApellidoP?></td>
                                         <td><?= $dP->ApellidoM?></td>

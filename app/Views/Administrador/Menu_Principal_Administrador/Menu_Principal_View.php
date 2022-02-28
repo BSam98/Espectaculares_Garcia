@@ -1,3 +1,8 @@
 <!--Contenedor Inferior-->
-    <div Class = "contenedorInferior"></div>
+    <div Class = "contenedorInferior">
+
+        
+		<br>
+
+    </div>
 <!--/ContenedorInferior-->

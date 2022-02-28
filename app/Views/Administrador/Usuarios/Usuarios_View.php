@@ -1,40 +1,42 @@
     <!--/Contenedor Superior-->
     <fieldset id="fieldset" style="background-color: white;color:black;" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
         <center><label><h1>USUARIOS</h1></label></center>
-        <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Usuario</a>
+        <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nuevo Usuario</a>
         <!--button onClick="">Nuevo Usuario</button-->
         <div class="contenedorTabla"><br>
-        <!--Tabla Principal-->
-            <table id="example" class="table table-striped">
-                <thead>
-                    <th></th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Correo electronico</th>
-                    <th>NSS</th>
-                    <th>CURP</th>
-                    <th>Usuario</th>
-                    <th>Contraseña</th>
-                    <th>Rango</th>
-                    <th>Evento</th>
-                </thead>
-                <tbody>
-                    <?php foreach ($Usuario as $key => $dU) : ?>
-                        <tr>
-                            <td><a href="#eUsuario" class="btn btn-warning editarUsuario" data-book-id='{"idUsuario":<?=$dU->idUsuario?>,"UsuarioNombre":"<?=$dU->UsuarioNombre?>","UsuarioApellido":"<?=$dU->UsuarioApellido?>","CorreoE":"<?=$dU->CorreoE?>","NSS":<?=$dU->NSS?>,"CURP":"<?=$dU->CURP?>","Usuario":"<?=$dU->Usuario?>","Contraseña":"<?=$dU->Contraseña?>"}' data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
-                            <td><?= $dU->UsuarioNombre?></td>
-                            <td><?= $dU->UsuarioApellido?></td>
-                            <td><?= $dU->CorreoE?></td>
-                            <td><?= $dU->NSS?></td>
-                            <td><?= $dU->CURP?></td>
-                            <td><?= $dU->Usuario?></td>
-                            <td><?= $dU->Contraseña?></td>
-                            <td><?= $dU->Nombre?></td>
-                            <td><?= $dU->Ciudad?></td>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+            <div class="table table-responsive">
+            <!--Tabla Principal-->
+                <table id="example" class="table table-striped">
+                    <thead>
+                        <th></th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Correo electronico</th>
+                        <th>NSS</th>
+                        <th>CURP</th>
+                        <th>Usuario</th>
+                        <th>Contraseña</th>
+                        <th>Rango</th>
+                        <th>Evento</th>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($Usuario as $key => $dU) : ?>
+                            <tr>
+                                <td><a href="#eUsuario" class="editarUsuario" data-book-id='{"idUsuario":<?=$dU->idUsuario?>,"UsuarioNombre":"<?=$dU->UsuarioNombre?>","UsuarioApellido":"<?=$dU->UsuarioApellido?>","CorreoE":"<?=$dU->CorreoE?>","NSS":<?=$dU->NSS?>,"CURP":"<?=$dU->CURP?>","Usuario":"<?=$dU->Usuario?>","Contraseña":"<?=$dU->Contraseña?>"}' data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
+                                <td><?= $dU->UsuarioNombre?></td>
+                                <td><?= $dU->UsuarioApellido?></td>
+                                <td><?= $dU->CorreoE?></td>
+                                <td><?= $dU->NSS?></td>
+                                <td><?= $dU->CURP?></td>
+                                <td><?= $dU->Usuario?></td>
+                                <td><?= $dU->Contraseña?></td>
+                                <td><?= $dU->Nombre?></td>
+                                <td><?= $dU->Ciudad?></td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!--AGREGAR USUARIOS-->
@@ -122,17 +124,6 @@
     
 <script src="JS/usuarios.js"></script>
 <script>
-        $(function(){
-                    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-            $("#addU").on('click', function(){
-            $("#agregarU tbody tr:eq(0)").clone().removeClass('filaU').appendTo("#agregarU");
-            });
-            // Evento que selecciona la fila y la elimina 
-            $(document).on("click",".elimU",function(){
-                var parent = $(this).parents().get(0);
-            $(parent).remove();
-            });
-        });
 
         $(document).ready(function() {
             $('#example').DataTable( {

@@ -4,13 +4,13 @@
         <center><label><h1>LOTES</h1></label></center>
             <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Tarjeta</a-->
 
-        <a href="#agregarL" type="button" class="btn btn-success" data-toggle="modal"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Lote</a>
+        <a href="#agregarL" type="button" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Agregar Lote</a>
                 
         <!--button class="btn btn-success" id="abrir"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Lote</button-->
         <div class="contenedorTabla"><br>
             <!--Tabla-->
             <!--TABLA DE LOTES-->
-            <div class="table table-striped table-responsivble">
+            <div class="table table-striped table-responsive">
                 <table id="searchL" class="table table-bordered">
                     <thead>
                         <th></th>
@@ -27,7 +27,7 @@
                     <tbody>
                         <?php foreach ($Lote as $key => $dL) : ?>
                             <tr>
-                                <td style="vertical-align: middle;"><a href="#eLote" class ="btn btn-warning editarLotes"  data-book-id='{"idLote":<?= $dL->idLote?>,"Nombre":"<?= $dL->Nombre?>","Material":"<?= $dL->Material?>","Cantidad":<?= $dL->Cantidad?>,"Serie":"<?= $dL->Serie?>","Usuario":"<?= $dL->Usuario?>"}' data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning" ></i></a></td>
+                                <td style="vertical-align: middle;"><a href="#eLote" class ="editarLotes"  data-book-id='{"idLote":<?= $dL->idLote?>,"Nombre":"<?= $dL->Nombre?>","Material":"<?= $dL->Material?>","Cantidad":<?= $dL->Cantidad?>,"Serie":"<?= $dL->Serie?>","Usuario":"<?= $dL->Usuario?>"}' data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
                                 <td style="vertical-align: middle;"><?= $dL->Nombre?></td>
                                 <td style="vertical-align: middle;"><?= $dL->Material?></td>
                                 <td style="vertical-align: middle;"><?= $dL->Cantidad?></td>
@@ -36,7 +36,7 @@
                                 <td style="vertical-align: middle;"><?= $dL->Serie?></td>
                                 <td style="vertical-align: middle;"><?= $dL->Usuario?></td>
                                 <td style="vertical-align: middle;"><?= $dL->FechaIngreso?></td>
-                                <td><a href="#verTarjetas"  class="btn btn-warning mostrarTarjetasLote" data-toggle="modal"  data-book-id='{"idLote":<?= $dL->idLote?>}' >Ver Tarjetas</a></button></td>
+                                <td><a href="#verTarjetas"  class="btn btn-outline-success mostrarTarjetasLote" data-toggle="modal"  data-book-id='{"idLote":<?= $dL->idLote?>}' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>

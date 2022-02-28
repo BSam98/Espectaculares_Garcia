@@ -1,12 +1,12 @@
 
     <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
         <center><label><h1>EVENTOS</h1></label></center>
-        <a href="#myModal" type="button" class="btn btn-success" data-toggle="modal"><i class="bi bi-plus-circle"></i>&nbsp; Nuevo Evento</a>
+        <a href="#myModal" type="button" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Nuevo Evento</a>
 
         <div class="contenedorTabla">
             <br>
             <!--Tabla-->
-            <table id="example" class="table table-striped">
+            <table id="example" class="table table-striped table-responsive">
                 <thead>
                     <!--Titulos de la tabla-->
                     <th style="vertical-align: middle;"></th>
@@ -26,7 +26,7 @@
                 <tbody>
                     <?php foreach ($Eventos as $key => $dE) : ?>
                         <tr>
-                            <td style="vertical-align: middle;"><a href="#editarEvento" type="button" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>
+                            <td style="vertical-align: middle;"><a href="#editarEvento" type="button" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
                             <td style="vertical-align: middle;"><?= $dE->Nombre ?></td>
                             <td style="vertical-align: middle;"><?= $dE->Direccion?></td>
                             <td style="vertical-align: middle;"><?= $dE->Ciudad?></td>
@@ -82,17 +82,7 @@
 <script src ="JS/evento.js"></script>
  
     <script>
-        $(function(){
-                    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-            $("#adi").on('click', function(){
-                $("#tablae tbody tr:eq(0)").clone().removeClass('fila-fila').appendTo("#tablae");
-            });
-        // Evento que selecciona la fila y la elimina 
-            $(document).on("click",".elim",function(){
-                var parent = $(this).parents().get(0);
-                $(parent).remove();
-            });
-        });
+        
     
         $(function(){
         $("#adicional").on('click', function(){

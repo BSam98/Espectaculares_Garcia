@@ -9,9 +9,9 @@
             <div class="modal-body">
                 <form  enctype="multipart/form-data" name="formulario" id="formularioAgregarUsuario">
                     <div class="table table-striped table-responsive">
-                        <table id="agregarU" class="table table-bordered">
+                        <table id="agregar-User">
                             <tbody>
-                                <tr class="filaU">
+                                <tr class="fila-User">
                                     <td>
                                         <div class="form-group">
                                             <label for="nombre">Nombre</label>
@@ -60,11 +60,11 @@
                                             </select>
                                         </div>
                                     </td>
-                                    <td class="elimU"><input type="button"   value="-"/></td>
+                                    <td class="del-U"><input type="button"   value="-"/></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <button id="addU" name="adicional" type="button" class="btn btn-warning"> + </button>
+                        <button id="ad-Us" name="ad-Us" type="button" class="btn btn-warning"> + </button>
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
@@ -76,3 +76,16 @@
         </div>
     </div>
 </div>
+<script>
+    $(function(){
+                    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+        $("#ad-Us").on('click', function(){
+        $("#agregar-User tbody tr:eq(0)").clone().removeClass('fila-User').appendTo("#agregar-User");
+        });
+        // Evento que selecciona la fila y la elimina 
+        $(document).on("click",".del-U",function(){
+            var parent = $(this).parents().get(0);
+        $(parent).remove();
+        });
+    });
+</script>
