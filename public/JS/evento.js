@@ -52,20 +52,43 @@ $("#idLote").on('change',function(event){
 });
 */
 
+$("#asociarTarjetas").click(function(){
+    $.ajax({
+        type: "POST",
+        url: 'Eventos/Agregar_Tarjetas_Evento',
+        data: $("#formularioAgregarTarjetasEvento").serialize(),
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            location.reload();
+        }
+    }
+    );
+});
+
 $(document).on('change', '#idLote', function(event) {
     const opcion = ($("#idLote option:selected").val());
 
-    alert (opcion);
-    console.log(opcion);
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: 'Eventos/Mostrar_Tarjetas_Nuevas',
-        data: opcion,
-        dataType: 'JSON'
+        data: {"idLote": opcion},
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
     }).done(function(data){
 
         alert(data.msj);
         console.log(data.msj);
+        var folio = [];
+        for(var i =0;i<data.msj.length;i++){
+            folio[i] = JSON.stringify(data.msj[i]['Folio']);
+        }
+        $("#folios").val(folio.toString());
     });
 });
 
@@ -75,7 +98,10 @@ $(document).on('click','.mostrarAtraccionesEvento', function(){
         type: "POST",
         url: 'Eventos/Mostrar_Atracciones',
         data: idEvento,
-        dataType: 'JSON'
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
     }).done(function(data){
 
         var html ='';
@@ -105,7 +131,10 @@ $(document).on('click','.mostrarTarjetasEvento', function(){
         type: "POST",
         url: 'Eventos/Mostrar_Tarjetas',
         data: idEvento,
-        dataType: 'JSON'
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
     }).done(function(data){
 
         var html ='';
@@ -123,6 +152,7 @@ $(document).on('click','.mostrarTarjetasEvento', function(){
             
         }
         
+        $("#idEvento").val(idEvento['idEvento']);
         $("#tarjetasEvento").html(html);
         
 
@@ -135,7 +165,10 @@ $(document).on('click','.mostrarAsociacionEvento', function(){
         type: "POST",
         url: 'Eventos/Mostrar_Asociacion',
         data: idEvento,
-        dataType: 'JSON'
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
     }).done(function(data){
 
         var html ='';

@@ -80,17 +80,29 @@ class Eventos_Control extends BaseController {
 
     public function mostrar_Tarjetas_Nuevas(){
         $model = new Eventos_Model();
-      echo  $idLote = $_GET['idLote'];
         
-        /*
         $datos = [
             'idLote' => $this->request->getVar('idLote')
         ];
-        */
-        $datos =['id' =>1];
         
-        //$respuesta = $model->mostrar_Tarjetas_Nuevas($datos);
-        echo json_encode(array('respuesta'=>true, 'msj'=>$datos));
+        
+        $respuesta = $model->mostrar_Tarjetas_Nuevas($datos);
+        echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta));
+    }
+
+    public function agregar_Tarjetas_Evento(){
+        $model = new Eventos_Model();
+
+        $datos= [
+            'idEvento' => $this->request->getVar('idEvento'),
+            'idLote' => $this->request->getVar('idLote'),
+            'folioInicial' => $this->request->getVar('folioInicial'),
+            'folioFinal' => $this->request->getVar('folioFinal')
+        ];
+
+        $respuesta = $model->agregar_Tarjetas_Evento($datos);
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+
     }
 
     public function create(){

@@ -222,13 +222,33 @@ class Eventos_Model extends Model{
         );
 
         $builder ->where('idLote',$datos['idLote']);
-        //$builder->where('idEvento IS NULL');
+        $builder->where('idEvento IS NULL');
 
         $query = $builder->get();
     
         $datos = $query->getResultObject();
 
         return $datos;
+    }
+
+    public function agregar_Tarjetas_Evento($datos){
+        $db = \Config\Database::connect();
+
+        for($i=$datos['folioInicial'];$i<=$datos['folioFinal'];$i++){
+
+            $db->query(
+                "UPDATE 
+                    Tarjetas 
+                SET
+                    idEvento = '$datos[idEvento]'
+                WHERE 
+                    Folio = $i
+                AND
+                    idLote = '$datos[idLote]'
+                ");
+        }
+
+        return 'Funciono';
     }
 
     public function listado_Precios_Por_Evento(){}
