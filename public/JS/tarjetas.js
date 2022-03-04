@@ -4,7 +4,6 @@ var btnAbrirPopup = document.getElementById('abrir'),
     contenedorTablaLote = document.getElementById('contenedorTablaLote');
     
 $("#z").click(function(){
-    alert('Minimo entra');
     $.ajax({
         type: "POST",
         url: 'Agregar_Lote',
@@ -15,9 +14,9 @@ $("#z").click(function(){
         },
         
         success: function (data){         
-            if(data.respuesta)
-                console.log(data.msj);
+            if(data.respuesta){
                 location.reload();
+            }
         },
         dataType: 'JSON'
     });
