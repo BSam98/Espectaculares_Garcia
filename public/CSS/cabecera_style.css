@@ -298,7 +298,10 @@ ul.circulo {list-style-type: circle;}
 	letter-spacing: 0.25em;
   }
 
-
+  .tabulador{
+	width : 80px; 
+	height:20px;
+  }
 
 
 
