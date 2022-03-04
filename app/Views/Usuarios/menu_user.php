@@ -10,7 +10,7 @@
                 </li>
                 <!--Menu Reportes-->
                 <li class="dropdown">
-                    <a href="ReporteVenta" target="_blank" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-signal" aria-hidden="true"></i>&nbsp;Reporte de Venta</a>
+                    <a href="ReporteVenta" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-signal" aria-hidden="true"></i>&nbsp;Reporte de Venta</a>
                 </li>
                 <!--Menu Superivosr-->
                 <li><a href=""><i class="fa fa-male" aria-hidden="true"></i>&nbsp;Supervisor</a>

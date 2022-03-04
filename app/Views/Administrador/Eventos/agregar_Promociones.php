@@ -119,12 +119,6 @@
                 var nFilas = $("#mytable tr").length;
                 $("#adicionados").append(nFilas - 1);
                 //le resto 1 para no contar la fila del header
-                document.getElementById("dateincio").value = "";
-                document.getElementById("dateinicio").focus();
-                document.getElementById("nombre2").value = "";
-                document.getElementById("nombre2").focus();
-                document.getElementById("precioes").value = "";
-                document.getElementById("precioes").focus();
             });
             $(document).on('click', '.btn_remove', function() {
             var button_id = $(this).attr("id");
