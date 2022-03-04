@@ -69,6 +69,26 @@ $("#asociarTarjetas").click(function(){
     );
 });
 
+
+
+/*
+$("#agregar_Promocion_Evento").click(function(){
+    $.ajax({
+        type: "POST",
+        url: 'Eventos/Agregar_Promocion_Evento',
+        data: $("#formulario_Agregar_Promocion_Evento").serialize(),
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            location.reload();
+        }
+    }
+    );
+});
+*/
 $(document).on('change', '#idLote', function(event) {
     const opcion = ($("#idLote option:selected").val());
 
@@ -152,11 +172,15 @@ $(document).on('click','.mostrarTarjetasEvento', function(){
             
         }
         
-        $("#idEvento").val(idEvento['idEvento']);
+        $("#idEventoLote").val(idEvento['idEvento']);
         $("#tarjetasEvento").html(html);
-        
 
     });
+});
+
+$(document).on('click','.mostrar_Promociones_Evento', function(){
+    var idEvento = $(this).data('book-id');
+    $("#idEventoPromocion").val(idEvento['idEvento']);
 });
 
 $(document).on('click','.mostrarAsociacionEvento', function(){

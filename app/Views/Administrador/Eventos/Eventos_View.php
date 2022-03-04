@@ -48,7 +48,7 @@
                                         <td>
                                             <ul class="circulo">
                                                 <li><a href="#Asociacion" class = "mostrarAsociacionEvento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Asociación</a></li>
-                                                <li><a href="#Promociones" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Promociones</a></li>
+                                                <li><a href="#Promociones" class ="mostrar_Promociones_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Promociones</a></li>
                                                 <li><a href="#Creditos" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Créditos de Cortesia</a></li>
                                                 <li><a href="#Areas" type="button" data-toggle="modal">Asignar Áreas</a></li>
                                             </ul>

@@ -251,6 +251,58 @@ class Eventos_Model extends Model{
         return 'Funciono';
     }
 
+    public function agregar_Promociones_Evento($tipoPromocion,$datos1){
+        $db = \Config\Database::Connect();
+        switch($tipoPromocion){
+            case 1:
+                $builder = $db->table('Promocion_Dos_x_Uno');
+                if( $builder -> insert($datos1)){
+                    return $db->insertID();
+                }
+                else{
+                    return false;
+                }
+            break;
+
+            case 2:
+                $builder = $db->table('Promocion_Juegos_Gratis');
+
+                if($builder->insert($datos1)){
+                    return $db->insertID();
+                }
+                else{
+                    return false;
+                }
+            break;
+
+            case 3:
+                
+                $builder = $db->table('Promocion_Pulsera_Magica');
+
+                if($builder->insert($datos1)){
+                    return $db->insertID();
+                }
+                else{
+                    return false;
+                }
+                
+            break;
+        }
+    }
+
+    public function agregar_Calendario_Promocion($tabla,$datos){
+        $db = \Config\Database::connect();
+
+        $builder = $db->table($tabla);
+        
+        if($builder->insert($datos)){
+            return 'Funciono';
+        }
+        else{
+            return false;
+        }
+    }
+
     public function listado_Precios_Por_Evento(){}
 
     public function listado_Usuarios_Por_Evento(){}

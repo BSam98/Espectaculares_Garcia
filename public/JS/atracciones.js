@@ -56,8 +56,9 @@ $("#enviarAtraccion").click(function(){
         },
         success: function (data){              
             alert(data.msj);
-            if(data.respuesta)
+            if(data.respuesta){
                 location.reload();
+            }
         },
         dataType: 'JSON'
     });
@@ -73,8 +74,9 @@ $("#agregarPropietario").click(function(){
         },
         success: function (data){            
             alert(data.msj);
-            if(data.respuesta)
-                console.log(data.dato);
+            if(data.respuesta){
+                location.reload();
+            }
         },
         dataType: 'JSON'
     });
@@ -90,8 +92,9 @@ $("#agregarPropietarioPorAtraccion").click(function(){
         },
         success: function (data){            
             alert(data.msj);
-            if(data.respuesta)
-                console.log(data.dato);
+            if(data.respuesta){
+                location.reload();
+            }
         },
         dataType: 'JSON'
     });
@@ -108,7 +111,6 @@ $("#actualizarAtraccion").click(function(){
         success: function (data){            
             
             if(data.respuesta)
-                console.log(data.dato);
                 location.reload();
         },
         dataType: 'JSON'
@@ -125,7 +127,6 @@ $("#actualizarPropietario").click(function(){
         },
         success: function (data){            
             if(data.respuesta)
-                console.log(data.dato);
                 location.reload();
         },
         dataType: 'JSON'
