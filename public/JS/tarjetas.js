@@ -2,7 +2,8 @@ var btnAbrirPopup = document.getElementById('abrir'),
     btnCerrarPopup = document.getElementById('cerrar'),
     contenedorOculto = document.getElementById('contenedorOculto'),
     contenedorTablaLote = document.getElementById('contenedorTablaLote');
-    
+
+    /*
 $("#z").click(function(){
     $.ajax({
         type: "POST",
@@ -19,6 +20,22 @@ $("#z").click(function(){
             }
         },
         dataType: 'JSON'
+    });
+});
+*/
+$("#z").click(function(){
+    $.ajax({
+        type: "POST",
+        url: 'Agregar_Lote',
+        data:$("#formularioAgregarLote").serialize(),
+        dataType: 'JSON',
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            location.reload();
+        }
     });
 });
 
@@ -46,7 +63,7 @@ $(document).on('click','.mostrarTarjetasLote', function(){
         type: "POST",
         url: 'Tarjetas/Tarjetas',
         data: idLote,
-        dataType: 'JSON'
+        dataType: 'JSON',
     }).done(function(data){
         var html ='';
         for(var i = 0;i<data.msj.length; i++){

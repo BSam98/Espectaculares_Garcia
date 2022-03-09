@@ -69,7 +69,7 @@ class Tarjetas_Control extends BaseController {
             $respuesta1 = $model->insertarTarjeta($model->insertarLote($datos),$datos['Nombre'],$datos['Material'],$datos['FechaIngreso'],$datos['FolioInicial'],$datos['FolioFinal']);
         }
         else{
-            while($num_elementos<=$cantidad){
+            while($num_elementos<$cantidad){
 
                 $datos=[
                     'Nombre' => $Nombre[$num_elementos],
