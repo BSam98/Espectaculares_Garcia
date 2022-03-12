@@ -57,6 +57,9 @@ $routes->post('/Eventos/Mostrar_Tarjetas_Nuevas','Eventos_Control::mostrar_Tarje
 $routes->get('/Eventos/Agregar_Tarjetas_Evento','Eventos_Control::agregar_Tarjetas_Evento');
 $routes->post('/Eventos/Agregar_Tarjetas_Evento','Eventos_Control::agregar_Tarjetas_Evento');
 
+$routes->get('/Eventos/Mostrar_Promociones','Eventos_Control::mostrar_Promociones');
+$routes->post('/Eventos/Mostrar_Promociones','Eventos_Control::mostrar_Promociones');
+
 $routes->get('/Eventos/Agregar_Promocion_Evento','Eventos_Control::agregar_Promocion_Evento');
 $routes->post('/Eventos/Agregar_Promocion_Evento','Eventos_Control::agregar_Promocion_Evento');
 

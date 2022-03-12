@@ -231,6 +231,17 @@ class Eventos_Model extends Model{
         return $datos;
     }
 
+    public function mostrar_Promociones($tabla){
+        $db = \Config\Database::connect();
+        $builder = $db->table($tabla);
+
+        $query = $builder->get();
+
+        $datos= $query->getResultObject();
+
+        return $datos;
+    }
+
     public function agregar_Tarjetas_Evento($datos){
         $db = \Config\Database::connect();
 

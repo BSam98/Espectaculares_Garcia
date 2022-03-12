@@ -90,6 +90,38 @@ class Eventos_Control extends BaseController {
         echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta));
     }
 
+    public function mostrar_Promociones(){
+        $model = new Eventos_Model();
+
+        $promocion = $_POST['promocion'];
+        
+        switch($promocion){
+            case 1:
+                $tabla='Promocion_Dos_x_Uno';
+                $respuesta = $model->mostrar_Promociones($tabla);
+                echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta));
+            break;
+
+            case 2:
+                $tabla='Promocion_Pulsera_Magica';
+                $respuesta = $model->mostrar_Promociones($tabla);
+                echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta));
+            break;
+
+            case 3:
+                $tabla='Promocion_Juegos_Gratis';
+                $respuesta = $model->mostrar_Promociones($tabla);
+                echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta));
+            break;
+
+            case 4:
+                $tabla='Promocion_Creditos_Cortesia';
+                $respuesta = $model->mostrar_Promociones($tabla);
+                echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta));
+            break;
+        }
+    }
+
     public function agregar_Tarjetas_Evento(){
         $model = new Eventos_Model();
 
@@ -102,6 +134,7 @@ class Eventos_Control extends BaseController {
 
         $respuesta = $model->agregar_Tarjetas_Evento($datos);
         echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+
 
     }
 

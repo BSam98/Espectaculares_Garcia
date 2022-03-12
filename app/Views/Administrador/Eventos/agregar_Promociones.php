@@ -17,16 +17,18 @@
                                         <div class="form-group">
                                             <label for="promocion_Categoria">Elige el tipo de Promoción</label>
                                             <select name="promocion_Categoria" id="promocion_Categoria" class="form-control">
+                                                <option value="0">Opciones</option>
                                                 <option value="1">Dos x Uno</option>
-                                                <option value="2">Juegos Grátis</option>
-                                                <option value="3">Pulcera Mágica</option>
-                                            </select><br>
-                                            <label for="nombre_Promocion">Nombre de la Promoción</label>
-                                            <input type="text" name="nombre_Promocion" id="nombre_Promocion" class="form-control" placeholder="Nombre de la Promocion">
+                                                <option value="2">Pulcera Mágica</option>
+                                                <option value="3">Juegos Grátis</option>
+                                                <option value="4">Creditos Cortesia</option>
+                                            </select>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="precio_Promocion">Precio de la Promoción</label>
-                                            <input type="number" class="form-control" name="precio_Promocion" id="precio_Promocion" placeholder="Precio Promoción">
+                                        <div class="from-group" id="area_Nombre_Promocion">
+                                        </div>
+                                        <div class="form-group" id="area_Precio_Promocion">
+                                        </div>
+                                        <div class="form-group" id="area_Creditos_Promocion">
                                         </div>
                                         <!--TABLA DE FECHAS-->
                                         <div class="table table-responsive">
@@ -34,26 +36,11 @@
                                                 <body>
                                                 <tr>
                                                     <td>
-                                                        <div class="container">
-                                                            <center><label>Días</label>
-                                                            <button id="adicionar" class="btn btn-success" type="button">Agregar</button></center><br>
-                                                            <label for="horai">Hora de Inicio</label>
-                                                            <input id="dateinicio" class="form-control" type="datetime-local">
-                                                            <label for="horaf">Hora de Finalizacion</label>
-                                                            <input id="nombre2" class="form-control" type="datetime-local">
-                                                            <label for="precioes">Precio</label>
-                                                            <input id="precioes" class="form-control" type="number" placeholder="Ingresa un precio"> 
-                                                            <!--div id="adicionados"></div-->
+                                                        <div class="container" id="area_Fechas_Promocion">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <table  id="mytable" class="table table-bordered table-hover ">
-                                                            <tr>
-                                                                <th>Hora Inicio</th>
-                                                                <th>Hora Fin</th>
-                                                                <th>Precio</th>
-                                                                <th>Eliminar</th>
-                                                            </tr>
                                                         </table>
                                                     </td>
                                                 </tr>
@@ -107,9 +94,11 @@
 
 <!--SCRIPT PARA ALMACENAR LOS DATOS DE FECHA DEL INPUT-->
 <script>
+    /*
     var i=0; //contador para asignar id al boton que borrara la fila
     var diaInicial=[],diaFinal=[],precio=[];
 
+    
     $('#adicionar').click(function() {
         var nombre = document.getElementById("dateinicio").value+":00";
         var nombre2 = document.getElementById("nombre2").value+":00";
@@ -131,7 +120,9 @@
         $("#adicionados").append(nFilas - 1);
         //le resto 1 para no contar la fila del header
     });
+    */
 
+    /*
     $("#agregar_Promocion_Evento").click(function(){
         var idEvento = document.getElementById("idEventoPromocion").value;
         var tipoPromocion = document.getElementById("promocion_Categoria").value;
@@ -155,7 +146,9 @@
         }
         );
     });
+    */
 
+    /*
     $(document).on('click', '.btn_remove', function() {
     var button_id = $(this).attr("id");
         //cuando da click obtenemos el id del boton
@@ -169,4 +162,5 @@
         diaFinal.splice(button_id,1);
         precio.splice(button_id,1);                
     });
+    */
 </script>
