@@ -57,8 +57,8 @@
                     </div--><hr>
                     <button type="button" class="btn btn-success" id="agregar_Promocion_Evento" name ="agregar_Promocion_Evento">Guardar aaaa</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                </form><hr>
-                
+                </form>
+                <hr>
             </div>
         </div>
     </div>

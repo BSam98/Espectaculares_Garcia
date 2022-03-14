@@ -2,6 +2,13 @@ var precio_Promocion =[];
 var opcion;
 var contadorFila=0; //contador para asignar id al boton que borrara la fila
 var diaInicial=[],diaFinal=[],precio=[];
+var nombre_Promocion_Html='';
+var option_Nombre_Html='';
+var precio_Promocion_Html='';
+var creditos_Promocion_Html='';
+var fechas_Promocion_Html='';
+var tabla_Fechas_Html='';
+var creditos_Promocion=[];
 
 $("#agregarEvento").click(function(){
     $.ajax({
@@ -76,24 +83,6 @@ $("#asociarTarjetas").click(function(){
 });
 
 
-/*
-$("#agregar_Promocion_Evento").click(function(){
-    $.ajax({
-        type: "POST",
-        url: 'Eventos/Agregar_Promocion_Evento',
-        data: $("#formulario_Agregar_Promocion_Evento").serialize(),
-        dataType: 'JSON',
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
-        },
-    }).done(function(data){
-        if(data.respuesta){
-            location.reload();
-        }
-    }
-    );
-});
-*/
 $(document).on('change', '#idLote', function(event) {
     const opcion = ($("#idLote option:selected").val());
 
@@ -121,13 +110,16 @@ $(document).on('change', '#idLote', function(event) {
 
 $(document).on('change','#promocion_Categoria', function(event){
     
-    var nombre_Promocion_Html='';
-    var option_Nombre_Html='';
-    var precio_Promocion_Html='';
-    var creditos_Promocion_Html='';
-    var fechas_Promocion_Html='';
-    var tabla_Fechas_Html='';
-    precio_Promocion =[]
+    nombre_Promocion_Html='';
+    option_Nombre_Html='';
+    precio_Promocion_Html='';
+    creditos_Promocion_Html='';
+    fechas_Promocion_Html='';
+    tabla_Fechas_Html='';
+    precio_Promocion =[];
+    id_Promocion= [];
+    contadorFila=0;
+    diaInicial=[],diaFinal=[],precio=[];
     opcion =($("#promocion_Categoria option:selected").val());
     
     if(opcion==0){
@@ -156,6 +148,7 @@ $(document).on('change','#promocion_Categoria', function(event){
                 '<input id="nombre2" class="form-control" type="datetime-local">'+
                 '<label for="precioes">Precio</label>'+
                 '<input id="precioes" class="form-control" type="number" placeholder="Ingresa un precio">'+
+                '<input id="creditosI" name="creditosI" class="form-control" type="hidden" placeholder="Creditos cortesia" value="0">'+
                 '<br>'+
                 '<button id="adicionar" class="btn btn-success" type="button">Agregar</button></center><br>';
                 
@@ -208,8 +201,8 @@ $(document).on('change','#promocion_Categoria', function(event){
                         '<input id="nombre2" class="form-control" type="datetime-local">'+
                         '<label for="precioes">Precio</label>'+
                         '<input id="precioes" class="form-control" type="number" placeholder="Ingresa un precio">'+
-                        '<label for="b">Creditos</label>'+
-                        '<input id="b" class="form-control" type="number" placeholder="Creditos cortesia">'+
+                        '<label for="creditosI">Creditos</label>'+
+                        '<input id="creditosI" name="creditosI" class="form-control" type="number" placeholder="Creditos cortesia">'+
                         '<br>'+
                         '<button id="adicionar" class="btn btn-success" type="button">Agregar</button></center><br>';
 
@@ -246,6 +239,9 @@ $(document).on('change','#promocion_Categoria', function(event){
 
 $(document).on('change','#promociones',function(event){
     const id = ($("#promociones option:selected").val());
+    contadorFila=0;
+    diaInicial=[],diaFinal=[],precio=[];
+
     
     const indice = precio_Promocion.findIndex((objeto) => objeto.idPromocion == id);
     if(opcion == 4){
@@ -255,6 +251,8 @@ $(document).on('change','#promociones',function(event){
     else{
         $("#precio_Promocion").val(precio_Promocion[indice]['Precio']);
     }
+    $(".modal-body #area_Fechas_Promocion").html(fechas_Promocion_Html);
+    $(".modal-body #mytable").html(tabla_Fechas_Html);
 });
 
 $(document).on('click','.mostrar_Promociones_Evento', function(){
@@ -263,51 +261,100 @@ $(document).on('click','.mostrar_Promociones_Evento', function(){
 });
 
 $(document).on('click','#adicionar',function(evento){
+
+    alert("Sirve la seleccion:" + ($("#promociones option:selected").val()));
+
+    var opcion = ($("#promocion_Categoria option:selected").val());;
+
     var nombre = document.getElementById("dateinicio").value+":00";
     var nombre2 = document.getElementById("nombre2").value+":00";
     var precioe = document.getElementById("precioes").value;
+    var creditos = document.getElementById("creditosI").value;
 
-    if(precioe === ""){
-        precioe = document.getElementById("precio_Promocion").value;
-    }
-    var fila = '<tr id="row' + contadorFila + '"><td>' + nombre + '</td><td>' + nombre2 + '</td><td>' + precioe + '</td><td><button type="button" name="remove" id="' + contadorFila + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+    if(opcion != 4){
+        if(precioe === ""){
+            precioe = document.getElementById("precio_Promocion").value;
+        }
+        var fila = '<tr id="row' + contadorFila + '"><td>' + nombre + '</td><td>' + nombre2 + '</td><td>' + precioe + '</td><td><button type="button" name="remove" id="' + contadorFila + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+        
+        diaInicial.push({"diaInicial":nombre});
+        diaFinal.push({"diaFinal":nombre2});
+        precio.push({"precio":precioe});
+        contadorFila++;
     
-    diaInicial.push({"diaInicial":nombre});
-    diaFinal.push({"diaFinal":nombre2});
-    precio.push({"precio":precioe});
-    contadorFila++;
+        $('#mytable tr:first').after(fila);
+        $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+        var nFilas = $("#mytable tr").length;
+        $("#adicionados").append(nFilas - 1);
+    }else{
 
-    $('#mytable tr:first').after(fila);
-    $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
-    var nFilas = $("#mytable tr").length;
-    $("#adicionados").append(nFilas - 1);
+        if(precioe === ""){
+            precioe = document.getElementById("precio_Promocion").value;
+        }
+
+        if(creditos === ""){
+            creditos = document.getElementById("creditos_Promocion").value;
+            console.log("Entro aqui?");
+        }
+        var fila = '<tr id="row' + contadorFila + '"><td>' + nombre + '</td><td>' + nombre2 + '</td><td>' + precioe + '</td><td>'+creditos+'</td><td><button type="button" name="remove" id="' + contadorFila + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+        
+        diaInicial.push({"diaInicial":nombre});
+        diaFinal.push({"diaFinal":nombre2});
+        precio.push({"precio":precioe});
+        creditos_Promocion.push({"creditos":creditos});
+        contadorFila++;
+    
+        $('#mytable tr:first').after(fila);
+        $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+        var nFilas = $("#mytable tr").length;
+        $("#adicionados").append(nFilas - 1);
+    }
 });
 
 $(document).on('click','#agregar_Promocion_Evento',function(){
     var idEvento = document.getElementById("idEventoPromocion").value;
     var tipoPromocion = document.getElementById("promocion_Categoria").value;
-    var nombrePromocion = document.getElementById("nombre_Promocion").value;
-    var precioPromocion = document.getElementById("precio_Promocion").value;
-    $.ajax({
-        type: "GET",
-        url: 'Eventos/Agregar_Promocion_Evento',
-        data: {"idEvento":idEvento,"tipoPromocion":tipoPromocion,"nombrePromocion":nombrePromocion,"precioPromocion":precioPromocion,"fechaInicio":diaInicial,"fechaFinal":diaFinal,"precio":precio},
-        dataType: 'JSON',
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
-        },
-    }).done(function(data){
-        if(data.respuesta){
-            location.reload();
-        }
-        else{
-            alert('Ha ocurrido un error');
-        }
+    
+    if(tipoPromocion != 4){
+        $.ajax({
+            type: "GET",
+            url: 'Eventos/Agregar_Promocion_Evento',
+            data: {"idEvento":idEvento,"tipoPromocion":tipoPromocion,"idPromocion":($("#promociones option:selected").val()),"creditos":0,"fechaInicio":diaInicial,"fechaFinal":diaFinal,"precio":precio},
+            dataType: 'JSON',
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            },
+        }).done(function(data){
+            if(data.respuesta){
+                location.reload();
+            }
+            else{
+                alert('Ha ocurrido un error');
+            }
+        });
     }
-    );
+    else{
+        $.ajax({
+            type: "GET",
+            url: 'Eventos/Agregar_Promocion_Evento',
+            data: {"idEvento":idEvento,"tipoPromocion":tipoPromocion,"idPromocion":($("#promociones option:selected").val()),"creditos":creditos_Promocion,"fechaInicio":diaInicial,"fechaFinal":diaFinal,"precio":precio},
+            dataType: 'JSON',
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            },
+        }).done(function(data){
+            if(data.respuesta){
+                location.reload();
+            }
+            else{
+                alert('Ha ocurrido un error');
+            }
+        });
+    }
 });
 
 $(document).on('click', '.btn_remove', function() {
+    var opcion = ($("#promocion_Categoria option:selected").val());;
     var button_id = $(this).attr("id");
     //cuando da click obtenemos el id del boton
     $('#row' + button_id + '').remove(); //borra la fila
@@ -315,10 +362,18 @@ $(document).on('click', '.btn_remove', function() {
     $("#adicionados").text("");
     var nFilas = $("#mytable tr").length;
     $("#adicionados").append(nFilas - 1);
-    
-    diaInicial.splice(button_id,1);
-    diaFinal.splice(button_id,1);
-    precio.splice(button_id,1);                
+
+    if(opcion != 4){
+        diaInicial.splice(button_id,1);
+        diaFinal.splice(button_id,1);
+        precio.splice(button_id,1);
+    }
+    else{
+        diaInicial.splice(button_id,1);
+        diaFinal.splice(button_id,1);
+        precio.splice(button_id,1);
+        creditos_Promocion.splice(button_id,1);
+    }           
 });
 
 

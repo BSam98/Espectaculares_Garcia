@@ -147,119 +147,148 @@ class Eventos_Control extends BaseController {
         $fechaInicio = $_GET['fechaInicio'];
         $fechaFinal = $_GET['fechaFinal'];
         $precio = $_GET['precio'];
+        $idEvento = $_GET['idEvento'];
+        $idPromocion = $_GET['idPromocion'];
+        $creditos = $_GET['creditos'];
         
-        $datos1=[
-            'Nombre' => $this->request->getVar('nombrePromocion'),
-            'Precio' => $this->request->getVar('precioPromocion'),
-            'idEvento' => $this->request->getVar('idEvento')
-        ];
+        $num_elementos =0;
+        $cantidad = count($fechaInicio);
 
-        $respuesta = $model->agregar_Promociones_Evento($tipoPromocion,$datos1);
+        switch($tipoPromocion){
+            case 1:
+                $tabla = 'Calendario_Dos_x_Uno';
+                if(1==$cantidad){
+                    $datos = [
+                        "Precio" => $precio[$num_elementos],
+                        "FechaInicial" => $fechaInicio[$num_elementos],
+                        "FechaFinal" => $fechaFinal[$num_elementos],
+                        "idDosxUno" => $idPromocion,
+                    ];
 
-        
-        if($respuesta != false){
-            $num_elementos =0;
-            $cantidad = count($fechaInicio);
-
-            switch($tipoPromocion){
-                case 1:
-                    $tabla = 'Calendario_Dos_x_Uno';
-                    if(1==$cantidad){
+                    $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
+                }
+                else{
+                    while($num_elementos<$cantidad){
                         $datos = [
                             "Precio" => $precio[$num_elementos],
                             "FechaInicial" => $fechaInicio[$num_elementos],
                             "FechaFinal" => $fechaFinal[$num_elementos],
-                            "idDosxUno" => $respuesta
+                            "idDosxUno" => $idPromocion,
+                            "idEvento" => $idEvento
                         ];
 
                         $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
+                        $num_elementos = $num_elementos +1;
                     }
-                    else{
-                        while($num_elementos<$cantidad){
-                            $datos = [
-                                "Precio" => $precio[$num_elementos],
-                                "FechaInicial" => $fechaInicio[$num_elementos],
-                                "FechaFinal" => $fechaFinal[$num_elementos],
-                                "idDosxUno" => $respuesta,
-                            ];
+                }
+                if($respuesta1 != false){
+                    echo json_encode(array('respuesta'=>true,'msj'=>$respuesta1));
+                }
+                else{
+                    echo json_encode(array('respuesta'=>false,'msj'=>$respuesta1));
+                }
+            break;
 
-                            $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
-                            $num_elementos = $num_elementos +1;
-                        }
-                    }
-                    if($respuesta1 != false){
-                        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta1));
-                    }
-                    else{
-                        echo json_encode(array('respuesta'=>false,'msj'=>$respuesta));
-                    }
-                break;
-
-                case 2:
-                    $tabla = 'Calendario_Juegos_Gratis';
-                    if(1==$cantidad){
+            case 2:
+                $tabla = 'Calendario_Pulsera_Magica';
+                if(1==$cantidad){
+                    $datos = [
+                        "Precio" => $precio[$num_elementos],
+                        "FechaInicial" => $fechaInicio[$num_elementos],
+                        "FechaFinal" => $fechaFinal[$num_elementos],
+                        "idPulseraMagica" => $idPromocion,
+                        "idEvento" => $idEvento
+                    ];
+                    $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
+                }
+                else{
+                    while($num_elementos<$cantidad){
                         $datos = [
                             "Precio" => $precio[$num_elementos],
                             "FechaInicial" => $fechaInicio[$num_elementos],
                             "FechaFinal" => $fechaFinal[$num_elementos],
-                            "idJuegosGratis" => $respuesta,
+                            "idPulseraMagica" => $idPromocion,
+                            "idEvento" => $idEvento
                         ];
                         $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
+                        $num_elementos = $num_elementos +1;
                     }
-                    else{
-                        while($num_elementos<$cantidad){
-                            $datos = [
-                                "Precio" => $precio[$num_elementos],
-                                "FechaInicial" => $fechaInicio[$num_elementos],
-                                "FechaFinal" => $fechaFinal[$num_elementos],
-                                "idJuegosGratis" => $respuesta,
-                            ];
-                            $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
-                            $num_elementos = $num_elementos +1;
-                        }
-                    }
-                    if($respuesta1 != false){
-                        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta1));
-                    }
-                    else{
-                        echo json_encode(array('respuesta'=>false,'msj'=>$respuesta));
-                    }
-                break;
+                }
+                if($respuesta1 != false){
+                    echo json_encode(array('respuesta'=>true,'msj'=>$respuesta1));
+                }
+                else{
+                    echo json_encode(array('respuesta'=>false,'msj'=>$respuesta1));
+                }
+            break;
 
-                case 3:
-                    $tabla = 'Calendario_Pulsera_Magica';
-                    if(1==$cantidad){
+            case 3:
+                $tabla = 'Calendario_Juegos_Gratis';
+                if(1==$cantidad){
+                    $datos = [
+                        "Precio" => $precio[$num_elementos],
+                        "FechaInicial" => $fechaInicio[$num_elementos],
+                        "FechaFinal" => $fechaFinal[$num_elementos],
+                        "idJuegosGratis" => $idPromocion,
+                        "idEvento" => $idEvento
+                    ];
+                    $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
+                }
+                else{
+                    while($num_elementos<$cantidad){
                         $datos = [
                             "Precio" => $precio[$num_elementos],
                             "FechaInicial" => $fechaInicio[$num_elementos],
                             "FechaFinal" => $fechaFinal[$num_elementos],
-                            "idPulseraMagica" => $respuesta,
+                            "idJuegosGratis" => $idPromocion,
+                            "idEvento" => $idEvento
                         ];
                         $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
+                        $num_elementos = $num_elementos +1;
                     }
-                    else{
-                        while($num_elementos<$cantidad){
-                            $datos = [
-                                "Precio" => $precio[$num_elementos],
-                                "FechaInicial" => $fechaInicio[$num_elementos],
-                                "FechaFinal" => $fechaFinal[$num_elementos],
-                                "idPulseraMagica" => $respuesta,
-                            ];
-                            $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
-                            $num_elementos = $num_elementos +1;
-                        }
+                }
+                if($respuesta1 != false){
+                    echo json_encode(array('respuesta'=>true,'msj'=>$respuesta1));
+                }
+                else{
+                    echo json_encode(array('respuesta'=>false,'msj'=>$respuesta1));
+                }
+            break;
+
+            case 4:
+                $tabla = 'Calendario_Creditos_Cortesia';
+                if(1==$cantidad){
+                    $datos = [
+                        "Precio" => $precio[$num_elementos],
+                        "Creditos" => $creditos[$num_elementos],
+                        "FechaInicial" => $fechaInicio[$num_elementos],
+                        "FechaFinal" => $fechaFinal[$num_elementos],
+                        "idCC" => $idPromocion,
+                        "idEvento" =>$idEvento
+                    ];
+                    $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
+                }
+                else{
+                    while($num_elementos<$cantidad){
+                        $datos = [
+                            "Precio" => $precio[$num_elementos],
+                            "Creditos" => $creditos[$num_elementos],
+                            "FechaInicial" => $fechaInicio[$num_elementos],
+                            "FechaFinal" => $fechaFinal[$num_elementos],
+                            "idCC" => $idPromocion,
+                            "idEvento" =>$idEvento
+                        ];
+                        $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
+                        $num_elementos = $num_elementos +1;
                     }
-                    if($respuesta1 != false){
-                        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta1));
-                    }
-                    else{
-                        echo json_encode(array('respuesta'=>false,'msj'=>$respuesta));
-                    }
-                break;
-            }
-        }
-        else{
-            echo json_encode(array('respuesta'=>false,'msj'=>$respuesta));
+                }
+                if($respuesta1 != false){
+                    echo json_encode(array('respuesta'=>true,'msj'=>$respuesta1));
+                }
+                else{
+                    echo json_encode(array('respuesta'=>false,'msj'=>$respuesta1));
+                }
+            break;
         }
     }
 
