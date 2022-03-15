@@ -63,6 +63,7 @@
                     </table>
                     <!--/Tabla-->
                 </div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d239005.83634601292!2d-100.5536337860111!3d20.60984612657324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1647380145756!5m2!1ses-419!2smx" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </div>
