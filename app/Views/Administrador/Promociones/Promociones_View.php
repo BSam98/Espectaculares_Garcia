@@ -21,7 +21,7 @@
                                 <tr>
                                     <td style="vertical-align: middle;"><?= $dD->Nombre?></td>
                                     <td style="vertical-align: middle;"><?= $dD->Precio?></td>
-                                    <td style="vertical-align: middle;"><a href="#verTarjetas"  class="btn btn-outline-success" data-toggle="modal"  data-book-id='' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
+                                    <td style="vertical-align: middle;"><a href="#ver_Promocion_Evento"  class="btn btn-outline-success verEventos" data-toggle="modal"  data-book-id='{"idPromocion":<?=$dD->idDosxUno?>,"tipoPromocion":1}' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -49,7 +49,7 @@
                                 <tr>
                                     <td style="vertical-align: middle;"><?=$dP->Nombre?></td>
                                     <td style="vertical-align: middle;"><?=$dP->Precio?></td>
-                                    <td style="vertical-align: middle;"><a href=""  class="btn btn-outline-success" data-toggle="modal"  data-book-id='' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
+                                    <td style="vertical-align: middle;"><a href="#ver_Promocion_Evento"  class="btn btn-outline-success verEventos" data-toggle="modal"  data-book-id='{"idPromocion":<?=$dP->idPulseraMagica?>,"tipoPromocion":2}' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -81,7 +81,7 @@
                                 <tr>
                                     <td style="vertical-align: middle;"><?=$dJ->Nombre?></td>
                                     <td style="vertical-align: middle;"><?=$dJ->Precio?></td>
-                                    <td style="vertical-align: middle;"><a href=""  class="btn btn-outline-success" data-toggle="modal"  data-book-id='' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
+                                    <td style="vertical-align: middle;"><a href="#ver_Promocion_Evento"  class="btn btn-outline-success verEventos" data-toggle="modal"  data-book-id='{"idPromocion":<?=$dJ->idJuegosGratis?>,"tipoPromocion":3}' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -111,7 +111,7 @@
                                         <td style="vertical-align: middle;"><?=$dC->Nombre?></td>
                                         <td style="vertical-align: middle;"><?=$dC->Precio?></td>
                                         <td style="vertical-align: middle;"><?=$dC->Creditos?></td>
-                                        <td style="vertical-align: middle;"><a href=""  class="btn btn-outline-success" data-toggle="modal"  data-book-id='' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
+                                        <td style="vertical-align: middle;"><a href="#ver_Promocion_Evento"  class="btn btn-outline-success verEventos" data-toggle="modal"  data-book-id='{"idPromocion":<?=$dC->idCC?>,"tipoPromocion":4}' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
                                     </tr>
                                 <?php endforeach ?>
                             </tbody>
@@ -121,6 +121,7 @@
             </fieldset>    
             <?php
                 include 'agregar_Promociones.php';
+                include 'Promociones_Evento.php';
             ?>
             <script src="JS/promociones.js"></script>      
 

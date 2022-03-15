@@ -31,6 +31,18 @@ class Promociones_Control extends BaseController {
         return "";
     }
 
+    public function ver_Eventos(){
+        $model = new Promociones_Model();
+
+        $datos = [
+            'idPromocion' => $this->request->getVar('idPromocion'),
+            'tipoPromocion' => $this->request->getVar('tipoPromocion')
+        ];
+        
+        $respuesta  = $model->listadoEventos($datos);
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
+
     public function agregar_Promocion(){
 
         $model = new Promociones_Model();

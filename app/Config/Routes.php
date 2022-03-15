@@ -69,8 +69,13 @@ $routes->post('/Eventos/Mostrar_Asociacion','Eventos_Control::mostrarAsociacion'
 $routes->get('/Usuarios','Usuarios_Control::new');
 
 $routes->get('/Promociones','Promociones_Control::new');
+
 $routes->post('/Promociones/Agregar_Promocion','Promociones_Control::agregar_Promocion');
 $routes->get('/Promociones/Agregar_Promocion','Promociones_Control::agregar_Promocion');
+
+$routes->post('/Promociones/VerEventos','Promociones_Control::ver_Eventos');
+$routes->get('/Promociones/VerEventos','Promociones_Control::ver_Eventos');
+
 
 $routes->get('/Tarjetas','Tarjetas_Control::new');
 $routes->post('/Tarjetas/EditarLote','Tarjetas_Control::actualizarLote');

@@ -72,3 +72,85 @@ $("#a").click(function(){
         }
     });
 });
+
+$(document).on('click','.verEventos', function(){
+    var datos = $(this).data('book-id');
+    var cabecera_Html='';
+    var cuerpo_Html ='';
+
+    $.ajax({
+        type: "POST",
+        url: 'Promociones/VerEventos',
+        data:{"idPromocion":datos['idPromocion'],"tipoPromocion":datos['tipoPromocion']},
+        dataType: 'JSON',
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un erro: a' + errorThrown + ' '+ textStatus);
+        },
+    }).done(function (data){
+        if(data.respuesta){
+            if(datos['tipoPromocion']!=4){
+                cabecera_Html +='<th scope="col" style="vertical-align: middle;">Evento</th>'+
+                '<th scope="col" style="vertical-align: middle;">Fecha y Hora Inicial</th>'+
+                '<th scope="col" style="vertical-align: middle;">Fecha y Hora Inicial</th>'+
+                '<th scope="col" style="vertical-align: middle;">Precio</th>';
+            }
+            else{
+                cabecera_Html +='<th scope="col" style="vertical-align: middle;">Evento</th>'+
+                '<th scope="col" style="vertical-align: middle;">Fecha y Hora Inicial</th>'+
+                '<th scope="col" style="vertical-align: middle;">Fecha y Hora Inicial</th>'+
+                '<th scope="col" style="vertical-align: middle;">Precio</th>'+
+                '<th scope="col" style="vertical-align: middle;">Creditos</th>';
+            }
+            
+            switch(datos['tipoPromocion']){
+                case 1:
+                    for(var i = 0; i<data.msj.length;i++){
+                        cuerpo_Html +='<tr>'+
+                        '<td>'+data.msj[i]['Nombre']+'</td>'+
+                        '<td>'+data.msj[i]['FechaInicial']+'</td>'+
+                        '<td>'+data.msj[i]['FechaFinal']+'</td>'+
+                        '<td>'+data.msj[i]['Precio']+'</td>'+
+                        '</tr>';
+                    }
+                break;
+
+                case 2:
+                    for(var i = 0; i<data.msj.length;i++){
+                        cuerpo_Html +='<tr>'+
+                        '<td>'+data.msj[i]['Nombre']+'</td>'+
+                        '<td>'+data.msj[i]['FechaInicial']+'</td>'+
+                        '<td>'+data.msj[i]['FechaFinal']+'</td>'+
+                        '<td>'+data.msj[i]['Precio']+'</td>'+
+                        '</tr>';
+                    }
+                break;
+                
+                case 3:
+                    for(var i = 0; i<data.msj.length;i++){
+                        cuerpo_Html +='<tr>'+
+                        '<td>'+data.msj[i]['Nombre']+'</td>'+
+                        '<td>'+data.msj[i]['FechaInicial']+'</td>'+
+                        '<td>'+data.msj[i]['FechaFinal']+'</td>'+
+                        '<td>'+data.msj[i]['Precio']+'</td>'+
+                        '</tr>';
+                    }
+                break;
+
+                case 4:
+                    for(var i = 0; i<data.msj.length;i++){
+                        cuerpo_Html +='<tr>'+
+                        '<td>'+data.msj[i]['Nombre']+'</td>'+
+                        '<td>'+data.msj[i]['FechaInicial']+'</td>'+
+                        '<td>'+data.msj[i]['FechaFinal']+'</td>'+
+                        '<td>'+data.msj[i]['Precio']+'</td>'+
+                        '<td>'+data.msj[i]['Creditos']+'</td>'+
+                        '</tr>';
+                    }
+                break;
+            }
+
+            $(".modal-body #cabecera_Promocion_Evento").html(cabecera_Html);
+            $(".modal-body #datos_Promocion_Evento").html(cuerpo_Html);
+        }
+    });
+});
