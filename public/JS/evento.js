@@ -139,6 +139,10 @@ $(document).on('change','#promocion_Categoria', function(event){
             },
         }).done(function(data){
             if(data.respuesta){
+                option_Nombre_Html +='<option value="">Selecciona una promoción</option>';
+
+                precio_Promocion_Html +='<label for="precio_Promocion">Precio de la Promoción</label>'+
+                '<input type="number" class="form-control" name="precio_Promocion" id="precio_Promocion" placeholder="Precio Promoción" value="">';
 
                 fechas_Promocion_Html +='<center><label>Días</label>'+
                 '<br>'+
@@ -159,13 +163,35 @@ $(document).on('change','#promocion_Categoria', function(event){
                 '<th>Eliminar</th>'+
                 '</tr>';
 
-                option_Nombre_Html +='<option value="">Selecciona una promoción</option>';
                 switch(opcion){
                     case '1':
+                        precio_Promocion_Html ='<label for="cantidad">Cantidad de personas por pase</label>'+
+                        '<input type="number" class="form-control" name="cantidad" id="cantidad" placeholder="Personas por pase" value="">'+
+                        '<label for="cantidad_Boletos">Cantidad de pases a cobrar</label>'+
+                        '<input type="number" class="form-control" name="cantidad_Boletos" id="cantidad_Boletos" placeholder="Boletos a cobrar" value="">';
+
+                        fechas_Promocion_Html ='<center><label>Días</label>'+
+                        '<br>'+
+                        '<label for="horai">Hora de Inicio</label>'+
+                        '<input id="dateinicio" class="form-control" type="datetime-local">'+
+                        '<label for="horaf">Hora de Finalizacion</label>'+
+                        '<input id="nombre2" class="form-control" type="datetime-local">'+
+                        '<input id="precioes" class="form-control" type="hidden" placeholder="Ingresa un precio" value="0">'+
+                        '<input id="creditosI" name="creditosI" class="form-control" type="hidden" placeholder="Creditos cortesia" value="0">'+
+                        '<br>'+
+                        '<button id="adicionar" class="btn btn-success" type="button">Agregar</button></center><br>';
+                        
+                        tabla_Fechas_Html ='<tr>'+
+                        '<th>Hora Inicio</th>'+
+                        '<th>Hora Fin</th>'+
+                        '<th>Eliminar</th>'+
+                        '</tr>';
+
                         for(var i=0;i<data.msj.length;i++){
+
                             option_Nombre_Html +='<option value="'+data.msj[i]['idDosxUno']+'">"'+data.msj[i]['Nombre']+'"</option>';
 
-                            precio_Promocion.push({'idPromocion':data.msj[i]['idDosxUno'],'Precio':data.msj[i]['Precio']});
+                            precio_Promocion.push({'idPromocion':data.msj[i]['idDosxUno'],'Cantidad':data.msj[i]['Cantidad'],'Boletos':data.msj[i]['Boletos']});
                         }
                         
                     break;
@@ -222,12 +248,9 @@ $(document).on('change','#promocion_Categoria', function(event){
                     break;
                 }
             }
+
             nombre_Promocion_Html +='<label for="promociones">Nombre de la promocion</label>'+
             '<select name="promociones" id="promociones" class="form-control">'+option_Nombre_Html+'</select>';
-    
-            precio_Promocion_Html +='<label for="precio_Promocion">Precio de la Promoción</label>'+
-            '<input type="number" class="form-control" name="precio_Promocion" id="precio_Promocion" placeholder="Precio Promoción" value="">';
-
 
             $(".modal-body #area_Nombre_Promocion").html(nombre_Promocion_Html);
             $(".modal-body #area_Precio_Promocion").html(precio_Promocion_Html);
@@ -244,24 +267,49 @@ $(document).on('change','#promociones',function(event){
     contadorFila=0;
     diaInicial=[],diaFinal=[],precio=[];
 
-    console.log("Es la id: "+id);
     const indice = precio_Promocion.findIndex((objeto) => objeto.idPromocion == id);
+
+    switch(opcion){
+        case '1':
+            if(id !=""){
+                $("#cantidad").val(precio_Promocion[indice]['Cantidad']);
+                $("#cantidad_Boletos").val(precio_Promocion[indice]['Boletos']);
+            }else{
+                $("#cantidad").val('');
+                $("#cantidad_Boletos").val('');
+            }
+        break;
+
+        case '2':
+            if(id !=""){
+                $("#precio_Promocion").val(precio_Promocion[indice]['Precio']);
+            }else{
+                $("#precio_Promocion").val('');
+            }
+        break;
+
+        case '3':
+            if(id !=""){
+                $("#precio_Promocion").val(precio_Promocion[indice]['Precio']);
+            }else{
+                $("#precio_Promocion").val('');
+            }
+        break;
+
+        case '4':
+            if(id != ""){
+                $("#precio_Promocion").val(precio_Promocion[indice]['Precio']);
+                $("#creditos_Promocion").val(precio_Promocion[indice]['Creditos']);
+            }
+            else{
+                $("#precio_Promocion").val('');
+                $("#creditos_Promocion").val('');
+            }
+        break;
+    }
     if(opcion == 4){
-        if(id != ""){
-            $("#precio_Promocion").val(precio_Promocion[indice]['Precio']);
-            $("#creditos_Promocion").val(precio_Promocion[indice]['Creditos']);
-        }
-        else{
-            $("#precio_Promocion").val('');
-            $("#creditos_Promocion").val('');
-        }
     }
     else{
-        if(id !=""){
-            $("#precio_Promocion").val(precio_Promocion[indice]['Precio']);
-        }else{
-            $("#precio_Promocion").val('');
-        }
     }
     $(".modal-body #area_Fechas_Promocion").html(fechas_Promocion_Html);
     $(".modal-body #mytable").html(tabla_Fechas_Html);
@@ -283,43 +331,80 @@ $(document).on('click','#adicionar',function(evento){
     var precioe = document.getElementById("precioes").value;
     var creditos = document.getElementById("creditosI").value;
 
-    if(opcion != 4){
-        if(precioe === ""){
-            precioe = document.getElementById("precio_Promocion").value;
-        }
-        var fila = '<tr id="row' + contadorFila + '"><td>' + nombre + '</td><td>' + nombre2 + '</td><td>' + precioe + '</td><td><button type="button" name="remove" id="' + contadorFila + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+    switch(opcion){
+        case '1':
+            if(precioe === ""){
+                precioe = document.getElementById("precio_Promocion").value;
+            }
+            var fila = '<tr id="row' + contadorFila + '"><td>' + nombre + '</td><td>' + nombre2 + '</td><td><button type="button" name="remove" id="' + contadorFila + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+            
+            diaInicial.push({"diaInicial":nombre});
+            diaFinal.push({"diaFinal":nombre2});
+            precio.push({"precio":precioe});
+            contadorFila++;
         
-        diaInicial.push({"diaInicial":nombre});
-        diaFinal.push({"diaFinal":nombre2});
-        precio.push({"precio":precioe});
-        contadorFila++;
-    
-        $('#mytable tr:first').after(fila);
-        $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
-        var nFilas = $("#mytable tr").length;
-        $("#adicionados").append(nFilas - 1);
-    }else{
+            $('#mytable tr:first').after(fila);
+            $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+            var nFilas = $("#mytable tr").length;
+            $("#adicionados").append(nFilas - 1);
+        break;
 
-        if(precioe === ""){
-            precioe = document.getElementById("precio_Promocion").value;
-        }
-
-        if(creditos === ""){
-            creditos = document.getElementById("creditos_Promocion").value;
-            console.log("Entro aqui?");
-        }
-        var fila = '<tr id="row' + contadorFila + '"><td>' + nombre + '</td><td>' + nombre2 + '</td><td>' + precioe + '</td><td>'+creditos+'</td><td><button type="button" name="remove" id="' + contadorFila + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+        case '2':
+            if(precioe === ""){
+                precioe = document.getElementById("precio_Promocion").value;
+            }
+            var fila = '<tr id="row' + contadorFila + '"><td>' + nombre + '</td><td>' + nombre2 + '</td><td>' + precioe + '</td><td><button type="button" name="remove" id="' + contadorFila + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+            
+            diaInicial.push({"diaInicial":nombre});
+            diaFinal.push({"diaFinal":nombre2});
+            precio.push({"precio":precioe});
+            contadorFila++;
         
-        diaInicial.push({"diaInicial":nombre});
-        diaFinal.push({"diaFinal":nombre2});
-        precio.push({"precio":precioe});
-        creditos_Promocion.push({"creditos":creditos});
-        contadorFila++;
+            $('#mytable tr:first').after(fila);
+            $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+            var nFilas = $("#mytable tr").length;
+            $("#adicionados").append(nFilas - 1);
+        break;
+
+        case '3':
+            if(precioe === ""){
+                precioe = document.getElementById("precio_Promocion").value;
+            }
+            var fila = '<tr id="row' + contadorFila + '"><td>' + nombre + '</td><td>' + nombre2 + '</td><td>' + precioe + '</td><td><button type="button" name="remove" id="' + contadorFila + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+            
+            diaInicial.push({"diaInicial":nombre});
+            diaFinal.push({"diaFinal":nombre2});
+            precio.push({"precio":precioe});
+            contadorFila++;
+        
+            $('#mytable tr:first').after(fila);
+            $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+            var nFilas = $("#mytable tr").length;
+            $("#adicionados").append(nFilas - 1);
+        break;
+
+        case '4':
+            if(precioe === ""){
+                precioe = document.getElementById("precio_Promocion").value;
+            }
     
-        $('#mytable tr:first').after(fila);
-        $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
-        var nFilas = $("#mytable tr").length;
-        $("#adicionados").append(nFilas - 1);
+            if(creditos === ""){
+                creditos = document.getElementById("creditos_Promocion").value;
+                console.log("Entro aqui?");
+            }
+            var fila = '<tr id="row' + contadorFila + '"><td>' + nombre + '</td><td>' + nombre2 + '</td><td>' + precioe + '</td><td>'+creditos+'</td><td><button type="button" name="remove" id="' + contadorFila + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+            
+            diaInicial.push({"diaInicial":nombre});
+            diaFinal.push({"diaFinal":nombre2});
+            precio.push({"precio":precioe});
+            creditos_Promocion.push({"creditos":creditos});
+            contadorFila++;
+        
+            $('#mytable tr:first').after(fila);
+            $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+            var nFilas = $("#mytable tr").length;
+            $("#adicionados").append(nFilas - 1);
+        break;
     }
 });
 

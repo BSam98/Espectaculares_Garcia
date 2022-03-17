@@ -172,10 +172,10 @@ class Eventos_Control extends BaseController {
                 $tabla = 'Calendario_Dos_x_Uno';
                 if(1==$cantidad){
                     $datos = [
-                        "Precio" => $precio[$num_elementos],
                         "FechaInicial" => $fechaInicio[$num_elementos],
                         "FechaFinal" => $fechaFinal[$num_elementos],
                         "idDosxUno" => $idPromocion,
+                        "idEvento" => $idEvento
                     ];
 
                     $respuesta1 = $model->agregar_Calendario_Promocion($tabla,$datos);
@@ -183,7 +183,6 @@ class Eventos_Control extends BaseController {
                 else{
                     while($num_elementos<$cantidad){
                         $datos = [
-                            "Precio" => $precio[$num_elementos],
                             "FechaInicial" => $fechaInicio[$num_elementos],
                             "FechaFinal" => $fechaFinal[$num_elementos],
                             "idDosxUno" => $idPromocion,
