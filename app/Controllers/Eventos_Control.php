@@ -53,7 +53,20 @@ class Eventos_Control extends BaseController {
         ];
 
         $respuesta = $model->mostrarAtracciones($datos);
-        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+        $atracciones = $model->listadoAtracciones($datos);
+        $promociones = $model->listado_Promociones_Evento($datos);
+        $contratos = $model->listadoContratos();
+        $polizas = $model->listadoPolizas();
+
+        echo json_encode(
+            array(
+                'respuesta'=>true,
+                'msj'=>$respuesta,
+                'atracciones'=>$atracciones, 
+                "promociones"=>$promociones, 
+                "contratos"=>$contratos,
+                "polizas"=>$polizas
+            ));
     }
 
     public function mostrarTarjetas(){

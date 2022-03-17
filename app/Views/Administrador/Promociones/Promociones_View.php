@@ -12,7 +12,8 @@
                         <thead>
                         <!--Titulos de la tabla-->
                             <th style="vertical-align: middle;">Nombre</th>
-                            <th style="vertical-align: middle;">Precio</th>
+                            <th style="vertical-align: middle;">Personas</th>
+                            <th style="vertical-align: middle;">Boletos</th>
                             <th style="vertical-align: middle;">Eventos</th>
                         <!--/Titutlos de la tabla-->
                         </thead>
@@ -20,7 +21,8 @@
                             <?php foreach($DosxUno as $key => $dD): ?>
                                 <tr>
                                     <td style="vertical-align: middle;"><?= $dD->Nombre?></td>
-                                    <td style="vertical-align: middle;"><?= $dD->Precio?></td>
+                                    <td style="vertical-align: middle;"><?= $dD->Cantidad?></td>
+                                    <td style="vertical-align: middle;"><?= $dD->Boletos?></td>
                                     <td style="vertical-align: middle;"><a href="#ver_Promocion_Evento"  class="btn btn-outline-success verEventos" data-toggle="modal"  data-book-id='{"idPromocion":<?=$dD->idDosxUno?>,"tipoPromocion":1}' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
                                 </tr>
                             <?php endforeach ?>

@@ -17,7 +17,8 @@ class Promociones_Model extends Model{
             '
             idDosxUno,
             Nombre,
-            Precio
+            Cantidad,
+            Boletos
             '
         );
 
@@ -100,7 +101,6 @@ class Promociones_Model extends Model{
                 $builder ->select(
                     '
                     Calendario_Dos_x_Uno.idFechaDosxUno,
-                    Calendario_Dos_x_Uno.Precio,
                     Calendario_Dos_x_Uno.FechaInicial,
                     Calendario_Dos_x_Uno.FechaFinal,
                     Eventos.Nombre

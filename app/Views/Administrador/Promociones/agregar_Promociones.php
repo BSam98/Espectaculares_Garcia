@@ -18,11 +18,11 @@
                                             <label for="nombre_promocion">Nombre</label>
                                             <input class="form-control" type="text"  id="nombre_promocion" required name="nombre_promocion[]" required placeholder="Nombre de la promoción"/>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="precio_promocion">Precio</label>
-                                            <input class="form-control" type="number"  id="precio_promocion" required name="precio_promocion[]" required placeholder="Precio de la promoción"/>
+                                        <div class="form-group" id="area_Cantidad">
                                         </div>
-                                        <div class="form-group" id="area_creditos_cortesia">
+                                        <div class="from-group" id="area_Cantidad_Boletos">
+                                        </div>
+                                        <div class="form-group" id="area_Creditos_Cortesia">
                                         </div>
                                     </td>
                                     <td class="del-U"><input type="button"   value="-"/></td>

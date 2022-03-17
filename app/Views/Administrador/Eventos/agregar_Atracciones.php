@@ -13,10 +13,10 @@
                             <tbody>
                                 <tr class="f-Atracciones">
                                     <td>
-                                        <div class="form-group">
-                                            <label for="nombreatra">Nombre de la Atracción</label>
-                                            <select name="atraccion[]" id="atraccion" class="form-control">
-                                                <option value="">Seleccionar Atracción</option>
+                                        <div class="form-group" id="nuevas_Atracciones">
+                                            <label for ="atracciones_Nuevas">Nombre de la atracción</label>
+                                            <select name="atracciones_Nuevas[]" id ="atracciones_Nuevas" class="form-control">
+                                                <option value="">Seleccionar Atraccion</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -27,13 +27,13 @@
                                             <label for="poliza">Promociones:</label>
                                             <input type="checkbox" name="promo[]" id="promo">2x1
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" id="nuevos_Contratos">
                                             <label for="contrato">Agregar Contrato</label>
                                             <select name="contrato[]" id="contrato" class="form-control">
                                                 <option value="">Seleccionar Contrato</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" id="nuevas_Polizas">
                                             <label for="poliza">Agregar Poliza</label>
                                             <select name="poliza[]" id="poliza" class="form-control">
                                                 <option value="">Seleccionar Poliza</option>

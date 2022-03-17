@@ -100,6 +100,75 @@ class Eventos_Model extends Model{
         return $datos;
     }
 
+    public function listadoAtracciones($datos){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Atracciones');
+
+        $builder->select(
+            '
+            Atracciones.idAtraccion,
+            Atracciones.Nombre
+            '
+        );
+
+        $builder->join(
+            'Atraccion_Evento',
+            'Atraccion_Evento.idAtraccion = Atracciones.idAtraccion',
+            'LEFT'
+        );
+
+        $builder->where('Atraccion_Evento.idEvento IS NULL');
+
+        $query = $builder->get();
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+
+    }
+
+    public function listado_Promociones_Evento($datos){
+        //$db = \Config\Database::Connect();
+        //$builder = $db->table('');
+        return $datos;
+    }
+
+    public function listadoContratos(){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Contrato');
+
+        $builder->select(
+            '
+            idContrato,
+            Nombre
+            '
+        );
+
+        $query = $builder->get();
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function listadoPolizas(){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Poliza');
+
+        $builder->select(
+            '
+            idPoliza,
+            Nombre
+            '
+        );
+
+        $query = $builder->get();
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
     public function agregarEvento($datos){
         $db= \Config\Database::Connect();
         $builder = $db->table('Eventos');

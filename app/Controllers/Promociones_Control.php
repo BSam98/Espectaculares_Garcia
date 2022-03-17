@@ -49,8 +49,9 @@ class Promociones_Control extends BaseController {
 
         $promocion = $_POST['promocion'];
         $nombre =$_POST['nombre_promocion'];
-        $precio = $_POST['precio_promocion'];
+        $precio = $_POST['cantidad'];
         $creditos = $_POST['creditos_cortesia'];
+        $boletos = $_POST['cantidad_Boletos'];
 
         $num_elementos = 0;
         $cantidad= count($nombre);
@@ -61,7 +62,8 @@ class Promociones_Control extends BaseController {
                     $tabla = 'Promocion_Dos_x_Uno';
                     $datos = [
                         'Nombre' => $nombre[$num_elementos],
-                        'Precio' => $precio[$num_elementos]
+                        'Cantidad' => $precio[$num_elementos],
+                        'Boletos' => $boletos[$num_elementos]
                     ];
 
                     $respuesta  = $model->insertarPromocion($tabla,$datos);
@@ -110,7 +112,8 @@ class Promociones_Control extends BaseController {
                     while($num_elementos<$cantidad){
                         $datos = [
                             'Nombre' => $nombre[$num_elementos],
-                            'Precio' => $precio[$num_elementos]
+                            'Cantidad' => $precio[$num_elementos],
+                            'Boletos' => $boletos[$num_elementos],
                         ];
     
                         $respuesta  = $model->insertarPromocion($tabla,$datos);

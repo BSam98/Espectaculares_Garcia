@@ -158,6 +158,8 @@ $(document).on('change','#promocion_Categoria', function(event){
                 '<th>Precio</th>'+
                 '<th>Eliminar</th>'+
                 '</tr>';
+
+                option_Nombre_Html +='<option value="">Selecciona una promoción</option>';
                 switch(opcion){
                     case '1':
                         for(var i=0;i<data.msj.length;i++){
@@ -242,14 +244,24 @@ $(document).on('change','#promociones',function(event){
     contadorFila=0;
     diaInicial=[],diaFinal=[],precio=[];
 
-    
+    console.log("Es la id: "+id);
     const indice = precio_Promocion.findIndex((objeto) => objeto.idPromocion == id);
     if(opcion == 4){
-        $("#precio_Promocion").val(precio_Promocion[indice]['Precio']);
-        $("#creditos_Promocion").val(precio_Promocion[indice]['Creditos']);
+        if(id != ""){
+            $("#precio_Promocion").val(precio_Promocion[indice]['Precio']);
+            $("#creditos_Promocion").val(precio_Promocion[indice]['Creditos']);
+        }
+        else{
+            $("#precio_Promocion").val('');
+            $("#creditos_Promocion").val('');
+        }
     }
     else{
-        $("#precio_Promocion").val(precio_Promocion[indice]['Precio']);
+        if(id !=""){
+            $("#precio_Promocion").val(precio_Promocion[indice]['Precio']);
+        }else{
+            $("#precio_Promocion").val('');
+        }
     }
     $(".modal-body #area_Fechas_Promocion").html(fechas_Promocion_Html);
     $(".modal-body #mytable").html(tabla_Fechas_Html);
@@ -378,8 +390,12 @@ $(document).on('click', '.btn_remove', function() {
 
 
 /*----------------------------------------------------------------------------------------------*/
-$(document).on('click','.mostrarAtraccionesEvento', function(){
+$(document).on('click','.mostrar_Atracciones_Evento', function(){
     var idEvento = $(this).data('book-id');
+    var html ='';
+    var atracciones_Html='', contrato_Html='', poliza_Html=''; 
+    var option_Atracciones_Html='', option_Contrato_Html='', option_Poliza_Html='';
+
     $.ajax({
         type: "POST",
         url: 'Eventos/Mostrar_Atracciones',
@@ -389,25 +405,48 @@ $(document).on('click','.mostrarAtraccionesEvento', function(){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
     }).done(function(data){
-
-        var html ='';
-        for(var i = 0;i<data.msj.length; i++){
-
+        if(data.respuesta){
             
-            html += '<tr>'+
-            '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
-            '<td>'+data.msj[i]['Atraccion']+'</td>'+
-            '<td>'+data.msj[i]['Creditos']+'</td>'+
-            '<td></td>'+
-            '<td>'+data.msj[i]['Contrato']+'</td>'+
-            '<td>'+data.msj[i]['Poliza']+'</td>'+
-            '</tr>';
-            
+            for(var i = 0;i<data.msj.length; i++){
+    
+                
+                html += '<tr>'+
+                '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+                '<td>'+data.msj[i]['Atraccion']+'</td>'+
+                '<td>'+data.msj[i]['Creditos']+'</td>'+
+                '<td></td>'+
+                '<td>'+data.msj[i]['Contrato']+'</td>'+
+                '<td>'+data.msj[i]['Poliza']+'</td>'+
+                '</tr>';
+                
+            }
+
+            for(var i= 0; i<data.atracciones.length; i++){
+                option_Atracciones_Html += '<option value="'+data.atracciones[i]['idAtraccion']+'">"'+data.atracciones[i]['Nombre']+'"</option>';
+            }
+
+            for(var i= 0; i<data.contratos.length; i++){
+                option_Contrato_Html += '<option value="'+data.contratos[i]['idContrato']+'">"'+data.contratos[i]['Nombre']+'"</option>';
+            }
+
+            for(var i= 0; i<data.polizas.length; i++){
+                option_Poliza_Html += '<option value="'+data.polizas[i]['idPoliza']+'">"'+data.polizas[i]['Nombre']+'"</option>';
+            }
+
+            atracciones_Html +='<label for ="atracciones_Nuevas">Nombre de la atracción</label>'+
+            '<select name="atracciones_Nuevas[]" id ="atracciones_Nuevas" class="form-control">'+option_Atracciones_Html+'</select>';
+
+            contrato_Html +='<label for="contrato">Agregar Contrato</label>'+
+            '<select name="contrato[]" id="contrato" class="form-control">'+option_Contrato_Html+'</select>';
+
+            poliza_Html +='<label for="poliza">Agregar Poliza</label>'+
+            '<select name="poliza[]" id="poliza" class="form-control">'+option_Poliza_Html+'</select>';
         }
-        
-        $("#atraccionesEvento").html(html);
-        
 
+        $("#nuevas_Atracciones").html(atracciones_Html);
+        $("#nuevos_Contratos").html(contrato_Html);
+        $("#nuevas_Polizas").html(poliza_Html);
+        $("#atraccionesEvento").html(html);
     });
 });
 
