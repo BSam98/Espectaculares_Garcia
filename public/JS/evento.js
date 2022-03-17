@@ -478,7 +478,7 @@ $(document).on('click', '.btn_remove', function() {
 $(document).on('click','.mostrar_Atracciones_Evento', function(){
     var idEvento = $(this).data('book-id');
     var html ='';
-    var atracciones_Html='', contrato_Html='', poliza_Html=''; 
+    var atracciones_Html='', contrato_Html='', poliza_Html='', promociones=''; 
     var option_Atracciones_Html='', option_Contrato_Html='', option_Poliza_Html='';
 
     $.ajax({
@@ -491,6 +491,12 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
         },
     }).done(function(data){
         if(data.respuesta){
+            //console.log("Promocion: " + data.promociones[0]['Nombre']);
+            /*
+            promociones +='<label for="poliza">Promociones:</label>'+
+            '<br>'+
+            '<input type="checkbox" name="promo[]" id="promo">'+data.promociones[0]['Nombre'];
+            */
             
             for(var i = 0;i<data.msj.length; i++){
     
@@ -532,6 +538,7 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
         $("#nuevos_Contratos").html(contrato_Html);
         $("#nuevas_Polizas").html(poliza_Html);
         $("#atraccionesEvento").html(html);
+        $("#promocion_Atracciones").html(promociones);
     });
 });
 

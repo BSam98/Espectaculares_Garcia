@@ -111,13 +111,9 @@ class Eventos_Model extends Model{
             '
         );
 
-        $builder->join(
-            'Atraccion_Evento',
-            'Atraccion_Evento.idAtraccion = Atracciones.idAtraccion',
-            'LEFT'
-        );
+        $subQuery = $db->table('Atraccion_Evento')->select('Atraccion_Evento.idAtraccion')->where('Atraccion_Evento.idEvento',$datos['idEvento']);
 
-        $builder->where('Atraccion_Evento.idEvento IS NULL');
+        $builder->whereNotIn('Atracciones.idAtraccion',$subQuery);
 
         $query = $builder->get();
 
@@ -128,10 +124,34 @@ class Eventos_Model extends Model{
     }
 
     public function listado_Promociones_Evento($datos){
-        //$db = \Config\Database::Connect();
-        //$builder = $db->table('');
+        $db = \Config\Database::Connect();
+        $builder = $db->table('Promocion_Dos_x_Uno');
+
+        $builder->distinct(
+            '
+            Promocion_Dos_x_Uno.idDosxUno,
+            Promocion_Dos_x_Uno.Nombre
+            '
+        );
+
+        $builder->join(
+            'Calendario_Dos_x_Uno',
+            'Promocion_Dos_x_Uno.idDosxUno = Calendario_Dos_x_Uno.idDosxUno',
+            'inner'
+        );
+
+        $builder->where('Calendario_Dos_x_Uno.idEvento',$datos['idEvento']);
+
+        $query = $builder->get();
+
+        $datos = $query->getResultObject();
+
         return $datos;
     }
+
+    public function listado_Pulsera_Magica($datos){}
+
+    public function listado_Juegos_Gratis($datos){}
 
     public function listadoContratos(){
         $db= \Config\Database::Connect();
