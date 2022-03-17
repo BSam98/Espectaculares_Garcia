@@ -127,6 +127,8 @@ $routes->get('/CerrarSesion','Iniciar_Sesion_Administrador_Control::logout');
 $routes->post('/CerrarSesion','Iniciar_Sesion_Administrador_Control::logout');
 $routes->get('/ReporteVenta','reporte_Venta_Control::index');
 $routes->post('/ReporteVenta','reporte_Venta_Control::index');
+$routes->post('/supervisarAtraccion','Super_Atracciones_Control::new');
+$routes->get('/supervisarAtraccion','Super_Atracciones_Control::new');
 
 
 

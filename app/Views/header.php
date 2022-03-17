@@ -26,6 +26,7 @@
         <link rel="stylesheet" href="../bootstrap/bootstrap-icons.css">
         <link rel="stylesheet" href="../bootstrap/aos.css" />
         <script src="../bootstrap/aos.js"></script>
+        <script src="../bootstrap/sweetalert.min.js"></script>
 
 
 

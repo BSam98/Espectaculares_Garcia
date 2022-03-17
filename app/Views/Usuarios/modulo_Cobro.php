@@ -1,55 +1,66 @@
-<div class="container" style="background-color: white;">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+<div class="container" style="background-color: white;" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000"><br>
+<!--hr>
     <center><h2>PUNTO DE VENTA</h2></center>
-    
+    <hr-->
     <form action="" method="POST" enctype="multipart/form-data">
-        
-        <div class="form-group">
+    <div>
         <table>
-            <th>Tarjeta</th>
-            <th style="padding-left: 30px;">Recargar</th>
-            <th style="padding-left: 30px;">Forma de Pago</th>
+            <th></th>
+            <th id="tarEle" style="display: none; padding-left: 30px;"><h5><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;Tarjeta Electrónica</h5></th>
+            <th id="tarjetaf" style="padding-left: 30px;"><h5><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;Tarjeta</h5></th>
+            <th style="padding-left: 30px;"><h5><i class="fa fa-retweet" aria-hidden="true"></i>&nbsp;Recargar</h5></th>
+            
             <tbody>
                 <tr>
                     <td>
+                        <button type="button" class="btn btn-info btn-square-md" name="electronica" id="electronica"><h5>Tarjeta <br> Electronica</h5></button>
+                    </td>
+                    <td id="tarjetaElectron" style="display: none;padding-left: 30px;">
+                        <div class="input-group mb-3">
+                            <a href="#" id="tagA" class="btn btn-danger">x</a>
+                                <div class="input-group-append">
+                                    <input type="number" class="form-control" name="celular" placeholder="Ingrese un teléfono">
+                                </div>
+                        </div>
+                    </td>
+                    <td id="tarjetafisica" style="padding-left: 30px;">
                         <input type="text" class="form-control" name="tarjeta" id="tarjeta" onblur="ingresarTarjeta()">
                     </td>
-                    <td  style="padding-left: 30px;">
+                    <td style="padding-left: 30px;">
                         <input class="form-control" type="number" name="recarga" id="recarga" placeholder="Ingrese la cantidad">
-                    </td>
-                    <td  style="padding-left: 30px;">
-                        <input type="radio" name="pago" value="1">Efectivo
-                        <input type="radio" name="pago" value="2">Tarjeta de Débito
-                        <input type="radio" name="pago" value="3">Tarjeta de Crédito
                     </td>
                 </tr>
             </tbody>
         </table>
-<hr>
-        <table>
-            <th>Promociones</th>
-            <tbody>
-                <td>
-                <label class="btn btn-success" id="promo1" value="100">$100 x 115 Creditos</label>
-                <label class="btn btn-success" id="promocion2" value="200">$200 x 230 Creditos</label>
-                <label class="btn btn-success" id="promocion3" value="500">$500 x 600 Creditos</label>
-                <label class="btn btn-success" value="50">$50 x Dos x Uno</label>
-                <label class="btn btn-success" value="1000">$1000 x Juegos grátis</label>
-                <label class="btn btn-success" value="200">$200 x Pulcera Magica</label>
-                <!--label class="btn btn-success" id="agregar">Agregar nuevo elementos</!--label-->
-                </td>
-            </tbody>
-        </table>
-        
-            <!--button class="btn btn-success">Agregar</button-->
-        </div>
+        <hr>
+    </div>
             <div class="table table-striped table-responsive" style="height: 300px; width: auto; overflow-y:scroll;">
-                <table class="table table-striped">
-                        <th>Descripción</th>
-                        <th>Precio</th>
-                        <th>Créditos</th>
-                        <th></th>
+                <table class="table table-bordered table-striped">
+                    <th><h5><i class="fa fa-gift" aria-hidden="true"></i>&nbsp;Promociones</h5></th>
+                    <th><h5><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Descripción</h5></th>
+                    <th><h5><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="30px" height="30px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                        <g><path d="M256,0C114.625,0,0,114.625,0,256s114.625,256,256,256s256-114.625,256-256S397.375,0,256,0z M256,480
+                        C132.5,480,32,379.5,32,256S132.5,32,256,32s224,100.5,224,224S379.5,480,256,480z M335.562,265.844
+                        c6.095,10.313,9.156,22.344,9.156,36.125c0,21.156-6.312,38.781-18.906,52.875c-12.594,14.125-30.78,22.438-54.562,24.938V416
+                        h-30.313v-36.031c-39.656-4.062-64.188-27.125-73.656-69.125l46.875-12.219c4.344,26.406,18.719,39.594,43.125,39.594
+                        c11.406,0,19.844-2.812,25.219-8.469s8.062-12.469,8.062-20.469c0-8.281-2.688-14.563-8.062-18.813
+                        c-5.375-4.28-17.344-9.688-35.875-16.25c-16.656-5.78-29.688-11.469-39.063-17.155c-9.375-5.625-17-13.531-22.844-23.688
+                        c-5.844-10.188-8.781-22.063-8.781-35.563c0-17.719,5.25-33.688,15.688-47.875c10.438-14.156,26.875-22.813,49.313-25.969V96
+                        h30.313v27.969c33.875,4.063,55.813,23.219,65.781,57.5l-41.75,17.125c-8.156-23.5-20.72-35.25-37.781-35.25
+                        c-8.563,0-15.438,2.625-20.594,7.875c-5.188,5.25-7.781,11.625-7.781,19.094c0,7.625,2.5,13.469,7.5,17.563
+                        c4.969,4.063,15.688,9.094,32.063,15.125c18,6.563,32.125,12.781,42.344,18.625C321.281,247.469,329.438,255.563,335.562,265.844z"
+                        /></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>&nbsp;Precio</h5></th>
+                    <th><h5><svg id="Layer_1" style="width:30px; height:30px;" version="1.1" viewBox="0 0 30 30" xml:space="preserve"><style type="text/css"> .st0{fill:#FD6A7E;} .st1{fill:#17B978;} .st2{fill:#8797EE;} .st3{fill:#41A6F9;} .st4{fill:#37E0FF;}
+	                    .st5{fill:#2FD9B9;}.st6{fill:#F498BD;}.st7{fill:#FFDF1D;} .st8{fill:#C6C9CC;}</style><path class="st4" d="M24.9,24.1l-0.4-5c-0.4-4.5-2.8-7.5-6.5-10l1-6h-5l-0.8,1H11l0.6,3.2l4.4,0.6c0.4,0.1,0.6,0.4,0.6,0.7  c0,0.3-0.3,0.6-0.7,0.6l-4-0.1c-3.7,2.5-6.1,5.5-6.4,10l-0.4,5C4.5,24.3,4,24.8,4,25.5C4,26.3,4.7,27,5.5,27h19  c0.8,0,1.5-0.7,1.5-1.5C26,24.8,25.5,24.3,24.9,24.1z M11.4,17.6l2.2-0.3l1-2c0.2-0.3,0.6-0.3,0.8,0l1,2l2.2,0.3  c0.4,0.1,0.5,0.5,0.3,0.8L17.3,20l0.4,2.2c0.1,0.4-0.3,0.7-0.7,0.5l-2-1l-2,1c-0.3,0.2-0.7-0.1-0.7-0.5l0.4-2.2l-1.6-1.6  C10.9,18.1,11,17.7,11.4,17.6z"/></svg>Créditos</h5></th>
+                    <th></th>
                     <tbody >
                         <tr>
+                            <td>
+                                <label class="btn btn-success" value="1000">Creditos de cortesia</label><br>
+                                <label class="btn btn-success" value="200">$200 x Pulcera Magica</label>
+                            </td>
                             <td>
                                 <input type="text" class="form-control" name="valor1" id="valor1" disabled style="background : inherit; border:0;"><!--NOMBRE-->
                                 <input name="saldo" id="saldo" style="display: none; background : inherit; border:0;">
@@ -80,33 +91,124 @@
                 </table>
             </div>
         
-        <section>
             <div class="table table-striped table-responsive">
                 <table class="table table-bordered">
-                    <th>Total Pesos:</th>
-                    <th>Total Creditos</th>
+                    <th><h5>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
+                        <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
+                        <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
+                        <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/></svg>&nbsp;Forma de Pagos</h5></th>
+                    <th><h5><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="30px" height="30px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                        <g><path d="M256,0C114.625,0,0,114.625,0,256s114.625,256,256,256s256-114.625,256-256S397.375,0,256,0z M256,480
+                        C132.5,480,32,379.5,32,256S132.5,32,256,32s224,100.5,224,224S379.5,480,256,480z M335.562,265.844
+                        c6.095,10.313,9.156,22.344,9.156,36.125c0,21.156-6.312,38.781-18.906,52.875c-12.594,14.125-30.78,22.438-54.562,24.938V416
+                        h-30.313v-36.031c-39.656-4.062-64.188-27.125-73.656-69.125l46.875-12.219c4.344,26.406,18.719,39.594,43.125,39.594
+                        c11.406,0,19.844-2.812,25.219-8.469s8.062-12.469,8.062-20.469c0-8.281-2.688-14.563-8.062-18.813
+                        c-5.375-4.28-17.344-9.688-35.875-16.25c-16.656-5.78-29.688-11.469-39.063-17.155c-9.375-5.625-17-13.531-22.844-23.688
+                        c-5.844-10.188-8.781-22.063-8.781-35.563c0-17.719,5.25-33.688,15.688-47.875c10.438-14.156,26.875-22.813,49.313-25.969V96
+                        h30.313v27.969c33.875,4.063,55.813,23.219,65.781,57.5l-41.75,17.125c-8.156-23.5-20.72-35.25-37.781-35.25
+                        c-8.563,0-15.438,2.625-20.594,7.875c-5.188,5.25-7.781,11.625-7.781,19.094c0,7.625,2.5,13.469,7.5,17.563
+                        c4.969,4.063,15.688,9.094,32.063,15.125c18,6.563,32.125,12.781,42.344,18.625C321.281,247.469,329.438,255.563,335.562,265.844z"
+                        /></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>&nbsp;Total Pesos:</h5></th>
+                    <th><h5><svg id="Layer_1" style="width:30px; height:30px;" version="1.1" viewBox="0 0 30 30" xml:space="preserve"><style type="text/css"> .st0{fill:#FD6A7E;} .st1{fill:#17B978;} .st2{fill:#8797EE;} .st3{fill:#41A6F9;} .st4{fill:#37E0FF;}
+	                    .st5{fill:#2FD9B9;}.st6{fill:#F498BD;}.st7{fill:#FFDF1D;} .st8{fill:#C6C9CC;}</style><path class="st4" d="M24.9,24.1l-0.4-5c-0.4-4.5-2.8-7.5-6.5-10l1-6h-5l-0.8,1H11l0.6,3.2l4.4,0.6c0.4,0.1,0.6,0.4,0.6,0.7  c0,0.3-0.3,0.6-0.7,0.6l-4-0.1c-3.7,2.5-6.1,5.5-6.4,10l-0.4,5C4.5,24.3,4,24.8,4,25.5C4,26.3,4.7,27,5.5,27h19  c0.8,0,1.5-0.7,1.5-1.5C26,24.8,25.5,24.3,24.9,24.1z M11.4,17.6l2.2-0.3l1-2c0.2-0.3,0.6-0.3,0.8,0l1,2l2.2,0.3  c0.4,0.1,0.5,0.5,0.3,0.8L17.3,20l0.4,2.2c0.1,0.4-0.3,0.7-0.7,0.5l-2-1l-2,1c-0.3,0.2-0.7-0.1-0.7-0.5l0.4-2.2l-1.6-1.6  C10.9,18.1,11,17.7,11.4,17.6z"/></svg>Total Creditos</h5></th>
                     <tbody>
-                        <td>
-                            Total: $<input disabled type="text" name="total" id="total"><br>
-                            Efectivo:<input type="number" name="efectivo" id="efectivo" style="display: none;" placeholder="Ingresa la cantidad"><br>
-                            <!--input type="number" name="cambio" id="cambio" disabled style="display: none;"-->
-                        </td>
-                        <td>
-                            <input disabled type="text" name="totalc" id="totalc">
-                        </td>
+                        <tr>
+                            <td style="padding-left: 30px;">
+                                <input type="radio" name="rad" value="1" style="width: 8%; height: 1.5em;">&nbsp;Efectivo <br>
+                                <input type="radio" name="rad" value="2" style="width: 8%; height: 1.5em;">&nbsp;Tarjeta de Débito <br>
+                                <input type="radio" name="rad" value="3" style="width: 8%; height: 1.5em;">&nbsp;Tarjeta de Crédito
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label><h5>Total: $</h5></label>
+                                    <input class="form-control" disabled type="number" name="total" id="total">
+                                </div>
+                                <div class="form-group" style="display: none;" id="efectivo" >
+                                    <label><h5>Efectivo:</h5></label>
+                                    <input type="number" class="form-control" name="efectivo" placeholder="Ingresa la cantidad">
+                                </div>
+                            </td>
+                            <td>
+                                <input disabled type="text" name="totalc" id="totalc">
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-success" onclick="myFunction()">Cobrar</button>
-        </section>
+            <button class="btn btn-success" onclick="myFunction()" style="float: right;"><h2>Cobrar</h2></button>
     </form>
-    <br>
+    <br>    
 </div>
+
 <script type="text/javascript">
+    function archiveFunction() {
+        event.preventDefault(); // prevent form submit
+        var form = event.target.form; // storing the form
+                swal({
+        title: "Are you sure?",
+        text: "But you will still be able to retrieve this file.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, archive it!",
+        cancelButtonText: "No, cancel please!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+        },
+        function(isConfirm){
+        if (isConfirm) {
+            form.submit();          // submitting the form when user press yes
+        } else {
+            swal("Cancelled", "Your imaginary file is safe :)", "error");
+        }
+        });
+    }
+
+
+
+$('#tagA').click(function(){
+    swal({
+        title: '¿Cancelar tarjeta electrónica?',
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        html: "Some Text" +
+            "<br>" +
+            '<button type="button" role="button" tabindex="0" class="SwalBtn1 customSwalBtn">' + 'Button1' + '</button>' +
+            '<button type="button" role="button" tabindex="0" class="SwalBtn2 customSwalBtn">' + 'Button2' + '</button>',
+        showCancelButton: false,
+        showConfirmButton: false
+    })
+    .then((willDelete) => {
+            if (willDelete) {
+                swal("Cancelado correctamente", {
+                    icon: "success",
+            });
+            $("#tarjetaElectron").hide();
+                $("#celular").hide();
+                $("#tarEle").hide();
+                $("#tarjetaf").show();
+                $("#tarjetafisica").show();
+            } else {
+              //  swal("Your imaginary file is safe!");
+            }
+        });
+ });
+   
+
+    $('#electronica').click(function() {
+        $("#tarjetaElectron").show();
+        $("#celular").show();
+        $("#tarEle").show();
+        $("#tarjetaf").hide();
+        $("#tarjetafisica").hide();
+    });
 
 //VALIDAR RADIOBUTTONS
-        $("input[name=pago]").click(function () {   
-            var opcion = $('input:radio[name=pago]:checked').val();
+        $("input[name=rad]").click(function () {   
+            var opcion = $('input:radio[name=rad]:checked').val();
             if(opcion==1){
                 $( "#efectivo" ).show();
             }else{
@@ -115,7 +217,7 @@
         });
         
     function myFunction() {
-        var opcion = $('input:radio[name=pago]:checked').val();
+        var opcion = $('input:radio[name=rad]:checked').val();
         if(opcion==1){
             var efectivo = document.getElementById('efectivo').value;
             var total = document.getElementById('total').value;
