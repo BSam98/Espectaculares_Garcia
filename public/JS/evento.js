@@ -493,14 +493,6 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
         },
     }).done(function(data){
         if(data.respuesta){
-            //console.log("Promocion: " + data.promociones[0]['Nombre']);
-            /*
-            promociones +='<label for="poliza">Promociones:</label>'+
-            '<br>'+
-            '<input type="checkbox" name="promo[]" id="promo">'+data.promociones[0]['Nombre'];
-            */
-            //promociones +='<label for="poliza">Promociones:</label>'+
-            //'<br>';
 
             if(data.descuentos.length === 0){
                 descuentos_Html ='<label for="poliza">Promociones:</label>';
@@ -508,7 +500,7 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
             else{
                 for(var i = 0; i<data.descuentos.length; i++){
                     console.log("Cantidad: " + i);
-                    descuentos_Html +='<input type="checkbox" name="descuentos[]" id="'+data.descuentos[i]['idDosxUno']+'">'+data.descuentos[i]['Nombre']+'<br>';
+                    descuentos_Html +='<input type="checkbox" name="descuentos[]" id="descuentos" value="'+data.descuentos[i]['idDosxUno']+'">'+data.descuentos[i]['Nombre']+'<br>';
                 }
             }
 
@@ -516,14 +508,14 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
             }
             else{
                 for(var i = 0; i<data.pulsera.length; i++){
-                    pulsera_Html +='<input type="checkbox" name="pulsera[]" id="pulsera">'+data.pulsera[i]['Nombre']+'<br>';
+                    pulsera_Html +='<input type="checkbox" name="pulsera[]" id="pulsera" value="'+data.pulsera[i]['idPulseraMagica']+'">'+data.pulsera[i]['Nombre']+'<br>';
                 }
             }
 
             if(data.juegosGratis.length === 0){
             }else{
                 for(var i = 0; i<data.juegosGratis.length; i++){
-                    juegos_Gratis_Html+='<input type="checkbox" name="juegos_Gratis[] id="juegos_Gratis">'+data.juegosGratis[i]['Nombre']+'<br>';
+                    juegos_Gratis_Html+='<input type="checkbox" name="juegos_Gratis[] id="juegos_Gratis" value="'+data.juegosGratis[i]['idJuegosGratis']+'">'+data.juegosGratis[i]['Nombre']+'<br>';
                 }
             }
 
@@ -578,6 +570,10 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
         $("#promocion_Juegos_Gratis").html(juegos_Gratis_Html);
     });
 });
+
+$(document).on('click','#agregar_Atracciones', function(){});
+
+/*----------------------------------------------------------------------------------------------*/
 
 $(document).on('click','.mostrarTarjetasEvento', function(){
     var idEvento = $(this).data('book-id');

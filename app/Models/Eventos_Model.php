@@ -190,7 +190,7 @@ class Eventos_Model extends Model{
         $query =$builder->get();
         */
         $query = $db->query(
-            "SELECT
+            "SELECT DISTINCT
                 Promocion_Pulsera_Magica.idPulseraMagica,
                 Promocion_Pulsera_Magica.Nombre
             FROM
@@ -211,6 +211,7 @@ class Eventos_Model extends Model{
 
     public function listado_Juegos_Gratis($datos){
         $db= \Config\Database::Connect();
+        /*
         $builder = $db->table('Promocion_Juegos_Gratis');
 
         $builder->distinct(
@@ -229,6 +230,20 @@ class Eventos_Model extends Model{
         $builder->where('Calendario_Juegos_Gratis.idEvento',$datos['idEvento']);
 
         $query = $builder->get();
+        */
+        $query= $db->query(
+            "SELECT DISTINCT
+                Promocion_Juegos_Gratis.idJuegosGratis,
+                Promocion_Juegos_Gratis.Nombre
+            FROM
+                Promocion_Juegos_Gratis
+            INNER JOIN
+                Calendario_Juegos_Gratis
+            ON
+                Promocion_Juegos_Gratis.idJuegosGratis = Calendario_Juegos_Gratis.idJuegosGratis
+            WHERE
+                Calendario_Juegos_Gratis.idEvento = $datos[idEvento];"
+        );
 
         $datos = $query->getResultObject();
 

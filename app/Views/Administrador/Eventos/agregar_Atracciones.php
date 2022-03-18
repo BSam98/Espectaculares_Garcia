@@ -23,11 +23,13 @@
                                             <label for="creditos">Creditos</label>
                                             <input type="text" class="form-control" name="credito[]" id="credito" placeholder="Créditos">
                                         </div>
-                                        <div class="form-group" id="promocion_Descuentos">
-                                        </div>
-                                        <div class="form-group" id="promocion_Pulsera">
-                                        </div>
-                                        <div class="form-group" id="promocion_Juegos_Gratis">
+                                        <div>
+                                            <div class="form-group" id="promocion_Descuentos">
+                                            </div>
+                                            <div class="form-group" id="promocion_Pulsera">
+                                            </div>
+                                            <div class="form-group" id="promocion_Juegos_Gratis">
+                                            </div>
                                         </div>
                                         <div class="form-group" id="nuevos_Contratos">
                                             <label for="contrato">Agregar Contrato</label>
@@ -48,7 +50,7 @@
                         </table>
                         <button id="nuevaAt" name="nuevaAt" type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Registro </button>
                     </div>
-                    <button name="adicional" type="submit" class="btn btn-success">Agregar </button>
+                    <button name="agregar_Atracciones" type="submit" class="btn btn-success">Agregar </button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </form>
             <hr>
