@@ -23,9 +23,11 @@
                                             <label for="creditos">Creditos</label>
                                             <input type="text" class="form-control" name="credito[]" id="credito" placeholder="Créditos">
                                         </div>
-                                        <div class="form-group" id="promocion_Atracciones">
-                                            <label for="poliza">Promociones:</label>
-                                            <input type="checkbox" name="promo[]" id="promo">2x1
+                                        <div class="form-group" id="promocion_Descuentos">
+                                        </div>
+                                        <div class="form-group" id="promocion_Pulsera">
+                                        </div>
+                                        <div class="form-group" id="promocion_Juegos_Gratis">
                                         </div>
                                         <div class="form-group" id="nuevos_Contratos">
                                             <label for="contrato">Agregar Contrato</label>

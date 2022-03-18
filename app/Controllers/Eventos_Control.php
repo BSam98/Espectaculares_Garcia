@@ -54,7 +54,10 @@ class Eventos_Control extends BaseController {
 
         $respuesta = $model->mostrarAtracciones($datos);
         $atracciones = $model->listadoAtracciones($datos);
-        $promociones = $model->listado_Promociones_Evento($datos);
+        $descuentos = $model->listado_Descuentos($datos);
+        $pulsera = $model->listado_Pulsera_Magica($datos);
+        $juegosGratis = $model->listado_Juegos_Gratis($datos);
+        $creditosCortesia = $model->listado_Creditos_Cortesia($datos);
         $contratos = $model->listadoContratos();
         $polizas = $model->listadoPolizas();
 
@@ -63,7 +66,10 @@ class Eventos_Control extends BaseController {
                 'respuesta'=>true,
                 'msj'=>$respuesta,
                 'atracciones'=>$atracciones, 
-                "promociones"=>$promociones, 
+                "descuentos"=>$descuentos,
+                "pulsera"=>$pulsera,
+                "juegosGratis"=>$juegosGratis,
+                "creditosCortesia"=>$creditosCortesia,
                 "contratos"=>$contratos,
                 "polizas"=>$polizas
             ));

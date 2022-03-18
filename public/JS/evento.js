@@ -478,8 +478,10 @@ $(document).on('click', '.btn_remove', function() {
 $(document).on('click','.mostrar_Atracciones_Evento', function(){
     var idEvento = $(this).data('book-id');
     var html ='';
-    var atracciones_Html='', contrato_Html='', poliza_Html='', promociones=''; 
+    var atracciones_Html='', contrato_Html='', poliza_Html=''; 
     var option_Atracciones_Html='', option_Contrato_Html='', option_Poliza_Html='';
+
+    var promociones_Html='', descuentos_Html='', pulsera_Html='', juegos_Gratis_Html='',creditos_Cortesia_Html;
 
     $.ajax({
         type: "POST",
@@ -497,6 +499,39 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
             '<br>'+
             '<input type="checkbox" name="promo[]" id="promo">'+data.promociones[0]['Nombre'];
             */
+            //promociones +='<label for="poliza">Promociones:</label>'+
+            //'<br>';
+
+            if(data.descuentos.length === 0){
+                descuentos_Html ='<label for="poliza">Promociones:</label>';
+            }
+            else{
+                for(var i = 0; i<data.descuentos.length; i++){
+                    console.log("Cantidad: " + i);
+                    descuentos_Html +='<input type="checkbox" name="descuentos[]" id="'+data.descuentos[i]['idDosxUno']+'">'+data.descuentos[i]['Nombre']+'<br>';
+                }
+            }
+
+            if(data.pulsera.length === 0){
+            }
+            else{
+                for(var i = 0; i<data.pulsera.length; i++){
+                    pulsera_Html +='<input type="checkbox" name="pulsera[]" id="pulsera">'+data.pulsera[i]['Nombre']+'<br>';
+                }
+            }
+
+            if(data.juegosGratis.length === 0){
+            }else{
+                for(var i = 0; i<data.juegosGratis.length; i++){
+                    juegos_Gratis_Html+='<input type="checkbox" name="juegos_Gratis[] id="juegos_Gratis">'+data.juegosGratis[i]['Nombre']+'<br>';
+                }
+            }
+
+            if(data.creditosCortesia.length === 0){
+            }
+            else{
+                for(var i = 0; i<data.creditosCortesia.length; i++){}
+            }
             
             for(var i = 0;i<data.msj.length; i++){
     
@@ -538,7 +573,9 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
         $("#nuevos_Contratos").html(contrato_Html);
         $("#nuevas_Polizas").html(poliza_Html);
         $("#atraccionesEvento").html(html);
-        $("#promocion_Atracciones").html(promociones);
+        $("#promocion_Descuentos").html(descuentos_Html);
+        $("#promocion_Pulsera").html(pulsera_Html);
+        $("#promocion_Juegos_Gratis").html(juegos_Gratis_Html);
     });
 });
 
