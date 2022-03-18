@@ -111,13 +111,9 @@ class Eventos_Model extends Model{
             '
         );
 
-        $builder->join(
-            'Atraccion_Evento',
-            'Atraccion_Evento.idAtraccion = Atracciones.idAtraccion',
-            'LEFT'
-        );
+        $subQuery = $db->table('Atraccion_Evento')->select('Atraccion_Evento.idAtraccion')->where('Atraccion_Evento.idEvento',$datos['idEvento']);
 
-        $builder->where('Atraccion_Evento.idEvento IS NULL');
+        $builder->whereNotIn('Atracciones.idAtraccion',$subQuery);
 
         $query = $builder->get();
 
@@ -127,9 +123,141 @@ class Eventos_Model extends Model{
 
     }
 
-    public function listado_Promociones_Evento($datos){
-        //$db = \Config\Database::Connect();
-        //$builder = $db->table('');
+    public function listado_Descuentos($datos){
+        $db = \Config\Database::Connect();
+        //$builder = $db->table('Promocion_Dos_x_Uno');
+
+        
+        /*
+        $builder->distinct(
+            '
+            Promocion_Dos_x_Uno.idDosxUno,
+            Promocion_Dos_x_Uno.Nombre
+            '
+        );
+
+        $builder->join(
+            'Calendario_Dos_x_Uno',
+            'Promocion_Dos_x_Uno.idDosxUno = Calendario_Dos_x_Uno.idDosxUno',
+            'inner'
+        );
+
+        $builder->where('Calendario_Dos_x_Uno.idEvento',$datos['idEvento']);
+
+        /query = $builder->get();
+        
+        */
+        
+        $query = $db->query(
+            "SELECT DISTINCT 
+                Promocion_Dos_x_Uno.idDosxUno, 
+                Promocion_Dos_x_Uno.Nombre 
+            FROM 
+                Promocion_Dos_x_Uno 
+            INNER JOIN 
+                Calendario_Dos_x_Uno 
+            ON 
+                Promocion_Dos_x_Uno.idDosxUno = Calendario_Dos_x_Uno.idDosxUno 
+            WHERE 
+                Calendario_Dos_x_Uno.idEvento = $datos[idEvento];"
+        );
+        
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function listado_Pulsera_Magica($datos){
+        $db= \Config\Database::Connect();
+        /*
+        $builder = $db->table('Promocion_Pulsera_Magica');
+
+        $builder->distinct(
+            '
+            Promocion_Pulsera_Magica.idPulseraMagica,
+            Promocion_Pulsera_Magica.Nombre
+            '
+        );
+
+        $builder->join(
+            'Calendario_Pulsera_Magica',
+            'Promocion_Pulsera_Magica.idPulseraMagica = Calendario_Pulsera_Magica.idPulseraMagica',
+            'inner'
+        );
+
+        $builder->where('Calendario_Pulsera_Magica.idEvento',$datos['idEvento']);
+
+        $query =$builder->get();
+        */
+        $query = $db->query(
+            "SELECT
+                Promocion_Pulsera_Magica.idPulseraMagica,
+                Promocion_Pulsera_Magica.Nombre
+            FROM
+                Promocion_Pulsera_Magica
+            INNER JOIN
+                Calendario_Pulsera_Magica
+            ON
+                Promocion_Pulsera_Magica.idPulseraMagica = Calendario_Pulsera_Magica.idPulseraMagica
+            WHERE
+                Calendario_Pulsera_Magica.idEvento = $datos[idEvento];
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function listado_Juegos_Gratis($datos){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Promocion_Juegos_Gratis');
+
+        $builder->distinct(
+            '
+            Promocion_Juegos_Gratis.idJuegosGratis,
+            Promocion_Juegos_Gratis.Nombre
+            '
+        );
+
+        $builder->join(
+            'Calendario_Juegos_Gratis',
+            'Promocion_Juegos_Gratis.idJuegosGratis = Calendario_Juegos_Gratis.idJuegosGratis',
+            'inner'
+        );
+
+        $builder->where('Calendario_Juegos_Gratis.idEvento',$datos['idEvento']);
+
+        $query = $builder->get();
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function listado_Creditos_Cortesia($datos){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Promocion_Creditos_Cortesia');
+
+        $builder->distinct(
+            '
+            Promocion_Creditos_Cortesia.idCC,
+            Promocion_Creditos_Cortesia.Nombre
+            '
+        );
+
+        $builder->join(
+            'Calendario_Creditos_Cortesia',
+            'Promocion_Creditos_Cortesia.idCC = Calendario_Creditos_Cortesia.idCC',
+            'Inner'
+        );
+
+        $builder ->where('Calendario_Creditos_Cortesia.idEvento',$datos['idEvento']);
+
+        $query = $builder->get();
+
+        $datos = $query->getResultObject();
+
         return $datos;
     }
 
