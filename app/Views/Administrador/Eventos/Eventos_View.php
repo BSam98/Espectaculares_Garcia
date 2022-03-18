@@ -43,6 +43,7 @@
                                                 <li><a href="#Atracciones" class ="mostrar_Atracciones_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Atracciones</a></li>
                                                 <li><a href="#Asociados" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}' >Asociados</a></li>
                                                 <li><a href="#taquillas" type="button" data-toggle="modal">Taquillas</a></li>
+                                                <li><a href="#usuarios" type="button" data-toggle="modal">Usuarios</a></li>
                                             </ul>
                                         </td>
                                         <td>
@@ -78,6 +79,7 @@
     include 'agregar_Lotes.php';
     include 'taquillas.php';
     include 'asignar_Areas.php';
+    include 'agregar_Usuarios.php';
 ?>
 <script src ="JS/evento.js"></script>
  

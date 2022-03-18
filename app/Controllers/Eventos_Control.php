@@ -313,5 +313,4 @@ class Eventos_Control extends BaseController {
     public function create(){
         return "";
     }
-
 }

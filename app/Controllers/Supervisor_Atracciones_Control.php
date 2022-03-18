@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
 
-class super_Atracciones_Control extends BaseController {
+class Supervisor_Atracciones_Control extends BaseController {
 
     protected $model;
     protected $request;
@@ -9,8 +9,8 @@ class super_Atracciones_Control extends BaseController {
 
     public function new (){
         echo view('../Views/header.php');
-        echo view('menu');
-        echo view('Administrador/Atracciones/super_Atracciones');
+        echo view('Usuarios/menu_user');
+        echo view('Usuarios/supervisor_atracciones');
         echo view('../Views/piePagina.php');
     }
 
