@@ -106,7 +106,7 @@ $routes->post('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociada
 
 $routes->get('/Contratos','Contratos_Control::new');
 
-$routes->get('/Taquillas','Taquillas_Control::new');
+$routes->get('/SuperTaquillas','Taquillas_Control::new');
 
 $routes->get('/Iniciar_Sesion_User','Iniciar_Sesion_User_Control::new');
 $routes->post('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
@@ -127,8 +127,14 @@ $routes->get('/CerrarSesion','Iniciar_Sesion_Administrador_Control::logout');
 $routes->post('/CerrarSesion','Iniciar_Sesion_Administrador_Control::logout');
 $routes->get('/ReporteVenta','reporte_Venta_Control::index');
 $routes->post('/ReporteVenta','reporte_Venta_Control::index');
-$routes->post('/supervisarAtraccion','Super_Atracciones_Control::new');
-$routes->get('/supervisarAtraccion','Super_Atracciones_Control::new');
+$routes->post('/supervisarAtraccion','Supervisor_Atracciones_Control::new');
+$routes->get('/supervisarAtraccion','Supervisor_Atracciones_Control::new');
+$routes->post('/superAtracciones','super_Atracciones_Control::new');
+$routes->get('/superAtracciones','super_Atracciones_Control::new');
+$routes->post('/supervisores','supervisores_control::new');
+$routes->get('/supervisores','supervisores_control::new');
+$routes->post('/Validador','validador_Control::new');
+$routes->get('/Validador','validador_Control::new');
 
 
 

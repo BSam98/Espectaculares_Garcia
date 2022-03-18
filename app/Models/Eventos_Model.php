@@ -386,4 +386,5 @@ class Eventos_Model extends Model{
     public function listado_Precios_Por_Evento(){}
 
     public function listado_Usuarios_Por_Evento(){}
+
 }

@@ -31,11 +31,13 @@
                         </ul>
                 </li>
                 <!--Menu Taquilla-->
-                <li><a href=""><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Taquilla</a></li>
+                
                 <!--Menu Superivosr-->
-                <li><a href=""><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Supervisor</a>
+                <li><a href=""><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Supervisar</a>
                     <ul class="dropdown-submenu" id="subMenuCatalago">
-                        <li><a href="Taquillas" id="button"><span>Supervisar Atracciones</span></a></li>
+                        <li><a href="SuperTaquillas" id="button"><!--i class="fa fa-home" aria-hidden="true"></i--><span>Taquillas</span></a></li>
+                        <li><a href="superAtracciones" id="button"><span>Atracciones</span></a></li>
+                        <li><a href="supervisores" id="button"><span>Supervisores</span></a></li>
                     </ul>
                 </li>
                 <!--Menu Validacion-->

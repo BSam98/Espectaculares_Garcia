@@ -6,14 +6,6 @@
             <img src="https://fenapo.mx/wp-content/uploads/2019/07/Captura-de-pantalla-2019-07-05-a-las-10.40.36.png" alt="" height="200px" width="250px"><br>
             Atracción 1 - Carrusel
         </a>
-        <a href="#" class="btn btn-success">
-            <img src="https://ddmbj.mx/sites/default/files/articles/autos-chocones.jpg" alt="" height="200px" width="250px"><br>    
-            Atracción 2 - Carros Chocones
-        </a>
-        <a href="#" class="btn btn-success">
-            <img src="https://bestonjuegosmecanicos.com.mx/wp-content/uploads/2018/07/Beston-Gusanito-Juegos-Mecanicos.jpg" alt="" height="200px" width="250px"><br>
-            Atracción 3 - 
-        </a>
     </div>
     <br>
 </section>
@@ -24,7 +16,10 @@
                 content: "input",
             })
             .then((value) => {
-                swal(`You typed: ${value}`);
+                //swal(`You typed: ${value}`);
+                swal("Agregado correctamente", {
+                    icon: "success",
+                });
             });
         });
     </script>

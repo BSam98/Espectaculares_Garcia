@@ -16,7 +16,7 @@
                 <li><a href=""><i class="fa fa-male" aria-hidden="true"></i>&nbsp;Supervisor</a>
                     <ul class="dropdown-submenu" id="subMenuCatalago">
                         <li><a href="" id="button"><span>Llamar al Supervisor</span></a></li>
-                        <li><a href="supervisarAtraccion" id="button"><span>Supervisor de Atracción</span></a></li>
+                        <li><a href="supervisarAtraccion" id="button"><span>Supervisor Validador</span></a></li>
                     </ul>
                 </li>
                 <!--Menu Validacion-->
