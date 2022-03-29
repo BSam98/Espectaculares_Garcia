@@ -7,11 +7,14 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="" enctype="multipart/form-data" name="formulario" id="formulario">
+                <form enctype="multipart/form-data" name="formulario_Agregar_Atracciones" id="formulario_Agregar_Atracciones">
                     <div class="table table-striped table-responsive">
+                        <div>
+                            <input type="hidden" id="idEventoAtraccion" name="idEventoAtraccion" value="">
+                        </div>
                         <table id="agregarAtracciones" class="table table-bordered">
                             <tbody>
-                                <tr class="f-Atracciones">
+                                <tr class="f-Atracciones" id="0">
                                     <td>
                                         <div class="form-group" id="nuevas_Atracciones">
                                             <label for ="atracciones_Nuevas">Nombre de la atracción</label>
@@ -23,11 +26,13 @@
                                             <label for="creditos">Creditos</label>
                                             <input type="text" class="form-control" name="credito[]" id="credito" placeholder="Créditos">
                                         </div>
-                                        <div class="form-group" id="promocion_Descuentos">
-                                        </div>
-                                        <div class="form-group" id="promocion_Pulsera">
-                                        </div>
-                                        <div class="form-group" id="promocion_Juegos_Gratis">
+                                        <div>
+                                            <div class="form-group" id="promocion_Descuentos">
+                                            </div>
+                                            <div class="form-group" id="promocion_Pulsera">
+                                            </div>
+                                            <div class="form-group" id="promocion_Juegos_Gratis">
+                                            </div>
                                         </div>
                                         <div class="form-group" id="nuevos_Contratos">
                                             <label for="contrato">Agregar Contrato</label>
@@ -48,7 +53,7 @@
                         </table>
                         <button id="nuevaAt" name="nuevaAt" type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Registro </button>
                     </div>
-                    <button name="adicional" type="submit" class="btn btn-success">Agregar </button>
+                    <button name="agregar_Atracciones" id="agregar_Atracciones" type="button" class="btn btn-success">Agregar </button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </form>
             <hr>
@@ -74,10 +79,12 @@
 <!--MODAL AGREGAR ATRACCIONES-->
 
 <script>
+    /*
     $(function(){
                 // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
         $("#nuevaAt").on('click', function(){
             $("#agregarAtracciones tbody tr:eq(0)").clone().removeClass('f-Atracciones').appendTo("#agregarAtracciones");
+            $(this).pare
         });
     // Evento que selecciona la fila y la elimina 
         $(document).on("click",".eliminarAt",function(){
@@ -85,7 +92,8 @@
             $(parent).remove();
         });
     });
-
+    */
+    /*
     $(document).ready(function() {
         $('#atraccionesAdd').DataTable( {
             "aProcessing": true,//Activamos el procesamiento del datatables
@@ -102,7 +110,7 @@
             "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
         });
     });
-
+    */
     $( function() {
         $( "#datepicker" ).datepicker({dateFormat: 'yyyy-mm-dd'});
     });

@@ -1,3 +1,4 @@
+var contadorAtraccion=0;
 var precio_Promocion =[];
 var opcion;
 var contadorFila=0; //contador para asignar id al boton que borrara la fila
@@ -9,6 +10,10 @@ var creditos_Promocion_Html='';
 var fechas_Promocion_Html='';
 var tabla_Fechas_Html='';
 var creditos_Promocion=[];
+
+var atraccion_Promocion_Descuentos = [];
+var atraccion_Promocion_Pulsera = [];
+var atraccion_Promocion_Juegos = [];
 
 $("#agregarEvento").click(function(){
     $.ajax({
@@ -476,8 +481,13 @@ $(document).on('click', '.btn_remove', function() {
 
 /*----------------------------------------------------------------------------------------------*/
 $(document).on('click','.mostrar_Atracciones_Evento', function(){
+    atraccion_Promocion_Descuentos = [];
+    atraccion_Promocion_Pulsera = [];
+    atraccion_Promocion_Juegos = [];
+
     var idEvento = $(this).data('book-id');
     var html ='';
+    var html_Promociones ='';
     var atracciones_Html='', contrato_Html='', poliza_Html=''; 
     var option_Atracciones_Html='', option_Contrato_Html='', option_Poliza_Html='';
 
@@ -493,22 +503,13 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
         },
     }).done(function(data){
         if(data.respuesta){
-            //console.log("Promocion: " + data.promociones[0]['Nombre']);
-            /*
-            promociones +='<label for="poliza">Promociones:</label>'+
-            '<br>'+
-            '<input type="checkbox" name="promo[]" id="promo">'+data.promociones[0]['Nombre'];
-            */
-            //promociones +='<label for="poliza">Promociones:</label>'+
-            //'<br>';
 
             if(data.descuentos.length === 0){
                 descuentos_Html ='<label for="poliza">Promociones:</label>';
             }
             else{
                 for(var i = 0; i<data.descuentos.length; i++){
-                    console.log("Cantidad: " + i);
-                    descuentos_Html +='<input type="checkbox" name="descuentos[]" id="'+data.descuentos[i]['idDosxUno']+'">'+data.descuentos[i]['Nombre']+'<br>';
+                    descuentos_Html +='<input type="checkbox" class="descuentos_1" name="descuentos[]" id="descuentos" value="'+data.descuentos[i]['idDosxUno']+'" />'+data.descuentos[i]['Nombre']+'<br>';
                 }
             }
 
@@ -516,14 +517,14 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
             }
             else{
                 for(var i = 0; i<data.pulsera.length; i++){
-                    pulsera_Html +='<input type="checkbox" name="pulsera[]" id="pulsera">'+data.pulsera[i]['Nombre']+'<br>';
+                    pulsera_Html +='<input type="checkbox" class="pulsera_Magica_2" name="pulsera[]" id="pulsera" value="'+data.pulsera[i]['idPulseraMagica']+'">'+data.pulsera[i]['Nombre']+'<br>';
                 }
             }
 
             if(data.juegosGratis.length === 0){
             }else{
                 for(var i = 0; i<data.juegosGratis.length; i++){
-                    juegos_Gratis_Html+='<input type="checkbox" name="juegos_Gratis[] id="juegos_Gratis">'+data.juegosGratis[i]['Nombre']+'<br>';
+                    juegos_Gratis_Html+='<input type="checkbox" class="juegos_Gratis_3" name="juegos_Gratis[]" id="juegos_Gratis" value="'+data.juegosGratis[i]['idJuegosGratis']+'">'+data.juegosGratis[i]['Nombre']+'<br>';
                 }
             }
 
@@ -533,16 +534,41 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
                 for(var i = 0; i<data.creditosCortesia.length; i++){}
             }
             
-            for(var i = 0;i<data.msj.length; i++){
-    
-                
+            for(var i = 0;i<data.msj.Atraccion.length; i++){
+                html_Promociones = '';
+
+                for(var j = 0;j<data.msj.Descuentos.length; j++){
+
+                    if(data.msj.Atraccion[i]['idAtraccion'] == data.msj.Descuentos[j]['idAtraccion']){
+                        html_Promociones += data.msj.Descuentos[j]['Nombre']+', ' ;
+                    }
+
+                }
+
+                for(var j = 0; j<data.msj.Pulsera.length; j++){
+
+                    if(data.msj.Atraccion[i]['idAtraccion'] == data.msj.Pulsera[j]['idAtraccion']){
+                        html_Promociones += data.msj.Pulsera[j]['Nombre'] + ', ';
+                    }
+
+                }
+
+                for(var j = 0; j<data.msj.Juegos.length; j++){
+
+                    if(data.msj.Atraccion[i]['idAtraccion'] == data.msj.Juegos[j]['idAtraccion']){
+                        html_Promociones += data.msj.Juegos[j]['Nombre'] + ', ';
+                    }
+
+                }
+
+
                 html += '<tr>'+
                 '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
-                '<td>'+data.msj[i]['Atraccion']+'</td>'+
-                '<td>'+data.msj[i]['Creditos']+'</td>'+
-                '<td></td>'+
-                '<td>'+data.msj[i]['Contrato']+'</td>'+
-                '<td>'+data.msj[i]['Poliza']+'</td>'+
+                '<td>'+data.msj.Atraccion[i]['Atraccion']+'</td>'+
+                '<td>'+data.msj.Atraccion[i]['Creditos']+'</td>'+
+                '<td>'+html_Promociones+'</td>'+
+                '<td>'+data.msj.Atraccion[i]['Contrato']+'</td>'+
+                '<td>'+data.msj.Atraccion[i]['Poliza']+'</td>'+
                 '</tr>';
                 
             }
@@ -569,6 +595,7 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
             '<select name="poliza[]" id="poliza" class="form-control">'+option_Poliza_Html+'</select>';
         }
 
+        
         $("#nuevas_Atracciones").html(atracciones_Html);
         $("#nuevos_Contratos").html(contrato_Html);
         $("#nuevas_Polizas").html(poliza_Html);
@@ -576,8 +603,144 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
         $("#promocion_Descuentos").html(descuentos_Html);
         $("#promocion_Pulsera").html(pulsera_Html);
         $("#promocion_Juegos_Gratis").html(juegos_Gratis_Html);
+        $("#idEventoAtraccion").val(idEvento['idEvento']);
     });
 });
+
+$(document).on('click','.descuentos_1',function(){
+
+    idCheckBox = $(this).val();
+    idBloque = $(this).parents('tr').attr('id');
+
+    if($(this).is(':checked')){
+
+        atraccion_Promocion_Descuentos.push({'idDosxUno':idCheckBox,'idBloque':idBloque});
+    
+    }
+    else{
+
+        atraccion_Promocion_Descuentos.forEach(function(data,index){
+
+
+            if(idCheckBox === data.idDosxUno && idBloque === data.idBloque){
+                atraccion_Promocion_Descuentos.splice(index,1);
+            }
+
+        });
+
+    }
+});
+
+$(document).on('click','.pulsera_Magica_2',function(){
+    idCheckBox = $(this).val();
+    idBloque  = $(this).parents('tr').attr('id');
+
+    if($(this).is(':checked')){
+        atraccion_Promocion_Pulsera.push({'idPulseraMagica':idCheckBox,'idBloque':idBloque});
+    }
+    else{
+
+        atraccion_Promocion_Pulsera.forEach(function(data, index){
+
+            if(idCheckBox === data.idPulseraMagica && idBloque === data.idBloque){
+                atraccion_Promocion_Pulsera.splice(index,1);
+            }
+
+        });
+    }
+
+});
+
+$(document).on('click','.juegos_Gratis_3', function(){
+
+    idCheckBox = $(this).val();
+    idBloque = $(this).parents('tr').attr('id');
+
+
+    if($(this).is(':checked')){
+
+        atraccion_Promocion_Juegos.push({'idJuegosGratis':idCheckBox,'idBloque':idBloque});
+
+    }
+    else{
+        atraccion_Promocion_Juegos.forEach(function(data,index){
+
+            if(idCheckBox === data.idJuegosGratis && idBloque === data.idBloque){
+                atraccion_Promocion_Juegos.splice(index,1);
+            }
+
+        });
+    }
+});
+
+$("#agregar_Atracciones").click(function(){
+
+    evento = "";
+    atracciones = [];
+    creditos = [];
+    contrato = [];
+    poliza = [];
+    
+    evento = $("#idEventoAtraccion").val();
+    datos = $("#formulario_Agregar_Atracciones").serializeArray();
+
+    $.each(datos, function(i, dato){
+        if(dato.name === "atracciones_Nuevas[]"){
+            atracciones.push(dato.value);
+        }
+        if(dato.name === "credito[]"){
+            creditos.push(dato.value);
+        }
+        if(dato.name === "contrato[]"){
+            contrato.push(dato.value);
+        }
+        if(dato.name === "poliza[]"){
+            poliza.push(dato.value);
+        }
+    });
+
+    if(!atraccion_Promocion_Descuentos.length){
+        atraccion_Promocion_Descuentos.push("N");
+    }
+
+    if(!atraccion_Promocion_Pulsera.length){
+        atraccion_Promocion_Pulsera.push("N");
+    }
+
+    if(!atraccion_Promocion_Juegos.length){
+        atraccion_Promocion_Juegos.push("N");
+    }
+
+    $.ajax({
+        type: "POST",
+        url: 'Eventos/Agregar_Atraccion_Evento',
+        data: {'idEvento':evento,'atracciones':atracciones,'creditos':creditos,'contrato':contrato,'poliza':poliza,'descuentos':atraccion_Promocion_Descuentos,'pulsera':atraccion_Promocion_Pulsera,'juegos_Gratis':atraccion_Promocion_Juegos},
+        dataType: 'JSON',
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error: a ' + errorThrown + ' ' + textStatus + ' ' + jqXHR);
+            console.log('Se produjo un error: a ' + errorThrown + ' ' + textStatus + ' ' + jqXHR);
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            location.reload();
+        }
+    });
+    
+});
+
+$("#nuevaAt").click(function(){
+    contadorAtraccion = contadorAtraccion + 1;
+    $("#agregarAtracciones tbody tr:eq(0)").clone().attr('id',contadorAtraccion).removeClass('f-Atracciones').appendTo("#agregarAtracciones");
+});
+
+
+$(document).on('click','.eliminarAt', function(){
+    var id_Tr = $(this).parents('tr').attr('id');
+    var parent = $(this).parents().get(0);
+    $(parent).remove();
+});
+
+/*----------------------------------------------------------------------------------------------*/
 
 $(document).on('click','.mostrarTarjetasEvento', function(){
     var idEvento = $(this).data('book-id');

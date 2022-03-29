@@ -141,6 +141,210 @@ class Eventos_Control extends BaseController {
         }
     }
 
+    public function agregar_Atracciones_Evento(){
+        $model = new Eventos_Model();
+
+
+        $atracciones = $_POST['atracciones'];
+        
+        $creditos = $_POST['creditos'];
+        $descuentos = $_POST['descuentos'];
+        $pulsera = $_POST['pulsera'];
+        $juegos = $_POST['juegos_Gratis'];
+        $contrato = $_POST['contrato'];
+        $poliza = $_POST['poliza'];
+        $evento = $_POST['idEvento'];
+        
+        $num_elementos = 0;
+        $cantidad = count($atracciones);
+
+        
+        if(1 == $cantidad){
+            
+            $datos = [
+                "idAtraccion" => $atracciones[$num_elementos],
+                "idEvento" => $evento,
+                "idContrato" => $contrato[$num_elementos],
+                "idPoliza" => $poliza[$num_elementos],
+                "Creditos" => $creditos[$num_elementos],
+                "creditosCortesia" => $creditos[$num_elementos]
+            ];
+            $respuesta = $model->agregar_Atracciones_Evento($datos);
+
+            if("N" != $descuentos[0]){
+                $num_elementos = 0;
+                $cantidad_Promocion = count($descuentos);
+                //$cantidad_Promocion = count($descuentos);
+                $tabla = 'Atracciones_Incluidas_Dos_x_Uno';
+
+                if(1 == $cantidad_Promocion){
+                    $datos = [
+                        "idAtraccionEvento" => $respuesta,
+                        "idDosxUno" => $descuentos[$num_elementos]['idDosxUno']
+                    ];
+
+                    $respuesta1 = $model->agregar_Promociones_Atraccion($tabla,$datos);
+                }
+                else{
+                    while($num_elementos < $cantidad_Promocion){
+
+                        $datos =[
+                            "idAtraccionEvento" => $respuesta,
+                            "idDosxUno" => $descuentos[$num_elementos]['idDosxUno']
+                        ];
+    
+                        $respuesta1 = $model->agregar_Promociones_Atraccion($tabla,$datos); 
+    
+                        $num_elementos = $num_elementos + 1;
+                    }
+                }
+            }
+            
+            if("N" != $pulsera[0]){
+                $num_elementos = 0;
+
+                $cantidad_Promocion = count($pulsera);
+                $tabla = 'Atracciones_Incluidas_Pulsera_Magica';
+
+                if(1 == $cantidad_Promocion){
+                    $datos = [
+                        "idPulseraMagica" => $pulsera[$num_elementos]['idPulseraMagica'],
+                        "idAtraccionEvento" => $respuesta
+                    ];
+
+                    $respuesta1 = $model->agregar_Promociones_Atraccion($tabla,$datos);
+                }
+                else{
+                    while($num_elementos < $cantidad_Promocion){
+
+                        $datos =[
+                            "idPulseraMagica" => $pulsera[$num_elementos]['idPulseraMagica'],
+                            "idAtraccionEvento" => $respuesta
+                        ];
+    
+                        $respuesta1 = $model->agregar_Promociones_Atraccion($tabla,$datos); 
+    
+                        $num_elementos = $num_elementos + 1;
+                    }
+                }
+            }
+    
+            if("N" != $juegos[0]){
+                $num_elementos = 0;
+
+                $cantidad_Promocion = count($juegos);
+                $tabla = 'Atracciones_Incluidas_Juegos_Gratis';
+
+                if(1 == $cantidad_Promocion){
+                    $datos = [
+                        "idJuegosGratis" => $juegos[$num_elementos]['idJuegosGratis'],
+                        "idAtraccionEvento" => $respuesta
+                    ];
+
+                    $respuesta1 = $model->agregar_Promociones_Atraccion($tabla,$datos);
+                }
+                else{
+                    while($num_elementos < $cantidad_Promocion){
+
+                        $datos =[
+                            "idJuegosGratis" => $juegos[$num_elementos]['idJuegosGratis'],
+                            "idAtraccionEvento" => $respuesta
+                        ];
+    
+                        $respuesta1 = $model->agregar_Promociones_Atraccion($tabla,$datos); 
+    
+                        $num_elementos = $num_elementos + 1;
+                    }
+                }
+            }
+        }
+        else{
+
+            while($num_elementos < $cantidad){
+                $datos = [
+                    "idAtraccion" => $atracciones[$num_elementos],
+                    "idEvento" => $evento,
+                    "idContrato" => $contrato[$num_elementos],
+                    "idPoliza" => $poliza[$num_elementos],
+                    "Creditos" => $creditos[$num_elementos],
+                    "creditosCortesia" => $creditos[$num_elementos]
+                ];
+
+                $respuesta = $model->agregar_Atracciones_Evento($datos);
+
+                if("N" != $descuentos[0]){
+                    $ciclo_promociones = 0;
+                    $cantidad_Promocion = count($descuentos);
+                    //$cantidad_Promocion = count($descuentos);
+                    $tabla = 'Atracciones_Incluidas_Dos_x_Uno';
+                    
+                    while($ciclo_promociones < $cantidad_Promocion){
+                        //Aqui va un if evaluando si el idBloque es el mismo que el $num_elementos
+
+                        if($descuentos[$ciclo_promociones]['idBloque'] == $num_elementos){
+                            $datos =[
+                                "idAtraccionEvento" => $respuesta,
+                                "idDosxUno" => $descuentos[$ciclo_promociones]['idDosxUno']
+                            ];
+                            $respuesta1 = $model->agregar_Promociones_Atraccion($tabla,$datos);
+                        } 
+    
+                        $ciclo_promociones = $ciclo_promociones + 1;
+                    }
+                }
+                
+                if("N" != $pulsera[0]){
+                    $ciclo_promociones = 0;
+    
+                    $cantidad_Promocion = count($pulsera);
+                    $tabla = 'Atracciones_Incluidas_Pulsera_Magica';
+    
+                    while($ciclo_promociones < $cantidad_Promocion){
+
+                        if($pulsera[$ciclo_promociones]['idBloque'] == $num_elementos){
+                            $datos =[
+                                "idPulseraMagica" => $pulsera[$ciclo_promociones]['idPulseraMagica'],
+                                "idAtraccionEvento" => $respuesta
+                            ];
+        
+                            $respuesta1 = $model->agregar_Promociones_Atraccion($tabla,$datos); 
+                        }
+    
+                        $ciclo_promociones = $ciclo_promociones + 1;
+                    }
+                    
+                }
+        
+                if("N" != $juegos[0]){
+                    $ciclo_promociones = 0;
+    
+                    $cantidad_Promocion = count($juegos);
+                    $tabla = 'Atracciones_Incluidas_Juegos_Gratis';
+                    
+                    while($ciclo_promociones < $cantidad_Promocion){
+
+                        if($juegos[$ciclo_promociones]['idBloque'] == $num_elementos){
+                            $datos =[
+                                "idJuegosGratis" => $juegos[$ciclo_promociones]['idJuegosGratis'],
+                                "idAtraccionEvento" => $respuesta
+                            ];
+        
+                            $respuesta1 = $model->agregar_Promociones_Atraccion($tabla,$datos); 
+                        }
+    
+                        $ciclo_promociones = $ciclo_promociones + 1;
+                    }
+                    
+                }
+
+                $num_elementos = $num_elementos + 1;
+            }
+
+        }
+        
+        echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta));
+    }
+
     public function agregar_Tarjetas_Evento(){
         $model = new Eventos_Model();
 
