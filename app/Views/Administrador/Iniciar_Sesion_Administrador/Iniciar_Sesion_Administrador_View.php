@@ -5,12 +5,9 @@
         <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content = "ie=edge"/>
         <title>Inicio de Sesion</title>
-
-        <!--Asi se asocian los estilos con html-->
         <link href="CSS/inicio_sesion_style.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
-
+        <link rel="stylesheet" href="../bootstrap/bootstrap.min.css" crossorigin="anonymous">
+      
         <!--<link rel = "stylesheet" type = "text/css" href = "<?= base_url()?> /CSS/inicio_sesion_style.css">-->
 
     </head>

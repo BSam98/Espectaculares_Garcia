@@ -30,6 +30,19 @@ $("#actualizarUsuario").click(function(){
     });
 });
 
+$(document).on('click','.rangos', function(){
+    var datos = $(this).data('book-id');
+
+    alert('Permisos: ' + datos['idRango']);
+    /*
+    $.ajax(
+        
+    ).done(
+
+    );
+    */
+});
+
 $(document).on('click','.editarUsuario', function(){
                     
     var usuario = $(this).data('book-id');

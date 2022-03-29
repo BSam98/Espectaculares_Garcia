@@ -66,6 +66,37 @@ class Usuarios_Model extends Model{
         return $datos;
     }
 
+    public function listaModulos(){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Modulos');
+        $builder-> select(
+            '
+            Modulos.idModulo,
+            Modulos.modulo
+            '
+        );
+        $query = $builder->get();
+        $datos = $query->getResultObject();
+        return $datos;
+    }
+
+    public function privilegios(){
+        $db = \Config\Database::Connect();
+        $query = $db->query("SELECT idRango, Nombre, STRING_AGG(modulo, ',') as modulo
+        FROM Privilegios, Modulos m, Rangos r 
+        WHERE privilegio_Modulo = idModulo and idRango = rango_Id GROUP BY idRango, Nombre ");
+        /*$query = $db->query(
+            "SELECT modulo, Nombre 
+                FROM Privilegios p, Modulos m, Rangos r 
+                    WHERE privilegio_Modulo = idModulo and idRango = rango_Id  GROUP BY modulo, Nombre ;
+            "
+        );*/
+        
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
     public function listadoEventos(){
         $db = \Config\Database::connect();
         $builder = $db->table('Eventos');

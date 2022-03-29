@@ -39,6 +39,28 @@
             </div>
         </div>
 
+
+        <div class="table table-stripped table-responsive">
+            <table>
+                <th></th>
+                <th>Rol</th>
+                <th>Privilegios</th>
+                <tbody>
+                    <?php foreach ($Privilegios as $key => $dP) : ?>
+                        <tr>
+                            <td><a href="#editar_Rol<?= $dP->idRango?>" class="btn btn-warning" aria-hidden="true" data-toggle="modal">Editar</a></td>
+                            <?php include 'editarRol.php'?>
+                            <td><?= $dP->Nombre?></td>
+                            <td><?= $dP->modulo?></td>
+                        </tr>
+                        
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+
+        </div>
+
+
         <!--AGREGAR USUARIOS-->
         <div class="modal fade" id="myModal" style="color:black;">
             <div class="modal-dialog modal-lg">
@@ -117,10 +139,35 @@
                 </div>
             </div>
         </div>
+
+        <!--EDITAR ROL>
+        <div-- class="modal fade" id="editar_Rol" style="color:black;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Editar</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form enctype="multipart/form-data" name="formulario" id="formularioAgregarUsuario">
+                            <label for="">Privilegios</label>
+                            <?php foreach($Modulos as $key => $idM) : ?>
+                                <input type="checkbox" name="priv" value="<?php $idM->idModulo?>"><?php $idM->modulo?> <br>
+                            <?php endforeach ?>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div-->
+                                                                
+
     </fieldset>            
     
 <!--/Contenedor Principal-->
-        <?php include('editarUsuarios.php') ?>
+    <?php 
+        include 'editarUsuarios.php';
+        
+    ?>
     
 <script src="JS/usuarios.js"></script>
 <script>

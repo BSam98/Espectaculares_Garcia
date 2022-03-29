@@ -21,19 +21,18 @@
             <table>
                 <thead>
                     <tr>
-                        <th colspan="3"><center>Datos del evento</center></th>
+                        <!--th colspan="3"><center>Datos del evento</center></th-->
                         <th colspan="6"><center>Datos de la taquilla</center></th>
                     </tr>
                     <tr>
-                        <th>Evento</th>
-                        <th>Ciudad</th>
-                        <th>Estado</th>
+                        <!--th>Evento</th-->
+                        <!--th>Ciudad</th-->
+                        <!--th>Estado</th-->
                         <th>Taquilla</th>
-                        <th>Encargado</th>
-                        <th>Tarjetas asignadas</th>
-                        <th>Monto establecido</th>
-                        <th>Turno Iniciado</th>
-                        <th>Turno Finalizado</th>
+                        <th>Usuario</th>
+                        <th>Tarjetas Vendidas</th>
+                        <th>Fondo Vendido</th>
+                        <th>Fecha</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,13 +56,13 @@
                 <table>
                     <thead>
                         <tr>
-                            <th colspan="3"><center>Datos del evento</center></th>
+                            <!--th colspan="3"><center>Datos del evento</center></th-->
                             <th colspan="6"><center>Datos de la taquilla</center></th>
                         </tr>
                         <tr>
-                            <th>Evento</th>
-                            <th>Ciudad</th>
-                            <th>Estado</th>
+                            <!--th>Evento</th-->
+                            <!--th>Ciudad</th-->
+                            <!--th>Estado</th-->
                             <th>Taquilla</th>
                             <th>Encargado</th>
                             <th>Tarjetas asignadas</th>

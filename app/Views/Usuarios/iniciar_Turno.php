@@ -9,14 +9,13 @@
         <div class="card-wrapper col-sm-12 col-md-6 col-lg-4" style="color:white;">
             <div class="container-fluid" style="margin: 25px 25px 25px 25px; text-align:center;">
                 <form action="PuntoVenta" method="POST" enctype="multipart/form-data">
-                    <center><h2>INICIAR TURNO</h2></center>
+                    <!--center><h2>INICIAR TURNO</h2></!--center-->
+                    <center><h2>Bienvenido: <?php echo session('Usuario');?></h2></center>
                     <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
-                        <div class="nowDateTime" style="text-align: right;">
-                        <p>
-                            <span id="fecha"></span><br />
-                            <span id="hora"></span>
-                        </p>
-                        </div>
+                    
+                    <div class="nowDateTime" style="text-align: right;">
+                        <p><span id="fecha"></span><br /><span id="hora"></span></p>
+                    </div>
                     <div class="form-group">
                         <label for="">Evento</label>
                         <select name="" id="" class="form-control">

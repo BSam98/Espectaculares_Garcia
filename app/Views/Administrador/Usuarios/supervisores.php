@@ -1,30 +1,34 @@
 <fieldset id="fieldset">
-<center><h2><i class="fa fa-street-view" aria-hidden="true"></i>&nbsp; SUPERVISOR DE VALIDACIÓN</h2></center><hr>
+    <center><h2>SUPERVISORES</h2></center>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa fa-street-view" aria-hidden="true"></i>&nbsp;Supervisor de Atracciones</a>
+    <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fa fa-street-view" aria-hidden="true"></i>&nbsp;Supervisor Validador</a>
+  </div>
+</nav>
+<br>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
     <div class="container">
-        <form action="">
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                            <div class="input-group">
-                            <label for=""><h5><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Evento:&nbsp;</h5></label>
-                                <select class="form-control" name="evento" id="evento" required>
-                                    <option>Evento</option>
-                                        <option value=""></option>
-                                </select>
-                            <span class="input-group-addon">&nbsp;&nbsp;</span>
-                            <label for=""><h5><i class="fa fa-male" aria-hidden="true"></i>&nbsp;Supervisor:&nbsp;</h5></label>
-                                <select class="form-control" name="evento" id="evento" required>
-                                    <option>Supervisor</option>
-                                        <option value=""></option>
-                                </select>
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for=""><h5><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Evento:&nbsp;</h5></label>
+                            <select class="form-control" name="evento" id="evento" required>
+                                <option>Evento</option>
+                                    <option value=""></option>
+                            </select>
+                        <span class="input-group-addon">&nbsp;&nbsp;</span>
+                        <label for=""><h5><i class="fa fa-male" aria-hidden="true"></i>&nbsp;Supervisor:&nbsp;</h5></label>
+                            <select class="form-control" name="evento" id="evento" required>
+                                <option>Supervisor</option>
+                                    <option value=""></option>
+                            </select>
                     </div>
                 </div>
-            </div>           
-        </form>
+            </div>
+        </div>
         <hr>
         <div class="table table-striped">
             <table>
@@ -32,7 +36,7 @@
                     <tr>
                         <th colspan="3"><center>Datos del evento</center></th>
                         <th colspan="2"><center>Datos del supervisor</center></th>
-                        <th colspan="2"><center>Atracciones a Validar</center></th>
+                        <th colspan="2"><center>Atracciones a Supervisar</center></th>
                     </tr>
                     <tr>
                         <th>Evento</th>
@@ -58,6 +62,8 @@
             </table>
         </div>
     </div>
+  </div>
+</div> 
 </fieldset>
 
 

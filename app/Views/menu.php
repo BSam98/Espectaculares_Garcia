@@ -48,7 +48,14 @@
                 </li>
                 <!--Menu Seguridad-->
                 <li><a href=""><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Seguridad</a></li>
-                <li><a href="CerrarSesion"><i class="fa fa-user-times" aria-hidden="true"></i>&nbsp;Salir</a></li>
+
+                <li class="dropdown">
+                    <a class="navbar-brand" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;<?php echo session('Usuario');?></a>
+                        <ul class="dropdown-submenu" id="subMenuCatalago">
+                            <li><a href="CerrarSesion" id="button"><span>Salir</span></a></a></li>
+                        </ul>
+                </li>
+                
             </ul>
         </nav>
     </div> 

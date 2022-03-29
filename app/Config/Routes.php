@@ -37,10 +37,21 @@ $routes->get('/', 'Home::index');
 
 $routes->get('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
 $routes->post('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
+
+
+$routes->get('/new','Iniciar_Sesion_Administrador_Control::new');
+$routes->get('/user','Iniciar_Sesion_Administrador_Control::user');
+$routes->get('/turno','Iniciar_Sesion_User_Control::turno');
+/*$routes->get('/login', 'Home::login');
+$routes->post('/login', 'Home::login');
+$routes->get('/inicio', 'Home::inicio');
+$routes->post('/inicio', 'Home::inicio');*/
+
+
 $routes->get('/Atracciones','Atracciones_Control::new');
 $routes->get('/Atracciones/Datos','Atracciones_Control::cargarDatos');
 //$routes->get('/Iniciar_Sesion_Administrador','Iniciar_Sesion_Administrador_Control::new');
-$routes->get('/Menu_Principal_Administrador','Menu_Principal_Control::new');
+//$routes->get('/Menu_Principal_Administrador','Menu_Principal_Control::new');
 $routes->get('/Asociados','Asociados_Control::new');
 
 $routes->get('/Eventos','Eventos_Control::new');
@@ -119,8 +130,15 @@ $routes->get('/PuntoVenta','Menu_Principal_User_Control::venta');
 
 $routes->post('/Cobro','Menu_Principal_User_Control::cobrar');
 $routes->get('/Cobro','Menu_Principal_User_Control::cobrar');
+$routes->post('/Productos','Menu_Principal_User_Control::resultados');
+
+
+
+
 $routes->get('/SesionAdmin','Home::admin');
-$routes->post('/SesionAdmin','Home::admin');
+//$routes->post('/SesionAdmin','Home::admin');
+
+
 $routes->get('/SesionUser','Home::user');
 $routes->post('/SesionUser','Home::user');
 $routes->get('/CerrarSesion','Iniciar_Sesion_Administrador_Control::logout');

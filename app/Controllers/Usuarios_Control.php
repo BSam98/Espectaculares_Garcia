@@ -18,6 +18,8 @@ class Usuarios_Control extends BaseController {
             'Usuario'=>$model->listadoUsuarios(),
             'Rango' =>$model->listadoRango(),
             'Evento' =>$model->listadoEventos(),
+            'Privilegios' =>$model->privilegios(),
+            'Modulos' =>$model->listaModulos(),
         ];
         echo view('../Views/header');
         echo view('../Views/menu');
