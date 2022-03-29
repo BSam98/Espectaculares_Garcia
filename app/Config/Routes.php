@@ -44,8 +44,14 @@ $routes->get('/Menu_Principal_Administrador','Menu_Principal_Control::new');
 $routes->get('/Asociados','Asociados_Control::new');
 
 $routes->get('/Eventos','Eventos_Control::new');
+
 $routes->get('/Eventos/Mostrar_Atracciones','Eventos_Control::mostrarAtracciones');
 $routes->post('/Eventos/Mostrar_Atracciones','Eventos_Control::mostrarAtracciones');
+
+$routes->get('/Eventos/Agregar_Atraccion_Evento','Eventos_Control::agregar_Atracciones_Evento');
+$routes->post('/Eventos/Agregar_Atraccion_Evento','Eventos_Control::agregar_Atracciones_Evento');
+
+
 $routes->get('/Eventos/Agregar_Evento','Eventos_Control::agregarEvento');
 $routes->post('/Eventos/Agregar_Evento','Eventos_Control::agregarEvento');
 $routes->get('/Eventos/Mostrar_Tarjetas','Eventos_Control::mostrarTarjetas');
