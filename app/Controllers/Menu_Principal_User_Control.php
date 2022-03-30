@@ -30,7 +30,7 @@ class Menu_Principal_User_Control extends BaseController {
         ];
 
         echo view('../Views/header.php');
-        echo view('Usuarios/menu_user');
+       //    echo view('Usuarios/menu_user');
         echo view('Usuarios/modulo_Cobro', $data);
         echo view('../Views/piePagina');
     }
