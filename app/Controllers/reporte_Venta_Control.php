@@ -12,7 +12,7 @@ class reporte_Venta_Control extends BaseController{
 
 	public function index(){
 		echo view('../Views/header.php');
-		echo view('Usuarios/menu_user');
+		//echo view('Usuarios/menu_user');
 		echo view('Usuarios/reporte_Venta');
 		echo view('../Views/piePagina.php');
 	}
