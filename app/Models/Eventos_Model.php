@@ -330,8 +330,11 @@ class Eventos_Model extends Model{
             '
             Atracciones.idAtraccion,
             Atracciones.Nombre AS Atraccion, 
-            Atraccion_Evento.Creditos, 
-            Contrato.Nombre AS Contrato, 
+            Atraccion_Evento.idAtraccionEvento,
+            Atraccion_Evento.Creditos,
+            Contrato.idContrato,
+            Contrato.Nombre AS Contrato,
+            Poliza.idPoliza, 
             Poliza.Nombre AS Poliza
             '
         );
@@ -449,6 +452,14 @@ class Eventos_Model extends Model{
             'Descuentos' => $descuentos,
             'Pulsera' => $pulsera,
             'Juegos' => $juegos
+        ];
+
+        return $datos;
+    }
+
+    public function informacion_Atraccion($id){
+
+        $datos = [
         ];
 
         return $datos;

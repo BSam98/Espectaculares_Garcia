@@ -75,6 +75,16 @@ class Eventos_Control extends BaseController {
             ));
     }
 
+    public function informacion_Atraccion(){
+        $model = new Eventos_Model();
+
+        $idAtraccionEvento = $_POST['idAtraccionEvento'];
+
+        $respuesta = $model->informacion_Atraccion($idAtraccionEvento);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
+
     public function mostrarTarjetas(){
         $model = new Eventos_Model();
 
