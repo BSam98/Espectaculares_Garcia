@@ -36,7 +36,7 @@
         Datos de la Taquilla
     </div>
         <li class="nav-item">
-            <a class="nav-link navbar-brand" href="#" id="cerrarCaja">
+            <a class="nav-link navbar-brand" href="CerrarSesion" id="cerrarCaja">
                 <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
                 Cerrar
             </a>
