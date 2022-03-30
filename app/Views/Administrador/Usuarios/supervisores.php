@@ -1,11 +1,11 @@
 <fieldset id="fieldset">
-    <center><h2>SUPERVISORES</h2></center>
-<nav>
+    <center><h2>SUPERVISOR VALIDADOR</h2></center>
+<!--nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa fa-street-view" aria-hidden="true"></i>&nbsp;Supervisor de Atracciones</a>
     <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fa fa-street-view" aria-hidden="true"></i>&nbsp;Supervisor Validador</a>
   </div>
-</nav>
+</nav-->
 <br>
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
