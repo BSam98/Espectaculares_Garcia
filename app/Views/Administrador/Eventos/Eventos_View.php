@@ -80,6 +80,7 @@
     include 'taquillas.php';
     include 'asignar_Areas.php';
     include 'agregar_Usuarios.php';
+    include 'editar_Atracciones.php';
 ?>
 <script src ="JS/evento.js"></script>
  

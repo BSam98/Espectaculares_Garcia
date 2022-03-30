@@ -563,7 +563,7 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
 
 
                 html += '<tr>'+
-                '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+                '<td><a href="#editar_Atraccion_Evento" class="editar_Atraccion" data-toggle="modal" data-book-id='+"'{"+'"idAtraccionEvento":'+data.msj.Atraccion[i]['idAtraccionEvento']+','+'"idAtraccion":'+data.msj.Atraccion[i]['idAtraccion']+','+'"atraccion":"'+data.msj.Atraccion[i]['Atraccion']+'",'+'"creditos":'+data.msj.Atraccion[i]['Creditos']+','+'"idContrato":'+data.msj.Atraccion[i]['idContrato']+','+'"contrato":"'+data.msj.Atraccion[i]['Contrato']+'",'+'"idPoliza":'+data.msj.Atraccion[i]['idPoliza']+','+'"poliza":"'+data.msj.Atraccion[i]['Poliza']+'"'+"}'"+'><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
                 '<td>'+data.msj.Atraccion[i]['Atraccion']+'</td>'+
                 '<td>'+data.msj.Atraccion[i]['Creditos']+'</td>'+
                 '<td>'+html_Promociones+'</td>'+
@@ -733,6 +733,40 @@ $("#nuevaAt").click(function(){
     $("#agregarAtracciones tbody tr:eq(0)").clone().attr('id',contadorAtraccion).removeClass('f-Atracciones').appendTo("#agregarAtracciones");
 });
 
+
+$(document).on('click','.editar_Atraccion', function(){
+    var datos_Atraccion = $(this).data('book-id');
+
+    $.ajax({
+        type: "POST",
+        url: 'Eventos/Editar_Atraccion_Evento',
+        data: datos_Atraccion['idAtraccionEvento'],
+        dataType: 'JSON',
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error : a' + errorThrown + ' ' + textStatus);
+        },
+    }).done(function(data){
+
+
+        var nombre_Html="";
+        nombre_Html += '<label for="nombre">Nombre</label><br>'
+        +'<label id="nombre_Atraccion" name="nombre_Atraccion" value='+datos_Atraccion['idAtraccion']+'>'+datos_Atraccion['atraccion']+'</label>';
+        $("#nombre_Atraccion").html(nombre_Html);
+        $("#creditos_Atraccion").val(datos_Atraccion['creditos']);
+    });
+
+    /*
+    console.log("idAtraccionEvento: " + nombre['idAtraccionEvento']);
+    console.log("idAtraccion: " + nombre['idAtraccion']);
+    console.log("Nombre: " + nombre['atraccion']);
+    console.log("Creditos: " + nombre['creditos']);
+    console.log("idContrato: " + nombre['idContrato']);
+    console.log("Contrato: " + nombre['contrato']);
+    console.log("idPoliza: " + nombre['idPoliza']);
+    console.log("Poliza: " + nombre['poliza']);
+    */
+
+});
 
 $(document).on('click','.eliminarAt', function(){
     var id_Tr = $(this).parents('tr').attr('id');

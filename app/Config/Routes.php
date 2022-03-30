@@ -62,6 +62,8 @@ $routes->post('/Eventos/Mostrar_Atracciones','Eventos_Control::mostrarAtraccione
 $routes->get('/Eventos/Agregar_Atraccion_Evento','Eventos_Control::agregar_Atracciones_Evento');
 $routes->post('/Eventos/Agregar_Atraccion_Evento','Eventos_Control::agregar_Atracciones_Evento');
 
+$routes->get('/Eventos/Editar_Atraccion_Evento','Eventos_Control::informacion_Atraccion');
+$routes->post('/Eventos/Editar_Atraccion_Evento','Eventos_Control::informacion_Atraccion');
 
 $routes->get('/Eventos/Agregar_Evento','Eventos_Control::agregarEvento');
 $routes->post('/Eventos/Agregar_Evento','Eventos_Control::agregarEvento');
