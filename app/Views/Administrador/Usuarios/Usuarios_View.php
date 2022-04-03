@@ -39,7 +39,6 @@
             </div>
         </div>
 
-
         <div class="table table-stripped table-responsive">
             <table>
                 <th></th>
@@ -48,17 +47,46 @@
                 <tbody>
                     <?php foreach ($Privilegios as $key => $dP) : ?>
                         <tr>
-                            <td><a href="#editar_Rol<?= $dP->idRango?>" class="btn btn-warning" aria-hidden="true" data-toggle="modal">Editar</a></td>
+                            <td><a href="#editar_Rol<?php echo $dP->idRango?>" class="btn btn-warning" value="<?= $dP->idRango?>" data-toggle="modal">Editar</a></td>
                             <?php include 'editarRol.php'?>
                             <td><?= $dP->Nombre?></td>
                             <td><?= $dP->modulo?></td>
                         </tr>
-                        
                     <?php endforeach ?>
                 </tbody>
             </table>
-
         </div>
+
+
+
+<div class="modal fade" id="modal_privilegios">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 class="modal-title">Privilegios</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <table>
+            <tbody id="mmm">
+            </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 
 
         <!--AGREGAR USUARIOS-->

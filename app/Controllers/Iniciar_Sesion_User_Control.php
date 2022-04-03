@@ -15,9 +15,25 @@ class Iniciar_Sesion_User_Control extends BaseController {
     
     //public function new (){
         public function turno (){
-            
+            $model = new Iniciar_Sesion_User_Model();
+            $data = [
+                'Eventos'=>$model->Eventos(),
+            ];
             echo view('../Views/header.php');
-            echo view('Usuarios/iniciar_Turno');
+            echo view('Usuarios/iniciar_Turno',$data);
+            echo view('../Views/piePagina');
+        }
+        public function valida(){
+            echo view('../Views/header');
+            echo view('Usuarios/menu_user');
+            echo view('Usuarios/validador');
+            echo view('../Views/piePagina');
+        }
+        public function superTaquillas(){
+            echo view('../Views/header');
+            echo view('Usuarios/Iniciar_Sesion_User/Menu_Principal_User');
+            //echo view('Usuarios/menu_user');
+            //echo view('Usuarios/validador');
             echo view('../Views/piePagina');
         }
         //return view ('Usuarios/Iniciar_Sesion_User/Iniciar_Sesion_User_View');
@@ -52,9 +68,16 @@ class Iniciar_Sesion_User_Control extends BaseController {
 
     private function __redirectAuth(){
         $session = session(); 
-        if($session->idRango == '4'){
+        if($session->idRango == '5'){
             return redirect()->to('/turno')->with('mesage', 'Hola'.$session->Usuario);
         }else{
+            if($session->idRango == '7'){
+                return redirect()->to('/valida')->with('mesage', 'Hola'.$session->Usuario);
+            }else{
+                if($session->idRango == '8'){
+                    return redirect()->to('/superTaquillas')->with('mesage', 'Hola'.$session->Usuario);
+                }
+            }
             var_dump($session->idRango);
            // return redirect()->to('/user')->with('mesage', 'Hola'.$session->Usuario);
         }
@@ -67,7 +90,4 @@ class Iniciar_Sesion_User_Control extends BaseController {
 		//session()->remove('username');
 		return $this->response->redirect(site_url(''));
 	}
-
-    
-
 }

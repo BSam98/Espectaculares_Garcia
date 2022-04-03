@@ -12,6 +12,8 @@ class Usuarios_Control extends BaseController {
     public function _construct(){}
 
     public function new (){
+
+        //$rol = session('idRango');
         $model =new Usuarios_Model();
 
         $datos = [
@@ -20,6 +22,7 @@ class Usuarios_Control extends BaseController {
             'Evento' =>$model->listadoEventos(),
             'Privilegios' =>$model->privilegios(),
             'Modulos' =>$model->listaModulos(),
+            //'Rango' => $model->privMod($rol),
         ];
         echo view('../Views/header');
         echo view('../Views/menu');
@@ -100,6 +103,20 @@ class Usuarios_Control extends BaseController {
 
         $respuesta = $model->actualizarUsuario($datos,$idUsuario);
         echo json_encode(array('respuesta'=>true,'msj'=>'asdasdasd'));
+    }
+
+    public function privilegiosUsuarios(){
+        $model = new Usuarios_Model();
+        $rol = $_POST['rango'];
+        $data = $model->listaModulos(); 
+        echo json_encode(array('respuesta'=>true,'msj'=>$data));
+    }
+
+    public function insertarPriv(){
+        $entityBody = file_get_contents('php://input');
+        $data = json_decode($entityBody, true);
+      //  $data = json_decode($rol, true); // true es para recibir un array en $datA
+        //echo $data; 
     }
 
     public function create(){

@@ -11,7 +11,7 @@
                 <form action="PuntoVenta" method="POST" enctype="multipart/form-data">
                     <!--center><h2>INICIAR TURNO</h2></!--center-->
                     <center><h2>Bienvenido: <?php echo session('Usuario');?></h2></center>
-                    <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+                    <!--script src="https://momentjs.com/downloads/moment-with-locales.min.js"></!--script-->
                     
                     <div class="nowDateTime" style="text-align: right;">
                         <p><span id="fecha"></span><br /><span id="hora"></span></p>
@@ -19,12 +19,15 @@
                     <div class="form-group">
                         <label for="">Evento</label>
                         <select name="" id="" class="form-control">
-                            <option value="">Monterrey</option>
+                            <option value="">Elige un Evento</option>
+                            <?php foreach($Eventos as $e):?>
+                                <option value="<?php echo $e->idEvento?>"><?php echo $e->Nombre?></option>
+                            <?php endforeach?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="">Tarjetas</label><br>
-                        <input type="text" name="folioi" id="folioi" class="form-control" placeholder="Folio Inicial">
+                        <input type="text" name="folioi" id="folioi" class="form-control" placeholder="Folio Inicial"><br>
                         <input type="text" name="foliof" id="foliof" class="form-control" placeholder="Folio Final">
                     </div>
                     <div class="form-group">

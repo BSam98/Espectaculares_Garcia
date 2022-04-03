@@ -7,11 +7,11 @@ class validador_Control extends BaseController {
 
     public function _construct(){}
 
-    public function new (){
+    /*public function new (){
         echo view('../Views/header.php');
         echo view('Usuarios/menu_user');
         echo view('Usuarios/validador');
         echo view('../Views/piePagina.php');
-    }
+    }*/
 
 }

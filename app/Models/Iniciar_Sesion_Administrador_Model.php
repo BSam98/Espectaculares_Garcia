@@ -28,6 +28,36 @@ class Iniciar_Sesion_Administrador_Model extends Model{
         protected $returnType = 'array';
         protected $allowedFields = ['CorreoE','Usuario', 'Contraseña', 'idRango'];
 
+        function seleccionarPriv($rango){
+                $db = \Config\Database::connect();
+                $builder = $db->table('Privilegios');
+
+                $builder->where('rango_Id',$rango);
+        
+                $query = $builder->get();
+            
+                $datos = $query->getResultObject();
+        
+                return $datos;     
+        }
+
+        function modulos(){
+                $db = \Config\Database::connect();
+                $builder = $db->table('Modulos');
+
+                $builder-> select(
+                        '
+                        idModulo,
+                        modulo, 
+                        '
+                    );
+                $query = $builder->get();
+            
+                $datos = $query->getResultObject();
+        
+                return $datos; 
+        }
+
         /*function check_user($data){
                 $db = \Config\Database::connect();
                 $builder = $db->table('Usuarios');

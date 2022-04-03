@@ -21,4 +21,23 @@ class Iniciar_Sesion_User_Model extends Model{
     protected $primaryKey = 'idUsuario';
     protected $returnType = 'array';
     protected $allowedFields = ['CorreoE','Usuario', 'Contraseña', 'idRango'];
+
+    function Eventos(){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Eventos');
+
+        $builder-> select(
+                '
+                idEvento,
+                Nombre, 
+                Ciudad, 
+                Estado
+                '
+            );
+        $query = $builder->get();
+    
+        $datos = $query->getResultObject();
+
+        return $datos; 
+}
 }
