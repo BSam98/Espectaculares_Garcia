@@ -2,7 +2,7 @@
             <!--/Contenedor Superior-->
 <!--ESTA TABLA ENTRARIA EN UN CICLO PARA HACER UNA TABLA POR PROMOCION-->
             <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
-                <label><h2>Promocion Dos x Uno</h2></label>
+                <label><h2>Descuentos</h2></label>
                 <br>
                 <a href="#modal_nueva_promocion" type="button" class="btn btn-success agregar_promocion" data-toggle="modal" data-book-id='{"Promocion":1}' style="transition-duration: 3s, 5s;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nueva Promoción</a>
                 <div class="contenedorTabla">
