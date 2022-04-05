@@ -88,6 +88,9 @@ $routes->post('/Eventos/Agregar_Atraccion_Evento','Eventos_Control::agregar_Atra
 $routes->get('/Eventos/Editar_Atraccion_Evento','Eventos_Control::informacion_Atraccion');
 $routes->post('/Eventos/Editar_Atraccion_Evento','Eventos_Control::informacion_Atraccion');
 
+$routes->get('/Eventos/Editar_Atraccion','Eventos_Control::actualizar_Atraccion');
+$routes->post('/Eventos/Editar_Atraccion','Eventos_Control::actualizar_Atraccion');
+
 $routes->get('/Eventos/Agregar_Evento','Eventos_Control::agregarEvento');
 $routes->post('/Eventos/Agregar_Evento','Eventos_Control::agregarEvento');
 $routes->get('/Eventos/Mostrar_Tarjetas','Eventos_Control::mostrarTarjetas');

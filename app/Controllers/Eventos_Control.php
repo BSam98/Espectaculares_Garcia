@@ -77,12 +77,23 @@ class Eventos_Control extends BaseController {
 
     public function informacion_Atraccion(){
         $model = new Eventos_Model();
+        
+        $datos = [
+            'idEvento' => $this->request->getVar('idEvento'),
+            'idAtraccionEvento' => $this->request->getVar('idAtraccionEvento')
+        ];
 
-        $idAtraccionEvento = $_POST['idAtraccionEvento'];
-
-        $respuesta = $model->informacion_Atraccion($idAtraccionEvento);
-
-        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+        echo json_encode(
+            array(
+                'respuesta'=>true,
+                'msj'=> $model->informacion_Atraccion($datos),
+                'Contratos' => $model->listadoContratos(),
+                'Polizas' => $model->listadoPolizas(),
+                'Descuentos' => $model->listado_Descuentos($datos),
+                'Pulsera' => $model->listado_Pulsera_Magica($datos),
+                'Juegos' => $model->listado_Juegos_Gratis($datos)
+            )
+        );
     }
 
     public function mostrarTarjetas(){
@@ -522,6 +533,25 @@ class Eventos_Control extends BaseController {
                 }
             break;
         }
+    }
+
+    public function actualizar_Atraccion(){
+        $idAtraccionEvento = $_POST['idAtraccionEvento'];
+        $creditos = $_POST['creditos'];
+        $idContrato = $_POST['idContrato'];
+        $idPoliza = $_POST['idPoliza'];
+        $descuentosNuevos = $_POST['descuentosNuevos'];
+        $pulserasNuevas = $_POST['pulserasNuevas'];
+        $juegosNuevos = $_POST['juegosNuevos'];
+        $eliminarDescuentos = $_POST['eliminarDescuentos'];
+        $eliminarPulseras = $_POST['eliminarPulseras'];
+        $eliminarJuegos = $_POST['eliminarJuegos'];
+
+        $datos = [
+            'idContrato' => $idContrato,
+            'idPoliza' => $idPoliza,
+            'Creditos' => $creditos,
+        ];
     }
 
     public function create(){

@@ -15,6 +15,18 @@ var atraccion_Promocion_Descuentos = [];
 var atraccion_Promocion_Pulsera = [];
 var atraccion_Promocion_Juegos = [];
 
+var promocion_Descuentos_Atraccion_Eliminar = [];
+var promocion_Pulsera_Atraccion_Eliminar = [];
+var promocion_Juegos_Atraccion_Eliminar = [];
+
+var promocion_Descuentos_Atraccion_Nuevo = [];
+var promocion_Pulsera_Atraccion_Nuevo = [];
+var promocion_Juegos_Atraccion_Nuevo = []; 
+
+var descuentos_Atraccion = [];
+var pulsera_Atraccion = [];
+var juegos_Atraccion = [];
+
 $("#agregarEvento").click(function(){
     $.ajax({
         type: "POST",
@@ -111,7 +123,7 @@ $(document).on('change', '#idLote', function(event) {
     });
 });
 
-/*------------------------------------------------------------------------------------------------*/
+/*-------------------------------------Promociones_Evento---------------------------------------------------*/
 
 $(document).on('change','#promocion_Categoria', function(event){
     
@@ -479,7 +491,7 @@ $(document).on('click', '.btn_remove', function() {
 });
 
 
-/*----------------------------------------------------------------------------------------------*/
+/*------------------------------Atracciones_Evento--------------------------------------------------------*/
 $(document).on('click','.mostrar_Atracciones_Evento', function(){
     atraccion_Promocion_Descuentos = [];
     atraccion_Promocion_Pulsera = [];
@@ -733,38 +745,98 @@ $("#nuevaAt").click(function(){
     $("#agregarAtracciones tbody tr:eq(0)").clone().attr('id',contadorAtraccion).removeClass('f-Atracciones').appendTo("#agregarAtracciones");
 });
 
-
+/**--- Aqui seguimos */
 $(document).on('click','.editar_Atraccion', function(){
+    var idAtraccionEvento_Html = '';
+    var contrato_Seleccionado_Html ='';
+    var poliza_Seleccionada_Html = '';
+    var contratos_Html = '';
+    var polizas_Html = '';
+    var descuentos_Html= '';
+    var pulsera_Html = '';
+    var juegos_Html = '';
+    var select_Contratos_Html = '';
+    var select_Polizas_Html='';
+    var nombre_Html="";
     var datos_Atraccion = $(this).data('book-id');
+    var idEvento =  $("#idEventoAtraccion").val();
+
+    idAtraccionEvento_Html += '<input class="form-control" type="text" id="idAtraccionEvento" name="idAtraccionEvento" value="'+datos_Atraccion['idAtraccionEvento']+'">';
+
+    contrato_Seleccionado_Html = '<option value="'+datos_Atraccion['idContrato']+'">"'+datos_Atraccion['contrato']+'"</Option>';
+    poliza_Seleccionada_Html = '<option value="'+datos_Atraccion['idPoliza']+'">"'+datos_Atraccion['poliza']+'"</option>';
 
     $.ajax({
         type: "POST",
         url: 'Eventos/Editar_Atraccion_Evento',
-        data: datos_Atraccion['idAtraccionEvento'],
+        data: {'idAtraccionEvento':datos_Atraccion['idAtraccionEvento'],'idEvento':idEvento},
         dataType: 'JSON',
         error: function(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error : a' + errorThrown + ' ' + textStatus);
         },
     }).done(function(data){
+        
+        nombre_Html += '<label for="nombre_Atraccion">Nombre</label><br>' +
+        '<label id="nombre_Atraccion" name="nombre_Atraccion" value='+datos_Atraccion['idAtraccion']+'>'+datos_Atraccion['atraccion']+'</label>';
+        
+        for(var i=0; i<data.Contratos.length; i++){
+            contratos_Html += '<option value="'+data.Contratos[i]['idContrato']+'">"'+data.Contratos[i]['Nombre']+'"</option>';
+        }
+
+        for(var i=0; i<data.Polizas.length; i++){
+            polizas_Html +='<option value="'+data.Polizas[i]['idPoliza']+'">"'+data.Polizas[i]['Nombre']+'"</option>';
+        }
+
+        select_Contratos_Html += '<label for="contrato">Contratos</label><br>'+
+        '<select class="form-control" type="text" name="contrato_Atraccion[]" id="contrato_Atraccion">'+contrato_Seleccionado_Html+''+contratos_Html+'</select>';
+
+        select_Polizas_Html +='<label for="contrato">Polizas</label><br>'+
+        '<select class="form-control" type="text" name="poliza[]" id="poliza_Atraccion">'+poliza_Seleccionada_Html+''+polizas_Html+'</select>';
 
 
-        var nombre_Html="";
-        nombre_Html += '<label for="nombre">Nombre</label><br>'
-        +'<label id="nombre_Atraccion" name="nombre_Atraccion" value='+datos_Atraccion['idAtraccion']+'>'+datos_Atraccion['atraccion']+'</label>';
+
+        for(var i= 0; i<data.Descuentos.length; i++){
+            
+            if(data.msj.Descuentos.find(object => object.idDosxUno == data.Descuentos[i]['idDosxUno'])){
+                descuentos_Html += '<input type="checkbox" checked="checked" class="descuentos_Atraccion", id="descuentosAtraccion", name="descuentosAtraccion[]", value="'+data.Descuentos[i]['idDosxUno']+'">'+data.Descuentos[i]['Nombre'];
+            }
+            else{
+                descuentos_Html += '<input type="checkbox" class="descuentos_Atraccion", id="descuentosAtraccion", name="descuentosAtraccion[]", value="'+data.Descuentos[i]['idDosxUno']+'">'+data.Descuentos[i]['Nombre'];
+            }
+            
+        }
+
+        for(var i=0; i<data.Pulsera.length; i++){
+            if(data.msj.Pulsera.find(object => object.idPulseraMagica == data.Pulsera[i]['idPulseraMagica'])){
+                pulsera_Html += '<input type="checkbox" checked="checked" class="pulsera_Atraccion", id="pulseraAtraccion", name="pulseraAtraccion[]", value="'+data.Pulsera[i]['idPulseraMagica']+'">'+data.Pulsera[i]['Nombre'];
+            }
+            else{
+                pulsera_Html += '<input type="checkbox" class="pulsera_Atraccion", id="pulseraAtraccion", name="pulseraAtraccion[]", value="'+data.Pulsera[i]['idPulseraMagica']+'">'+data.Pulsera[i]['Nombre'];
+            }
+        }
+
+        for(var i=0; i<data.Juegos.length; i++){
+            if(data.msj.Juegos.find(object => object.idJuegosGratis == data.Juegos[i]['idJuegosGratis'])){
+                juegos_Html += '<input type="checkbox" checked="checked" class="juegos_Gratis_Atraccion", id="juegoAtraccion", name="juegoAtraccion[]", value="'+data.Juegos[i]['idJuegosGratis']+'">'+data.Juegos[i]['Nombre'];
+            }
+            else{
+                juegos_Html += '<input type="checkbox" class="juegos_Gratis_Atraccion", id="juegoAtraccion", name="juegoAtraccion[]", value="'+data.Juegos[i]['idJuegosGratis']+'">'+data.Juegos[i]['Nombre'];
+            }
+        }
+
+        descuentos_Atraccion = Object.values(data.msj.Descuentos);
+        pulsera_Atraccion = Object.values(data.msj.Pulsera);
+        juegos_Atraccion = Object.values(data.msj.Juegos);
+        
         $("#nombre_Atraccion").html(nombre_Html);
+        $("#promocion_Descuentos_Atraccion").html(descuentos_Html);
+        $("#promocion_Pulsera_Atraccion").html(pulsera_Html);
+        $("#promocion_Juegos_Gratis_Atraccion").html(juegos_Html);
+        $("#contrato_Atraccion").html(select_Contratos_Html);
+        $("#poliza_Atraccion").html(select_Polizas_Html);
+        $("#id_AtraccionEvento").html(idAtraccionEvento_Html);
         $("#creditos_Atraccion").val(datos_Atraccion['creditos']);
     });
-
-    /*
-    console.log("idAtraccionEvento: " + nombre['idAtraccionEvento']);
-    console.log("idAtraccion: " + nombre['idAtraccion']);
-    console.log("Nombre: " + nombre['atraccion']);
-    console.log("Creditos: " + nombre['creditos']);
-    console.log("idContrato: " + nombre['idContrato']);
-    console.log("Contrato: " + nombre['contrato']);
-    console.log("idPoliza: " + nombre['idPoliza']);
-    console.log("Poliza: " + nombre['poliza']);
-    */
 
 });
 
@@ -774,7 +846,128 @@ $(document).on('click','.eliminarAt', function(){
     $(parent).remove();
 });
 
-/*----------------------------------------------------------------------------------------------*/
+$(document).on('click','.descuentos_Atraccion', function(){
+    var idDosxUno = $(this).val();
+
+    if($(this).is(':checked')){
+        if(descuentos_Atraccion.find(object => object.idDosxUno == idDosxUno)){
+            promocion_Descuentos_Atraccion_Eliminar.forEach(function(data,index){
+                if(data == idDosxUno){
+                    /**Si quiere mantener la promocion ya asignada a la atraccion */
+                    console.log("Se elimino: " + promocion_Descuentos_Atraccion_Eliminar.splice(index,1));
+                }
+            });
+        }
+        else{
+            /**Agregara una nueva promocion a una atraccion ya agregada */
+            promocion_Descuentos_Atraccion_Nuevo.push(idDosxUno);
+        }
+        
+    }
+    else{
+        if(descuentos_Atraccion.find(object => object.idDosxUno == idDosxUno)){
+            /**Si quiere eliminar la promocion ya asignada a la atraccion */
+            console.log("se Agrego: " + promocion_Descuentos_Atraccion_Eliminar.push(idDosxUno));
+        }
+        else{
+            promocion_Descuentos_Atraccion_Nuevo.forEach(function(data, index){
+                if(data == idDosxUno){
+                    /**No agregara una nueva promocion a la atraccion ya agregada */
+                    promocion_Descuentos_Atraccion_Nuevo.splice(index,1);
+                }
+            });
+        }
+    }
+});
+
+$(document).on('click', '.pulsera_Atraccion', function(){
+    var idPulseraMagica = $(this).val();
+
+    if($(this).is(':checked')){
+        if(pulsera_Atraccion.find(object => object.idPulseraMagica == idPulseraMagica)){
+            promocion_Pulsera_Atraccion_Eliminar.forEach(function(data,index){
+                if(data == idPulseraMagica){
+                    /**Si quiere mantener la promocion ya asignada a la atraccion */
+                    console.log("Se elimino: " + promocion_Pulsera_Atraccion_Eliminar.splice(index,1));
+                }
+            });
+        }
+        else{
+            /**Agregara una nueva promocion a una atraccion ya agregada */
+            promocion_Pulsera_Atraccion_Nuevo.push(idPulseraMagica);
+        }
+        
+    }
+    else{
+        if(pulsera_Atraccion.find(object => object.idPulseraMagica == idPulseraMagica)){
+            /**Si quiere eliminar la promocion ya asignada a la atraccion */
+            console.log("se Agrego: " + promocion_Pulsera_Atraccion_Eliminar.push(idPulseraMagica));
+        }
+        else{
+            promocion_Pulsera_Atraccion_Nuevo.forEach(function(data, index){
+                if(data == idPulseraMagica){
+                    /**No agregara una nueva promocion a la atraccion ya agregada */
+                    promocion_Pulsera_Atraccion_Nuevo.splice(index,1);
+                }
+            });
+        }
+    }
+});
+
+$(document).on('click','.juegos_Gratis_Atraccion', function(){
+    var idJuegosGratis = $(this).val();
+
+    if($(this).is(':checked')){
+        if(juegos_Atraccion.find(object => object.idJuegosGratis == idJuegosGratis)){
+            promocion_Juegos_Atraccion_Eliminar.forEach(function(data,index){
+                if(data == idJuegosGratis){
+                    /**Si quiere mantener la promocion ya asignada a la atraccion */
+                    console.log("Se elimino: " + promocion_Juegos_Atraccion_Eliminar.splice(index,1));
+                }
+            });
+        }
+        else{
+            /**Agregara una nueva promocion a una atraccion ya agregada */
+            promocion_Juegos_Atraccion_Nuevo.push(idJuegosGratis);
+        }
+        
+    }
+    else{
+        if(juegos_Atraccion.find(object => object.idJuegosGratis == idJuegosGratis)){
+            /**Si quiere eliminar la promocion ya asignada a la atraccion */
+            console.log("se Agrego: " + promocion_Juegos_Atraccion_Eliminar.push(idJuegosGratis));
+        }
+        else{
+            promocion_Juegos_Atraccion_Nuevo.forEach(function(data, index){
+                if(data == idJuegosGratis){
+                    /**No agregara una nueva promocion a la atraccion ya agregada */
+                    promocion_Juegos_Atraccion_Nuevo.splice(index,1);
+                }
+            });
+        }
+    }
+});
+
+$("#editar_Atraccion").click(function(){
+    var idAtraccionEvento = $("#idAtraccionEvento").val();
+    var creditos = $("#creditos_Atraccion").val();
+    var idContrato = $("#contrato_Atraccion option:selected").val();
+    var idPoliza = $("#poliza_Atraccion option:selected").val();
+
+    $.ajax({
+        type: "POST",
+        url: 'Eventos/Editar_Atraccion',
+        data: {'idAtraccionEvento':idAtraccionEvento,'creditos':creditos,'idContrato':idContrato,'idPoliza':idPoliza,'descuentosNuevos':promocion_Descuentos_Atraccion_Nuevo,'pulserasNuevas':promocion_Pulsera_Atraccion_Nuevo,'juegosNuevos':promocion_Juegos_Atraccion_Nuevo,'eliminarDescuentos':promocion_Descuentos_Atraccion_Eliminar,'eliminarPulseras':promocion_Pulsera_Atraccion_Eliminar,'eliminarJuegos':promocion_Juegos_Atraccion_Eliminar},
+        dataType: 'JSON',
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+        },
+    }).done(function(data){
+        alert('Se ha actualizado');
+    });
+});
+
+/*-----------------------------Tarjetas_Evento------------------------------------------------------*/
 
 $(document).on('click','.mostrarTarjetasEvento', function(){
     var idEvento = $(this).data('book-id');
@@ -808,7 +1001,7 @@ $(document).on('click','.mostrarTarjetasEvento', function(){
 
     });
 });
-/*----------------------------------------------------------------------------------*/
+/*--------------------------Asociacion_Evento---------------------------------------------*/
 
 $(document).on('click','.mostrarAsociacionEvento', function(){
     var idEvento = $(this).data('book-id');

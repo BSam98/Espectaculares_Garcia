@@ -8,32 +8,29 @@
             </div>
             <div class="modal-body">
                 <form enctype="multipart/form-data" name="formulario" id="formulario">
+                    <div class="form-group" id="id_AtraccionEvento" name="id_AtraccionEvento">
+                    </div>
                     <div class="form-group" id="nombre_Atraccion" name="nombre_Atraccion">
-                        
                     </div>
                     <div class="form-group">
                         <label for="creditos_Atraccion">Creditos</label>
                         <input class="form-control" type="text" name="creditos_Atraccion" id="creditos_Atraccion" value="">
                     </div>
-                    <div class="form-group">
-                        <label for="city">Contrato</label>
-                        <input class="form-control" type="text" name="city" id="city" value="">
+                    <div class="form-group" id="contrato_Atraccion" name="contrato_Atraccion" value="">
+                    </div>
+                    <div class="form-group" id="poliza_Atraccion" name="poliza_Atraccion" value="">
                     </div>
                     <div class="form-group">
-                        <label for="state">Estado</label>
-                        <input class="form-control" type="text" name="state" id="state" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="fi">Fecha de Inicio</label>
-                        <input class="form-control" type="text" name="" id="" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="ff">Fecha Fin</label>
-                        <input class="form-control" type="text" name="" id="" value="">
+                        <div class="form-group" id="promocion_Descuentos_Atraccion">
+                        </div>
+                        <div class="form-group" id="promocion_Pulsera_Atraccion">
+                        </div>
+                        <div class="form-group" id="promocion_Juegos_Gratis_Atraccion">
+                        </div>
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button name="adicional" type="submit" class="btn btn-success">Actualizar </button>
+                        <button id="editar_Atraccion" name="editar_Atraccion" type="button" class="btn btn-success">Actualizar </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                     </div>  
                 </form>

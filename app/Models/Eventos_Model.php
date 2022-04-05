@@ -457,9 +457,98 @@ class Eventos_Model extends Model{
         return $datos;
     }
 
-    public function informacion_Atraccion($id){
+    public function informacion_Atraccion($datos){
+        $db = \Config\Database::Connect();
+
+        $builder = $db->table('Promocion_Dos_x_Uno');
+
+        $builder->select(
+            '
+            Promocion_Dos_x_Uno.idDosxUno,
+            Promocion_Dos_x_Uno.Nombre
+            '
+        );
+
+        $builder->join(
+            'Atracciones_Incluidas_Dos_x_Uno',
+            'Promocion_Dos_x_Uno.idDosxUno = Atracciones_Incluidas_Dos_x_Uno.idDosxUno',
+            'inner'
+        );
+
+        $builder->join(
+            'Atraccion_Evento',
+            'Atracciones_Incluidas_Dos_x_Uno.idAtraccionEvento = Atraccion_Evento.idAtraccionEvento',
+            'inner'
+        );
+
+        $builder->where('Atraccion_Evento.idAtraccionEvento',$datos['idAtraccionEvento']);
+
+        $query = $builder->get();
+
+        $descuentos = $query->getResultObject();
+
+        /**------------------------------------------------------------------------------- */
+
+        $builder = $db->table('Promocion_Pulsera_Magica');
+
+        $builder->select(
+            '
+            Promocion_Pulsera_Magica.idPulseraMagica,
+            Promocion_Pulsera_Magica.Nombre
+            '
+        );
+
+        $builder->join(
+            'Atracciones_Incluidas_Pulsera_Magica',
+            'Atracciones_Incluidas_Pulsera_Magica.idPulseraMagica = Promocion_Pulsera_Magica.idPulseraMagica',
+            'inner'
+        );
+
+        $builder->join(
+            'Atraccion_Evento',
+            'Atraccion_Evento.idAtraccionEvento = Atracciones_Incluidas_Pulsera_Magica.idAtraccionEvento',
+            'inner'
+        );
+
+        $builder->where('Atraccion_Evento.idAtraccionEvento',$datos['idAtraccionEvento']);
+
+        $query = $builder->get();
+
+        $pulsera = $query->getResultObject();
+
+        /**------------------------------------------------------------------------------------ */
+
+        $builder = $db->table('Promocion_Juegos_Gratis');
+
+        $builder->select(
+            '
+            Promocion_Juegos_Gratis.idJuegosGratis,
+            Promocion_Juegos_Gratis.Nombre
+            '
+        );
+
+        $builder->join(
+            'Atracciones_Incluidas_Juegos_Gratis',
+            'Atracciones_Incluidas_Juegos_Gratis.idJuegosGratis = Promocion_Juegos_Gratis.idJuegosGratis',
+            'inner'
+        );
+
+        $builder->join(
+            'Atraccion_Evento',
+            'Atraccion_Evento.idAtraccionEvento = Atracciones_Incluidas_Juegos_Gratis.idAtraccionEvento',
+            'inner'
+        );
+
+        $builder->where('Atraccion_Evento.idAtraccionEvento',$datos['idAtraccionEvento']);
+
+        $query = $builder->get();
+
+        $juegos = $query->getResultObject();
 
         $datos = [
+            'Descuentos' => $descuentos,
+            'Pulsera' => $pulsera,
+            'Juegos' => $juegos
         ];
 
         return $datos;
@@ -655,6 +744,8 @@ class Eventos_Model extends Model{
             return false;
         }
     }
+
+    public function actualizar_Atraccion_Evento($datos){}
 
     public function listado_Precios_Por_Evento(){}
 

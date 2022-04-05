@@ -6,9 +6,11 @@ $("#agregarUsuario").click(function(){
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
-        success: function (data){              
-            //if(data.respuesta){}
-                //location.reload();
+        success: function (data){   
+            /*           
+            if(data.respuesta)
+                location.reload();
+                */
         },
         dataType: 'JSON'
     });

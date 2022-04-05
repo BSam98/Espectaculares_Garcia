@@ -43,35 +43,35 @@ $(document).on('click','.agregar_promocion', function(){
     var creditos_Html='', cantidad_Html='', cantidad_Boletos_Html='';
     var promocion = $(this).data('book-id');
 
-    cantidad_Boletos_Html ='<input class="form-control" type="hidden" id="cantidad_Boletos" required name="cantidad_Boletos[]" required placeholder="Cantidad de boletos value="0"/>';
+    cantidad_Boletos_Html ='<input class="form-control" type="hidden" id="cantidad_Boletos" required name="cantidad_Boletos[]" placeholder="Cantidad de boletos" value="0"/>';
 
-    creditos_Html ='<input class="form-control" type="hidden" id="creditos_cortesia" required name="creditos_cortesia[]" required placeholder="Creditos de cortesia" value ="0"/>';
+    creditos_Html ='<input class="form-control" type="hidden" id="creditos_cortesia" required name="creditos_cortesia[]" placeholder="Creditos de cortesia" value ="0"/>';
 
     switch(promocion['Promocion']){
         case 1:
             cantidad_Html +='<label for ="cantidad">Cantidad de personas por promoción</label>'+
-            '<input class="form-control" type="number" id="cantidad" required name="cantidad[]" required placeholder="Cantidad de personas"/>';
+            '<input class="form-control" type="number" id="cantidad" required name="cantidad[]" placeholder="Cantidad de personas"/>';
 
             cantidad_Boletos_Html ='<label for ="cantidad_Boletos">Cantidad de boletos a cobrar</label>'+
-            '<input class="form-control" type="number" id="cantidad" required name="cantidad_Boletos[]" required placeholder="Cantidad de boletos"/>';
+            '<input class="form-control" type="number" id="cantidad" required name="cantidad_Boletos[]"  placeholder="Cantidad de boletos"/>';
         break;
 
         case 2:
             cantidad_Html +='<label fo ="cantidad">Precio</label>'+
-            '<input class="form-control" type="number" id="cantidad" required name="cantidad[]" required placeholder="Precio de la promoción"/>';
+            '<input class="form-control" type="number" id="cantidad" required name="cantidad[]"  placeholder="Precio de la promoción"/>';
         break;
 
         case 3:
             cantidad_Html +='<label for ="cantidad">Precio</label>'+
-            '<input class="form-control" type="number" id="cantidad" required name="cantidad[]" required placeholder="Precio de la promoción"/>';
+            '<input class="form-control" type="number" id="cantidad" required name="cantidad[]"  placeholder="Precio de la promoción"/>';
         break;
 
         case 4:
             cantidad_Html +='<label for ="cantidad">Precio</label>'+
-            '<input class="form-control" type="number" id="cantidad" required name="cantidad[]" required placeholder="Precio de la promoción"/>';
+            '<input class="form-control" type="number" id="cantidad" required name="cantidad[]" placeholder="Precio de la promoción"/>';
             
             creditos_Html ='<label for="creditos_cortesia">Creditos</label>'+
-            '<input class="form-control" type="number" id="creditos_cortesia" required name="creditos_cortesia[]" required placeholder="Creditos de cortesia"/>';
+            '<input class="form-control" type="number" id="creditos_cortesia" required name="creditos_cortesia[]"  placeholder="Creditos de cortesia"/>';
         break;
     }
 

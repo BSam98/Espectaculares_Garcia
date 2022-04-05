@@ -46,6 +46,7 @@ class Promociones_Control extends BaseController {
     public function agregar_Promocion(){
 
         $model = new Promociones_Model();
+        
 
         $promocion = $_POST['promocion'];
         $nombre =$_POST['nombre_promocion'];
@@ -119,6 +120,7 @@ class Promociones_Control extends BaseController {
                         $respuesta  = $model->insertarPromocion($tabla,$datos);
                         $num_elementos = $num_elementos +1;
                     }
+                    
                 break;
 
                 case 2:
