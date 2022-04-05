@@ -41,6 +41,11 @@
                 Cerrar Caja
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link navbar-brand" href="Ticket" target="_blank">
+                Imprimir Ticket
+            </a>
+        </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
     <!-- Sidebar Toggler (Sidebar) -->

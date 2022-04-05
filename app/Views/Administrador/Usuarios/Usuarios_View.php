@@ -47,7 +47,8 @@
                 <tbody>
                     <?php foreach ($Privilegios as $key => $dP) : ?>
                         <tr>
-                            <td><a href="#editar_Rol<?php echo $dP->idRango?>" class="btn btn-warning" value="<?= $dP->idRango?>" data-toggle="modal">Editar</a></td>
+                            <td><button type="button" class="btn btn-warning editarRol" value="<?= $dP->idRango?>" data-toggle="modal" data-target="#modal_privilegios">Editar</button></td>
+                            <!--td><a href="#editar_Rol<?php echo $dP->idRango?>" class="btn btn-warning" value="<?= $dP->idRango?>" data-toggle="modal">Editar</a></td-->
                             <?php include 'editarRol.php'?>
                             <td><?= $dP->Nombre?></td>
                             <td><?= $dP->modulo?></td>
@@ -57,8 +58,7 @@
             </table>
         </div>
 
-
-
+<!--**********************************EDITAR ROL*********************************-->
 <div class="modal fade" id="modal_privilegios">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -69,25 +69,18 @@
       </div>
       <div class="modal-body">
         <table>
-            <tbody id="mmm">
+            <tbody id="privilegios">
             </tbody>
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregar" id="agregar" value="<?php echo $dP->idRango?>">Guardar</button>
+        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cerrar" id="cerrar">Cerrar</button>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
+<!--**********************************EDITAR ROL*********************************-->
 
         <!--AGREGAR USUARIOS-->
         <div class="modal fade" id="myModal" style="color:black;">
@@ -166,28 +159,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!--EDITAR ROL>
-        <div-- class="modal fade" id="editar_Rol" style="color:black;">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Editar</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form enctype="multipart/form-data" name="formulario" id="formularioAgregarUsuario">
-                            <label for="">Privilegios</label>
-                            <?php foreach($Modulos as $key => $idM) : ?>
-                                <input type="checkbox" name="priv" value="<?php $idM->idModulo?>"><?php $idM->modulo?> <br>
-                            <?php endforeach ?>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div-->
-                                                                
+        </div>                                                             
 
     </fieldset>            
     

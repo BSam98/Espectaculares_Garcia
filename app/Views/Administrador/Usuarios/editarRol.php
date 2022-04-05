@@ -43,6 +43,10 @@
                     url: 'insertarP',
                     success: function(data) {
                     alert('datos enviados');
+                        
+                        for(var i =0; i<data.msj.Modulos.length; i++){
+                            console.log("Datos: " + data.msj.Modulos[i]['modulo']);
+                        }
                     }
                 });
 
