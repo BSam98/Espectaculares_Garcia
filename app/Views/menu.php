@@ -7,6 +7,7 @@
             <ul class="nav navbar-nav sf-menu">
                 <!--li class="active"><a href="#">Home</a></li-->
                 <!--Menu Catalago-->
+                
                 <li class="dropdown">
                     <a href="Menu_Principal_Administrador" Size= "50px" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-folder-open" aria-hidden="true"></i> &nbsp;Catalago</a>
                         <ul class="dropdown-submenu" id="subMenuCatalago">
@@ -21,13 +22,13 @@
                         </ul>  
                 </li>
                 <!--Menu Reportes-->
+                
                 <li class="dropdown">
                     <a href="" Size= "50px" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-signal" aria-hidden="true"></i>&nbsp;Reportes</a>
-                    <!--Sub menu de Reportes-->
                         <ul class="dropdown-submenu" id = "subMenuReportes">
-                            <li><a href="ingreso_Evento.html" id="button"><span>Ingresos por evento</span></a></li>
-                            <li><a href="registro_Evento.html" id="button"><span>Utilización por evento</span></a></li>
-                            <li><a href="uso_Atraccion.html" id="button"><span>Utilizacion por atracción</span></a></li>
+                            <li><a href="ingresoxEvento" id="button"><span>Ingresos por evento</span></a></li>
+                            <li><a href="utilXevento" id="button"><span>Utilización por evento</span></a></li>
+                            <li><a href="utilAtraccion" id="button"><span>Utilizacion por atracción</span></a></li>
                         </ul>
                 </li>
                 <!--Menu Taquilla-->
@@ -55,7 +56,6 @@
                             <li><a href="CerrarSesion" id="button"><span>Salir</span></a></a></li>
                         </ul>
                 </li>
-                
             </ul>
         </nav>
     </div> 

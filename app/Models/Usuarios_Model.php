@@ -135,4 +135,28 @@ class Usuarios_Model extends Model{
         
         return 'Funciono';
     }
+
+    public function privMod($rol){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Privilegios');
+
+        $builder-> select(
+            '
+            Privilegios.idPrivilegio,
+            Privilegios.privilegio_Modulo, 
+            Privilegios.rango_Id,
+            Modulos.modulo
+            '
+        );
+        $builder-> join(
+            'Modulos',
+            'Modulos.idModulo = Privilegios.privilegio_Modulo',
+            'inner'
+        );
+
+        $builder->where('rango_id',$rol);
+        $query = $builder->get();
+        $datos = $query->getResultObject();
+        return $datos;  
+    }
 }

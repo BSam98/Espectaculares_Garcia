@@ -1,4 +1,5 @@
-    <div id="principal">
+
+   <div id="principal">
     <!--Contenedor Superior-->
     <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000" style="background-color: white;color:black;">
         <!--Ventana de la atracción--> 
@@ -115,7 +116,7 @@
     </div>
     <!--/Contenedor del propietario-->
 
-    <?php //include('editarPropietario.php')?>
+    <?php  //include('editarPropietario.php')?>
     <?php 
         include 'editarAtraccion.php' ;
         include 'nuevaAtr.php';

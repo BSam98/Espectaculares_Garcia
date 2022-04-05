@@ -17,12 +17,12 @@ class Menu_Principal_User_Control extends BaseController {
 
     public function venta (){
         echo view('../Views/header.php');
-        echo view('Usuarios/menu_user');
-        echo view('Usuarios/Iniciar_Sesion_User/Menu_Principal_User');
+        //echo view('Usuarios/menu_user');
+        //echo view('Usuarios/Iniciar_Sesion_User/Menu_Principal_User');
         echo view('../Views/piePagina');
     }
 
-    public function cobrar (){
+    public function cobrar(){
         $model = new mcobro_model;
 
         $data = [

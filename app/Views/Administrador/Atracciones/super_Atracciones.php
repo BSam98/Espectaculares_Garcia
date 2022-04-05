@@ -31,10 +31,10 @@
                         <!--th><center>Evento</center></th-->
                         <th><center>Atracción</center></th>
                         <th><center>Fecha</center></th>
-                        <th><center>Créditos ingresados por ciclo</center></th>
-                        <!--th><center>Pases Generados</center></th-->
-                        <th><center>Ciclo</center></th>
-                        <th>Opciones</th>
+                        <th><center>Ciclos</center></th>
+                        <th><center>Créditos ingresados</center></th>
+                        <th><center>Pases Generados</center></th>
+                        <th>Detalles</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,14 +43,52 @@
                             <td style="vertical-align: middle;"></td>
                             <td style="vertical-align: middle;"></td>
                             <td style="vertical-align: middle;"></td>
-                            <td><button type="button" class="btn btn-success">Ver detalles</button></td>
+                            <td style="vertical-align: middle;"></td>
+                            <td><a href="#verDetalles" type="button" class="btn btn-success" data-toggle="modal">Ver detalles</a></td>
                         </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
 </fieldset>
+
+<div class="modal fade" id="verDetalles" style="color:black;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--center><h5><i class="fa fa-window-restore" aria-hidden="true"></i>&nbsp;Reporte de Movimientos</h5></center-->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form enctype="multipart/form-data" name="formularioAgregarTarjetasEvento" id="formularioAgregarTarjetasEvento">
+                    <div class="table table-responsive" style="color: black;">
+                        <center><h5><i class="fa fa-window-restore" aria-hidden="true"></i>&nbsp;Reporte de Atracción</h5></center>                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <!--th><center>Evento</center></th-->
+                                    <th><center>Atracción</center></th>
+                                    <th><center>Fecha</center></th>
+                                    <th><center>Ciclo</center></th>
+                                    <th><center>Créditos ingresados por ciclo</center></th>
+                                    <th><center>Pases Generados por ciclo</center></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr>
+                                        <td style="vertical-align: middle;"></td>
+                                        <td style="vertical-align: middle;"></td>
+                                        <td style="vertical-align: middle;"></td>
+                                        <td style="vertical-align: middle;"></td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>                
+            </div>                 
+        </div>
+    </div>
+</div>
 
 
 <script>

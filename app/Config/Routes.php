@@ -42,6 +42,18 @@ $routes->post('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
 $routes->get('/new','Iniciar_Sesion_Administrador_Control::new');
 $routes->get('/user','Iniciar_Sesion_Administrador_Control::user');
 $routes->get('/turno','Iniciar_Sesion_User_Control::turno');
+$routes->post('/privUser','Usuarios_Control::privilegiosUsuarios');
+$routes->post('/insertarP','Usuarios_Control::insertarPriv');
+$routes->post('/PuntoVenta','Menu_Principal_User_Control::cobrar');
+$routes->post('/valida','Iniciar_Sesion_User_Control::valida');
+$routes->get('/valida','Iniciar_Sesion_User_Control::valida');
+$routes->post('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
+$routes->get('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
+//$routes->post('/ingresoxEvento','Menu_Principal_Control::rEvento');
+$routes->get('/ingresoxEvento','Menu_Principal_Control::rEvento');
+$routes->get('/utilXevento','Menu_Principal_Control::uEvento');
+$routes->get('/utilAtraccion','Menu_Principal_Control::uAtraccion');
+//$routes->get('/PuntoVenta','Menu_Principal_User_Control::venta');
 /*$routes->get('/login', 'Home::login');
 $routes->post('/login', 'Home::login');
 $routes->get('/inicio', 'Home::inicio');
@@ -136,8 +148,7 @@ $routes->get('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
 $routes->get('/Menu_Principal_User','Menu_Principal_User_Control::new');
 $routes->post('/Menu_Principal_User','Menu_Principal_User_Control::new');
 
-$routes->post('/PuntoVenta','Menu_Principal_User_Control::venta');
-$routes->get('/PuntoVenta','Menu_Principal_User_Control::venta');
+
 
 $routes->post('/Cobro','Menu_Principal_User_Control::cobrar');
 $routes->get('/Cobro','Menu_Principal_User_Control::cobrar');
