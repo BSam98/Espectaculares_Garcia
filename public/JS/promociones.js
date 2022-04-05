@@ -75,7 +75,7 @@ $(document).on('click','.agregar_promocion', function(){
         break;
     }
 
-    $("#promocion").val(promocion['idPromocion']);
+    $("#promocion").val(promocion['Promocion']);
     $(".modal-body #area_Cantidad").html(cantidad_Html);
     $(".modal-body #area_Cantidad_Boletos").html(cantidad_Boletos_Html);
     $(".modal-body #area_Creditos_Cortesia").html(creditos_Html);
@@ -91,9 +91,11 @@ $("#a").click(function(){
             alert('Se produjo un error : a'+ errorThrown +' '+ textStatus);
         },
     }).done(function(data){
+        
         if(data.respuesta){
             location.reload();
         }
+        
     });
 });
 
