@@ -159,4 +159,24 @@ class Usuarios_Model extends Model{
         $datos = $query->getResultObject();
         return $datos;  
     }
+
+    public function insertarPriv($rol, $pr){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Privilegios');
+        /*$builder-> select(
+            '
+            idPrivilegio,
+            privilegio_Modulo, 
+            rango_Id
+            '
+        );
+        $builder->where('rango_Id', $rol);
+        $builder->delete();*/
+
+        $data = [
+            'privilegio_Modulo'  => $pr, 
+            'rango_Id'  => $rol,
+        ];
+        $builder->insert($data);
+    }
 }

@@ -11,6 +11,10 @@ class Iniciar_Sesion_Administrador_Model extends Model{
                 $Usuario->where($data);
                 return $Usuario->get()->getResultArray();
         }*/
+        protected $table = 'Usuarios';
+        protected $primaryKey = 'idUsuario';
+        protected $returnType = 'array';
+        protected $allowedFields = ['CorreoE','Usuario', 'Contraseña', 'idRango'];
 
         function consulta($datos){
                 $db= \Config\Database::Connect();
@@ -23,40 +27,53 @@ class Iniciar_Sesion_Administrador_Model extends Model{
                 return $datos;
         }
 
-        protected $table = 'Usuarios';
-        protected $primaryKey = 'idUsuario';
-        protected $returnType = 'array';
-        protected $allowedFields = ['CorreoE','Usuario', 'Contraseña', 'idRango'];
+        function modulos(){
+                $db = \Config\Database::connect();
+                $builder = $db->table('Modulos');
+                $builder-> select(
+                        'idModulo,
+                        modulo'
+                    );
+                $query = $builder->get();
+                $datos = $query->getResultObject();
+                return $datos; 
+        }
 
         function seleccionarPriv($rango){
                 $db = \Config\Database::connect();
                 $builder = $db->table('Privilegios');
-
+                $builder-> select(
+                        'privilegio_Modulo,
+                        rango_Id'
+                );
                 $builder->where('rango_Id',$rango);
-        
                 $query = $builder->get();
-            
                 $datos = $query->getResultObject();
-        
                 return $datos;     
         }
 
-        function modulos(){
+        function subMenu($id){
                 $db = \Config\Database::connect();
-                $builder = $db->table('Modulos');
-
+                $builder = $db->table('SubModulos');
                 $builder-> select(
-                        '
-                        idModulo,
-                        modulo, 
-                        '
-                    );
+                                'idSubM, 
+                                idmoduloPrin,
+                                privilegio_Modulo, 
+                                rango_Id, 
+                                subModulo'
+                                );
+                $builder->join(
+                        'Privilegios',
+                        'SubModulos.idmoduloPrin = Privilegios.privilegio_Modulo',
+                        'join'
+                        );
+                $builder->where('idmoduloPrin',$id);
                 $query = $builder->get();
-            
                 $datos = $query->getResultObject();
-        
                 return $datos; 
         }
+
+        
 
         /*function check_user($data){
                 $db = \Config\Database::connect();

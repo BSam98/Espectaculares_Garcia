@@ -108,15 +108,28 @@ class Usuarios_Control extends BaseController {
     public function privilegiosUsuarios(){
         $model = new Usuarios_Model();
         $rol = $_POST['rango'];
-        $data = $model->listaModulos(); 
+        $data = [
+            'Modulos'=>$model->listaModulos(),
+            'Privilegios'=>$model->privMod($rol)
+        ];
+        //echo json_encode(array('respuesta'=>true,'msj'=>$data));
+
         echo json_encode(array('respuesta'=>true,'msj'=>$data));
     }
 
     public function insertarPriv(){
-        $entityBody = file_get_contents('php://input');
-        $data = json_decode($entityBody, true);
+        $model = new Usuarios_Model();
+        $rol = $_POST['rango'];
+        $privilegios = $_POST['select'];
+        
+        foreach ($privilegios as $privi){
+            $pr = explode(" ", $privi);
+            $data =$model->insertarPriv($rol, $pr);
+        }
+         ;
       //  $data = json_decode($rol, true); // true es para recibir un array en $datA
         //echo $data; 
+        echo json_encode(array('msj'=>$data));
     }
 
     public function create(){

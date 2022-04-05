@@ -49,10 +49,21 @@ $routes->post('/valida','Iniciar_Sesion_User_Control::valida');
 $routes->get('/valida','Iniciar_Sesion_User_Control::valida');
 $routes->post('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
 $routes->get('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
+$routes->get('/Ingresos x Evento','Menu_Principal_Control::rEvento');
+$routes->get('/Utilización por Evento','Menu_Principal_Control::uEvento');
+$routes->get('/Utilización por Atracción','Menu_Principal_Control::uAtraccion');
+$routes->get('/Ticket','reporte_Venta_Control::ticket');
+$routes->get('/Roles','Rol_Control::rol');
+$routes->get('/Ver Atracciones','super_Atracciones_Control::new');
+$routes->get('/Ver Taquillas','Taquillas_Control::new');
+$routes->get('/Ver Supervisores','supervisores_control::new');
+$routes->post('/subModulos','Rol_Control::submodulos');
+
 //$routes->post('/ingresoxEvento','Menu_Principal_Control::rEvento');
-$routes->get('/ingresoxEvento','Menu_Principal_Control::rEvento');
-$routes->get('/utilXevento','Menu_Principal_Control::uEvento');
-$routes->get('/utilAtraccion','Menu_Principal_Control::uAtraccion');
+//$routes->post('/Ver Atracciones','super_Atracciones_Control::new');
+//$routes->post('/supervisores','supervisores_control::new');
+//$routes->post('/Roles','Iniciar_Sesion_Administrador_Control::rol');
+
 //$routes->get('/PuntoVenta','Menu_Principal_User_Control::venta');
 /*$routes->get('/login', 'Home::login');
 $routes->post('/login', 'Home::login');
@@ -111,7 +122,7 @@ $routes->post('/Promociones/VerEventos','Promociones_Control::ver_Eventos');
 $routes->get('/Promociones/VerEventos','Promociones_Control::ver_Eventos');
 
 
-$routes->get('/Tarjetas','Tarjetas_Control::new');
+$routes->get('/Lotes','Tarjetas_Control::new');
 $routes->post('/Tarjetas/EditarLote','Tarjetas_Control::actualizarLote');
 $routes->get('/Tarjetas/EditarLote','Tarjetas_Control::actualizarLote');
 $routes->post('/Tarjetas/Tarjetas','Tarjetas_Control::listadoTarjetas');
@@ -140,7 +151,7 @@ $routes->post('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociada
 
 $routes->get('/Contratos','Contratos_Control::new');
 
-$routes->get('/SuperTaquillas','Taquillas_Control::new');
+
 
 $routes->get('/Iniciar_Sesion_User','Iniciar_Sesion_User_Control::new');
 $routes->post('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
@@ -169,10 +180,6 @@ $routes->get('/ReporteVenta','reporte_Venta_Control::index');
 $routes->post('/ReporteVenta','reporte_Venta_Control::index');
 $routes->post('/supervisarAtraccion','Supervisor_Atracciones_Control::new');
 $routes->get('/supervisarAtraccion','Supervisor_Atracciones_Control::new');
-$routes->post('/superAtracciones','super_Atracciones_Control::new');
-$routes->get('/superAtracciones','super_Atracciones_Control::new');
-$routes->post('/supervisores','supervisores_control::new');
-$routes->get('/supervisores','supervisores_control::new');
 $routes->post('/Validador','validador_Control::new');
 $routes->get('/Validador','validador_Control::new');
 
