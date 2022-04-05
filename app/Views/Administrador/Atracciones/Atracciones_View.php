@@ -1,5 +1,4 @@
-
-   <div id="principal">
+<div id="principal">
     <!--Contenedor Superior-->
     <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000" style="background-color: white;color:black;">
         <!--Ventana de la atracción--> 
