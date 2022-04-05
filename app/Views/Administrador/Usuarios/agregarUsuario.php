@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form  enctype="multipart/form-data" name="formulario" id="formularioAgregarUsuario">
+                <form  enctype="multipart/form-data" name="formularioAgregarUsuario" id="formularioAgregarUsuario">
                     <div class="table table-striped table-responsive">
                         <table id="agregar-User">
                             <tbody>
@@ -68,7 +68,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button name="adicional" type="submit" class="btn btn-success" id="agregarUsuario">Agregar </button>
+                        <button name="agregarUsuario" type="button" class="btn btn-success" id="agregarUsuario">Agregar </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                     </div>  
                 </form>

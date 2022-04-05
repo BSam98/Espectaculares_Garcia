@@ -42,7 +42,7 @@ class Usuarios_Control extends BaseController {
         
         $num_elementos = 0;
         $contador = count($Nombre);
-       /*
+       
         if(1==$contador){
             $datos=[
                 'Nombre' =>$Nombre[$num_elementos],
@@ -58,8 +58,8 @@ class Usuarios_Control extends BaseController {
 
             $respuesta = $model->insertarUsuario($datos);
         }
-        else{*/
-            while($num_elementos<=$contador){
+        else{
+            while($num_elementos<$contador){
             
                 $datos=[
                     'Nombre' =>$Nombre[$num_elementos],
@@ -73,11 +73,11 @@ class Usuarios_Control extends BaseController {
                     'idEvento' => $idEvento[$num_elementos],
                 ];
     
-                //$respuesta = $model->insertarUsuario($datos);
+                $respuesta = $model->insertarUsuario($datos);
                 $num_elementos = $num_elementos + 1;
-                echo json_encode($datos);
+                //echo json_encode($datos);
             }
-      //  }
+        }
         echo json_encode(array('respuesta'=>true,'msj'=>'asdasdasd'));
     }
 

@@ -27,10 +27,10 @@
         <link rel="stylesheet" href="../bootstrap/bootstrap-icons.css">
         <link rel="stylesheet" href="../bootstrap/aos.css" />
         <script src="../bootstrap/aos.js"></script>
-        <script src="../bootstrap/sweetalert.min.js"></script>
+        <!--<script src="../bootstrap/sweetalert.min.js"></script>
         <script src="../bootstrap/jquery.easing.min.js"></script>
         <link href="../bootstrap/sb-admin-2.min.css" rel="stylesheet">
-        <script src="../bootstrap/moment-with-locales.min.js"></script>
+        <script src="../bootstrap/moment-with-locales.min.js"></script>-->
 
 
 
