@@ -21,9 +21,15 @@
                             <input type="text" class="form-control" name="nombre" id="nombre">
                         </div>
                         <div class="form-group">
-                            <label for="privilegios">Privilegios</label>
+                            <label for="privilegios">Privilegios</label><br>
                             <table>
                                 <tbody>
+                                    <tr>
+                                        <input type="checkbox" class="administrador" name="administrador" id="administrador" value="1">Administrador
+                                    </tr>
+                                    <tr>
+                                        <input type="checkbox" class="puntoVenta" name="puntoVenta" id="puntoVenta" value="2">Punto de Venta
+                                    </tr>
                                     <?php foreach($Modulos as $key => $m):?>
                                         <tr>
                                             <td>
@@ -42,6 +48,8 @@
                                             </td>
                                         </tr>
                                     <?php endforeach?>
+                                    
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -59,7 +67,7 @@
 
 <script>
     $(document).ready(function() {
-        $( document ).on( 'click', '.privilegios', function(){
+        $( document ).on( 'click', '.administrador', function(){
             if($(this).is(':checked')){
                 // agregas cada elemento.
                 console.log("Lo ha seleccionado");
