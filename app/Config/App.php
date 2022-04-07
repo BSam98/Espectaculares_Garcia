@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'http://35d5-177-241-248-42.ngrok.io/Espectaculares_Garcia/public/';
+    public $baseURL = 'http://localhost/Espectaculares_Garcia/public/';
 
     /**
      * --------------------------------------------------------------------------

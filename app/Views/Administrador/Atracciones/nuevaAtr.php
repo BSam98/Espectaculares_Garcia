@@ -40,7 +40,7 @@
                         <input class="form-control" type="text"  id="tim" required name="tim" placeholder="Tiempo"/>
                     </div>
                     <div class="form-group">
-                        <label for="tma">Tiempo Máximo</label>
+                        <label for="tma">Tiempo Máximo de Espera</label>
                         <input class="form-control" type="text"  id="tma" required name="tma" placeholder="Tiempo Máximo"/>
                     </div>
                     <div class="modal-footer">
