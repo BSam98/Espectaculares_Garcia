@@ -47,6 +47,7 @@ $(document).on('click','.agregar', function(){
 });
 */
 $("#enviarAtraccion").click(function(){
+    /*
     $.ajax({
         type: "POST",
         url: 'Agregar_Atraccion',
@@ -61,9 +62,11 @@ $("#enviarAtraccion").click(function(){
         },
         dataType: 'JSON'
     });
+    */
 });
 
 $("#agregarPropietario").click(function(){
+    /*
     $.ajax({
         type: "POST",
         url: 'Agregar_Propietario',
@@ -78,9 +81,11 @@ $("#agregarPropietario").click(function(){
         },
         dataType: 'JSON'
     });
+    */
 });
 
 $("#agregarPropietarioPorAtraccion").click(function(){
+    /*
     $.ajax({
         type: "POST",
         url: 'Agregar_Propietario',
@@ -95,9 +100,11 @@ $("#agregarPropietarioPorAtraccion").click(function(){
         },
         dataType: 'JSON'
     });
+    */
 });
 
 $("#actualizarAtraccion").click(function(){
+    /*
     $.ajax({
         type: "POST",
         url: 'Atracciones/Editar_Atraccion',
@@ -112,9 +119,11 @@ $("#actualizarAtraccion").click(function(){
         },
         dataType: 'JSON'
     });
+    */
 });
 
 $("#actualizarPropietario").click(function(){
+    /*
     $.ajax({
         type: "POST",
         url: 'Atracciones/Editar_Propietario',
@@ -128,10 +137,12 @@ $("#actualizarPropietario").click(function(){
         },
         dataType: 'JSON'
     });
+    */
 });
 
 
 $("#editarPropietario").click(function(){
+    /*
     var propietario = $(this).data('book-id');
 
 
@@ -144,10 +155,11 @@ $("#editarPropietario").click(function(){
    $(".modal-body #Telefono").val(propietario['Telefono']);
    $(".modal-body #RFC").val(propietario['RFC']);
    $(".modal-body #FechaNacimiento").val(propietario['FechaNacimiento']);
+   */
 });
 
 $(document).on('click','.editarAtraccion', function(){
-                    
+    /*
     var a = $(this).data('book-id');
 
 
@@ -162,10 +174,12 @@ $(document).on('click','.editarAtraccion', function(){
    $(".modal-body #CapacidadMIN").val(a['CapacidadMIN']);
    $(".modal-body #Tiempo").val(a['Tiempo']);
    $(".modal-body #TiempoMAX").val(a['TiempoMAX']);
+   */
 
 });
 
 $(document).on('click','.editarPropietario', function(){
+    /*
                     
     var propietario = $(this).data('book-id');
 
@@ -179,6 +193,7 @@ $(document).on('click','.editarPropietario', function(){
    $(".modal-body #Telefono").val(propietario['Telefono']);
    $(".modal-body #RFC").val(propietario['RFC']);
    $(".modal-body #FechaNacimiento").val(propietario['FechaNacimiento']);
+   */
 });
 
 

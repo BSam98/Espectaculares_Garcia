@@ -1,4 +1,5 @@
 $("#agregarUsuario").click(function(){
+    /*
     $.ajax({
         type: "POST",
         url: 'Usuarios/Agregar_Usuario',
@@ -7,16 +8,18 @@ $("#agregarUsuario").click(function(){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
         success: function (data){   
-            /*           
+               
             if(data.respuesta)
                 location.reload();
-                */
+                
         },
         dataType: 'JSON'
     });
+    */
 });
 
 $("#actualizarUsuario").click(function(){
+    /*
     $.ajax({
         type: "POST",
         url: 'Usuarios/Editar_Usuario',
@@ -30,9 +33,11 @@ $("#actualizarUsuario").click(function(){
         },
         dataType: 'JSON'
     });
+    */
 });
 
 $(document).on('click','.rangos', function(){
+    /*
     var datos = $(this).data('book-id');
 
     alert('Permisos: ' + datos['idRango']);
@@ -46,6 +51,7 @@ $(document).on('click','.rangos', function(){
 });
 
 $(document).on('click','.editarUsuario', function(){
+    
                     
     var usuario = $(this).data('book-id');
 

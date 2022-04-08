@@ -24,6 +24,7 @@ $("#z").click(function(){
 });
 */
 $("#z").click(function(){
+    /*
     $.ajax({
         type: "POST",
         url: 'Agregar_Lote',
@@ -37,9 +38,11 @@ $("#z").click(function(){
             location.reload();
         }
     });
+    */
 });
 
 $("#actualizarLote").click(function(){
+    /*
     $.ajax({
         type: "POST",
         url: 'Tarjetas/EditarLote',
@@ -54,6 +57,7 @@ $("#actualizarLote").click(function(){
         },
         dataType: 'JSON'
     });
+    */
 });
 
 
@@ -86,6 +90,7 @@ $(document).on('click','.mostrarTarjetasLote', function(){
 });
 
 $(document).on('click','.editarLotes', function(){
+    /*
                     
     var Lote = $(this).data('book-id');
 
@@ -97,9 +102,11 @@ $(document).on('click','.editarLotes', function(){
    $(".modal-body #Cantidad").val(Lote['Cantidad']);
    $(".modal-body #Serie").val(Lote['Serie']);
    $(".modal-body #Usuario").val(Lote['Usuario']);
+   */
 });
 
 $(document).on('click','.editarTarjeta', function(){
+    /*
                     
     var Tarjeta = $(this).data('book-id');
 
@@ -112,4 +119,5 @@ $(document).on('click','.editarTarjeta', function(){
    $(".modal-body #NSS").val(Tarjeta['FechaActivacion']);
    $(".modal-body #Usuario").val(Tarjeta['Cliente']);
    $(".modal-body #Contraseña").val(Tarjeta['idEvento']);
+   */
 });

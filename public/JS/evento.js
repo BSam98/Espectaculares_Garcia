@@ -83,6 +83,7 @@ $("#idLote").on('change',function(event){
 */
 
 $("#asociarTarjetas").click(function(){
+    /*
     $.ajax({
         type: "POST",
         url: 'Eventos/Agregar_Tarjetas_Evento',
@@ -97,6 +98,7 @@ $("#asociarTarjetas").click(function(){
         }
     }
     );
+    */
 });
 
 
@@ -426,6 +428,7 @@ $(document).on('click','#adicionar',function(evento){
 });
 
 $(document).on('click','#agregar_Promocion_Evento',function(){
+    /*
     var idEvento = document.getElementById("idEventoPromocion").value;
     var tipoPromocion = document.getElementById("promocion_Categoria").value;
     
@@ -487,7 +490,8 @@ $(document).on('click', '.btn_remove', function() {
         diaFinal.splice(button_id,1);
         precio.splice(button_id,1);
         creditos_Promocion.splice(button_id,1);
-    }           
+    }
+    */           
 });
 
 
@@ -686,6 +690,7 @@ $(document).on('click','.juegos_Gratis_3', function(){
 });
 
 $("#agregar_Atracciones").click(function(){
+    /*
 
     evento = "";
     atracciones = [];
@@ -737,6 +742,7 @@ $("#agregar_Atracciones").click(function(){
             location.reload();
         }
     });
+    */
     
 });
 

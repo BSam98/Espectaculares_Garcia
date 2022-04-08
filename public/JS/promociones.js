@@ -39,6 +39,7 @@ $(document).on('click','#a', function(){
 
 
 $(document).on('click','.agregar_promocion', function(){
+    /*
     
     var creditos_Html='', cantidad_Html='', cantidad_Boletos_Html='';
     var promocion = $(this).data('book-id');
@@ -79,9 +80,11 @@ $(document).on('click','.agregar_promocion', function(){
     $(".modal-body #area_Cantidad").html(cantidad_Html);
     $(".modal-body #area_Cantidad_Boletos").html(cantidad_Boletos_Html);
     $(".modal-body #area_Creditos_Cortesia").html(creditos_Html);
+    */
 });
 
 $("#a").click(function(){
+    /*
     $.ajax({
         type: "POST",
         url:'Promociones/Agregar_Promocion',
@@ -97,6 +100,7 @@ $("#a").click(function(){
         }
         
     });
+    */
 });
 
 $(document).on('click','.verEventos', function(){
