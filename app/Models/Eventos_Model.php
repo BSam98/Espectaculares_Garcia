@@ -554,8 +554,90 @@ class Eventos_Model extends Model{
         return $datos;
     }
 
+    public function mostrar_Zonas_Evento($datos){
+        $db = \Config\Database::Connect();
+        $builder = $db->table('Zona');
+
+        $builder->select(
+            '
+            idZona,
+            Nombre,
+            idEvento
+            '
+        );
+
+        $builder->where('idEvento',$datos['idEvento']);
+
+        $query = $builder->get();
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function mostrar_Taquillas_Evento($datos){
+        $db = \Config\Database::Connect();
+        $builder =  $db->table('Zona');
+
+        $builder->select(
+            '
+            Zona.idZona,
+            Zona.Nombre AS Zona,
+            Taquilla.idTaquilla,
+            Taquilla.Nombre
+            '
+        );
+
+        $builder->join(
+            'Taquilla',
+            'Zona.idZona = Taquilla.idZona',
+            'INNER'
+        );
+
+        $builder->where('idEvento',$datos['idEvento']);
+
+        $query = $builder->get();
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function mostrar_Ventanilla_Evento($datos){
+        $db = \Config\Database::Connect();
+        $builder = $db->table('Ventanilla');
+
+        $builder->select(
+            '
+            Ventanilla.idVentanilla,
+            Ventanilla.Nombre,
+            Ventanilla.idTaquilla
+            '
+        );
+
+        $builder->join(
+            'Taquilla',
+            'Ventanilla.idTaquilla = Taquilla.idTaquilla',
+            'INNER'
+        );
+
+        $builder->join(
+            'Zona',
+            'Taquilla.idZona = Zona.idZona',
+            'INNER'
+        );
+
+        $builder->where('Zona.idEvento',$datos['idEvento']);
+
+        $query = $builder->get();
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
     public function mostrarTarjetas($datos){
-        $db = \Config\Database::connect();
+        $db = \Config\Database::Connect();
         $builder = $db->table('Tarjetas');
 
         $builder->select(
@@ -578,7 +660,7 @@ class Eventos_Model extends Model{
     }
 
     public function mostrarAsociacion($datos){
-        $db = \Config\Database::connect();
+        $db = \Config\Database::Connect();
         $builder = $db->table('Asociacion');
 
         $builder->select(
@@ -618,7 +700,7 @@ class Eventos_Model extends Model{
     }
 
     public function mostrar_Tarjetas_Nuevas($datos){
-        $db = \Config\Database::connect();
+        $db = \Config\Database::Connect();
         $builder = $db->table('Tarjetas');
 
         $builder->select(
@@ -646,6 +728,18 @@ class Eventos_Model extends Model{
         $datos= $query->getResultObject();
 
         return $datos;
+    }
+
+    public function agregar_Zona_Evento($datos){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Zona');
+
+        if($builder->insert($datos)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public function agregar_Atracciones_Evento($datos){

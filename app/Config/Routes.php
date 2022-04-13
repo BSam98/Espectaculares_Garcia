@@ -102,6 +102,18 @@ $routes->post('/Eventos/Mostrar_Tarjetas_Nuevas','Eventos_Control::mostrar_Tarje
 $routes->get('/Eventos/Agregar_Tarjetas_Evento','Eventos_Control::agregar_Tarjetas_Evento');
 $routes->post('/Eventos/Agregar_Tarjetas_Evento','Eventos_Control::agregar_Tarjetas_Evento');
 
+$routes->get('/Eventos/Mostrar_Zonas','Eventos_Control::mostrar_Zonas_Evento');
+$routes->post('/Eventos/Mostrar_Zonas','Eventos_Control::mostrar_Zonas_Evento');
+
+$routes->get('/Eventos/Agregar_Zona','Eventos_Control::agregar_Zona_Evento');
+$routes->post('/Eventos/Agregar_Zona','Eventos_Control::agregar_Zona_Evento');
+
+$routes->get('/Eventos/Mostrar_Taquillas','Eventos_Control::mostrar_Taquillas_Evento');
+$routes->post('Eventos/Mostrar_Taquillas','Eventos_Control::mostrar_Taquillas_Evento');
+
+$routes->get('/Eventos/Agregar_Taquillas_Evento','Eventos_Control::agregar_Taquillas_Evento');
+$routes->post('/Eventos/Agregar_Taquillas_Evento','Eventos_Control::agregar_Taquillas_Evento');
+
 $routes->get('/Eventos/Mostrar_Promociones','Eventos_Control::mostrar_Promociones');
 $routes->post('/Eventos/Mostrar_Promociones','Eventos_Control::mostrar_Promociones');
 

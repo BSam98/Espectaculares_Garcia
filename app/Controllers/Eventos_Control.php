@@ -96,6 +96,35 @@ class Eventos_Control extends BaseController {
         );
     }
 
+    public function mostrar_Zonas_Evento(){
+        $model = new Eventos_Model();
+
+        $datos = [
+            'idEvento' => $this->request->getVar('idEvento')
+        ];
+
+        $respuesta = $model->mostrar_Zonas_Evento($datos);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
+
+    public function mostrar_Taquillas_Evento(){
+        $model = new Eventos_Model();
+
+        $datos = [
+            'idEvento' => $this->request->getVar('idEvento')
+        ];
+
+        echo json_encode(
+            array(
+                'respuesta'=>true,
+                'Taquilla'=>$model->mostrar_Taquillas_Evento($datos),
+                'Zonas'=>$model->mostrar_Zonas_Evento($datos),
+                'Ventanilla'=>$model->mostrar_Ventanilla_Evento($datos)
+            )
+        );
+    }
+
     public function mostrarTarjetas(){
         $model = new Eventos_Model();
 
@@ -161,6 +190,41 @@ class Eventos_Control extends BaseController {
             break;
         }
     }
+
+    public function agregar_Zona_Evento(){
+        $model = new Eventos_Model();
+
+        $idEvento = $_POST['idEventoZona'];
+        $nombre = $_POST['zona'];
+
+        $num_elementos = 0;
+        $cantidad = count($nombre);
+
+        if(1 == $cantidad){
+            $datos = [
+                "Nombre" => $nombre[$num_elementos],
+                "idEvento" => $idEvento
+            ];
+
+            $respuesta = $model->agregar_Zona_Evento($datos);
+        }
+        else{
+            while($num_elementos < $cantidad){
+
+                $datos = [
+                    "Nombre" => $nombre[$num_elementos],
+                    "idEvento" => $idEvento
+                ];
+
+                $respuesta = $model->agregar_Zona_Evento($datos);
+
+                $num_elementos = $num_elementos + 1;
+            }
+        }
+        echo json_encode(array('respuesta'=>$respuesta, 'msj'=>$respuesta));
+    }
+
+    public function agregar_Taquillas_Evento(){}
 
     public function agregar_Atracciones_Evento(){
         $model = new Eventos_Model();

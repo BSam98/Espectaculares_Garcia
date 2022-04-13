@@ -56,7 +56,7 @@
                     <button name="agregar_Atracciones" id="agregar_Atracciones" type="button" class="btn btn-success">Agregar </button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </form>
-            <hr>
+                <hr>
                 <!--TABLA DE LISTADOS-->
                 <div class="table table-striped table-responsive">
                     <table id="atraccionesAdd" class="table table-bordered">

@@ -39,19 +39,19 @@
                                     <tr>
                                         <td>
                                             <ul class="circulo">
-                                                <li><a href="#AgregarL" class ="mostrarTarjetasEvento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}' >Tarjetas</a></li>
-                                                <li><a href="#Atracciones" class ="mostrar_Atracciones_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Atracciones</a></li>
-                                                <li><a href="#Asociados" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}' >Asociados</a></li>
-                                                <li><a href="#taquillas" type="button" data-toggle="modal">Taquillas</a></li>
-                                                <li><a href="#usuarios" type="button" data-toggle="modal">Usuarios</a></li>
+                                                <li><a href="#AgregarL" class ="mostrarTarjetasEvento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Tarjetas</a></li>
+                                                <li><a href="#Promociones" class ="mostrar_Promociones_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Promociones</a></li>
+                                                <li><a href="#Zonas" class ="mostrar_Zonas_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Zonas</a></li>
+                                                <li><a href="#taquillas" class ="mostrar_Taquillas_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Taquillas</a></li>
                                             </ul>
                                         </td>
                                         <td>
                                             <ul class="circulo">
+                                                <li><a href="#Atracciones" class ="mostrar_Atracciones_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Atracciones</a></li>
+                                                <li><a href="#usuarios" type="button" data-toggle="modal">Usuarios</a></li>
+                                                <li><a href="#Asociados" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}' >Asociados</a></li>
                                                 <li><a href="#Asociacion" class = "mostrarAsociacionEvento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Asociación</a></li>
-                                                <li><a href="#Promociones" class ="mostrar_Promociones_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Promociones</a></li>
-                                                <li><a href="#Creditos" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Créditos de Cortesia</a></li>
-                                                <li><a href="#Areas" type="button" data-toggle="modal">Asignar Áreas</a></li>
+                                                <!--<li><a href="#Areas" type="button" data-toggle="modal">Asignar Áreas</a></li>-->
                                             </ul>
                                         </td>
                                     </tr>
@@ -81,6 +81,7 @@
     include 'asignar_Areas.php';
     include 'agregar_Usuarios.php';
     include 'editar_Atracciones.php';
+    include 'agregar_Zona.php';
 ?>
 <script src ="JS/evento.js"></script>
  
