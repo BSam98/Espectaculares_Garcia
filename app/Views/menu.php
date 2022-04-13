@@ -1,5 +1,4 @@
 <!--Contenedor Superior-->
-
 <div Class = "contenedorSuperior">
     <div class="container">
         <nav class="navbar navbar-fixed-top tm_navbar negro" role="navigation">
@@ -7,7 +6,7 @@
             <ul class="nav navbar-nav sf-menu">
                 <!--li class="active"><a href="#">Home</a></li-->
                 <!--Menu Catalago-->
-                
+                <!--img class="logo" src = "Img/logo.png"/-->
                 <li class="dropdown">
                     <a href="Menu_Principal_Administrador" Size= "50px" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-folder-open" aria-hidden="true"></i> &nbsp;Catalago</a>
                         <ul class="dropdown-submenu" id="subMenuCatalago">
@@ -18,7 +17,7 @@
                             <li><a href="Promociones" id="button"><span>Promociones</span></a></li>
                             <li><a href="Usuarios" id="button"><span>Usuarios</span></a></li>
                             <li><a href="Clientes" id="button"><span>Clientes</span></a></li>
-                            <!--li><a href="Contratos" id="button"><span>Contratos y Polizas</span></a></li-->
+                            <li><a href="Contratos" id="button"><span>Contratos y Polizas</span></a></li>
                         </ul>  
                 </li>
                 <!--Menu Reportes-->
@@ -50,6 +49,8 @@
                 <!--Menu Seguridad-->
                 <li><a href=""><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Seguridad</a></li>
                 <li><a href="Roles"><i class="fa fa-random" aria-hidden="true"></i>&nbsp;Rol</a></li>
+                
+                <li><a href="Archivo"><i class="fa fa-random" aria-hidden="true"></i>&nbsp;Archivos</a></li>
 
                 <li class="dropdown">
                     <a class="navbar-brand" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;<?php echo session('Usuario');?></a>

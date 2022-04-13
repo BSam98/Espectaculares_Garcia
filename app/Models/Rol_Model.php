@@ -6,29 +6,40 @@ use CodeIgniter\Model;
 
 class Rol_Model extends Model{
 
-    function consultaModulos(){
+    function consultaModulos($rol){
         $db = \Config\Database::connect();
         $builder = $db->table('Modulos');
         $builder-> select(
                 'idModulo,
-                 modulo'
+                 modulo,
+                 tipo'
         );
+        $builder->where('tipo',$rol);
         $query = $builder->get();
         $datos = $query->getResultObject();
         return $datos;     
     }
 
-    function consultaSubM($idModulo){
+    function consultaSubM($rol, $pr){
         $db = \Config\Database::connect();
         $builder = $db->table('SubModulos');
         $builder-> select(
                 'idSubM,
                  idmoduloPrin,
-                 subModulo'
+                 subModulo,
+                 idModulo,
+                 modulo,
+                 tipo'
         );
-        $builder->where('idmoduloPrin',$idModulo);
+        $builder->join('Modulos', 'idModulo = idmoduloPrin');
+        $builder->Where('tipo',$rol);
+        $builder->Where('idmoduloPrin',$pr);
         $query = $builder->get();
-        $datos = $query->getResultObject();
+        $datos = $query->getResultArray();
         return $datos;  
+    }
+
+    function agregarM(){
+        
     }
 }

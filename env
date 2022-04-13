@@ -33,6 +33,17 @@ CI_ENVIRONMENT = development
 
 # app.CSPEnabled = false
 
+#----------------COPIA GENERADA POR MI-------------------------------
+app.CSRFProtection = true 
+app.CSRFTokenName = 'csrf_hash_name' 
+app.CSRFCookieName = 'csrf_cookie_name' 
+app.CSRFExpire = 7200 
+app.CSRFRegenerate = true 
+# app.CSRFExcludeURIs = []
+#----------------COPIA GENERADA POR MI-------------------------------
+
+
+
 #--------------------------------------------------------------------
 # DATABASE
 #--------------------------------------------------------------------

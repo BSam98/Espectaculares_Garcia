@@ -14,12 +14,15 @@ class Iniciar_Sesion_User_Control extends BaseController {
     }
     
     //public function new (){
-        public function turno (){
+        public function Turno (){
+            $session = session();
+            $idUser = $session->idUsuario;
             $model = new Iniciar_Sesion_User_Model();
             $data = [
-                'Eventos'=>$model->Eventos(),
+                'Eventos'=>$model->Eventos($idUser),
             ];
-            echo view('../Views/header.php');
+
+            echo view('../Views/header');
             echo view('Usuarios/iniciar_Turno',$data);
             echo view('../Views/piePagina');
         }
@@ -67,8 +70,10 @@ class Iniciar_Sesion_User_Control extends BaseController {
     }
 
     private function __redirectAuth(){
+        echo ('entra 1');
         $session = session(); 
         if($session->idRango == '5'){
+            echo ('entra 2');
             return redirect()->to('/turno')->with('mesage', 'Hola'.$session->Usuario);
         }else{
             if($session->idRango == '7'){
@@ -90,4 +95,38 @@ class Iniciar_Sesion_User_Control extends BaseController {
 		//session()->remove('username');
 		return $this->response->redirect(site_url(''));
 	}
+
+    public function Zonas(){
+        $model = new Iniciar_Sesion_User_Model();
+        $evento = $_POST['evento'];
+        $data = $model->zonasEvento($evento);
+        echo json_encode(array('respuesta'=>true,'msj'=>$data));
+    }
+
+    public function Taquillas(){
+        $model = new Iniciar_Sesion_User_Model();
+        $zona = $_POST['zona'];
+        $data = $model->taquillasZona($zona);
+        echo json_encode(array('respuesta'=>true,'msj'=>$data));
+    }
+    public function Ventanillas(){
+        $model = new Iniciar_Sesion_User_Model();
+        $taquilla = $_POST['taquilla'];
+        $data = $model->ventanillaTaquillas($taquilla);
+        echo json_encode(array('respuesta'=>true,'msj'=>$data));
+    }
+
+    public function guardarDatos(){
+        date_default_timezone_set('America/Mexico_City');
+        $fecha = date("Y-m-d H:i:s");
+        $fondo = $_POST['fondo'];
+        $ventanilla = $_POST['ventanilla'];
+        $folioI = $_POST['folioi'];
+        $folioF = $_POST['foliof'];
+        $usuario = $_POST['idUsuario'];
+        //$evento = $_POST['eventoId'];
+        $model = new Iniciar_Sesion_User_Model();
+        $data = $model->insertarTurno($fecha,$fondo,$ventanilla,$folioI,$folioF,$usuario);
+        echo json_encode(array('respuesta'=>true,'msj'=>$data));
+    }
 }

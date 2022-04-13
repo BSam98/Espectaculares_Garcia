@@ -1,3 +1,20 @@
+.navbar-nav {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+
 .navbar-logo img{
     display: block;
     width: 100%;
@@ -11,7 +28,7 @@
     display: inline-block;
     width: 6em; /*El tamaño en que desees*/
     filter: brightness(100); /*<-- Este ignoralo, lo puse porque la imagen no resaltaba sobre fondo negro*/ 
-    margin: -.5em .5em .5em -.5em; /*<-- Este es para cancelar el espacio entre la barra de navegación y la imagen*/
+    margin: -.1em .1em .1em -.1em; /*<-- Este es para cancelar el espacio entre la barra de navegación y la imagen*/
     vertical-align: middle;
   }
   .logo img{
@@ -49,10 +66,10 @@
 .tm_navbar .nav li {
 	float: left;
 	/*padding: 0 26px 0 27px;*/
-    padding: 15px;
+    padding: 12px;
 	position: relative;
 	zoom: 1;
-	background: url(../images/bullet1.png) no-repeat left center;
+	/*background: url(../images/bullet1.png) no-repeat left center;*/
 }
 .tm_navbar .nav li a {
 	text-decoration: none;
@@ -68,7 +85,7 @@
 	text-shadow: 1px 1px 2px #333639;
 }
 .tm_navbar .nav > li > a .sf-sub-indicator {
-	background: url(../images/indicator.png) no-repeat 0 bottom;
+	/*background: url(../images/indicator.png) no-repeat 0 bottom;*/
 	width: 7px;
 	height: 4px;
 	display: inline-block;
@@ -129,7 +146,7 @@
 	position: relative;
 	zoom: 1;
 	z-index: 10;
-	background: url(../images/dotted1.png) top center repeat-x;
+	/*background: url(../images/dotted1.png) top center repeat-x;*/
 }
 .tm_navbar .nav ul li a {
 	text-align: left;
@@ -162,7 +179,7 @@
 	background: #4e4134;
 	left: 86px;
 	top: 0px;
-	background: url(../images/patternsubmenu2.jpg);
+	/*background: url(../images/patternsubmenu2.jpg);*/
 }
 .tm_navbar .nav ul ul li:first-child {
 	text-align: left;
@@ -178,7 +195,7 @@
 	position: relative;
 	zoom: 1;
 	z-index: 11;
-	background: url(../images/dotted2.png) top center repeat-x;
+	/*background: url(../images/dotted2.png) top center repeat-x;*/
 }
 .tm_navbar .nav ul ul li a {
 	color: #eb5368;
@@ -189,7 +206,7 @@
 }
 /*-----indicator2-------*/
 .tm_navbar .nav ul .sf-sub-indicator {
-	background: url(../images/indicator.png) no-repeat 0 0;
+	/*background: url(../images/indicator.png) no-repeat 0 0;*/
 	width: 7px;
 	height: 5px;
 	position: absolute;
@@ -210,7 +227,7 @@
 }
 
 .contenedorPrincipal{
-	background-image: url('./Img/mainbg.png');
+	/*background-image: url('./Img/mainbg.png');*/
 	color:black;
     display: flex;
     flex-direction: column;
