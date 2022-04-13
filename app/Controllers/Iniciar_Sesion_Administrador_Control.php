@@ -77,6 +77,7 @@ class Iniciar_Sesion_Administrador_Control extends BaseController {
 
         foreach($datos['Privilegios'] as $p):
             $id = $p->privilegio_Modulo;
+           // echo $id;
             $subMenu = $model->subMenu($id);
             if($id==1){
                 echo '
@@ -159,6 +160,9 @@ class Iniciar_Sesion_Administrador_Control extends BaseController {
             }
             if($id==6){
                 echo '<li><a href="Roles"><i class="fa fa-random" aria-hidden="true"></i>&nbsp;Rol</a></li>';
+            }
+            if($id==18){
+                echo '<li><a href="Archivo"><i class="fa fa-random" aria-hidden="true"></i>&nbsp;Archivos</a></li>';
             }
         endforeach;
         echo '
