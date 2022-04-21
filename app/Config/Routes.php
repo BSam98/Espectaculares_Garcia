@@ -44,7 +44,9 @@ $routes->get('/user','Iniciar_Sesion_Administrador_Control::user');
 $routes->get('/turno','Iniciar_Sesion_User_Control::Turno');
 $routes->post('/privUser','Usuarios_Control::privilegiosUsuarios');
 $routes->post('/insertarP','Usuarios_Control::insertarPriv');
-$routes->post('/PuntoVenta','Menu_Principal_User_Control::cobrar');
+//ORIGINAL->  $routes->get('/PuntoVenta','Menu_Principal_User_Control::cobrar');
+$routes->post('/PuntoVenta','Menu_Principal_User_Control::ConsultaTurno');
+$routes->get('/ModuloCobro','Menu_Principal_User_Control::Cobro');
 $routes->post('/valida','Iniciar_Sesion_User_Control::valida');
 $routes->get('/valida','Iniciar_Sesion_User_Control::valida');
 $routes->post('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
@@ -61,6 +63,7 @@ $routes->get('/Ver Supervisores','supervisores_control::new');
 $routes->post('/listarModulos','Rol_Control::MRol');
 $routes->post('/listaSubmodulos','Rol_Control::submodulos');
 $routes->post('/agregarPrivilegios','Rol_Control::agregarP');
+$routes->post('/Productos','Menu_Principal_User_Control::resultados');
 
 //$routes->get('/', 'UsersController::index');
 //$routes->post('users/fileUpload', 'archivos_Controler::fileUpload');
@@ -75,6 +78,8 @@ $routes->post('/eligeZona','Iniciar_Sesion_User_Control::Zonas');
 $routes->post('/eligeTaquilla','Iniciar_Sesion_User_Control::Taquillas');
 $routes->post('/eligeVentanilla','Iniciar_Sesion_User_Control::Ventanillas');
 $routes->post('/datosTurno','Iniciar_Sesion_User_Control::guardarDatos');
+$routes->post('/consultaDatos','Iniciar_Sesion_User_Control::consultaDatosT');
+$routes->post('/guardarVentas','Menu_Principal_User_Control::guardar_Ventas');
 //$routes->post('/ingresoxEvento','Menu_Principal_Control::rEvento');
 //$routes->post('/Ver Atracciones','super_Atracciones_Control::new');
 //$routes->post('/supervisores','supervisores_control::new');
@@ -191,7 +196,7 @@ $routes->post('/Menu_Principal_User','Menu_Principal_User_Control::new');
 
 $routes->post('/Cobro','Menu_Principal_User_Control::cobrar');
 $routes->get('/Cobro','Menu_Principal_User_Control::cobrar');
-$routes->post('/Productos','Menu_Principal_User_Control::resultados');
+
 
 
 

@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Fondo de Caja</label>
-                        <input type="number" class="form-control" name="fondo" id="fondo" placeholder="Ingresa la Cantidad">
+                        <input type="number" class="form-control" name="fondo" id="fondo" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="1" placeholder="Ingresa la Cantidad">
                     </div>
                     <!--div class="form-group">
                         <label for="">Punto de Venta</label>
@@ -63,7 +63,7 @@
                             <option value="">Nombre de la Taquilla</option>
                         </select>
                     </div-->
-                    <input type="button" id="botonenviar" value="Enviar">
+                    <input type="button" id="botonenviar" value="Iniciar Sesión" class="btn btn-success">
                 </form>
             </div>
         </div>
@@ -72,7 +72,6 @@
 
 <script>
 $(document).ready(function () {
-
     var tday = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         var tmonth = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
@@ -111,6 +110,7 @@ $(document).ready(function () {
 
     if($("#evento").change()){
         var evento = $("#eventoId").val();
+        //console.log('Evento:'+evento);
         $.ajax({
             url: "eligeZona",
             type:"POST",
@@ -130,7 +130,8 @@ $(document).ready(function () {
     $(document).on('change','select[name="zona"]' ,function(e) {
     //$("select").change(function() { 
             var zona = $(this).val();
-            alert(zona);
+            //console.log('Zona:'+zona);
+            //alert(zona);
             $.ajax({
                 url: "eligeTaquilla",
                 type:"POST",
@@ -151,7 +152,8 @@ $(document).ready(function () {
     //$("select").change(function() {
     $(document).on('change','select[name="taquilla"]' ,function(e) {
             var taquilla = $(this).val();
-            alert('Soy taquilla'+taquilla);
+            //console.log('Taquilla:'+taquilla);
+            //alert('Soy taquilla'+taquilla);
             $.ajax({
                 url: "eligeVentanilla",
                 type:"POST",
@@ -170,25 +172,53 @@ $(document).ready(function () {
     });
     $(document).on('change','select[name="ventanilla"]' ,function(e) {
     //$("select").change(function() { 
-            var zona = $(this).val();
-            alert('Ventanilla'+zona);
+            var ventanilla = $(this).val();
+           // console.log('Ventanilla:'+ventanilla);
+            //alert('Ventanilla'+zona);
     });
 
     //function enviar_ajax(){
         $("#botonenviar").click( function(){
+            
             //alert($('#form1').serialize());
             $.ajax({
             type: 'POST',
             url: 'datosTurno',
             data: $('#form1').serialize(),
+            dataType: 'JSON',
+            error(jqXHR, textStatus, errorThrown){
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            },
             }).done(function(data){
-                console.log(data);
-                if(data.msj == true){
-                    alert("Ingreso");
+                console.log('soy Data'+data.msj);
+                console.log('soy Data Contenido'+data.msj);
+                var evento = $("#eventoId").val();
+                var zona =$('#zona').val();  
+                var taquilla = $('#taquilla').val();
+                var ventanilla =$('#ventanilla').val();
+                var usuario =$('#idUsuario').val();
+                if(data.msj){
+                    //alert('Estoy dentro de if');
+                    $.ajax({
+                        //url: "consultaDatos",
+                        url:"PuntoVenta",
+                        type:"POST",
+                        dataType:"JSON ",
+                        data:{'evento':evento, 'zona':zona, 'taquilla':taquilla, 'ventanilla':ventanilla, 'usuario':usuario}
+                    }).done(function(data) {
+                        console.log(data);
+                        location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&v="+ventanilla+"&u="+usuario;
+                        //location.href ="PuntoVenta"+data;
+                    });
+                    
+                   
+
+                    //alert("Ingreso");
                     //location.href ="PuntoVenta";
+
                 }else{
-                    alert('2');
-                    location.href ="PuntoVenta";
+                    alert('Error al Ingresar');
+                    //location.href ="PuntoVenta";
                 }
             });
         });

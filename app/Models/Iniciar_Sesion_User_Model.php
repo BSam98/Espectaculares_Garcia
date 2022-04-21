@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use Mpdf\Tag\Tr;
 
 class Iniciar_Sesion_User_Model extends Model{
 
@@ -104,15 +105,35 @@ class Iniciar_Sesion_User_Model extends Model{
             'idUsuario' => $usuario,
             'IdVentanilla' => $ventanilla
         ];
-
-        
         if($builder->insert($data)){
-            return true;
-        }
-        else{
-            return false;
+            return TRUE;
+        }else{
+            return FALSE;
         }
     }
 
-    
+    /*function consultarTurno($evento,$zona, $taquilla,$ventanilla,$usuario){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Eventos');
+        $builder-> select(
+            ' Zona.Nombre,
+              Taquilla.Nombre,
+              Ventanilla.Nombre, 
+              Ventanilla.idVentanilla,
+              Apertura_Ventanilla.idUsuario 
+            '
+        );
+    $builder->join('Zona', 'Eventos.idEvento = Zona.idEvento');
+    $builder->join('Taquilla', 'Zona.idZona = Taquilla.idZona');
+    $builder->join('Ventanilla', 'Taquilla.idTaquilla = Ventanilla.idTaquilla');
+    $builder->join('Apertura_Ventanilla', 'Ventanilla.idVentanilla = Apertura_Ventanilla.idVentanilla');
+    $builder->where('Eventos.idEvento', $evento);
+    $builder->where('Zona.idZona', $zona);
+    $builder->where('Taquilla.idTaquilla', $taquilla);
+    $builder->where('Ventanilla.idVentanilla', $ventanilla);
+    $builder->where('Apertura_Ventanilla.idUsuario', $usuario);
+    $query = $builder->get();
+    $datos = $query->getResultObject();
+    return $datos; 
+    }    */
 }
