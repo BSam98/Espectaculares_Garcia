@@ -742,6 +742,30 @@ class Eventos_Model extends Model{
         }
     }
 
+    public function agregar_Taquillas_Evento($datos){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Taquilla');
+
+        if($builder->insert($datos)){
+            return $db->insertID();
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function agregar_Ventanillas_Evento($datos){
+        $db =\Config\Database::connect();
+        $builder = $db->table('Ventanilla');
+
+        if($builder->insert($datos)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public function agregar_Atracciones_Evento($datos){
         $db = \Config\Database::connect();
         $builder = $db->table('Atraccion_Evento');

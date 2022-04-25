@@ -84,6 +84,7 @@
     include 'agregar_Zona.php';
 ?>
 <script src ="JS/evento.js"></script>
+<script src ="JS/carga.js"></script>
  
     <script>
         

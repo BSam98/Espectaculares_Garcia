@@ -89,6 +89,9 @@ $routes->post('/inicio', 'Home::inicio');*/
 
 $routes->get('/Atracciones','Atracciones_Control::new');
 $routes->get('/Atracciones/Datos','Atracciones_Control::cargarDatos');
+
+$routes->get('/Listado_Propietarios','Atracciones_Control::mostrar_Propietarios');
+$routes->post('/Listado_Propietarios','Atracciones_Control::mostrar_Propietarios');
 //$routes->get('/Iniciar_Sesion_Administrador','Iniciar_Sesion_Administrador_Control::new');
 //$routes->get('/Menu_Principal_Administrador','Menu_Principal_Control::new');
 $routes->get('/Asociados','Asociados_Control::new');

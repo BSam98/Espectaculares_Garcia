@@ -1,6 +1,7 @@
 var contadorAtraccion=0;
 var contadorTaquilla=0;
 var contadorVentanilla=0;
+var contadorPromociones=0;
 var precio_Promocion =[];
 var select_Zonas_Html = '';
 var opcion;
@@ -26,7 +27,9 @@ var promocion_Descuentos_Atraccion_Nuevo = [];
 var promocion_Pulsera_Atraccion_Nuevo = [];
 var promocion_Juegos_Atraccion_Nuevo = [];
 
+var ventanillas = [];
 var taquillas = [];
+var zonas = [];
 
 var descuentos_Atraccion = [];
 var pulsera_Atraccion = [];
@@ -34,17 +37,22 @@ var juegos_Atraccion = [];
 
 $("#agregarEvento").click(function(){
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Eventos/Agregar_Evento',
         data: $("#formularioAgregarEvento").serialize(),
+        dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
-        success: function (data){              
-           if(data.respuesta)
-               location.reload();
-        },
-        dataType: 'JSON'
+    }).done(function(data){
+        if(data.respuesta){
+            cerrarCarga();
+            location.reload();
+        }
     });
 });
 
@@ -130,7 +138,28 @@ $(document).on('change', '#idLote', function(event) {
 
 /*-------------------------------------Promociones_Evento---------------------------------------------------*/
 
+$("#np").click(function(){
+    contadorPromociones = contadorPromociones + 1;
+    $(
+        '<tr class="b-promociones" id="'+contadorPromociones+'">'+
+            '<td>'+
+                '<div class="form-group">'+
+                    '<label for="promocion_Categoria">Elige el tipo de Promoción</label>'+
+                    '<select name="promocion_Categoria" id="promocion_Categoria" class="option_Promocion form-control">'+
+                        '<option value="0">Opciones</option>'+
+                        '<option value="1">Dos x Uno</option>'+
+                        '<option value="2">Pulcera Mágica</option>'+
+                        '<option value="3">Juegos Grátis</option>'+
+                        '<option value="4">Creditos Cortesia</option>'+
+                    '</select>'+
+                '</div>'+
+            '</td>'+
+        '</tr>'
+    ).clone().appendTo("#tabla_Agregar_Promociones");
+});
+
 $(document).on('change','#promocion_Categoria', function(event){
+    var id = $(this).parents('tr').attr('id');
     
     nombre_Promocion_Html='';
     option_Nombre_Html='';
@@ -142,6 +171,9 @@ $(document).on('change','#promocion_Categoria', function(event){
     id_Promocion= [];
     contadorFila=0;
     diaInicial=[],diaFinal=[],precio=[];
+    //opcion=$(this).val();
+    //console.log(opcion);
+    //alert(opcion);
     opcion =($("#promocion_Categoria option:selected").val());
     
     if(opcion==0){
@@ -152,6 +184,9 @@ $(document).on('change','#promocion_Categoria', function(event){
     }
     else{
         $.ajax({
+            beforeSend:function(){
+                iniciarCarga()
+            },
             type:"POST",
             url:'Eventos/Mostrar_Promociones',
             data: {'promocion':opcion},
@@ -269,17 +304,20 @@ $(document).on('change','#promocion_Categoria', function(event){
                         console.log('MINIMO ENTRAS AQUI?');
                     break;
                 }
+                cerrarCarga();
             }
 
-            nombre_Promocion_Html +='<label for="promociones">Nombre de la promocion</label>'+
-            '<select name="promociones" id="promociones" class="form-control">'+option_Nombre_Html+'</select>';
+            nombre_Promocion_Html +=
+                '<label for="promociones">Nombre de la promocion</label>'+
+                '<select name="promociones" id="promociones" class="form-control">'+option_Nombre_Html+'</select>';
+
 
             $(".modal-body #area_Nombre_Promocion").html(nombre_Promocion_Html);
             $(".modal-body #area_Precio_Promocion").html(precio_Promocion_Html);
             $(".modal-body #area_Creditos_Promocion").html(creditos_Promocion_Html);
             $(".modal-body #area_Fechas_Promocion").html(fechas_Promocion_Html);
             $(".modal-body #mytable").html(tabla_Fechas_Html);
-            //$(".modal-body #mytable").html();
+                //$(".modal-body #mytable").html();
         });
     }
 });
@@ -1197,31 +1235,47 @@ $(parent).remove();
 
 $("#guardarTaquilla").click(function(){
     var indice = -1;
+    var indice2 = -1;
 
-    console.log(JSON.stringify($("#formulario_Taquilla_Evento").serializeArray()));
+
     $.each(($("#formulario_Taquilla_Evento").serializeArray()),function(i,n){
-        console.log(n.name + n.value);
+        
         if("selectZona[]" === n.name){
             indice = indice + 1;
-            taquillas.push([{"selectZona":n.value}]);
-            console.log("funciona ");
+            zonas.push({"idZona":n.value});
         }
-        else{
-            console.log("es otro atributo");
+        if("nombre_Taquilla[]" === n.name){
+            indice2 = indice2 + 1;
+            taquillas.push({"Nombre":n.value,"indiceZona":indice});
+        }
+        if("nombre_Ventanilla[]" === n.name){
+            ventanillas.push({"Nombre":n.value,"indiceTaquilla": indice2});
         }
     });
 
-    console.log('Datos');
+    console.log('Zona');
+    console.log(JSON.stringify(zonas));
+
+    console.log('Taquillas');
     console.log(JSON.stringify(taquillas));
-    /*
+
+    console.log('Ventanillas');
+    console.log(JSON.stringify(ventanillas));
+    
     $.ajax({
         type: "POST",
         url: 'Eventos/Agregar_Taquillas_Evento',
-        data: idEvento,
+        data: {"zonas":zonas,"taquillas":taquillas,"ventanillas":ventanillas},
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
+    }).done(function(data){
+        
+        if(data.msj){
+            alert('Funcion');
+        }
+        
     });
-    */
+    
 });

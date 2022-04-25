@@ -7,13 +7,13 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form enctype="multipart/form-data" name="formulario_Agregar_Promocion_Evento" id="formulario_Agregar_Promocion_Evento">                   
-                    <!--div class="table table-striped table-responsive">
-                        <table id="nuevaPr" >
+                <form enctype="multipart/form-data" name="formulario_Agregar_Promocion_Evento" id="formulario_Agregar_Promocion_Evento">
+                <input type="hidden" class="form-control" id = "idEventoPromocion" name = "idEventoPromocion" value="">
+                    <div class ="table table-striped table-responsive">
+                        <table class="table table-borderd" id="tabla_Agregar_Promociones">
                             <tbody>
-                                <tr class="Prom">
-                                    <td-->
-                                    <input type="hidden" class="form-control" id = "idEventoPromocion" name = "idEventoPromocion" value="">
+                                <tr class="b-Promociones" id="0">
+                                    <td>
                                         <div class="form-group">
                                             <label for="promocion_Categoria">Elige el tipo de Promoción</label>
                                             <select name="promocion_Categoria" id="promocion_Categoria" class="form-control">
@@ -24,38 +24,40 @@
                                                 <option value="4">Creditos Cortesia</option>
                                             </select>
                                         </div>
+
                                         <div class="from-group" id="area_Nombre_Promocion">
                                         </div>
+
                                         <div class="form-group" id="area_Precio_Promocion">
                                         </div>
+
                                         <div class="form-group" id="area_Creditos_Promocion">
                                         </div>
+
                                         <!--TABLA DE FECHAS-->
-                                        <div class="table table-responsive">
+                                        <div class=" from-group table table-responsive">
                                             <table>
-                                                <body>
-                                                <tr>
-                                                    <td>
-                                                        <div class="container" id="area_Fechas_Promocion">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <table  id="mytable" class="table table-bordered table-hover ">
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                </body>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="container" id="area_Fechas_Promocion">
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <table  id="mytable" class="table table-bordered table-hover ">
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
                                             </table>
                                         </div>
-                                        <!--TABLA DE FECHAS-->
-                                    </td->
-                                    <!--td class="eliminar"><input type="button" value="-"/></td-->
+                                    </td>
                                 </tr>
                             </tbody>
-                        </table> 
-                        <!--button id="np" name="np" type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Registro </button>
-                    </div--><hr>
-                    <button type="button" class="btn btn-success" id="agregar_Promocion_Evento" name ="agregar_Promocion_Evento">Guardar aaaa</button>
+                        </table>
+                        <!--<button id="np" name="np" type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Registro </button>-->
+                    </div>                 
+                    <button type="button" class="btn btn-success" id="agregar_Promocion_Evento" name ="agregar_Promocion_Evento">Guardar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </form>
                 <hr>
@@ -66,6 +68,7 @@
 
 <!--SCRIPT PARA ALMACENAR LOS DATOS DE FECHA DEL INPUT-->
 <script>
+    /*
     $(function(){
                 // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
         $("#np").on('click', function(){
@@ -89,7 +92,7 @@
     $('#precioes').change(function () {
         var value = document.getElementById('precioes').value;
     });        
-            
+         */   
 </script>
 
 <!--SCRIPT PARA ALMACENAR LOS DATOS DE FECHA DEL INPUT-->

@@ -27,25 +27,61 @@ class Atracciones_Control extends BaseController {
         echo view('../Views/piePagina');
     }
 
+    public function mostrar_Propietarios(){
+        $model = new Atracciones_Model();
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$model->listadoPropietartios()));
+    }
+
     public function insertarAtraccion (){
         
         $model = new Atracciones_Model();
-        $datos=[
-            'Nombre' => $this->request->getVar('na'),
-            'CapacidadMAX' => $this->request->getVar('cma'),
-            'Tiempo' => $this->request->getVar('tim'),
-            'TiempoMAX' => $this->request->getVar('tma'),
-            'Renta' => $this->request->getVar('ren'),
-            'idPropietario' => $this->request->getVar('pro'),
-            'CapacidadMIN' => $this->request->getVar('cmi'),
-        ];
+
+        $nombre = $_POST['na'];
+        $capacidadMax = $_POST['cma'];
+        $tiempo = $_POST['tim'];
+        $tiempoMax = $_POST['tma'];
+        $renta = $_POST['ren'];
+        $idPropietario =$_POST['pro'];
+        $capacidadMin = $_POST['cmi'];
+
+        $num_elementos = 0;
+        $cantidad = count($nombre);
+
+        if(1 == $cantidad){
+            $datos=[
+                'Nombre' => $nombre[$num_elementos],
+                'CapacidadMAX' => $capacidadMax[$num_elementos],
+                'Tiempo' => $tiempo[$num_elementos],
+                'TiempoMAX' => $tiempoMax[$num_elementos],
+                'Renta' => $renta[$num_elementos],
+                'idPropietario' => $idPropietario[$num_elementos],
+                'CapacidadMIN' => $capacidadMin[$num_elementos],
+            ];
+
+            $respuesta = $model->insertarAtraccion($datos);
+        }else{
+            while($num_elementos<$cantidad){
+                $datos=[
+                    'Nombre' => $nombre[$num_elementos],
+                    'CapacidadMAX' => $capacidadMax[$num_elementos],
+                    'Tiempo' => $tiempo[$num_elementos],
+                    'TiempoMAX' => $tiempoMax[$num_elementos],
+                    'Renta' => $renta[$num_elementos],
+                    'idPropietario' => $idPropietario[$num_elementos],
+                    'CapacidadMIN' => $capacidadMin[$num_elementos],
+                ];
+
+                $respuesta = $model->insertarAtraccion($datos);
+                $num_elementos = $num_elementos + 1;
+            }
+        }
         
         /*
         $respuesta = $model->insertarAtraccion($datos);
         return redirect()->to(base_url('Atracciones'));
         */
-        $respuesta = $model->insertarAtraccion($datos);
-        echo json_encode(array('respuesta'=>true,'msj'=>'asdasdasd'));
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
       
     }
 
@@ -79,7 +115,7 @@ class Atracciones_Control extends BaseController {
             
         }
         else{
-            while($num_elementos<=$cantidad){
+            while($num_elementos<$cantidad){
 
                 $datos=[
                     'Nombre'=> $Nombre[$num_elementos],
