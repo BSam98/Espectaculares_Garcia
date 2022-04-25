@@ -119,6 +119,7 @@ class Iniciar_Sesion_User_Control extends BaseController {
     public function guardarDatos(){
         date_default_timezone_set('America/Mexico_City');
         $fecha = date("Y-m-d H:i:s");
+
         $fondo = $_POST['fondo'];
         $ventanilla = $_POST['ventanilla'];
         $folioI = $_POST['folioi'];
@@ -127,6 +128,21 @@ class Iniciar_Sesion_User_Control extends BaseController {
         //$evento = $_POST['eventoId'];
         $model = new Iniciar_Sesion_User_Model();
         $data = $model->insertarTurno($fecha,$fondo,$ventanilla,$folioI,$folioF,$usuario);
+        /*$respuesta=true;
+        $msj='datoscorrectos';*/
+        //$data=array('respuesta'=>$respuesta,'contenido'=>$data,'msj'=>$msj);
+        //echo json_encode($data);
         echo json_encode(array('respuesta'=>true,'msj'=>$data));
     }
+
+    /*public function consultaDatosT(){
+        $evento = $_POST['evento'];
+        $zona = $_POST['zona'];
+        $taquilla = $_POST['taquilla'];
+        $ventanilla = $_POST['ventanilla'];
+        $usuario = $_POST['usuario'];
+        $model = new Iniciar_Sesion_User_Model();
+        $data = $model->consultarTurno($evento,$zona,$taquilla,$ventanilla,$usuario);
+        echo json_encode(array('respuesta'=>true,'msj'=>$data));
+    }*/
 }
