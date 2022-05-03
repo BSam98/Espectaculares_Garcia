@@ -126,6 +126,7 @@
     ?>
 
     <script src="JS/tarjetas.js"></script>
+    <script src="JS/carga.js"></script>
     <script>
         $(function(){
         // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla

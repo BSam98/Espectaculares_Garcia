@@ -125,7 +125,8 @@
                 include 'agregar_Promociones.php';
                 include 'Promociones_Evento.php';
             ?>
-            <script src="JS/promociones.js"></script>      
+            <script src="JS/promociones.js"></script> 
+            <script src="JS/carga.js"></script>    
 
 <script>
     $(document).ready(function() {

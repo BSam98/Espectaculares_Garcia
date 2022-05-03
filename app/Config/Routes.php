@@ -42,6 +42,7 @@ $routes->post('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
 $routes->get('/new','Iniciar_Sesion_Administrador_Control::new');
 $routes->get('/user','Iniciar_Sesion_Administrador_Control::user');
 $routes->get('/turno','Iniciar_Sesion_User_Control::Turno');
+$routes->get('/turnoValidador','Iniciar_Sesion_User_Control::turnoValidador');
 $routes->post('/privUser','Usuarios_Control::privilegiosUsuarios');
 $routes->post('/insertarP','Usuarios_Control::insertarPriv');
 //ORIGINAL->  $routes->get('/PuntoVenta','Menu_Principal_User_Control::cobrar');
@@ -218,6 +219,11 @@ $routes->post('/supervisarAtraccion','Supervisor_Atracciones_Control::new');
 $routes->get('/supervisarAtraccion','Supervisor_Atracciones_Control::new');
 $routes->post('/Validador','validador_Control::new');
 $routes->get('/Validador','validador_Control::new');
+
+$routes->post('/Atracciones_Zona','validador_Control::listado_Atracciones');
+
+$routes->post('/Iniciar_Turno_Validador','validador_Control::iniciar_Turno');
+$routes->get('/Validacion_Interfaz','validador_Control::new');
 
 
 

@@ -1,5 +1,7 @@
 $("#agregarUsuario").click(function(){
     $.ajax({
+        beforeSend: function(){
+        },
         type: "POST",
         url: 'Usuarios/Agregar_Usuario',
         data: $("#formularioAgregarUsuario").serialize(),
@@ -7,10 +9,10 @@ $("#agregarUsuario").click(function(){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
         success: function (data){   
-            /*           
-            if(data.respuesta)
+                     
+            if(data.respuesta){
                 location.reload();
-                */
+            }
         },
         dataType: 'JSON'
     });

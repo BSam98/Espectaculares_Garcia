@@ -39,6 +39,7 @@ $(document).on('click','#a', function(){
 
 
 $(document).on('click','.agregar_promocion', function(){
+    iniciarCarga();
     
     var creditos_Html='', cantidad_Html='', cantidad_Boletos_Html='';
     var promocion = $(this).data('book-id');
@@ -79,20 +80,26 @@ $(document).on('click','.agregar_promocion', function(){
     $(".modal-body #area_Cantidad").html(cantidad_Html);
     $(".modal-body #area_Cantidad_Boletos").html(cantidad_Boletos_Html);
     $(".modal-body #area_Creditos_Cortesia").html(creditos_Html);
+    cerrarCarga();
 });
 
 $("#a").click(function(){
     $.ajax({
+        beforeSend:function(){
+            iniciarCarga();
+        },
         type: "POST",
         url:'Promociones/Agregar_Promocion',
         data:$("#formularioAgregarPromocion").serialize(),
         dataType: 'JSON',
         error: function(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error : a'+ errorThrown +' '+ textStatus);
+            cerrarCarga();
         },
     }).done(function(data){
         
         if(data.respuesta){
+            cerrarCarga();
             location.reload();
         }
         
@@ -105,6 +112,9 @@ $(document).on('click','.verEventos', function(){
     var cuerpo_Html ='';
 
     $.ajax({
+        beforeSend:function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Promociones/VerEventos',
         data:{"idPromocion":datos['idPromocion'],"tipoPromocion":datos['tipoPromocion']},
@@ -177,6 +187,7 @@ $(document).on('click','.verEventos', function(){
 
             $(".modal-body #cabecera_Promocion_Evento").html(cabecera_Html);
             $(".modal-body #datos_Promocion_Evento").html(cuerpo_Html);
+            cerrarCarga();
         }
     });
 });

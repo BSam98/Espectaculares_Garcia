@@ -97,15 +97,20 @@ $("#idLote").on('change',function(event){
 
 $("#asociarTarjetas").click(function(){
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Eventos/Agregar_Tarjetas_Evento',
         data: $("#formularioAgregarTarjetasEvento").serialize(),
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
     }).done(function(data){
         if(data.respuesta){
+            cerrarCarga();
             location.reload();
         }
     }
@@ -117,22 +122,24 @@ $(document).on('change', '#idLote', function(event) {
     const opcion = ($("#idLote option:selected").val());
 
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Eventos/Mostrar_Tarjetas_Nuevas',
         data: {"idLote": opcion},
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga;
         },
     }).done(function(data){
-
-        alert(data.msj);
-        console.log(data.msj);
         var folio = [];
         for(var i =0;i<data.msj.length;i++){
             folio[i] = JSON.stringify(data.msj[i]['Folio']);
         }
         $("#folios").val(folio.toString());
+        cerrarCarga();
     });
 });
 
@@ -185,7 +192,7 @@ $(document).on('change','#promocion_Categoria', function(event){
     else{
         $.ajax({
             beforeSend:function(){
-                iniciarCarga()
+                iniciarCarga();
             },
             type:"POST",
             url:'Eventos/Mostrar_Promociones',
@@ -193,6 +200,7 @@ $(document).on('change','#promocion_Categoria', function(event){
             dataType:'JSON',
             error: function(jqXHR, textStatus, errorThrown){
                 alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+                cerrarCarga();
             },
         }).done(function(data){
             if(data.respuesta){
@@ -318,6 +326,8 @@ $(document).on('change','#promocion_Categoria', function(event){
             $(".modal-body #area_Fechas_Promocion").html(fechas_Promocion_Html);
             $(".modal-body #mytable").html(tabla_Fechas_Html);
                 //$(".modal-body #mytable").html();
+
+            cerrarCarga();
         });
     }
 });
@@ -382,7 +392,7 @@ $(document).on('click','.mostrar_Promociones_Evento', function(){
 
 $(document).on('click','#adicionar',function(evento){
 
-    alert("Sirve la seleccion:" + ($("#promociones option:selected").val()));
+    //alert("Sirve la seleccion:" + ($("#promociones option:selected").val()));
 
     var opcion = ($("#promocion_Categoria option:selected").val());;
 
@@ -474,15 +484,20 @@ $(document).on('click','#agregar_Promocion_Evento',function(){
     
     if(tipoPromocion != 4){
         $.ajax({
+            beforeSend: function(){
+                iniciarCarga();
+            },
             type: "GET",
             url: 'Eventos/Agregar_Promocion_Evento',
             data: {"idEvento":idEvento,"tipoPromocion":tipoPromocion,"idPromocion":($("#promociones option:selected").val()),"creditos":0,"fechaInicio":diaInicial,"fechaFinal":diaFinal,"precio":precio},
             dataType: 'JSON',
             error: function (jqXHR, textStatus, errorThrown) {
                 alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+                cerrarCarga();
             },
         }).done(function(data){
             if(data.respuesta){
+                cerrarCarga();
                 location.reload();
             }
             else{
@@ -492,19 +507,25 @@ $(document).on('click','#agregar_Promocion_Evento',function(){
     }
     else{
         $.ajax({
+            beforeSend:function(){
+                iniciarCarga();
+            },
             type: "GET",
             url: 'Eventos/Agregar_Promocion_Evento',
             data: {"idEvento":idEvento,"tipoPromocion":tipoPromocion,"idPromocion":($("#promociones option:selected").val()),"creditos":creditos_Promocion,"fechaInicio":diaInicial,"fechaFinal":diaFinal,"precio":precio},
             dataType: 'JSON',
             error: function (jqXHR, textStatus, errorThrown) {
                 alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+                cerrarCarga();
             },
         }).done(function(data){
             if(data.respuesta){
+                cerrarCarga();
                 location.reload();
             }
             else{
                 alert('Ha ocurrido un error');
+                cerrarCarga();
             }
         });
     }
@@ -536,6 +557,7 @@ $(document).on('click', '.btn_remove', function() {
 
 /*------------------------------Atracciones_Evento--------------------------------------------------------*/
 $(document).on('click','.mostrar_Atracciones_Evento', function(){
+    iniciarCarga();
     atraccion_Promocion_Descuentos = [];
     atraccion_Promocion_Pulsera = [];
     atraccion_Promocion_Juegos = [];
@@ -544,9 +566,9 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
     var html ='';
     var html_Promociones ='';
     var atracciones_Html='', contrato_Html='', poliza_Html=''; 
-    var option_Atracciones_Html='', option_Contrato_Html='', option_Poliza_Html='';
+    var option_Atracciones_Html='', option_Contrato_Html='', option_Poliza_Html='',option_Zonas_Html='';
 
-    var promociones_Html='', descuentos_Html='', pulsera_Html='', juegos_Gratis_Html='',creditos_Cortesia_Html;
+    var promociones_Html='', descuentos_Html='', pulsera_Html='', juegos_Gratis_Html='',creditos_Cortesia_Html='',zonas_Html='';
 
     $.ajax({
         type: "POST",
@@ -555,6 +577,7 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
     }).done(function(data){
         if(data.respuesta){
@@ -624,6 +647,7 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
                 '<td>'+html_Promociones+'</td>'+
                 '<td>'+data.msj.Atraccion[i]['Contrato']+'</td>'+
                 '<td>'+data.msj.Atraccion[i]['Poliza']+'</td>'+
+                '<td>'+data.msj.Atraccion[i]['Zona']+'</td>'+
                 '</tr>';
                 
             }
@@ -639,6 +663,10 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
             for(var i= 0; i<data.polizas.length; i++){
                 option_Poliza_Html += '<option value="'+data.polizas[i]['idPoliza']+'">"'+data.polizas[i]['Nombre']+'"</option>';
             }
+            
+            for(var i=0; i<data.zonas.length; i++){
+                option_Zonas_Html += '<option value="'+data.zonas[i]['idZona']+'">"'+data.zonas[i]['Nombre']+'"</option>'
+            }
 
             atracciones_Html +='<label for ="atracciones_Nuevas">Nombre de la atracción</label>'+
             '<select name="atracciones_Nuevas[]" id ="atracciones_Nuevas" class="form-control">'+option_Atracciones_Html+'</select>';
@@ -648,17 +676,22 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
 
             poliza_Html +='<label for="poliza">Agregar Poliza</label>'+
             '<select name="poliza[]" id="poliza" class="form-control">'+option_Poliza_Html+'</select>';
+
+            zonas_Html += '<label for="atraccion_Zona">Agregar Zona</label>'+
+            '<select name="atraccion_Zona[]" id="atraccion_Zona" class="form-control">'+option_Zonas_Html+'</select>';
         }
 
         
         $("#nuevas_Atracciones").html(atracciones_Html);
         $("#nuevos_Contratos").html(contrato_Html);
         $("#nuevas_Polizas").html(poliza_Html);
+        $("#nueva_Zona").html(zonas_Html);
         $("#atraccionesEvento").html(html);
         $("#promocion_Descuentos").html(descuentos_Html);
         $("#promocion_Pulsera").html(pulsera_Html);
         $("#promocion_Juegos_Gratis").html(juegos_Gratis_Html);
         $("#idEventoAtraccion").val(idEvento['idEvento']);
+        cerrarCarga();
     });
 });
 
@@ -735,6 +768,7 @@ $("#agregar_Atracciones").click(function(){
     creditos = [];
     contrato = [];
     poliza = [];
+    zonas = [];
     
     evento = $("#idEventoAtraccion").val();
     datos = $("#formulario_Agregar_Atracciones").serializeArray();
@@ -752,6 +786,9 @@ $("#agregar_Atracciones").click(function(){
         if(dato.name === "poliza[]"){
             poliza.push(dato.value);
         }
+        if(dato.name === "atraccion_Zona[]"){
+            zonas.push(dato.value);
+        }
     });
 
     if(!atraccion_Promocion_Descuentos.length){
@@ -767,16 +804,20 @@ $("#agregar_Atracciones").click(function(){
     }
 
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Eventos/Agregar_Atraccion_Evento',
-        data: {'idEvento':evento,'atracciones':atracciones,'creditos':creditos,'contrato':contrato,'poliza':poliza,'descuentos':atraccion_Promocion_Descuentos,'pulsera':atraccion_Promocion_Pulsera,'juegos_Gratis':atraccion_Promocion_Juegos},
+        data: {'idEvento':evento,'atracciones':atracciones,'creditos':creditos,'contrato':contrato,'poliza':poliza,'zonas':zonas,'descuentos':atraccion_Promocion_Descuentos,'pulsera':atraccion_Promocion_Pulsera,'juegos_Gratis':atraccion_Promocion_Juegos},
         dataType: 'JSON',
         error: function(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error: a ' + errorThrown + ' ' + textStatus + ' ' + jqXHR);
-            console.log('Se produjo un error: a ' + errorThrown + ' ' + textStatus + ' ' + jqXHR);
+            cerrarCarga();
         },
     }).done(function(data){
         if(data.respuesta){
+            cerrarCarga();
             location.reload();
         }
     });
@@ -810,12 +851,16 @@ $(document).on('click','.editar_Atraccion', function(){
     poliza_Seleccionada_Html = '<option value="'+datos_Atraccion['idPoliza']+'">"'+datos_Atraccion['poliza']+'"</option>';
 
     $.ajax({
+        beforeSend:function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Eventos/Editar_Atraccion_Evento',
         data: {'idAtraccionEvento':datos_Atraccion['idAtraccionEvento'],'idEvento':idEvento},
         dataType: 'JSON',
         error: function(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error : a' + errorThrown + ' ' + textStatus);
+            cerrarCarga();
         },
     }).done(function(data){
         
@@ -879,6 +924,7 @@ $(document).on('click','.editar_Atraccion', function(){
         $("#poliza_Atraccion").html(select_Polizas_Html);
         $("#id_AtraccionEvento").html(idAtraccionEvento_Html);
         $("#creditos_Atraccion").val(datos_Atraccion['creditos']);
+        cerrarCarga();
     });
 
 });
@@ -1087,12 +1133,16 @@ $(document).on('click','.mostrar_Zonas_Evento', function(){
     var zonas_Html ='';
 
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type:"POST",
         url: 'Eventos/Mostrar_Zonas',
         data: idEvento,
         dataType: 'JSON',
         error(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
     }).done(function(data){
         if(data.respuesta){
@@ -1105,6 +1155,7 @@ $(document).on('click','.mostrar_Zonas_Evento', function(){
         }
         $("#zonas_Evento").html(zonas_Html);
         $("#idEventoZona").val(idEvento['idEvento']);
+        cerrarCarga();
     });
 });
 
@@ -1117,15 +1168,20 @@ $(document).on('click','#zona', function(){
 $("#agregar_Zona").click(function(){
     
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type:"POST",
         url: 'Eventos/Agregar_Zona',
         data: $("#formulario_Agregar_Zonas").serialize(),
         dataType: 'JSON',
         error(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
     }).done(function(data){
         if(data.respuesta){
+            cerrarCarga();
             location.reload();
         }
     });
@@ -1142,12 +1198,16 @@ $(document).on('click','.mostrar_Taquillas_Evento', function(){
     var ventanillas_Html = '';
 
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Eventos/Mostrar_Taquillas',
         data: idEvento,
         dataType: 'JSON',
         error(jqXHR, textStatus, errorThrown){
-            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);7
+            cerrarCarga();
         },
     }).done(function(data){
         if(data.respuesta){
@@ -1159,7 +1219,7 @@ $(document).on('click','.mostrar_Taquillas_Evento', function(){
 
                 for(var j=0; j<data.Ventanilla.length; j++){
                     if(data.Taquilla[i]['idTaquilla'] == data.Ventanilla[j]['idTaquilla']){
-                        ventanillas_Html += data.Ventanilla[j]['Nombre']+',';
+                        ventanillas_Html += data.Ventanilla[j]['Nombre']+', ';
                     }
                 }
 
@@ -1177,6 +1237,7 @@ $(document).on('click','.mostrar_Taquillas_Evento', function(){
 
         $("#selectZonas").html(select_Zonas_Html);
         $("#taquillasEvento").html(tabla_Taquilla_Html);
+        cerrarCarga();
     });
 });
 
@@ -1189,6 +1250,7 @@ $("#addf").on('click',function(){
 
 
 $("#addf").on('click',function(){
+    iniciarCarga();
     contadorTaquilla = contadorTaquilla + 2;
     contadorVentanilla = contadorTaquilla + 1;
     $(
@@ -1225,6 +1287,7 @@ $("#addf").on('click',function(){
             '<td class="deletef"><input type="button" value="-"></td>'+
         '<tr>' 
     ).clone().appendTo("#agregarTaq");
+    cerrarCarga();
 });
 
 $(document).on("click",".deletef",function(){
@@ -1263,17 +1326,22 @@ $("#guardarTaquilla").click(function(){
     console.log(JSON.stringify(ventanillas));
     
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Eventos/Agregar_Taquillas_Evento',
         data: {"zonas":zonas,"taquillas":taquillas,"ventanillas":ventanillas},
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
     }).done(function(data){
         
         if(data.msj){
-            alert('Funcion');
+            cerrarCarga();
+            location.reload();
         }
         
     });

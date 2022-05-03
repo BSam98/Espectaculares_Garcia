@@ -120,7 +120,7 @@ $(document).on("click",".eliminar_Atraccion",function(){
 
 
 $("#enviarAtraccion").click(function(){
-    alert($("#formularioNuevaAtraccion").serialize());
+    //alert($("#formularioNuevaAtraccion").serialize());
     $.ajax({
         beforeSend: function(){
             iniciarCarga();

@@ -46,6 +46,8 @@
                                                 <option value="">Seleccionar Poliza</option>
                                             </select>
                                         </div>
+                                        <div class="form-group" id="nueva_Zona">
+                                        </div>
                                     </td>
                                     <td class="eliminarAt"><input type="button" value="-"/></td>
                                 </tr>
@@ -67,6 +69,7 @@
                         <th>Promoción</th>
                         <th>Contrato</th>
                         <th>Poliza</th>
+                        <th>Zona</th>
                         </thead>
                         <tbody id = "atraccionesEvento">
                         </tbody>

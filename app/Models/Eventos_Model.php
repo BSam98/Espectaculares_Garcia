@@ -335,7 +335,9 @@ class Eventos_Model extends Model{
             Contrato.idContrato,
             Contrato.Nombre AS Contrato,
             Poliza.idPoliza, 
-            Poliza.Nombre AS Poliza
+            Poliza.Nombre AS Poliza,
+            Zona.idZona,
+            Zona.Nombre AS Zona
             '
         );
 
@@ -352,6 +354,11 @@ class Eventos_Model extends Model{
         $builder->join(
             'Poliza',
             'Poliza.idPoliza = Atraccion_Evento.idPoliza',
+            'inner'
+        );
+        $builder->join(
+            'Zona',
+            'Zona.idZona = Atraccion_Evento.idZona',
             'inner'
         );
 

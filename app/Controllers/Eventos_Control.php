@@ -60,6 +60,7 @@ class Eventos_Control extends BaseController {
         $creditosCortesia = $model->listado_Creditos_Cortesia($datos);
         $contratos = $model->listadoContratos();
         $polizas = $model->listadoPolizas();
+        $zonas =$model->mostrar_Zonas_Evento($datos);
 
         echo json_encode(
             array(
@@ -71,7 +72,8 @@ class Eventos_Control extends BaseController {
                 "juegosGratis"=>$juegosGratis,
                 "creditosCortesia"=>$creditosCortesia,
                 "contratos"=>$contratos,
-                "polizas"=>$polizas
+                "polizas"=>$polizas,
+                "zonas"=>$zonas
             ));
     }
 
@@ -300,6 +302,7 @@ class Eventos_Control extends BaseController {
         $juegos = $_POST['juegos_Gratis'];
         $contrato = $_POST['contrato'];
         $poliza = $_POST['poliza'];
+        $zonas = $_POST['zonas'];
         $evento = $_POST['idEvento'];
         
         $num_elementos = 0;
@@ -314,7 +317,10 @@ class Eventos_Control extends BaseController {
                 "idContrato" => $contrato[$num_elementos],
                 "idPoliza" => $poliza[$num_elementos],
                 "Creditos" => $creditos[$num_elementos],
-                "creditosCortesia" => $creditos[$num_elementos]
+                "creditosCortesia" => $creditos[$num_elementos],
+                "idZona" => $zonas[$num_elementos],
+                "statusValidador" => 0,
+                "satusSupervisor" => 0,
             ];
             $respuesta = $model->agregar_Atracciones_Evento($datos);
 
@@ -414,7 +420,10 @@ class Eventos_Control extends BaseController {
                     "idContrato" => $contrato[$num_elementos],
                     "idPoliza" => $poliza[$num_elementos],
                     "Creditos" => $creditos[$num_elementos],
-                    "creditosCortesia" => $creditos[$num_elementos]
+                    "creditosCortesia" => $creditos[$num_elementos],
+                    "idZona" => $zonas[$num_elementos],
+                    "statusValidador" => 0,
+                    "statusSupervisor" => 0,
                 ];
 
                 $respuesta = $model->agregar_Atracciones_Evento($datos);
