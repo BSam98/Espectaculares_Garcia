@@ -7,30 +7,64 @@ var secs = mins * 60;
 var minutos;
 
 var segundos;
+var btnTiempo;
 
 //countdown function is evoked when page is loaded
 
-$('.my_button').click(function() {
-    var time = $(this).attr("value");
-    var mins = 2;
-    var total =  parseInt(mins)+ parseInt(time);
-    alert(total);
-})
+$('#tiempoExtra').click(function() {
+    btnTiempo.disabled = true;
+    mm.style.color = "black";
+    ss.style.color = "black";
+
+    minutos = parseInt(4) + parseInt(document.getElementById("minutes").value);
+    segundos = (minutos * 60) + parseInt(document.getElementById("seconds").value);
+    setTimeout('decrement()',60);
+});
+
+$('#cerrarSesion').click(function(){
+    var idAperturaValidador = $("#idAperturaValidador").val();
+    var idAtraccionEvento = $("#idAtraccionEvento").val();
+
+    $.ajax({
+        beforeSend:function(){
+            iniciarCarga();
+        },
+        type: "POST",
+        url: 'Validacion_Interfaz/Cerrar_Sesion',
+        data: {'idAtraccionEvento':idAtraccionEvento,'idAperturaValidador':idAperturaValidador},
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            cerrarCarga();
+            window.location.href='http://localhost/Espectaculares_Garcia/public/';
+        }
+        else{
+            alert(data.msj);
+            cerrarCarga();
+        }
+    });
+});
 
 $(document).ready(function(){
+    btnTiempo  = document.getElementById('tiempoExtra');
+    btnTiempo.disabled=true;
     iniciarCarga();
-    var tiempo = $("#tiempo").val();
+    var tiempo = $("#TiempoMAX").val();
 
     var datos = tiempo.split(':');
     console.log('Separacion: ' + datos);
 
-    alert(datos[2]);
+    //alert(datos[2]);
 
     minutos = parseInt(datos[1]);
 
     segundos = (minutos * 60) + parseInt(datos[2]);
 
-    alert(segundos);
+    //alert(segundos);
 
     $("#minutes").val(minutos);
     $("#seconds").val(segundos);
@@ -58,7 +92,8 @@ function decrement(){
         }
 
         if(minutos < 0){
-            alert('Se acabo');
+            alert('El tiempo de espera se ha terminado, favor de iniciar el ciclo o añadir tiempo extra.');
+            btnTiempo.disabled=false;
             mm.value = 0;
             ss.value = 0;
         }

@@ -225,6 +225,9 @@ $routes->post('/Atracciones_Zona','validador_Control::listado_Atracciones');
 $routes->post('/Iniciar_Turno_Validador','validador_Control::iniciar_Turno');
 $routes->get('/Validacion_Interfaz','validador_Control::new');
 
+$routes->get('/Validacion_Interfaz/Cerrar_Sesion','validador_Control::Cerrar_Sesion');
+$routes->post('/Validacion_Interfaz/Cerrar_Sesion','validador_Control::Cerrar_Sesion');
+
 
 
 /*

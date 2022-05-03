@@ -45,6 +45,29 @@ class validador_Control extends BaseController {
 
     }
 
+    public function Cerrar_Sesion(){
+        $model = new Validador_Model();
+        
+        date_default_timezone_set('America/Mexico_City');
+        $fecha = date("Y-m-d H:i:s");
+
+        $idAtraccionEvento = $_POST['idAtraccionEvento'];
+
+        $datos = [
+            'Hora' => $fecha,
+            'idAperturaValidador' => $this->request->getVar('idAperturaValidador')
+        ];
+
+        $respuesta = $model->Cerrar_Sesion($datos,$idAtraccionEvento);
+
+        if($respuesta !=false){
+            echo json_encode(array('respuesta'=>true,'msj'=>'Funciono'));
+        }
+        else{
+            echo json_encode(array('respuesta'=>false,'msj'=>'No se logro cerrar sesion, favor de comunicarse con el supervisor.'));
+        }
+    }
+
 
 
     public function new (){

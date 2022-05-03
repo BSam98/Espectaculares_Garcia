@@ -44,7 +44,7 @@ class Validador_Model extends Model {
             Atraccion_Evento.Creditos,
             Atraccion_Evento.creditosCortesia,
             Atracciones.Nombre AS Atraccion,
-            Atracciones.CapacidadMax,
+            Atracciones.CapacidadMAX,
             Atracciones.Tiempo,
             Atracciones.TiempoMAX,
             Atracciones.CapacidadMIN
@@ -100,6 +100,25 @@ class Validador_Model extends Model {
             if($builder->insert($datos)){
                 return $db->insertID();
             }
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function Cerrar_Sesion($datos,$idAtraccionEvento){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Atraccion_Evento');
+
+        $builder->set('statusValidador',0);
+        $builder->where('idAtraccionEvento',$idAtraccionEvento);
+
+        $builder->update();
+
+        $builder = $db->table('Cierre_Validador');
+
+        if($builder->insert($datos)){
+            return true;
         }
         else{
             return false;
