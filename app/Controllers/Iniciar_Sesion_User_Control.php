@@ -18,6 +18,7 @@ class Iniciar_Sesion_User_Control extends BaseController {
             $session = session();
             $idUser = $session->idUsuario;
             $model = new Iniciar_Sesion_User_Model();
+
             $data = [
                 'Eventos'=>$model->Eventos($idUser),
             ];
@@ -33,11 +34,15 @@ class Iniciar_Sesion_User_Control extends BaseController {
             echo view('../Views/piePagina');
         }
         public function superTaquillas(){
-            echo view('../Views/header');
+            echo view('../Views/header.php');
+            echo view('Usuarios/menu_user');
+            echo view('Usuarios/supervisor_atracciones');
+            echo view('../Views/piePagina.php');
+            /*echo view('../Views/header');
             echo view('Usuarios/Iniciar_Sesion_User/Menu_Principal_User');
             //echo view('Usuarios/menu_user');
             //echo view('Usuarios/validador');
-            echo view('../Views/piePagina');
+            echo view('../Views/piePagina');*/
         }
         //return view ('Usuarios/Iniciar_Sesion_User/Iniciar_Sesion_User_View');
     //}
@@ -128,6 +133,7 @@ class Iniciar_Sesion_User_Control extends BaseController {
         //$evento = $_POST['eventoId'];
         $model = new Iniciar_Sesion_User_Model();
         $data = $model->insertarTurno($fecha,$fondo,$ventanilla,$folioI,$folioF,$usuario);
+        //$data['result'] = $data1->getResultArray();
         /*$respuesta=true;
         $msj='datoscorrectos';*/
         //$data=array('respuesta'=>$respuesta,'contenido'=>$data,'msj'=>$msj);

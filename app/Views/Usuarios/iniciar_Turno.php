@@ -48,9 +48,9 @@
                     <div class="form-group">
                         <label for="">Tarjetas</label><br>
                         <div class="input-group">
-                            <input type="text" name="folioi" id="folioi" class="form-control" placeholder="Folio Inicial">
+                            <input type="number" name="folioi" id="folioi" class="form-control" required minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" placeholder="Folio Inicial">
                                 <span class="input-group-addon">-</span>
-                            <input type="text" name="foliof" id="foliof" class="form-control" placeholder="Folio Final">
+                            <input type="number" name="foliof" id="foliof" class="form-control"  required minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" placeholder="Folio Final">
                         </div>
                     </div>
                     <div class="form-group">
@@ -190,17 +190,19 @@ $(document).ready(function () {
                 alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
             },
             }).done(function(data){
-                console.log('soy Data'+data.msj);
-                console.log('soy Data Contenido'+data.msj);
+                console.log('soy data'+data.msj);
+                //console.log('soy Data Contenido'+data.msj);
                 var evento = $("#eventoId").val();
                 var zona =$('#zona').val();  
                 var taquilla = $('#taquilla').val();
                 var ventanilla =$('#ventanilla').val();
                 var usuario =$('#idUsuario').val();
-                if(data.msj){
-                    //alert('Estoy dentro de if');
+                if(data.msj == true){
+                    //console.log('soy Data'+data.msj);
+                    alert('Error al Ingresar');
+                    location.href='turno';
+                }else{
                     $.ajax({
-                        //url: "consultaDatos",
                         url:"PuntoVenta",
                         type:"POST",
                         dataType:"JSON ",
@@ -208,17 +210,8 @@ $(document).ready(function () {
                     }).done(function(data) {
                         console.log(data);
                         location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&v="+ventanilla+"&u="+usuario;
-                        //location.href ="PuntoVenta"+data;
+                        
                     });
-                    
-                   
-
-                    //alert("Ingreso");
-                    //location.href ="PuntoVenta";
-
-                }else{
-                    alert('Error al Ingresar');
-                    //location.href ="PuntoVenta";
                 }
             });
         });

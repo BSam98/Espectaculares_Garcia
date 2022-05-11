@@ -96,6 +96,42 @@ class Iniciar_Sesion_User_Model extends Model{
 
     function insertarTurno($fecha,$fondo,$ventanilla,$folioI,$folioF,$usuario){
         $db = \Config\Database::connect();
+
+        $query1= $db->query(
+            "SELECT DISTINCT(folioInicial), Folio, folioFinal  from Tarjetas t, Apertura_Ventanilla av
+            WHERE folioInicial = (SELECT DISTINCT(idTarjeta) from Tarjetas t,Apertura_Ventanilla WHERE Folio = ".$folioI." and idTarjeta=folioInicial)
+            and folioFinal = (SELECT DISTINCT(idTarjeta) from Tarjetas t, Apertura_Ventanilla WHERE Folio  = ".$folioF." and idTarjeta=folioFinal)
+            and idTarjeta = folioInicial;"
+        );
+        if($query1->getResult()){
+            return TRUE;
+        }else{
+            $query= $db->query(
+                "INSERT INTO Apertura_Ventanilla (
+                    fondoCaja,
+                    horaApertura,
+                    folioInicial,
+                    folioFinal,
+                    idUsuario,
+                    idVentanilla
+                )
+                VALUES(
+                    $fondo,
+                    '$fecha',
+                    (SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),
+                    (SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),
+                    $usuario,
+                    $ventanilla
+                );
+                "
+            );
+            return FALSE;
+        }
+        //$datos = $query->getResultObject();
+
+        
+       
+        /*
         $builder = $db->table('Apertura_Ventanilla');
         $data = [
             'fondoCaja' => $fondo,
@@ -103,13 +139,14 @@ class Iniciar_Sesion_User_Model extends Model{
             'folioInicial' => $folioI,
             'folioFinal' => $folioF,
             'idUsuario' => $usuario,
-            'IdVentanilla' => $ventanilla
+            'idVentanilla' => $ventanilla
         ];
         if($builder->insert($data)){
             return TRUE;
         }else{
             return FALSE;
         }
+        */
     }
 
     /*function consultarTurno($evento,$zona, $taquilla,$ventanilla,$usuario){

@@ -64,6 +64,9 @@ $routes->post('/listarModulos','Rol_Control::MRol');
 $routes->post('/listaSubmodulos','Rol_Control::submodulos');
 $routes->post('/agregarPrivilegios','Rol_Control::agregarP');
 $routes->post('/Productos','Menu_Principal_User_Control::resultados');
+$routes->post('/validarTarjeta','Menu_Principal_User_Control::validar_Tarjeta');
+$routes->post('/creditosCortesia','Menu_Principal_User_Control::creditos_Cortesia');
+$routes->post('/Tipo_Pago','Menu_Principal_User_Control::tipo_Pago');
 
 //$routes->get('/', 'UsersController::index');
 //$routes->post('users/fileUpload', 'archivos_Controler::fileUpload');
@@ -211,8 +214,8 @@ $routes->get('/CerrarSesion','Iniciar_Sesion_Administrador_Control::logout');
 $routes->post('/CerrarSesion','Iniciar_Sesion_Administrador_Control::logout');
 $routes->get('/ReporteVenta','reporte_Venta_Control::index');
 $routes->post('/ReporteVenta','reporte_Venta_Control::index');
-$routes->post('/supervisarAtraccion','Supervisor_Atracciones_Control::new');
-$routes->get('/supervisarAtraccion','Supervisor_Atracciones_Control::new');
+//$routes->post('/supervisarAtraccion','Supervisor_Atracciones_Control::new');
+//$routes->get('/supervisarAtraccion','Supervisor_Atracciones_Control::new');
 $routes->post('/Validador','validador_Control::new');
 $routes->get('/Validador','validador_Control::new');
 

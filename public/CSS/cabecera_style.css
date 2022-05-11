@@ -14,7 +14,6 @@
     list-style: none;
 }
 
-
 .navbar-logo img{
     display: block;
     width: 100%;
@@ -33,7 +32,7 @@
   }
   .logo img{
     display: block;
-    width: 100%;
+    width: 80%;
     height: auto;
   }
   .menuheader {
@@ -49,7 +48,7 @@
 .tm_navbar .nav {
 	float: none;
 	position: relative;
-	display: inline-block;
+	display: contents;
 }
 .tm_navbar ul {
 	position: relative;
@@ -113,7 +112,7 @@
 .tm_navbar .nav ul {
 	position: absolute;
 	display: none;
-	top: 50px;
+	top: 40px;
 	left: 0px;
 	width: 100px;
 	padding: 10px 10px 10px;

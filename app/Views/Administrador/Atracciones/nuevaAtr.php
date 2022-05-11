@@ -36,6 +36,14 @@
                         <input class="form-control" type="number"  id="cmi" required name="cmi"/>
                     </div>
                     <div class="form-group">
+                        <label for="cmi">Largo(m)</label>
+                        <input class="form-control" type="number"  id="largo" required name="largo"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cmi">Ancho(m)</label>
+                        <input class="form-control" type="number"  id="ancho" required name="ancho"/>
+                    </div>
+                    <div class="form-group">
                         <label for="tiempo">Tiempo</label>
                         <input class="form-control" type="text"  id="tim" required name="tim" placeholder="Tiempo"/>
                     </div>

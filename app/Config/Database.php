@@ -7,8 +7,7 @@ use CodeIgniter\Database\Config;
 /**
  * Database Configuration
  */
-class Database extends Config
-{
+class Database extends Config{
     /**
      * The directory that holds the Migrations
      * and Seeds directories.
@@ -50,8 +49,6 @@ class Database extends Config
         'failover' => [],
         //'port'     => 3306,
         //'port' => 1433,
-        
-
     ];
 
     /**
