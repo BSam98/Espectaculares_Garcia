@@ -71,8 +71,8 @@
 </section>
 
 <script>
-$(document).ready(function () {
-    var tday = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    $(document).ready(function () {
+        var tday = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         var tmonth = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
         function GetClock() {
@@ -128,7 +128,7 @@ $(document).ready(function () {
         });
     }
     $(document).on('change','select[name="zona"]' ,function(e) {
-    //$("select").change(function() { 
+        //$("select").change(function() { 
             var zona = $(this).val();
             //console.log('Zona:'+zona);
             //alert(zona);
@@ -171,13 +171,13 @@ $(document).ready(function () {
             });
     });
     $(document).on('change','select[name="ventanilla"]' ,function(e) {
-    //$("select").change(function() { 
+        //$("select").change(function() { 
             var ventanilla = $(this).val();
            // console.log('Ventanilla:'+ventanilla);
             //alert('Ventanilla'+zona);
-    });
+        });
 
-    //function enviar_ajax(){
+        //function enviar_ajax(){
         $("#botonenviar").click( function(){
             
             //alert($('#form1').serialize());
@@ -216,11 +216,9 @@ $(document).ready(function () {
             });
         });
         
-    //}
+        //}
 
-});
-
-
+    });
 
 
 
@@ -228,17 +226,19 @@ $(document).ready(function () {
 
 
 
-/*document.addEventListener("DOMContentLoaded", function(event) {
-    moment.locale('es');
-    var upDate = function() {
-      var elFecha = document.querySelector("#fecha");
-      var elHora = document.querySelector("#hora");
-      var nowDate = moment(new Date());
-      elHora.textContent = nowDate.format('HH:mm:ss');
-      elFecha.textContent =nowDate.format('dddd DD [de] MMMM [de] YYYY ');
-    }
-    setInterval(upDate, 1000);
-});*/
+
+
+    /*document.addEventListener("DOMContentLoaded", function(event) {
+        moment.locale('es');
+        var upDate = function() {
+        var elFecha = document.querySelector("#fecha");
+        var elHora = document.querySelector("#hora");
+        var nowDate = moment(new Date());
+        elHora.textContent = nowDate.format('HH:mm:ss');
+        elFecha.textContent =nowDate.format('dddd DD [de] MMMM [de] YYYY ');
+        }
+        setInterval(upDate, 1000);
+    });*/
 </script>
 
 <style>

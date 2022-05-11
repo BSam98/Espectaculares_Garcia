@@ -60,6 +60,7 @@ class Eventos_Control extends BaseController {
         $creditosCortesia = $model->listado_Creditos_Cortesia($datos);
         $contratos = $model->listadoContratos();
         $polizas = $model->listadoPolizas();
+        $zonas =$model->mostrar_Zonas_Evento($datos);
 
         echo json_encode(
             array(
@@ -71,7 +72,8 @@ class Eventos_Control extends BaseController {
                 "juegosGratis"=>$juegosGratis,
                 "creditosCortesia"=>$creditosCortesia,
                 "contratos"=>$contratos,
-                "polizas"=>$polizas
+                "polizas"=>$polizas,
+                "zonas"=>$zonas
             ));
     }
 
@@ -224,7 +226,69 @@ class Eventos_Control extends BaseController {
         echo json_encode(array('respuesta'=>$respuesta, 'msj'=>$respuesta));
     }
 
-    public function agregar_Taquillas_Evento(){}
+    public function agregar_Taquillas_Evento(){
+        $model = new Eventos_Model();
+
+        $zonas = $_POST['zonas'];
+        $taquillas = $_POST['taquillas'];
+        $ventanillas = $_POST['ventanillas'];
+
+        $cantidad_Zonas = count($zonas);
+        $cantidad_Taquillas = count($taquillas);
+        $cantidad_Ventanillas = count($ventanillas);
+
+        $indice_Zonas = 0;
+        $indice_Taquillas = 0;
+        $indice_Ventanillas = 0;
+        
+
+        if(1 == $cantidad_Zonas){
+        }
+        else{
+            while($indice_Zonas < $cantidad_Zonas){
+                if(1 == $cantidad_Taquillas){
+                }
+                else{
+                    while($indice_Taquillas < $cantidad_Taquillas){
+                        if($indice_Zonas == $taquillas[$indice_Taquillas]["indiceZona"]){
+                            $data = [
+                                "Nombre" => $taquillas[$indice_Taquillas]["Nombre"],
+                                "idZona" => $zonas[$indice_Zonas]["idZona"]
+                            ];
+
+                            $idTaquilla = $model->agregar_Taquillas_Evento($data);
+
+                            if(1 == $cantidad_Ventanillas){
+                            }
+                            else{
+                                while($indice_Ventanillas < $cantidad_Ventanillas){
+    
+                                    if($indice_Taquillas == $ventanillas[$indice_Ventanillas]["indiceTaquilla"]){
+                                        $data = [
+                                            "Nombre" => $ventanillas[$indice_Ventanillas]["Nombre"],
+                                            "idTaquilla" => $idTaquilla
+                                        ];
+                                        $respuesta = $model->agregar_Ventanillas_Evento($data);
+                                    }
+    
+                                    $indice_Ventanillas = $indice_Ventanillas + 1;
+                                }
+                            }
+                        }
+
+                        $indice_Taquillas = $indice_Taquillas + 1;
+                        $indice_Ventanillas = 0;
+                    }
+                }
+
+                $indice_Zonas = $indice_Zonas + 1;
+                $indice_Taquillas = 0;
+                $indice_Ventanillas = 0;
+            }
+        }
+        
+        echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta));
+    }
 
     public function agregar_Atracciones_Evento(){
         $model = new Eventos_Model();
@@ -238,6 +302,7 @@ class Eventos_Control extends BaseController {
         $juegos = $_POST['juegos_Gratis'];
         $contrato = $_POST['contrato'];
         $poliza = $_POST['poliza'];
+        $zonas = $_POST['zonas'];
         $evento = $_POST['idEvento'];
         
         $num_elementos = 0;
@@ -252,7 +317,10 @@ class Eventos_Control extends BaseController {
                 "idContrato" => $contrato[$num_elementos],
                 "idPoliza" => $poliza[$num_elementos],
                 "Creditos" => $creditos[$num_elementos],
-                "creditosCortesia" => $creditos[$num_elementos]
+                "creditosCortesia" => $creditos[$num_elementos],
+                "idZona" => $zonas[$num_elementos],
+                "statusValidador" => 0,
+                "satusSupervisor" => 0,
             ];
             $respuesta = $model->agregar_Atracciones_Evento($datos);
 
@@ -352,7 +420,10 @@ class Eventos_Control extends BaseController {
                     "idContrato" => $contrato[$num_elementos],
                     "idPoliza" => $poliza[$num_elementos],
                     "Creditos" => $creditos[$num_elementos],
-                    "creditosCortesia" => $creditos[$num_elementos]
+                    "creditosCortesia" => $creditos[$num_elementos],
+                    "idZona" => $zonas[$num_elementos],
+                    "statusValidador" => 0,
+                    "statusSupervisor" => 0,
                 ];
 
                 $respuesta = $model->agregar_Atracciones_Evento($datos);

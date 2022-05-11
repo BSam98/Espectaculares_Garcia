@@ -46,7 +46,7 @@
                         </table>
                     </div>
                     <button id="agregar-Filas" name="agregar-Filas" type="button" class="btn btn-warning"> + </button>
-                    <button  name="z" type="submit" class="btn btn-success" id = "z">Guardar</button>
+                    <button  name="z" type="button" class="btn btn-success" id = "z">Guardar</button>
                 </form>
             </div>
         </div>

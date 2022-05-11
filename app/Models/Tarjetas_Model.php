@@ -174,7 +174,7 @@ class Tarjetas_Model extends Model{
         }
    
 
-        return $numeros;
+        return true;
     }
 
     public function insertarLote($datos){

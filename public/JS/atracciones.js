@@ -1,4 +1,4 @@
-
+var option_Propietarios_Html='';
 
 
     function mostrar() {
@@ -46,37 +46,119 @@ $(document).on('click','.agregar', function(){
     });
 });
 */
-$("#enviarAtraccion").click(function(){
+
+$("#abrir_Modal_Atracciones").click(function(){
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
-        url: 'Agregar_Atraccion',
-        data: $("#formularioNuevaAtraccion").serialize(),
+        url: 'Listado_Propietarios',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
         success: function (data){              
             if(data.respuesta){
-                location.reload();
+                for(var i=0; i<data.msj.length;i++){
+                    option_Propietarios_Html += '<option value="'+data.msj[i]['idPropietario']+'">'+data.msj[i]['Nombre']+'</option>'
+                }
+                cerrarCarga();
             }
         },
         dataType: 'JSON'
     });
 });
 
+
+$("#nueva_Atraccion").click(function(){
+
+    $(
+        '<tr class ="a-Atracciones" id="0">'+
+            '<td>'+
+                '<div class="form-group">'+
+                    '<label for="nombre">Nombre</label>'+
+                    '<input class="form-control" type="text"  id="na" required name="na[]" placeholder="Nombre"/>'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label for="renta">Renta</label>'+
+                    '<input class="form-control" type="number"  id="ren" required name="ren[]"/>'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label for="propietario">Propietario</label>'+
+                    '<select class="form-control" type="text"  id="pro" required name="pro[]">'+
+                        '<option value="0">Seleccionar Propietario</option>'+
+                        option_Propietarios_Html+
+                    '</select>'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label for="cma">Cantidad Máxima</label>'+
+                    '<input class="form-control" type="number"  id="cma" required name="cma[]"/>'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label for="cmi">Cantidad Mínima</label>'+
+                    '<input class="form-control" type="number"  id="cmi" required name="cmi[]"/>'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label for="tiempo">Tiempo</label>'+
+                    '<input class="form-control" type="text"  id="tim" required name="tim[]" placeholder="Tiempo"/>'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label for="tma">Tiempo Máximo de Espera</label>'+
+                    '<input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Tiempo Máximo"/>'+
+                '</div>'+
+            '</td>'+
+            '<td class="eliminar_Atraccion"><input type ="button" value="-"></td>'+
+        '</tr>'
+    ).clone().appendTo("#agregar_Atracciones");
+});
+
+$(document).on("click",".eliminar_Atraccion",function(){
+    var parent = $(this).parents().get(0);
+    $(parent).remove();
+});
+
+
+$("#enviarAtraccion").click(function(){
+    //alert($("#formularioNuevaAtraccion").serialize());
+    $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
+        type: "POST",
+        url: 'Agregar_Atraccion',
+        data: $("#formularioNuevaAtraccion").serialize(),
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            cerrarCarga();
+            location.reload();
+        }
+    });
+});
+
 $("#agregarPropietario").click(function(){
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Agregar_Propietario',
         data: $("#formularioAgregarPropietario").serialize(),
+        dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
-        success: function (data){            
-            if(data.respuesta){
-                location.reload();
-            }
-        },
-        dataType: 'JSON'
+    }).done(function(data){
+        if(data.respuesta){
+            cerrarCarga();
+            location.reload();
+        }
     });
 });
 

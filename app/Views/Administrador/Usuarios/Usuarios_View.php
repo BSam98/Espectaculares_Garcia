@@ -152,7 +152,7 @@
                             </div>
                             <!-- Modal footer -->
                             <div class="modal-footer">
-                                <button name="adicional" type="submit" class="btn btn-success" id="agregarUsuario">Agregar </button>
+                                <button name="adicional" type="button" class="btn btn-success" id="agregarUsuario">Agregar </button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                             </div>  
                         </form>
@@ -170,6 +170,7 @@
     ?>
     
 <script src="JS/usuarios.js"></script>
+<script src="JS/carga.js"></script>
 <script>
 
         $(document).ready(function() {

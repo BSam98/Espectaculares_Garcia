@@ -44,6 +44,18 @@ class Iniciar_Sesion_User_Control extends BaseController {
             //echo view('Usuarios/validador');
             echo view('../Views/piePagina');*/
         }
+        public function turnoValidador(){
+            $session = session();
+            $idUser = $session->idUsuario;
+            $model = new Iniciar_Sesion_User_Model();
+            $data = [
+                'Eventos'=>$model->Eventos($idUser),
+            ];
+
+            echo view('../Views/header');
+            echo view('Usuarios/Turno_Validador_View',$data);
+            echo view('../Views/piePagina.php');
+        }
         //return view ('Usuarios/Iniciar_Sesion_User/Iniciar_Sesion_User_View');
     //}
 
@@ -81,11 +93,16 @@ class Iniciar_Sesion_User_Control extends BaseController {
             echo ('entra 2');
             return redirect()->to('/turno')->with('mesage', 'Hola'.$session->Usuario);
         }else{
-            if($session->idRango == '7'){
+            if($session->idRango == '6'){
                 return redirect()->to('/valida')->with('mesage', 'Hola'.$session->Usuario);
             }else{
-                if($session->idRango == '8'){
+                if($session->idRango == '7'){
                     return redirect()->to('/superTaquillas')->with('mesage', 'Hola'.$session->Usuario);
+                }
+                else{
+                    if($session->idRango == '8'){
+                        return redirect()->to('/turnoValidador')->with('message','Hola'.$session->Usuario);
+                    }
                 }
             }
             var_dump($session->idRango);

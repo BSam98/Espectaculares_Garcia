@@ -5,7 +5,7 @@
         <center><label><h2>ATRACCIONES</h2></label></center>
             
             <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarPropi"><i class="bi bi-plus-circle"></i>&nbsp;Nueva Atracción</a-->
-            <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" style="transition-duration: 3s, 5s;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nueva Atracción</a>
+            <a href="" id="abrir_Modal_Atracciones" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" style="transition-duration: 3s, 5s;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nueva Atracción</a>
             <a href="javascript:mostrar();" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nuevo Propietario</a><br>
             
             <div class="contenedorTabla"><br>
@@ -127,3 +127,4 @@
     ?>
 
 <script src="JS/atracciones.js"></script>
+<script src="JS/carga.js"></script>

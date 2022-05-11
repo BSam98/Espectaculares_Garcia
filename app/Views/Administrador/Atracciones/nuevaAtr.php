@@ -52,7 +52,7 @@
                         <input class="form-control" type="text"  id="tma" required name="tma" placeholder="Tiempo Máximo"/>
                     </div>
                     <div class="modal-footer">
-                        <button name="adicional" type="submit" class="btn btn-success" id ="enviarAtraccion">Agregar </button>
+                        <button name="adicional" type="button" class="btn btn-success" id ="enviarAtraccion">Agregar </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                     </div>  
                 </form>

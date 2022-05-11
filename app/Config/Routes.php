@@ -42,6 +42,7 @@ $routes->post('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
 $routes->get('/new','Iniciar_Sesion_Administrador_Control::new');
 $routes->get('/user','Iniciar_Sesion_Administrador_Control::user');
 $routes->get('/turno','Iniciar_Sesion_User_Control::Turno');
+$routes->get('/turnoValidador','Iniciar_Sesion_User_Control::turnoValidador');
 $routes->post('/privUser','Usuarios_Control::privilegiosUsuarios');
 $routes->post('/insertarP','Usuarios_Control::insertarPriv');
 //ORIGINAL->  $routes->get('/PuntoVenta','Menu_Principal_User_Control::cobrar');
@@ -97,6 +98,9 @@ $routes->post('/inicio', 'Home::inicio');*/
 
 $routes->get('/Atracciones','Atracciones_Control::new');
 $routes->get('/Atracciones/Datos','Atracciones_Control::cargarDatos');
+
+$routes->get('/Listado_Propietarios','Atracciones_Control::mostrar_Propietarios');
+$routes->post('/Listado_Propietarios','Atracciones_Control::mostrar_Propietarios');
 //$routes->get('/Iniciar_Sesion_Administrador','Iniciar_Sesion_Administrador_Control::new');
 //$routes->get('/Menu_Principal_Administrador','Menu_Principal_Control::new');
 $routes->get('/Asociados','Asociados_Control::new');
@@ -218,6 +222,14 @@ $routes->post('/ReporteVenta','reporte_Venta_Control::index');
 //$routes->get('/supervisarAtraccion','Supervisor_Atracciones_Control::new');
 $routes->post('/Validador','validador_Control::new');
 $routes->get('/Validador','validador_Control::new');
+
+$routes->post('/Atracciones_Zona','validador_Control::listado_Atracciones');
+
+$routes->post('/Iniciar_Turno_Validador','validador_Control::iniciar_Turno');
+$routes->get('/Validacion_Interfaz','validador_Control::new');
+
+$routes->get('/Validacion_Interfaz/Cerrar_Sesion','validador_Control::Cerrar_Sesion');
+$routes->post('/Validacion_Interfaz/Cerrar_Sesion','validador_Control::Cerrar_Sesion');
 
 
 

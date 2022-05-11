@@ -335,7 +335,9 @@ class Eventos_Model extends Model{
             Contrato.idContrato,
             Contrato.Nombre AS Contrato,
             Poliza.idPoliza, 
-            Poliza.Nombre AS Poliza
+            Poliza.Nombre AS Poliza,
+            Zona.idZona,
+            Zona.Nombre AS Zona
             '
         );
 
@@ -352,6 +354,11 @@ class Eventos_Model extends Model{
         $builder->join(
             'Poliza',
             'Poliza.idPoliza = Atraccion_Evento.idPoliza',
+            'inner'
+        );
+        $builder->join(
+            'Zona',
+            'Zona.idZona = Atraccion_Evento.idZona',
             'inner'
         );
 
@@ -733,6 +740,30 @@ class Eventos_Model extends Model{
     public function agregar_Zona_Evento($datos){
         $db = \Config\Database::connect();
         $builder = $db->table('Zona');
+
+        if($builder->insert($datos)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function agregar_Taquillas_Evento($datos){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Taquilla');
+
+        if($builder->insert($datos)){
+            return $db->insertID();
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function agregar_Ventanillas_Evento($datos){
+        $db =\Config\Database::connect();
+        $builder = $db->table('Ventanilla');
 
         if($builder->insert($datos)){
             return true;

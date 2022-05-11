@@ -25,15 +25,20 @@ $("#z").click(function(){
 */
 $("#z").click(function(){
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Agregar_Lote',
         data:$("#formularioAgregarLote").serialize(),
         dataType: 'JSON',
         error: function(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
     }).done(function(data){
         if(data.respuesta){
+            cerrarCarga();
             location.reload();
         }
     });
@@ -41,18 +46,22 @@ $("#z").click(function(){
 
 $("#actualizarLote").click(function(){
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Tarjetas/EditarLote',
         data: $("#formularioEditarLote").serialize(),
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
-        success: function (data){            
-            if(data.respuesta)
-                console.log(data.dato);
-                location.reload();
-        },
-        dataType: 'JSON'
+        dataType: 'JSON',
+    }).done(function(data){
+        if(data.respuesta){
+            cerrarCarga();
+            location.reload();
+        }
     });
 });
 
@@ -60,6 +69,9 @@ $("#actualizarLote").click(function(){
 $(document).on('click','.mostrarTarjetasLote', function(){
     var idLote = $(this).data('book-id');
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Tarjetas/Tarjetas',
         data: idLote,
@@ -80,16 +92,17 @@ $(document).on('click','.mostrarTarjetasLote', function(){
         }
         
         $("#tarjetasLote").html(html);
+        cerrarCarga();
         
 
     });
 });
 
 $(document).on('click','.editarLotes', function(){
-                    
+    iniciarCarga();
     var Lote = $(this).data('book-id');
 
-    console.log(Lote);
+    //console.log(Lote);
 
    $(".modal-body #idLote").val(Lote['idLote']);
    $(".modal-body #Nombre").val(Lote['Nombre']);
@@ -97,9 +110,11 @@ $(document).on('click','.editarLotes', function(){
    $(".modal-body #Cantidad").val(Lote['Cantidad']);
    $(".modal-body #Serie").val(Lote['Serie']);
    $(".modal-body #Usuario").val(Lote['Usuario']);
+   cerrarCarga();
 });
 
 $(document).on('click','.editarTarjeta', function(){
+    iniciarCarga();
                     
     var Tarjeta = $(this).data('book-id');
 
@@ -112,4 +127,5 @@ $(document).on('click','.editarTarjeta', function(){
    $(".modal-body #NSS").val(Tarjeta['FechaActivacion']);
    $(".modal-body #Usuario").val(Tarjeta['Cliente']);
    $(".modal-body #Contraseña").val(Tarjeta['idEvento']);
+   cerrarCarga();
 });
