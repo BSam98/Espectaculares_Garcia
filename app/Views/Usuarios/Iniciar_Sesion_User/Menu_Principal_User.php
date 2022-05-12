@@ -1,7 +1,7 @@
 <div class="container" id="menu">
     <div class="row">
         <div class="col-xs-2 col-md-4" style="padding: 10px;">
-            <a href="Cobro" class="btn third" id="botonesMenu">
+            <a href="turno" class="btn third" id="botonesMenu">
                 <br>
             <svg xmlns="http://www.w3.org/2000/svg" width="250" height="180" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
             <path id="Circulo---imagotipo" fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>

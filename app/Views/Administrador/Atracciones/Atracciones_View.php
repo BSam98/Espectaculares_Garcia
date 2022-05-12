@@ -18,6 +18,8 @@
                         <th style="vertical-align: middle;">Propietario</th>
                         <th style="vertical-align: middle;">Capacidad maxima</th>
                         <th style="vertical-align: middle;">Capacidad minima</th>
+                        <th style="vertical-align: middle;">Largo(m)</th>
+                        <th style="vertical-align: middle;">Ancho(m)</th>
                         <th style="vertical-align: middle;">Duración por ciclo</th>
                         <th style="vertical-align: middle;">Tiempo de espera</th>   
                     </thead>
@@ -30,6 +32,8 @@
                                 <td style="vertical-align: middle;"><?= $dA->Nombre?></td>
                                 <td style="vertical-align: middle;"><?= $dA->CapacidadMAX?></td>
                                 <td style="vertical-align: middle;"><?= $dA->CapacidadMIN?></td>
+                                <td style="vertical-align: middle;"></td>
+                                <td style="vertical-align: middle;"></td>
                                 <td style="vertical-align: middle;"><?= $dA->Tiempo?></td>
                                 <td style="vertical-align: middle;"><?= $dA->TiempoMAX?></td>
                             </tr>

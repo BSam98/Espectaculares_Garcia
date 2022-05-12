@@ -29,7 +29,7 @@
         <script src="../bootstrap/aos.js"></script>
         <script src="../bootstrap/sweetalert.min.js"></script>
         <script src="../bootstrap/jquery.easing.min.js"></script>
-        <link href="../bootstrap/sb-admin-2.min.css" rel="stylesheet">
+        <!--link href="../bootstrap/sb-admin-2.min.css" rel="stylesheet"-->
         <script src="../bootstrap/moment-with-locales.min.js"></script>
         <script src="../bootstrap/jquery.loadingModal.js"></script>
         <link rel="stylesheet" href="../bootstrap/jquery.loadingModal.css">
