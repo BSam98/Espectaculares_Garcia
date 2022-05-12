@@ -228,7 +228,11 @@ $routes->get('/Validacion_Interfaz','validador_Control::new');
 $routes->get('/Validacion_Interfaz/Cerrar_Sesion','validador_Control::Cerrar_Sesion');
 $routes->post('/Validacion_Interfaz/Cerrar_Sesion','validador_Control::Cerrar_Sesion');
 
+$routes->get('/Validacion_Interfaz/Tarjeta','validador_Control::Validar_Saldo');
+$routes->post('/Validacion_Interfaz/Tarjeta','validador_Control::Validar_Saldo');
 
+$routes->get('/Validacion_Interfaz/Promociones','validador_Control::Promociones');
+$routes->post('/Validacion_Interfaz/Promociones','validador_Control::Promociones');
 
 /*
  * --------------------------------------------------------------------

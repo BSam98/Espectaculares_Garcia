@@ -68,11 +68,53 @@ class validador_Control extends BaseController {
         }
     }
 
+    public function Validar_Saldo(){
+        $model = new Validador_Model();
+        $folio = $_POST['folio'];
+
+        date_default_timezone_set('America/Mexico_City');
+        $fecha = date("Y-m-d H:i:s").".000";
+
+        $respuesta = $model->Validar_Saldo($folio);
+        $pulsera = $model->Validar_Pulsera($folio,$fecha);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta,'pulsera'=>$pulsera));
+    }
+
+    public function Promociones(){
+        $model = new Validador_Model();
+
+        date_default_timezone_set('America/Mexico_City');
+        $fechaInicial = date("Y-m-d")." 23:59:00.000";
+        $fechaFinal = date("Y-m-d")." 00:00:00.000";
+
+        $idAtraccionEvento = $_POST['idAtraccionEvento'];
+        /*
+        $datos =[
+            'descuentos' => $model->descuentos($idAtraccionEvento, $fechaInicial, $fechaFinal),
+            'juegosGratis' => $model->juegos_Gratis($idAtraccionEvento, $fechaInicial, $fechaFinal),
+            'pulseraMagica' => $model->pulsera_Magica($idAtraccionEvento, $fechaInicial, $fechaFinal)
+        ];
+        */
+        echo json_encode(
+            array(
+                'respuesta'=>true, 
+                'descuentos'=> $model->descuentos($idAtraccionEvento, $fechaInicial, $fechaFinal),
+                'juegosGratis' => $model->juegos_Gratis($idAtraccionEvento, $fechaInicial, $fechaFinal),
+                'pulseraMagica' => $model->pulsera_Magica($idAtraccionEvento, $fechaInicial, $fechaFinal)
+            )
+        );
+    }
+
 
 
     public function new (){
         $model = new Validador_Model();
 
+        //$fechaInicial = date("Y-m-d");
+        //$fechaFinal = date("Y-m-d");
+
+        //$fecha =$fechaInicial.' 23:59:00.000';
         
         $dato = $_GET['dato'];
           
