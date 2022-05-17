@@ -74,7 +74,7 @@ $("#abrir_Modal_Atracciones").click(function(){
 $("#nueva_Atraccion").click(function(){
 
     $(
-        '<tr class ="a-Atracciones" id="0">'+
+        '<tr class ="a-Atracciones">'+
             '<td>'+
                 '<div class="form-group">'+
                     '<label for="nombre">Nombre</label>'+
@@ -100,17 +100,25 @@ $("#nueva_Atraccion").click(function(){
                     '<input class="form-control" type="number"  id="cmi" required name="cmi[]"/>'+
                 '</div>'+
                 '<div class="form-group">'+
-                    '<label for="tiempo">Tiempo</label>'+
+                    '<label>Largo(m)</label>'+
+                    '<input class="form-control" type="number" id="largo" required name="largo[]"/>'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label>Ancho(m)</label>'+
+                    '<input class="form-control" type="number" id="ancho" required name="ancho[]"/>'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label for="tiempo">Tiempo (hh:mm:ss)</label>'+
                     '<input class="form-control" type="text"  id="tim" required name="tim[]" placeholder="Tiempo"/>'+
                 '</div>'+
                 '<div class="form-group">'+
-                    '<label for="tma">Tiempo Máximo de Espera</label>'+
+                    '<label for="tma">Tiempo Máximo de Espera (hh:mm:ss)</label>'+
                     '<input class="form-control" type="text"  id="tma" required name="tma[]" placeholder="Tiempo Máximo"/>'+
                 '</div>'+
             '</td>'+
             '<td class="eliminar_Atraccion"><input type ="button" value="-"></td>'+
         '</tr>'
-    ).clone().appendTo("#agregar_Atracciones");
+    ).clone().appendTo("#atracciones");
 });
 
 $(document).on("click",".eliminar_Atraccion",function(){

@@ -4,7 +4,7 @@
         <center><label><h1>LOTES</h1></label></center>
             <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Tarjeta</a-->
 
-        <a href="#agregarL" type="button" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Agregar Lote</a>
+        <a href="#agregarL" type="button" class="btn btn-success datos" data-toggle="modal" data-book-id='{"nombre":"<?= session('Usuario')?>","idUsuario":<?= session('idUsuario')?>}'><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Agregar Lote</a>
                 
         <!--button class="btn btn-success" id="abrir"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Lote</button-->
         <div class="contenedorTabla"><br>

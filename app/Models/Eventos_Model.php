@@ -649,12 +649,18 @@ class Eventos_Model extends Model{
 
         $builder->select(
             '
-            Nombre,
-            Folio,
-            FechaActivacion,
-            Status,
-            Tipo
+            Tarjetas.Nombre,
+            Tarjetas.Folio,
+            Tarjetas.FechaActivacion,
+            Status.Iniciales,
+            Tarjetas.Tipo
             '
+        );
+
+        $builder->join(
+            'Status',
+            'Tarjetas.idStatus = Status.idStatus',
+            'inner'
         );
 
         $builder->where('idEvento',$datos['idEvento']);
