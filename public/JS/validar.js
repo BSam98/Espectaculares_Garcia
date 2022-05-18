@@ -85,8 +85,11 @@ $(document).on('change','#tarjetaVal',function(event){
     }).done(function(data){
 
         if(data.respuesta){
+            console.log(data.msj);
             var CreditoN = parseInt(data.msj[0]['CreditoN']);
             var CreditoC = parseInt(data.msj[0]['CreditoC']);
+            alert(CreditoN+" "+CreditoC);
+
 
             for(var i=0; i<juegosGratis.length; i++){
 

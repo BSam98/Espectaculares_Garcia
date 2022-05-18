@@ -235,6 +235,24 @@ class Validador_Model extends Model {
 
     public function Validar_Saldo($folio){
         $db = \Config\Database::connect();
+
+        $builder = $db->table('Tarjetas');
+
+        $builder->select(
+            '
+            Tarjetas.idTarjeta,
+            Tarjetas.CreditoN,
+            Tarjetas.CreditoC
+            '
+        );
+
+        $builder->where('Tarjetas.Folio',$folio);
+
+        $query = $builder->get();
+
+        $datos = $query->getResultObject();
+
+        /*
         $builder = $db->table('Saldo');
         
         $builder->select(
@@ -257,6 +275,7 @@ class Validador_Model extends Model {
         $query = $builder->get();
 
         $datos = $query->getResultObject();
+        */
 
         return $datos;
     }
