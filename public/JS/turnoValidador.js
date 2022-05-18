@@ -93,6 +93,11 @@
         var idAtraccionEvento = ($("#atraccion option:selected").val());
         var idUsuario = $("#idUsuario").val();
 
+        var d = new Date();
+
+        var fecha = d.toISOString().split('T')[0] +" "+d.toLocaleTimeString()+".000";
+        
+        
         if(idAtraccionEvento === undefined){   
             alert('Seleccione una atraccion para iniciar sesion.');
         }else{
@@ -102,7 +107,7 @@
                 },
                 type: "POST",
                 url: 'Iniciar_Turno_Validador',
-                data: {'idAtraccionEvento':idAtraccionEvento,'idUsuario':idUsuario},
+                data: {'fecha':fecha,'idAtraccionEvento':idAtraccionEvento,'idUsuario':idUsuario},
                 dataType: 'JSON',
                 error: function(jqXHR, textStatus, errorThrown){
                     alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
@@ -120,7 +125,7 @@
                 }
             });
         }
-
+        
     });
 
 //});

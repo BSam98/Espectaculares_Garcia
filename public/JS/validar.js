@@ -72,10 +72,11 @@ $(document).on('change','#tarjetaVal',function(event){
     var folio = $("#tarjetaVal").val();
     var creditos = parseInt( $("#Creditos").val());
 
+
     $.ajax({
         type:"POST",
         url: 'Validacion_Interfaz/Tarjeta',
-        data: {'folio':folio},
+        data: {'folio':folio,'fecha':fecha},
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
@@ -271,13 +272,17 @@ $('#cerrarSesion').click(function(){
     var idAperturaValidador = $("#idAperturaValidador").val();
     var idAtraccionEvento = $("#idAtraccionEvento").val();
 
+    var d = new Date();
+
+    var fecha = d.toISOString().split('T')[0] +" "+d.toLocaleTimeString()+".000";
+
     $.ajax({
         beforeSend:function(){
             iniciarCarga();
         },
         type: "POST",
         url: 'Validacion_Interfaz/Cerrar_Sesion',
-        data: {'idAtraccionEvento':idAtraccionEvento,'idAperturaValidador':idAperturaValidador},
+        data: {'fecha':fecha,'idAtraccionEvento':idAtraccionEvento,'idAperturaValidador':idAperturaValidador},
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
@@ -322,10 +327,15 @@ $(document).ready(function(){
 });
 
 function promociones(idAtraccionEvento){
+    var d = new Date();
+
+    var fechaInicial = d.toISOString().split('T')[0]+" "+"23:59:00.000";
+    var fechaFinal = d.toISOString().split('T')[0]+" "+"00:00:00.000";
+
     $.ajax({
         type:"POST",
         url:'Validacion_Interfaz/Promociones',
-        data: {'idAtraccionEvento':idAtraccionEvento},
+        data: {'fechaInicial':fechaInicial,'fechaFinal':fechaFinal,'idAtraccionEvento':idAtraccionEvento},
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);

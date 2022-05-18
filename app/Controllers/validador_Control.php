@@ -25,11 +25,8 @@ class validador_Control extends BaseController {
     public function iniciar_Turno(){
         $model = new Validador_Model();
 
-        date_default_timezone_set('America/Mexico_City');
-        $fecha = date("Y-m-d H:i:s");
-
         $datos = [
-            'horaApertura' => $fecha,
+            'horaApertura' => $this->request->getVar('fecha'),
             'idAtraccionEvento' => $this->request->getVar('idAtraccionEvento'),
             'idUsuario' => $this->request->getVar('idUsuario')
         ];
@@ -48,8 +45,8 @@ class validador_Control extends BaseController {
     public function Cerrar_Sesion(){
         $model = new Validador_Model();
         
-        date_default_timezone_set('America/Mexico_City');
-        $fecha = date("Y-m-d H:i:s");
+
+        $fecha = $_POST['fecha'];
 
         $idAtraccionEvento = $_POST['idAtraccionEvento'];
 
@@ -72,8 +69,7 @@ class validador_Control extends BaseController {
         $model = new Validador_Model();
         $folio = $_POST['folio'];
 
-        date_default_timezone_set('America/Mexico_City');
-        $fecha = date("Y-m-d H:i:s").".000";
+        $fecha = $_POST['fecha'];
 
         $respuesta = $model->Validar_Saldo($folio);
         $pulsera = $model->Validar_Pulsera($folio,$fecha);
@@ -84,9 +80,9 @@ class validador_Control extends BaseController {
     public function Promociones(){
         $model = new Validador_Model();
 
-        date_default_timezone_set('America/Mexico_City');
-        $fechaInicial = date("Y-m-d")." 23:59:00.000";
-        $fechaFinal = date("Y-m-d")." 00:00:00.000";
+        $fechaInicial = $_POST['fechaFinal'];
+    
+        $fechaFinal = $_POST['fechaFinal'];
 
         $idAtraccionEvento = $_POST['idAtraccionEvento'];
         /*
