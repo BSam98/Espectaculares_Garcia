@@ -80,7 +80,7 @@ class validador_Control extends BaseController {
     public function Promociones(){
         $model = new Validador_Model();
 
-        $fechaInicial = $_POST['fechaFinal'];
+        $fechaInicial = $_POST['fechaInicial'];
     
         $fechaFinal = $_POST['fechaFinal'];
 
@@ -102,7 +102,131 @@ class validador_Control extends BaseController {
         );
     }
 
+    public function Insertar_Ciclo(){
+        $model = new Validador_Model();
 
+        $ciclo = $_POST['ciclo'];
+        $datosCiclo = $_POST['informacionCiclo'];
+        $num_elementos = 0;
+        $cantidad = count($datosCiclo);
+        $resultados = '';
+
+        $datos = [
+            'Personas' => $ciclo[0]['Personas'],
+            'Creditos' => $ciclo[0]['Creditos'],
+            'Cortesias' => $ciclo[0]['Cortesias'],
+            'Descuentos' => $ciclo[0]['Descuentos'],
+            'PulserasMagicas' => $ciclo[0]['PulserasMagicas'],
+            'Hora' => $ciclo[0]['Hora'],
+            'idAperturaValidador' => $ciclo[0]['idAperturaValidador']
+        ];
+
+        $idCiclo = $model->Insertar_Ciclo($datos);
+        if($cantidad === 1){
+            switch($datosCiclo[$num_elementos]['indice']){
+                case '1':
+                    $datos = [
+                        'Folio' => $datosCiclo[$num_elementos]['folio'],
+                        'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionCiclo'],
+                        'idFechaJuegosGratis' => $datosCiclo[$num_elementos]['idFechaJuegosGratis'],
+                        'idCiclo' => $idCiclo
+                    ];
+
+                    $respuesta = $model->Registro_Juegos_Gratis($datos);
+                break;
+                case '2':
+                    //$resultados += ' Pulsera Magica';
+                    $datos = [
+                        'Folio' => $datosCiclo[$num_elementos]['folio'],
+                        'idAtraccionEvento'  => $datosCiclo[$num_elementos]['idAtraccionEvento'],
+                        'idFechaPulseraMagica' => $datosCiclo[$num_elementos]['idFechaPulseraMagica'],
+                        'idCiclo' => $idCiclo
+                    ];
+
+                    $respuesta = $model->Registro_PulseraMagica($datos);
+                break;
+                case '3':
+                    //$resultados += ' Desucentos';
+                    $datos = [
+                        'CantidadN' => $datosCiclo[$num_elementos]['CantidadN'],
+                        'Folio' => $datosCiclo[$num_elementos]['folio'],
+                        'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionEvento'],
+                        'idFechaDosxUno' => $datosCiclo[$num_elementos]['idFechaDosxUno'],
+                        'CantidadC' => $datosCiclo[$num_elementos]['CantidadC'],
+                        'idCiclo' => $idCiclo
+                    ];
+
+                    $respuesta = $model->Registro_Atraccion_Dos_x_Uno($datos);
+                break;
+                case '4':
+                    //$resultados += 'Creditos Normales';
+
+                    $datos = [
+                        'Creditos' => $datosCiclo[$num_elementos]['Creditos'],
+                        'Cortesias' => $datosCiclo[$num_elementos]['Cortesias'],
+                        'idCiclo' => $idCiclo,
+                        'Folio' => $datosCiclo[$num_elementos]['folio']
+                    ];
+
+                    $respuesta = $model->Registro_Movimiento($datos);
+                break;
+            }
+        }
+        else{
+            while($num_elementos<$cantidad){
+                switch($datosCiclo[$num_elementos]['indice']){
+                    case '1':
+                        $datos = [
+                            'Folio' => $datosCiclo[$num_elementos]['folio'],
+                            'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionCiclo'],
+                            'idFechaJuegosGratis' => $datosCiclo[$num_elementos]['idFechaJuegosGratis'],
+                            'idCiclo' => $idCiclo
+                        ];
+
+                        $respuesta = $model->Registro_Juegos_Gratis($datos);
+                    break;
+                    case '2':
+                        //$resultados += ' Pulsera Magica';
+                        $datos = [
+                            'Folio' => $datosCiclo[$num_elementos]['folio'],
+                            'idAtraccionEvento'  => $datosCiclo[$num_elementos]['idAtraccionEvento'],
+                            'idFechaPulseraMagica' => $datosCiclo[$num_elementos]['idFechaPulseraMagica'],
+                            'idCiclo' => $idCiclo
+                        ];
+
+                        $respuesta = $model->Registro_Pulsera_Magica($datos);
+                    break;
+                    case '3':
+                        //$resultados += ' Desucentos';
+                        $datos = [
+                            'CantidadN' => $datosCiclo[$num_elementos]['CantidadN'],
+                            'Folio' => $datosCiclo[$num_elementos]['folio'],
+                            'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionEvento'],
+                            'idFechaDosxUno' => $datosCiclo[$num_elementos]['idFechaDosxUno'],
+                            'CantidadC' => $datosCiclo[$num_elementos]['CantidadC'],
+                            'idCiclo' => $idCiclo
+                        ];
+
+                        $respuesta = $model->Registro_Atraccion_Dos_x_Uno($datos);
+                    break;
+                    case '4':
+                        //$resultados += 'Creditos Normales';
+
+                        $datos = [
+                            'Creditos' => $datosCiclo[$num_elementos]['Creditos'],
+                            'Cortesias' => $datosCiclo[$num_elementos]['Cortesias'],
+                            'idCiclo' => $idCiclo,
+                            'Folio' => $datosCiclo[$num_elementos]['folio']
+                        ];
+
+                        $respuesta = $model->Registro_Movimiento($datos);
+                    break;
+                }
+                $num_elementos = $num_elementos + 1;
+            }
+        }
+        echo json_encode(array('respuesta'=>true,'msj'=>$resultados));
+    }
 
     public function new (){
         $model = new Validador_Model();

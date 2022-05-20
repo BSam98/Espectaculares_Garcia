@@ -316,4 +316,113 @@ class Validador_Model extends Model {
 
         return $datos;
     }
+
+    public function Insertar_Ciclo($datos){
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('Ciclo');
+
+        if($builder->insert($datos)){
+            return $db->insertID();
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function Registro_Juegos_Gratis($datos){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "INSERT INTO
+                Registro_Atraccion_Juegos_Gratis
+            VALUES(
+                (SELECT idTarjeta FROM Tarjetas WHERE Folio = $datos[Folio]),
+                $datos[idAtraccionEvento],
+                $datos[idFechaJuegosGratis],
+                $datos[idCiclo]
+            );
+            "
+        );
+
+        return $query;
+    }
+
+    public function Registro_Pulsera_Magica($datos){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "INSERT INTO
+                Registro_Atracciones_Pulsera_Magica
+            VALUES(
+                (SELECT idTarjeta FROM Tarjetas WHERE Folio = $datos[Folio]),
+                $datos[idAtraccionEvento],
+                $datos[idFechaPulseraMagica],
+                $datos[idCiclo]
+            );
+            "
+        );
+
+        return $query;
+    }
+
+    public function Registro_Atraccion_Dos_x_Uno($datos){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "INSERT INTO
+                Registro_Atraccion_Dos_x_Uno
+            VALUES(
+                $datos[CantidadN],
+                (SELECT idTarjeta FROM Tarjetas WHERE Folio = $datos[Folio]),
+                $datos[idAtraccionEvento],
+                $datos[idFechaDosxUno],
+                $datos[CantidadC],
+                $datos[idCiclo]
+            );
+            "
+        );
+
+        $query = $db->query(
+            "UPDATE
+                Tarjetas
+            SET
+                CreditoN = CreditoN - $datos[CantidadN],
+                CreditoC = CreditoC - $datos[CantidadC]
+            WHERE
+                idTarjeta = (SELECT idTarjeta FROM Tarjetas WHERE Folio = $datos[Folio]);
+            "
+        );
+
+        return $query;
+    }
+
+    public function Registro_Movimiento($datos){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "INSERT INTO
+                Movimiento
+            VALUES(
+                $datos[Creditos],
+                $datos[Cortesias],
+                $datos[idCiclo],
+                (SELECT idTarjeta FROM Tarjetas WHERE Folio = $datos[Folio])
+            );
+            "
+        );
+
+        $query = $db->query(
+            "UPDATE
+                Tarjetas
+            SET
+                CreditoN = CreditoN - $datos[Creditos],
+                CreditoC = CreditoC - $datos[Cortesias]
+            WHERE
+                idTarjeta = (SELECT idTarjeta FROM Tarjetas WHERE Folio = $datos[Folio]);
+            "
+        );
+
+        return $query;
+    }
 }

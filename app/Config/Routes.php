@@ -237,6 +237,9 @@ $routes->post('/Validacion_Interfaz/Tarjeta','validador_Control::Validar_Saldo')
 $routes->get('/Validacion_Interfaz/Promociones','validador_Control::Promociones');
 $routes->post('/Validacion_Interfaz/Promociones','validador_Control::Promociones');
 
+$routes->get('/Validacion_Interfaz/Ciclo','validador_Control::Insertar_Ciclo');
+$routes->post('/Validacion_Interfaz/Ciclo','validador_Control::Insertar_Ciclo');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

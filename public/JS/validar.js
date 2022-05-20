@@ -11,6 +11,14 @@ var btnTiempo;
 var descuentos = [];
 var juegosGratis = [];
 var pulseraMagica = [];
+var cantidadP = 0;
+var cantidadC = 0;
+var cantidadCC = 0;
+var cantidadD= 0;
+var cantidadPM = 0;
+var ciclo = [];
+var informacionCiclo = [];
+
 
 //countdown function is evoked when page is loaded
 
@@ -68,10 +76,10 @@ $(document).on('change','#tarjetaVal',function(event){
 
     var fecha = date.toISOString().split('T')[0];
     fecha += ' ' + date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
-    fecha += '.'+'000'
+    fecha += '.'+'000';
     var folio = $("#tarjetaVal").val();
     var creditos = parseInt( $("#Creditos").val());
-
+    var idAtraccionEvento = $("#idAtraccionEvento").val();
 
     $.ajax({
         type:"POST",
@@ -88,7 +96,7 @@ $(document).on('change','#tarjetaVal',function(event){
             console.log(data.msj);
             var CreditoN = parseInt(data.msj[0]['CreditoN']);
             var CreditoC = parseInt(data.msj[0]['CreditoC']);
-            alert(CreditoN+" "+CreditoC);
+            
 
 
             for(var i=0; i<juegosGratis.length; i++){
@@ -122,8 +130,7 @@ $(document).on('change','#tarjetaVal',function(event){
                 }
             }
 
-            if(indiceJuegos != null){
-                
+            if(indiceJuegos != null){ 
                 html='<center style="background-color:#7EFF33">'+
                         '<label>Tarjeta: '+folio+'</label>'+
                         '<br>'+
@@ -131,10 +138,12 @@ $(document).on('change','#tarjetaVal',function(event){
                         '<br>'+
                         '<label>'+juegosGratis[indiceJuegos]['Nombre']+'</label>'+
                     '</center>';
+                    cantidadP += 1;
+
+                informacionCiclo.push({'indice':1,'folio':folio,'idAtraccionEvento':idAtraccionEvento,'idFechaJuegosGratis':juegosGratis[indiceJuegos]['idFechaJuegosGratis']});
             }
             else{
                 if(indicePulsera != null && data.pulsera.length != 0){
-                    
                     html='<center style="background-color:#7EFF33">'+
                             '<label>Tarjeta: '+folio+'</label>'+
                             '<br>'+
@@ -142,6 +151,10 @@ $(document).on('change','#tarjetaVal',function(event){
                             '<br>'+
                             '<label>'+pulseraMagica[indicePulsera]['Nombre']+'</label>'+
                         '</center>';
+                        cantidadP += 1;
+                        cantidadPM += 1;
+
+                    informacionCiclo.push({'indice':2,'folio':folio,'idAtraccionEvento':idAtraccionEvento,'idFechaPulseraMagica':pulseraMagica[indicePulsera]['idFechaPulseraMagica']});
                 }
                 else{
                     if(indiceDescuentos != null){
@@ -159,6 +172,11 @@ $(document).on('change','#tarjetaVal',function(event){
                             '<br>'+
                             '<label>Credito Actual:    </label>'+  (CreditoN - costo) +
                             '</center>';
+                            cantidadD = cantidadD + 1;
+                            cantidadC = cantidadC + costo;
+                            cantidadP += parseInt(descuentos[indiceDescuentos]['Cantidad']);
+
+                            informacionCiclo.push({'indice':3,'CantidadN':costo,'folio':folio,'idAtraccionEvento':idAtraccionEvento,'idFechaDosxUno':descuentos[indiceDescuentos]['idFechaDosxUno'],'CantidadC':0});
                         }
                         else{
                             if(CreditoC >= costo){
@@ -173,10 +191,17 @@ $(document).on('change','#tarjetaVal',function(event){
                                 '<br>'+
                                 '<label>Credito de Cortesia Actual:    </label>'+  (CreditoC - costo) +
                                 '</center>';
+
+                                cantidadD = cantidadD +  1;
+                                cantidadCC = cantidadCC + costo;
+                                cantidadP += parseInt(descuentos[indiceDescuentos]['Cantidad']);
+
+                                informacionCiclo.push({'indice':3,'CantidadN':0,'folio':folio,'idAtraccionEvento':idAtraccionEvento,'idFechaDosxUno':descuentos[indiceDescuentos]['idFechaDosxUno'],'CantidadC':costo});
                             }
                             else{
                                 suma = CreditoC + CreditoN;
                                 if(suma >= costo){
+                                    var residuo;
                                     html='<center style="background-color:#7EFF33">'+
                                     '<label>Tarjeta: '+folio+'</label>'+
                                     '<br>'+
@@ -188,6 +213,17 @@ $(document).on('change','#tarjetaVal',function(event){
                                     '<br>'+
                                     '<label>Credito Actual:    </label>'+  (suma - costo) +
                                     '</center>';
+
+                                    residuo = costo-CreditoN;
+
+
+                                    cantidadD += 1;
+                                    //cantidadC += (CreditoN - costo);
+                                    cantidadC += CreditoN;
+                                    cantidadCC += residuo;
+                                    cantidadP += parseInt(descuentos[indiceDescuentos]['Cantidad']);
+
+                                    informacionCiclo.push({'indice':3,'CantidadN':CreditoN,'folio':folio,'idAtraccionEvento':idAtraccionEvento,'idFechaDosxUno':+descuentos[indiceDescuentos]['idFechaDosxUno'],'CantidadC':residuo});
                                 }
                             }
                         }
@@ -205,6 +241,11 @@ $(document).on('change','#tarjetaVal',function(event){
                                     '<br>'+
                                     '<label>Credito Actual:    </label>'+  (CreditoN - creditos) +
                                     '</center>';
+                            
+                            cantidadP =cantidadP + 1;
+                            cantidadC = cantidadC + creditos;
+
+                            informacionCiclo.push({'indice':4,'Creditos':creditos,'Cortesias':0,'folio':folio});
                         }
                         else{
                             if(CreditoC >= creditos){
@@ -219,11 +260,14 @@ $(document).on('change','#tarjetaVal',function(event){
                                         '<br>'+
                                         '<label>Credito de Cortesia Actual: </label>'+  (CreditoC - creditos)+
                                     '</center>';
+                                cantidadP += 1;
+                                cantidadCC += creditos;
+                                informacionCiclo.push({'indice':4,'Creditos':0,'Cortesias':creditos,'folio':folio});
                             }
                             else{
                                 suma = CreditoN + CreditoC;
                                 if(suma >= creditos){
-
+                                    var residuo;
                                     html='<center style="background-color:#7EFF33">'+
                                     '<label>Tarjeta: '+folio+'</label>'+
                                     '<br>'+
@@ -233,6 +277,14 @@ $(document).on('change','#tarjetaVal',function(event){
                                     '<br>'+
                                     '<label>Credito Actual:    </label>'+  (suma - creditos) +
                                     '</center>';
+
+                                    residuo = creditos - CreditoN;
+
+                                    cantidadP += 1;
+                                    cantidadC += CreditoN;
+                                    cantidadCC += residuo;
+
+                                    informacionCiclo.push({'indice':4,'Creditos':CreditoN,'Cortesias':residuo,'folio':folio});
                                 }
                                 else{
                                     
@@ -269,6 +321,36 @@ $('#tiempoExtra').click(function() {
     segundos = (minutos * 60) + parseInt(document.getElementById("seconds").value);
     document.getElementById("tarjetaVal").focus();
     setTimeout('decrement()',60);
+});
+
+$('#iniciarCiclo').click(function(){
+    iniciarCarga();
+    var idAperturaValidador = $("#idAperturaValidador").val();
+    var d = new Date();
+
+    var fecha = d.toISOString().split('T')[0] +" "+d.toLocaleTimeString()+".000";
+
+    ciclo.push({'indice':7,'Personas':cantidadP,'Creditos':cantidadC,'Cortesias':cantidadCC,'Descuentos':cantidadD,'PulserasMagicas':cantidadPM,'Hora':fecha,'idAperturaValidador':idAperturaValidador});
+    console.log('Cantidad de personas ' + cantidadP);
+    console.log('Cantidad de creditos ' + cantidadC);
+    console.log('Cantidad de cortesia '+ cantidadCC);
+    console.log('Cantidad de descuentos '+ cantidadD);
+    console.log('Cantidad de Pulseras Magica '+ cantidadPM);
+    console.log('Informacion del Ciclo ' + JSON.stringify( informacionCiclo));
+
+    $.ajax({
+        type:"POST",
+        url: 'Validacion_Interfaz/Ciclo',
+        data: {'ciclo':ciclo,'informacionCiclo':informacionCiclo},
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        console.log('Respuesta: ' + JSON.stringify(data.msj));
+        cerrarCarga();
+    });
 });
 
 $('#cerrarSesion').click(function(){
