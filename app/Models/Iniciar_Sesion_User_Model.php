@@ -94,39 +94,61 @@ class Iniciar_Sesion_User_Model extends Model{
         return $datos; 
     }
 
-    function insertarTurno($fecha,$fondo,$ventanilla,$folioI,$folioF,$usuario){
+    function insertarTurno($fecha,$fondo,$ventanilla,$usuario){
         $db = \Config\Database::connect();
-
-        $query1= $db->query(
-            "SELECT DISTINCT(folioInicial), Folio, folioFinal  from Tarjetas t, Apertura_Ventanilla av
-            WHERE folioInicial = (SELECT DISTINCT(idTarjeta) from Tarjetas t,Apertura_Ventanilla WHERE Folio = ".$folioI." and idTarjeta=folioInicial)
-            and folioFinal = (SELECT DISTINCT(idTarjeta) from Tarjetas t, Apertura_Ventanilla WHERE Folio  = ".$folioF." and idTarjeta=folioFinal)
-            and idTarjeta = folioInicial;"
-        );
-        if($query1->getResult()){
-            return TRUE;
+        $builder = $db->table('Apertura_Ventanilla');
+        $data = [
+            'fondoCaja' => $fondo,
+            'horaApertura' => $fecha,
+            'idUsuario' => $usuario,
+            'idVentanilla' => $ventanilla,
+        ];
+        if($builder->insert($data)){
+            return $db->insertID();
         }else{
+            return false;
+        }
+    }
+
+
+    function agregarFajilla($fecha,$folioI,$folioF,$data){
+        $db = \Config\Database::connect();
+        $query1= $db->query(
+            "SELECT DISTINCT(folioInicial), Folio, folioFinal  from Tarjetas t, Fajillas av
+            WHERE folioInicial = (SELECT DISTINCT(idTarjeta) from Tarjetas t,Fajillas WHERE Folio = ".$folioI." and idTarjeta=folioInicial)
+            and folioFinal = (SELECT DISTINCT(idTarjeta) from Tarjetas t, Fajillas WHERE Folio  = ".$folioF." and idTarjeta=folioFinal)
+            and idTarjeta = folioInicial"
+        );
+        if($query1){
             $query= $db->query(
-                "INSERT INTO Apertura_Ventanilla (
-                    fondoCaja,
-                    horaApertura,
+                "INSERT INTO Fajillas (
+                    fecha,
+                    idStatus,
                     folioInicial,
                     folioFinal,
-                    idUsuario,
-                    idVentanilla
+                    idAperturaVentanilla
                 )
                 VALUES(
-                    $fondo,
                     '$fecha',
+                    '6',
                     (SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),
                     (SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),
-                    $usuario,
-                    $ventanilla
-                );
-                "
+                    $data
+                )"
             );
+            if($query){
+                return $db->insertID();
+            }
+            else{
+                return FALSE;
+            }
+        }else{
             return FALSE;
         }
+    }
+}
+
+
         //$datos = $query->getResultObject();
 
         
@@ -147,7 +169,7 @@ class Iniciar_Sesion_User_Model extends Model{
             return FALSE;
         }
         */
-    }
+    
 
     /*function consultarTurno($evento,$zona, $taquilla,$ventanilla,$usuario){
         $db = \Config\Database::connect();
@@ -173,4 +195,4 @@ class Iniciar_Sesion_User_Model extends Model{
     $datos = $query->getResultObject();
     return $datos; 
     }    */
-}
+

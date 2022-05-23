@@ -64,28 +64,75 @@ class Menu_Principal_User_Control extends BaseController {
     }
 
     public function guardar_Ventas(){
+
         date_default_timezone_set('America/Mexico_City');
         $fecha = date("Y-m-d H:i:s");
+
         $model = new mcobro_model;
-        $v = $_POST["ventanillaa"];
+        $evento = $_POST['evento'];
+        $v = $_POST["ventanillaa"];//este es el idaperturaventanilla
+        $idventanilla = $_POST['idventani'];//este es el id de la ventanilla
         $promociones = $_POST['arregloP'];
+        $promocionesPrecio = $_POST['arregloPrecioP'];
+        $promocionesC = $_POST['arregloC'];
+        $promocionesPrecioC = $_POST['arregloPrecioC'];
+        $idtarjeta = $_POST['idTarjeta'];
         $usuario = $_POST['idUsuario'];
-       // $fecha = $_POST['fechaHoy'];
-		$tarjeta = $_POST['tarjetaAdd'];
+        $precioTa = $_POST['precioTa'];
+		$tarjeta = $_POST['tarjetaAdd'];//tengo duda si esta iria
         $recarga = $_POST['recargaAdd'];
         $totalPago = $_POST['total'];
-        $gtran = $model->guardarTransaccion($totalPago,$fecha,$v);
-        $data = $model->guardarVenta($usuario,$fecha, $tarjeta, $recarga, $totalPago,$gtran);
-        $promo = explode(",",$promociones);
+        $indices = $_POST['indice'];
 
-        foreach ($promo as $p){
-            $valor = intval($p);
-            $data2 = $model->promoVendidas($gtran,$valor);
+        $indicar = explode(",", $indices);
+
+        $gtran = $model->guardarTransaccion($totalPago,$fecha,$idventanilla);
+        
+        for($i = 0 ; $i <= $indicar ; $i++){
+            switch($indicar[$i]){
+                case '0';
+                    $data = $model->agregarTarjeta($idtarjeta, $gtran, $precioTa);
+                    break;
+
+                case '1';
+                    //echo ;
+                    break;
+                
+                case '2';
+                   //echo ;
+                    break;
+
+                case '3';
+                    //echo ;
+                     break;
+                
+                case '4';
+                   //echo ;
+                    break;
+            }
         }
         
+        
 
-        //$data = $model->guardarVenta($usuario,$fecha, $tarjeta, $recarga, $promocion, $totalPago);
-        echo json_encode(array('respuesta'=>true,'msj'=>$data2));
+        //$data = $model->guardarVenta($usuario, $fecha, $idtarjeta, $recarga, $gtran, $precioTa);
+
+        //if($promocionesPrecio != '' || $recarga != ''){
+            $promo = explode(",", $promocionesPrecio);//agregaria el precio de las promociones en tabla pago
+            $idPromo = explode(",", $promociones);
+            foreach ($promo as $p){
+                $valor = intval($p);
+                $data1 = $model->guardarVenta($usuario, $fecha, $idtarjeta, $recarga, $gtran, $precioTa, $valor, $idPromo, $evento);
+            }
+            
+            /*foreach($idPromo as $pr){
+                $idvalor = intval($pr);
+                $data = $model->promoVendidas($data1, $idvalor, $gtran);
+            }*/
+       // }/*else{
+            //$data = $model->guardarVenta2($usuario, $fecha, $idtarjeta, $recarga, $gtran, $precioTa, $evento);
+        //}
+        
+        echo json_encode(array('respuesta'=>true,'msj'=>$data1));
 	}
 
     /*public function fetch(){
@@ -128,7 +175,4 @@ class Menu_Principal_User_Control extends BaseController {
         echo json_encode(array('respuesta'=>true,'msj'=>$data));
     }
     
-    public function create (){
-        return "";
-    }
 }
