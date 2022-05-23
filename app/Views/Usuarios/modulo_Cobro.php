@@ -12,49 +12,10 @@
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 </head>
-<body id="page-top" style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;">
-
-<script language="JavaScript">
-/*function mueveReloj(){
-    
-    var d = new Date();
-
-    var month = d.getMonth()+1;
-    var day = d.getDate();
-
-    var output = d.getFullYear() + '-' +((''+month).length<2 ? '0' : '') + month + '-' +((''+day).length<2 ? '0' : '') + day;
-
-
-    momentoActual = new Date()
-    hora = momentoActual.getHours()
-    minuto = momentoActual.getMinutes()
-    segundo = momentoActual.getSeconds()
-
-    str_segundo = new String (segundo)
-    if (str_segundo.length == 1)
-       segundo = "0" + segundo
-
-    str_minuto = new String (minuto)
-    if (str_minuto.length == 1)
-       minuto = "0" + minuto
-
-    str_hora = new String (hora)
-    if (str_hora.length == 1)
-       hora = "0" + hora
-
-    horaImprimible = hora + ":" + minuto + ":" + segundo
-
-   // console.log(output+" "+horaImprimible);
-
-    document.form_reloj.reloj.value = horaImprimible
-
-    setTimeout("mueveReloj()",1000)
-}*/
-</script>
-
-<!--form name="form_reloj">
-<input type="text" name="reloj" size="10" style="background-color : Black; color : White; font-family : Verdana, Arial, Helvetica; font-size : 8pt; text-align : center;" onfocus="window.document.form_reloj.reloj.blur()">
-</form-->
+<body id="page-top" style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;" onblur="mueveReloj()">
+<form name="form_reloj">
+    <input type="text" name="reloj" size="40" style="background-color : Black; color : White; font-family : Verdana, Arial, Helvetica; font-size : 8pt; text-align : center;" onfocus="window.document.form_reloj.reloj.blur()">
+</form>
     <?php date_default_timezone_set('America/Mexico_City'); $fecha = date("Y-m-d H:i:s");?>
     <input type="hidden" name="fechaHoy" id="fechaHoy" value="<?php echo $fecha?>">
    <!-- Page Wrapper -->
@@ -166,6 +127,7 @@
                                     &nbsp;Cerrar Caja&nbsp;<i class="fa fa-times btn btn-danger" aria-hidden="true"></i>
                                 </a>
                             </div>
+                            <a class="nav-link navbar-brand" href="Ticket" target="_blank">Imprimir Ticket</a>
                         </li>
                     </ul>
                 </nav>
@@ -175,15 +137,18 @@
                 <div class="container-fluid">
                         <!-- Tarjeta y Recarga -->
                         <form id="formPuntoVenta">
-                            <?php date_default_timezone_set('America/Mexico_City'); $fecha = date("Y-m-d H:i:s");?>
-                            <input type="hidden" name="fechaHoy" id="fechaHoy" value="<?php echo $fecha?>">
                             <input type="hidden" name="ventanillaa" id="ventanillaa" value="<?php echo $_GET["v"]?>">
+                            <input type="hidden" name="idventani" id="idventani" value="<?php echo $_GET["idv"]?>">
                             <input type="hidden" name="evento" id="evento" value="<?php echo $_GET["e"]?>">
-                            <input type="hidden" name="arregloP" id="arregloP" value="">
+                            <input type="text" name="arregloP" id="arregloP" value="">
+                            <input type="hidden" name="arregloPrecioP" id="arregloPrecioP" value="">
                             <input type="hidden" name="arregloC" id="arregloC" value="">
+                            <input type="hidden" name="arregloPrecioC" id="arregloPrecioC" value="">
                             <input type="hidden" name="idTarjeta" id="idTarjeta" value="">
                             <input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo session('idUsuario')?>">
-                               
+                            <input type="hidden" name="precioTa" id="precioTa" value="">
+                            <input type="hidden" name="indice" id="indice" value="">
+                            <input type="text" name="fecha" id="fecha" value="">
                             <div class="row">
                                 <!-- Pending Requests Card Example -->
                                 <div class="col-xl-12 col-md-12 mb-12">
@@ -198,9 +163,11 @@
                                                 <input class="form-control" type="number" name="recargaAdd" id="recargaAdd" onblur="ingresarRecarga()">&nbsp;
                                             </div>
                                             <!-- Optional: clear the XS cols if their content doesn't match in height -->
-                                            <!--div class="col-xs-6 col-sm-4">
-                                                <a href="#" id="celular" class="btn btn-success">Tarjeta Electónica</a>  
-                                            </div-->
+                                            <div class="col-xs-4 col-sm-4">
+                                                <!--a href="#" id="celular" class="btn btn-success">Tarjeta Electónica</a-->  
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_Devolucion" value="">Devolucion de Tarjeta</button>
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_Fajilla" value="">Agregar Fajilla</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +202,7 @@
                                         <!-- Card Body -->
                                         <div class="card-body">
                                             <div class="chart-area table table-responsive table-wrapper" style=" color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
-                                                <table>
+                                                <table id="compras">
                                                     <!--thead>
                                                     <th style="width: 15%;"></th>
                                                     </thead-->
@@ -264,7 +231,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" id="cobrar" class="btn btn-success cobrar" data-toggle="modal" data-target="#modal_Cobrar">Cobrar</button>
+                                    <!--button type="button" id="cobrar" class="btn btn-success cobrar" data-toggle="modal" data-target="#modal_Cobrar">Cobrar</    button-->
                                 </div>
 
                                 <!-- Pie Chart -->
@@ -283,7 +250,7 @@
                                         </div>
                                         <!-- Card Body -->
                                         <div class="card-body">
-                                            <h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">Tipo Pago</h6>
+                                            <h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">Tipo Pago</h6><br>
                                             <?php foreach($tipoPago as $tipo):?>
                                                 <button type="button" class="btn btn-warning pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="<?php echo $tipo->idFormasPago?>"><?php echo $tipo->Nombre?></button>
                                             <?php endforeach ?>
@@ -303,7 +270,7 @@
                                                     </li>
                                                 </ul>
                                             </div-->
-                                            <table class="table table-responsive">
+                                            <!--table class="table table-responsive">
                                                 <thead>
                                                     <th colspan="3"><h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">Tipo Pago</h6></th>
                                                 </thead>
@@ -322,11 +289,11 @@
                                                                 <label>Efectivo:</label>
                                                                 <input type="number" class="form-control" name="efectivo" placeholder="Ingresa la cantidad">
                                                             </div>
-                                                            <!--button class="btn btn-success float-right" onclick="myFunction()" >Cobrar</button-->
+                                                            <button class="btn btn-success float-right" onclick="myFunction()" >Cobrar</button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                            </table>
+                                            </table-->
                                         </div>
                                     </div>
                                 </div>
@@ -351,27 +318,85 @@
           <span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <table>
-            <tbody>
+        <table class="table table-responsive" style="margin: 0 auto;">
+            <tbody id="efect">
                
                
             </tbody>
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregar" id="agregar" value="">Cobrar</button>
+        <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="cobrarTransaccion" id="cobrarTransaccion" value="">Cobrar</button>
       </div>
     </div>
   </div>
 </div>
 <!--**********************************Modal Efectivo*********************************-->
 
+<!--**********************************Modal Devolver Tarjeta*********************************-->
+<div class="modal fade" id="modal_Devolucion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Devolución de Tarjeta</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="formDevolucion" action="">
+                    <div class="form-group">
+                        <label>Tarjeta</label>
+                        <input type="number" name="tarjeta" id="tarjeta" class="form-control" placeholder="Ingresa la tarjeta a devolver">
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <input type="text" name="tarjeta" id="tarjeta" class="form-control" placeholder="Motivo de devolución">
+                    </div>
+                    <div class="form-group">
+                        <label>Tarjeta Nueva</label>
+                        <input type="number" name="tarjeta" id="tarjeta" class="form-control" placeholder="Ingresa la nueva tarjeta asignada">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal" name="devolucion" id="devolucion" value="">Devolver</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--**********************************Modal Devolver Tarjeta*********************************-->
 
+<!--**********************************Modal Fajilla*********************************-->
+<div class="modal fade" id="modal_Fajilla">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 class="modal-title">Agregar Fajilla Nueva</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <form id="fajillaNueva">
+            <div class="form-group">
+                <label>Folio Inicial</label>
+                <input type="number" class="form-control" name="folioI" id="folioI">
+            </div>
+            <div class="form-group">
+                <label>Folio Final</label>
+                <input type="number" class="form-control" name="folioF" id="folioF">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregarFajilla" id="agregarFajilla" value="">Agregar</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--**********************************Modal Fajilla*********************************-->
 
-
-
-    <!--******************************************** MODAL DE COBRAR ****************************************-->
-<div class="modal fade" id="modal_Cobrar">
+    <!--******************************************** MODAL DE COBRAR ESTE CREO QUE YA NO SE USARA(ES EL MODAL QUE SE ABRIA CUANDO DABA CLICK EN BOTON COBRAR) ****************************************-->
+<!--div class="modal fade" id="modal_Cobrar">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -416,7 +441,7 @@
                             <input type="number" class="form-control" name="efectivo" placeholder="Ingresa la cantidad">
                         </div>
                         <!--button class="btn btn-success float-right" onclick="myFunction()" >Cobrar</button-->
-                    </td>
+                    <!--/td>
                 </tr>
             </tbody>
         </table>
@@ -427,7 +452,7 @@
       </div>
     </div>
   </div>
-</div>
+</div-->
 
     <!-- End of Page Wrapper -->
     <!-- Bootstrap core JavaScript-->
@@ -441,15 +466,68 @@
 
 
 <script>
+
 var prev;
 var previous=[];
 let creditosC = [];
 let metros = [];
+let prec = [];
 let precios = [];
+let preciosC = [];
+var acumulador = 0;
+var total;
+let indices = [];
 
 
-/**********************************EDITAR ROL*********************************/
-    $(document).on('click', '.pagoEfectivo', function(){
+
+/***********************************DEVOLUCION DE TARJETAS ********************************************/
+$(document).on('click', '#devolucion', function(){
+        console.log('Estoy aqui');
+        alert($('#formDevolucion').serialize());
+        $.ajax({
+                beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                  //  inicia_carg();//funcion que abre la ventana de carga
+                },
+                url:"",//la ruta a donde enviare la info
+                type:"POST",
+                data:{'tipo':tipo},//toma el valor del boton seleccionado
+                dataType: 'JSON',
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);//en caso de presentar un error, muestra el msj
+                  //  cierra_carg();//funcion que cierra la ventana de carga
+                },
+            }).done(function(data){//obtiene el valor de data procesado en el controlador
+               // cierra_carg();
+            });
+    
+});
+/***********************************DEVOLUCION DE TARJETAS ********************************************/
+
+/*********************************** AGREGAR FAJILLA ********************************************/
+$(document).on('click', '#agregarFajilla', function(){
+    console.log('Estoy aqui');
+    alert($('#fajillaNueva').serialize());
+        $.ajax({
+                beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                  //  inicia_carg();//funcion que abre la ventana de carga
+                },
+                url:"",//la ruta a donde enviare la info
+                type:"POST",
+                data:{'tipo':tipo},//toma el valor del boton seleccionado
+                dataType: 'JSON',
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);//en caso de presentar un error, muestra el msj
+                  //  cierra_carg();//funcion que cierra la ventana de carga
+                },
+            }).done(function(data){//obtiene el valor de data procesado en el controlador
+               // cierra_carg();
+            });
+    });
+/*********************************** AGREGAR FAJILLA ********************************************/
+
+/********************************** Tipo Pago*********************************/
+$(document).on('click', '.pagoEfectivo', function(){
+        var total = $('#total').val();
         var tipo = $(this).val();
         alert(tipo);
         $.ajax({
@@ -469,61 +547,82 @@ let precios = [];
                 for(var i = 0;i <data.msj.length; i++){
                     if(data.msj[i]["idFormasPago"]==tipo){
                         html +=' <tr>'+
-                        
-                            '<td colspan="5">'+
-                            ' <input type="text" value="" class="outcome" />'+
-                                '<div class="input-group">'+
-                                    '<div class="col-xs-2 col-sm-4">'+
-                                    '<label>Total: $</label>'+
-                                    '</div>'+
-                                    '<div class="col-xs-2 col-sm-6">'+
-                                        '<input class="form-control" type="number" name="total" id="total" value="">'+
-                                    '</div>'+
-                                '</div><br>'+
-                            '</td>'+
-                        '</tr>'+
-                        '<tr>'+
-                            '<td><button class="btn btn-warning val" name="centavos" id="centavos" value=".50" style="width:80px; height:80px;">$ .50</button></td>'+
-                            '<td><button class="btn btn-warning val" name="uno" id="uno" value="1" style="width:80px; height:80px;">$ 1</button></td>'+
-                            '<td><button class="btn btn-warning val" name="dos" id="dos" value="2" style="width:80px; height:80px;">$ 2</button></td>'+
-                            '<td><button class="btn btn-warning val" name="cinco" id="cinco" value="5" style="width:80px; height:80px;">$ 5</button></td>'+
-                            '<td><button class="btn btn-warning val" name="diez" id="diez" value="10" style="width:80px; height:80px;">$ 10</button></td>'+
-                        '</tr>'+
-                        '<tr>'+
-                            '<td><button class="btn btn-success val" name="veinte" id="veinte" value="20" style="width:80px; height:80px;">$ 20</button></td>'+
-                            '<td><button class="btn btn-success val" name="cincuenta" id="cincuenta" value="50" style="width:80px; height:80px;">$ 50</button></td>'+
-                            '<td><button class="btn btn-success val" name="cien" id="cien" value="100" style="width:80px; height:80px;">$ 100</button></td>'+
-                            '<td><button class="btn btn-success val" name="dosc" id="dosc" value="200" style="width:80px; height:80px;">$ 200</button></td>'+
-                            '<td><button class="btn btn-success val" name="quin" id="quin" value="500" style="width:80px; height:80px;">$ 500</button></td>'+
-                        '</tr>'+
-                        '<tr>'+
-                            '<td><button class="btn btn-success" name="mil" id="mil" value="1000" style="width:80px; height:80px;">$ 1000</button></td>'+
-                            '<td colspan="3">'+
-                                '<center><label>Efectivo:</label></center>'+
-                                '<input type="number" class="form-control" name="efectivo">'+
-                            '</td>'+
-                            '<td><button class="btn btn-danger" name="borrar" id="borrar" value="" style="width:80px; height:80px;">Borrar</button></td>'+
-                        '</tr>';
+                                    '<td colspan="5">'+
+                                        '<div class="input-group">'+
+                                            '<div class="col-xs-2 col-sm-4">'+
+                                            '<label>Total: $</label>'+
+                                            '</div>'+
+                                            '<div class="col-xs-2 col-sm-6">'+
+                                                '<input class="form-control" type="number" name="total2" id="total2" value="'+total+'">'+
+                                            '</div>'+
+                                        '</div><br>'+
+                                    '</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td><button class="btn btn-warning val" name="centavos" id="centavos" value=".50" style="width:70px; height:70px; margin:5px;">$ .50</button></td>'+
+                                    '<td><button class="btn btn-warning val" name="uno" id="uno" value="1" style="width:70px; height:70px; margin:5px;">$ 1</button></td>'+
+                                    '<td><button class="btn btn-warning val" name="dos" id="dos" value="2" style="width:70px; height:70px; margin:5px;">$ 2</button></td>'+
+                                    '<td><button class="btn btn-warning val" name="cinco" id="cinco" value="5" style="width:70px; height:70px; margin:5px;">$ 5</button></td>'+
+                                    '<td><button class="btn btn-warning val" name="diez" id="diez" value="10" style="width:70px; height:70px; margin:5px;">$ 10</button></td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td><button class="btn btn-success val" name="veinte" id="veinte" value="20" style="width:70px; height:70px; margin:5px;">$ 20</button></td>'+
+                                    '<td><button class="btn btn-success val" name="cincuenta" id="cincuenta" value="50" style="width:70px; height:70px; margin:5px;">$ 50</button></td>'+
+                                    '<td><button class="btn btn-success val" name="cien" id="cien" value="100" style="width:70px; height:70px; margin:5px;">$ 100</button></td>'+
+                                    '<td><button class="btn btn-success val" name="dosc" id="dosc" value="200" style="width:70px; height:70px; margin:5px;">$ 200</button></td>'+
+                                    '<td><button class="btn btn-success val" name="quin" id="quin" value="500" style="width:70px; height:70px; margin:5px;">$ 500</button></td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td><button class="btn btn-success" name="mil" id="mil" value="1000" style="width:70px; height:70px; margin:5px;">$ 1000</button></td>'+
+                                    '<td colspan="3">'+
+                                        '<center><label>Efectivo:</label></center>'+
+                                        '<input type="number" class="form-control" id="efectivo" name="efectivo" value="">'+
+                                    '</td>'+'<td><button class="btn btn-danger borrar" name="borrar" id="borrar" value="" style="width:70px; height:70px; margin:5px;">Borrar</button></td>'+
+                                '</tr>';
                     }
                 }
-                $("#modal_Efectivo .modal-body").html(html);
-                console.log(data);
-                
+                $("#modal_Efectivo .modal-body #efect").html(html);
+
                // cierra_carg();
             });
     });
+/********************************** Tipo Pago*********************************/
 
-    var acumulador = 0;
-    //obtener el valor del boton seleccionado
+/********************************** Cobrar Transaccion *********************************/
+
     $(document).on('click','.val', function(){
         var valor = parseFloat($(this).val());
         acumulador = acumulador + valor;
-        alert(valor);
-        alert(acumulador);
+        $('#efectivo').val(acumulador);
+        //alert('Soy acumulador'+acumulador);
+        //alert('soy valor'+valor);
     });
 
+    //console.log(data);
+    $(document).on('click','.borrar', function(){
+        var efectivo = $("#efectivo").val("");
+        acumulador = 0;
+        //alert("Soy borrar" + efectivo + "acumulador"+ acumulador);
+        //$(".screen").html("");
+    });
     
 
+$(document).on('click','#cobrarTransaccion', function(){
+    var totalCobrar = $('#total').val();
+    var totalIngresado = $('#efectivo').val();
+    if(totalIngresado > totalCobrar){
+        var cambio = totalIngresado - totalCobrar;
+        alert('Su cambio es de:' + cambio);
+        cobrarCompra();
+    }else if(totalIngresado == totalCobrar){
+        alert('Gracias por su compra');
+        cobrarCompra();
+    }else if(totalIngresado < totalCobrar){
+        alert('Dinero Insuficiente');
+        acumulador=0;
+    }
+});
+/********************************** Cobrar Transaccion*********************************/
     //Funcion ventana Carga
     function inicia_carg(){
         $('body').loadingModal({
@@ -542,8 +641,6 @@ let precios = [];
         $('body').loadingModal('destroy');
         console.log('adios perros');
     }
-/**********************************EDITAR ROL*********************************/
-
 
 /* $("#tarjetaAdd").focus(function() {
     prev=this.value;    
@@ -576,10 +673,12 @@ $("#tarjetaAdd").on("change", function(){
 });*/
     $('#tarjetaAdd').change(function (){
         //console.log($(this).val());
-        alert(valor_inicial = $(this).val());
-        var folioTarjeta = $(this).val();
+        var valor_inicial = $(this).val();//folio de tarjeta
+        var folioTarjeta = $(this).val();//folio de tarjeta
         var v = $('#ventanillaa').val();
         var e = $('#evento').val();
+
+        alert(v);
         $.ajax({
                 type:"POST",
                 url:"validarTarjeta",
@@ -589,48 +688,64 @@ $("#tarjetaAdd").on("change", function(){
                     alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
                 },
             }).done(function(data){
-                console.log(data);
-                if(data){
-                    $('#tarjeta').val(valor_inicial);
-                    console.log('soy console'.data);
+                console.log('soy data'+data.msj);
+                $('#tarjeta').val(folioTarjeta);
+                if(data.msj){
                     for(var i = 0;i<data.msj.length; i++){
+                        idTar = data.msj[i]['idTarjeta'];
+                        alert(idTar);
+
                         $('#idTarjeta').val(data.msj[i]['idTarjeta']);
-                        if(data.msj[i]['Status']=='N'){
+
+                        if(data.msj[i]['idStatus'] == '1'){
+                            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+                            indices.push('0');//tarjeta nueva
+                            alert('Indices' + indices);
+                            $('#indice').val(indices);
+                            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
                             $('#precioT').val(data.msj[i]['PrecioTarjeta']);
-                            sumar();
+                                $('#precioTa').val(data.msj[i]['PrecioTarjeta']);
+                                sumar();
+                        }else{
+                            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+                            indices.push('1');//tarjeta comprada
+                            alert('Indices' + indices);
+                            $('#indice').val(indices);
+                            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+                            $('#idTarjeta').val(data.msj[i]['idTarjeta']);
                         }
                     }
-                    
+                }else{
+                    alert('Usted no puede vender tarjetas que no estan en su fajilla');
+                    $('#tarjeta').val('');
+                    $('#idTarjeta').val('');
+                    location.reload();
                 }
-                    //for(var i = 0;i<data.msj.length; i++){}
-                    /*console.log(data);
-                    if(data){
-                        console.log('soy console'.data);
-                        
-                    }*/
-                    /*if(data.msj == true){
-                        console.log(data.msj);
-                        $('#tarjeta').val(valor_inicial);
-                    }else{
-                        alert("La tarjeta no pertenece a su tablilla");
-                        $('#tarjetaAdd').val('');
-                    }*/
-                    
-                    //$('#tarjeta').val(valor_inicial);
-     });
-                //$('#tarjeta').val(valor_inicial);
+            });
     });
 
 //detectar recarga
 $('#recargaAdd').change(function () {
-    alert(valor_recarga = $(this).val());
-    const creditos = 1;
-    const pesos = 0.80;
-    r = (valor_recarga * creditos)/pesos;
-    $('#recargaP').val(valor_recarga);
-    $('#recargaCred').val(r);
-    $('#recargaTr').show();
-    sumar();
+    var tarjeta = $('#tarjetaAdd').val();
+    if(tarjeta == ''){
+        alert('Ingresa la tarjeta por favor');
+        $('#recargaAdd').val('');
+    }else{
+        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+        indices.push('2');//recarga
+        alert('Indices' + indices);
+        $('#indice').val(indices);
+        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+
+        alert(valor_recarga = $(this).val());
+        const creditos = 1;
+        const pesos = 0.80;
+        r = (valor_recarga * creditos)/pesos;
+        $('#recargaP').val(valor_recarga);
+        $('#recargaCred').val(r);
+        $('#recargaTr').show();
+        sumar();
+    }
 });
 
 //cambio de pagina
@@ -638,18 +753,7 @@ $('#cerrarCaja').click(function(){
     //$('#puntoVenta').hide();
 });
 
-//reloj
-    document.addEventListener("DOMContentLoaded", function(event) {
-        moment.locale('es');
-        var upDate = function() {
-            var elFecha = document.querySelector("#fecha");
-            var elHora = document.querySelector("#hora");
-            var nowDate = moment(new Date());
-            elHora.textContent = nowDate.format('HH:mm:ss');
-            elFecha.textContent =nowDate.format('dddd DD [de] MMMM [de] YYYY ');
-        }
-        setInterval(upDate, 1000);
-    });
+
 //alerta pide numero
 $('#celular').click(function(){
     swal("Ingresa el teléfono", {
@@ -666,14 +770,20 @@ $('#celular').click(function(){
 //$(document).on('click','.Promo', function(){
 //function promociones(){
 
-
 // promociones pulsera magica
 $(document).on('click', '.promocionnn', function(event){
+    
+    var acum=[];
     var fecha = '<?php echo $fecha;?>';
     var tarjeta = $('#tarjetaAdd').val();
     if(tarjeta == ''){
         alert('Ingresa la tarjeta por favor');
     }else{
+        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+        indices.push('3');//promo de pulsera
+        alert('Indices' + indices);
+        $('#indice').val(indices);
+        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
 
         metros.push($(this).attr('value'));
         //console.log("Soy metros"+metros);
@@ -681,7 +791,7 @@ $(document).on('click', '.promocionnn', function(event){
         $('#arregloP').val(metros);
         var promocion = $(this).val();
         //$('#valorSelect').val(promocion);
-        //alert(promocion);
+        alert('soy promocion' + promocion);
 
         $.ajax({
             type:"POST",
@@ -692,46 +802,46 @@ $(document).on('click', '.promocionnn', function(event){
                 alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
             },
         }).done(function(data){
-           /* alert('Estoy aqui en done');
-            console.log('Soy data' + data.msj);*/
             var html ='';
             for(var i = 0;i <data.msj.length; i++){
-                //alert('Estoy dentro de for');
-                //if(data.msj[i]['fechaI']==fecha){
-                    html += '<tr id="'+i+'">'+
+                    html += '<tr id="'+data.msj[i]['idFechaPulseraMagica']+'">'+
                                 '<td style="padding:0px;">'+data.msj[i]['Nombre']+'</td>'+
-                                '<td style="padding:0px;"><input type="number" name="precioP" id="precioP" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value="'+data.msj[i]['Precio']+'"></td>'+
+                                '<td style="padding:0px;"><input type="number" class="precioP monto" name="precioP" id="precioP" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value="'+data.msj[i]['Precio']+'"></td>'+
                                 '<td style="padding:0px;"></td>'+
                                 '<td style="padding:0px;"><a href="#eliminarPromo'+data.msj[i]['idFechaPulseraMagica']+'" class="eliminar" data-toggle="modal"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></a></td>'+
                             '</tr>';
-               // }
-            }
-            $("#productos").append(html);
+                $("#productos").append(html);
+                //$("#precioPRomo").val(data.msj[i]['Precio']);
+                prec.push(data.msj[i]['Precio']);
+            }    
             sumar();
-            var prec = $('#precioP').val();
-            precios.push(prec);
-            alert(precios);
+            $('#arregloPrecioP').val(prec);
+            
         });
     }
+
 });
-
-
 
 //promociones creditos cortesia(RECARGA)
 //function promociones(){
-    $(document).on('click', '.creditosC', function(event){
-    var fecha = '<?php echo $fecha;?>'
+$(document).on('click', '.creditosC', function(event){
+    var fecha = '<?php echo $fecha;?>';
     var tarjeta = $('#tarjetaAdd').val();
     if(tarjeta == ''){
         alert('Ingresa la tarjeta por favor');
     }else{
 
-        creditosC.push($(this).attr('value'))
-        console.log("Soy credtiosC"+creditosC);
+        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+        indices.push('4');//promo de creditos
+        alert('Indices' + indices);
+        $('#indice').val(indices);
+        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+
+        creditosC.push($(this).attr('value'));
+        console.log("Soy creditosC"+creditosC);
 
         $('#arregloC').val(creditosC);
         var promocionc = $(this).val();
-        //$('#valorSelect').val(promocion);
         alert(promocionc);
 
         $.ajax({
@@ -748,28 +858,44 @@ $(document).on('click', '.promocionnn', function(event){
                 //if(data.msj[i]['fechaI']==fecha){
                     html += '<tr id="'+i+'">'+
                                 '<td style="padding:0px;">'+data.msj[i]['Nombre']+'</td>'+
-                                '<td style="padding:0px;"><input type="number" name="precioP" id="precioP" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value='+data.msj[i]['Precio']+'></td>'+
+                                '<td style="padding:0px;"><input type="number" name="precioC" id="precioC" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value='+data.msj[i]['Precio']+'></td>'+
                                 '<td style="padding:0px;"></td>'+
-                                '<td style="padding:0px;"><a href="#eliminarPromo'+data.msj[i]['idPulseraMagica']+'" class="eliminar" data-toggle="modal"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></a></td>'+
+                                '<td style="padding:0px;"><a href="#eliminarPromo'+data.msj[i]['idFechaCreditosCortesia']+'" class="eliminar" data-toggle="modal"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></a></td>'+
                             '</tr>';
                 //}
             }
             $("#productos").append(html);
             sumar();
-            
+            var prec = $('#precioC').val();
+            preciosC.push(prec);
+            $('#arregloPrecioC').val(preciosC);
+            alert(preciosC);
         });
     }
 });
 
 
-
-//}
-
-
-
 //datos formulario para cobrar
-$("#cobrar").click( function(){
+function cobrarCompra(){
     alert($('#formPuntoVenta').serialize());
+    /*$.ajax({
+    type: "POST",
+    url: "guardarVentas",
+    data: $('#formPuntoVenta').serialize(),
+    dataType: "JSON",
+    error(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+    },
+    }).done(function(data){
+        console.log('Si llego');
+        console.log(data.msj);
+        //    alert('Venta Satisfactoria');
+        //  location.reload();
+    });*/
+}
+/***********************************************ESTO CREO QUE YA TAMPOCO SERVIRA************************************/
+//$("#cobrar").click( function(){
+  //  alert($('#formPuntoVenta').serialize());
   /*  $.ajax({
     type: "POST",
     url: "guardarVentas",
@@ -784,23 +910,24 @@ $("#cobrar").click( function(){
         //    alert('Venta Satisfactoria');
         //  location.reload();
     });*/
-});
+//});
+/***********************************************ESTO CREO QUE YA TAMPOCO SERVIRA************************************/
 
 //tipo de pago
-function myFunction() {
-    var opcion = $('input:radio[name=rad]:checked').val();
-    if(opcion==1){
-        var efectivo = document.getElementById('efectivo').value;
-        var total = document.getElementById('total').value;
-        if(efectivo >= total){
-            var cambio = efectivo - total;
-            $('#cambio').show().val(cambio);
-            alert('Su cambio es de: ' + cambio);
-        }else{
-            alert('Dinero insuficiente');
-        }
-    }else if(opcion==2 || opcion==3){alert('Favor de Ingresar la Tarjeta');}
-}
+    function myFunction() {
+        var opcion = $('input:radio[name=rad]:checked').val();
+        if(opcion==1){
+            var efectivo = document.getElementById('efectivo').value;
+            var total = document.getElementById('total').value;
+            if(efectivo >= total){
+                var cambio = efectivo - total;
+                $('#cambio').show().val(cambio);
+                alert('Su cambio es de: ' + cambio);
+            }else{
+                alert('Dinero insuficiente');
+            }
+        }else if(opcion==2 || opcion==3){alert('Favor de Ingresar la Tarjeta');}
+    }
 
 //VALIDAR RADIOBUTTONS
     $("input[name=rad]").click(function () {   
@@ -812,28 +939,70 @@ function myFunction() {
         }
     });
     
-//sumar precios
-function sumar() {
-    var total = 0;
-    $(".monto").each(function() {
-        if (isNaN(parseFloat($(this).val()))) {
-        total += 0;
-        } else {
-        total += parseFloat($(this).val());
-        }
-    });
-    $('#total').val(total);
-}
-//sumar creditos
-function credi() {
-    var total = 0;
-    $(".credi").each(function() {
-        if (isNaN(parseFloat($(this).val()))) {
-        total += 0;
-        } else {
-        total += parseFloat($(this).val());
-        }
-    });
-    $('#totalc').val(total);
-}
+    //sumar precios
+    function sumar() {
+        var total = 0;
+        $(".monto").each(function() {
+            if (isNaN(parseFloat($(this).val()))) {
+            total += 0;
+            } else {
+            total += parseFloat($(this).val());
+            }
+        });
+        $('#total').val(total);
+        $('#total2').val(total);
+    }
+
+    //sumar creditos
+    function credi() {
+        var total = 0;
+        $(".credi").each(function() {
+            if (isNaN(parseFloat($(this).val()))) {
+            total += 0;
+            } else {
+            total += parseFloat($(this).val());
+            }
+        });
+        $('#totalc').val(total);
+    }
+
+    /*************************************** FECHA Y HORA************************** */
+    function mueveReloj(){
+    
+        var d = new Date();
+
+        var month = d.getMonth()+1;
+        var day = d.getDate();
+
+        var output = d.getFullYear() + '-' +((''+month).length<2 ? '0' : '') + month + '-' +((''+day).length<2 ? '0' : '') + day;
+
+
+        momentoActual = new Date()
+        hora = momentoActual.getHours()
+        minuto = momentoActual.getMinutes()
+        segundo = momentoActual.getSeconds()
+
+        str_segundo = new String (segundo)
+        if (str_segundo.length == 1)
+        segundo = "0" + segundo
+
+        str_minuto = new String (minuto)
+        if (str_minuto.length == 1)
+        minuto = "0" + minuto
+
+        str_hora = new String (hora)
+        if (str_hora.length == 1)
+        hora = "0" + hora
+
+        horaImprimible = output+" "+ hora + ":" + minuto + ":" + segundo
+
+        //console.log(output+" "+horaImprimible);
+
+        document.form_reloj.reloj.value = horaImprimible
+
+        setTimeout("mueveReloj()",1000);
+
+        $('#fecha').val(horaImprimible);
+    }
+
 </script>

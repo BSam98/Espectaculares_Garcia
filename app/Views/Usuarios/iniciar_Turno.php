@@ -190,6 +190,8 @@
                 alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
             },
             }).done(function(data){
+                var idV=data.msj;
+                alert(idV);
                 console.log('soy data'+data.msj);
                 //console.log('soy Data Contenido'+data.msj);
                 var evento = $("#eventoId").val();
@@ -197,7 +199,7 @@
                 var taquilla = $('#taquilla').val();
                 var ventanilla =$('#ventanilla').val();
                 var usuario =$('#idUsuario').val();
-                if(data.msj == true){
+                if(data.msj == false){
                     //console.log('soy Data'+data.msj);
                     alert('Error al Ingresar');
                     location.href='turno';
@@ -207,9 +209,10 @@
                         type:"POST",
                         dataType:"JSON ",
                         data:{'evento':evento, 'zona':zona, 'taquilla':taquilla, 'ventanilla':ventanilla, 'usuario':usuario}
-                    }).done(function(data) {
+                    }).done(function(data){
+                        console.log('si entro aqui');
                         console.log(data);
-                        location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&v="+ventanilla+"&u="+usuario;
+                        location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&v="+idV+"&u="+usuario+"&idv="+ventanilla;
                         
                     });
                 }
