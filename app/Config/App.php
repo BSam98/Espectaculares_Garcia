@@ -24,7 +24,7 @@ class App extends BaseConfig
      * @var string
      */
     public $baseURL = 'http://localhost/Espectaculares_Garcia/public/';
-
+    //public $baseURL = 'http://espectacularesgarcia.com.mx/web/public/';
     /**
      * --------------------------------------------------------------------------
      * Index File

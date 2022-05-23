@@ -57,7 +57,11 @@ $routes->get('/Utilización por Evento','Menu_Principal_Control::uEvento');
 $routes->get('/Utilización por Atracción','Menu_Principal_Control::uAtraccion');
 $routes->get('/Ticket','reporte_Venta_Control::ticket');
 $routes->get('/Roles','Rol_Control::rol');
+
 $routes->get('/Ver Atracciones','super_Atracciones_Control::new');
+$routes->get('/Ver Atracciones/Mostrar_Atracciones','super_Atracciones_Control::ciclos');
+$routes->post('/Ver Atracciones/Mostrar_Atracciones','super_Atracciones_Control::ciclos');
+
 $routes->get('/Ver Taquillas','Taquillas_Control::new');
 $routes->get('/Ver Supervisores','supervisores_control::new');
 //$routes->post('/modulosRol','Rol_Control::MRol');
@@ -225,13 +229,20 @@ $routes->get('/Validador','validador_Control::new');
 
 $routes->post('/Atracciones_Zona','validador_Control::listado_Atracciones');
 
-$routes->post('/Iniciar_Turno_Validador','validador_Control::iniciar_Turno');
+$routes->post('/Iniciar_Turno_Validador','validador_Control::iniciar_Turno'); /****************************** */
 $routes->get('/Validacion_Interfaz','validador_Control::new');
 
 $routes->get('/Validacion_Interfaz/Cerrar_Sesion','validador_Control::Cerrar_Sesion');
 $routes->post('/Validacion_Interfaz/Cerrar_Sesion','validador_Control::Cerrar_Sesion');
 
+$routes->get('/Validacion_Interfaz/Tarjeta','validador_Control::Validar_Saldo');
+$routes->post('/Validacion_Interfaz/Tarjeta','validador_Control::Validar_Saldo');
 
+$routes->get('/Validacion_Interfaz/Promociones','validador_Control::Promociones');
+$routes->post('/Validacion_Interfaz/Promociones','validador_Control::Promociones');
+
+$routes->get('/Validacion_Interfaz/Ciclo','validador_Control::Insertar_Ciclo');
+$routes->post('/Validacion_Interfaz/Ciclo','validador_Control::Insertar_Ciclo');
 
 /*
  * --------------------------------------------------------------------

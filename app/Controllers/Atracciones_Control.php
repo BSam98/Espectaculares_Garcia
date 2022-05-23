@@ -44,6 +44,8 @@ class Atracciones_Control extends BaseController {
         $renta = $_POST['ren'];
         $idPropietario =$_POST['pro'];
         $capacidadMin = $_POST['cmi'];
+        $ancho = $_POST['ancho'];
+        $largo = $_POST['largo'];
 
         $num_elementos = 0;
         $cantidad = count($nombre);
@@ -57,6 +59,8 @@ class Atracciones_Control extends BaseController {
                 'Renta' => $renta[$num_elementos],
                 'idPropietario' => $idPropietario[$num_elementos],
                 'CapacidadMIN' => $capacidadMin[$num_elementos],
+                'Largo' => $largo[$num_elementos],
+                'Ancho' => $ancho[$num_elementos]
             ];
 
             $respuesta = $model->insertarAtraccion($datos);
@@ -70,6 +74,8 @@ class Atracciones_Control extends BaseController {
                     'Renta' => $renta[$num_elementos],
                     'idPropietario' => $idPropietario[$num_elementos],
                     'CapacidadMIN' => $capacidadMin[$num_elementos],
+                    'Largo' => $largo[$num_elementos],
+                    'Ancho' => $ancho[$num_elementos]
                 ];
 
                 $respuesta = $model->insertarAtraccion($datos);

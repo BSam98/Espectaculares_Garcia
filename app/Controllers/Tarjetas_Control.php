@@ -12,7 +12,7 @@ class Tarjetas_Control extends BaseController {
     }
 
     public function new (){
-
+        $session = session();
         $model = new Tarjetas_Model();
 
         $datos = [
@@ -42,7 +42,7 @@ class Tarjetas_Control extends BaseController {
 
     public function insertarLote(){
         $model = new Tarjetas_Model();
-
+        
         $Nombre = $_POST['nom'];
         $Material = $_POST['mate'];
         $Cantidad = $_POST['cant'];

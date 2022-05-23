@@ -14,8 +14,10 @@
             <!-- onload function is evoke when page is load -->
         <!--countdown function is called when page is loaded -->
         <body>
-            <div style="font-size: 20px;">
+            <div id="tiempos" style="font-size: 20px;">
                 Tiempo de Espera:
+            </div>
+            <div style="font-size: 20px;">
                 <input id="minutes" type="text" style="width: 30px; border: none; font-size: 20px; font-weight: bold; color: black;">minutos<font size="5"> :</font>
                 <input id="seconds" type="text" style="width: 30px; border: none; font-size: 20px; font-weight: bold; color: black;">segundos
             </div>
@@ -24,24 +26,32 @@
             <div class="input-group mb-3">
                 <h5>Tarjeta:&nbsp;</h5>
                     <div class="input-group-append">
-                        <input type="text" class="form-control" name="tarjetaVal" id="tarjetaVal">&nbsp;
+                        <input autofocus type="text" class="form-control" name="tarjetaVal" id="tarjetaVal">&nbsp;
                     </div>
-                    <button type="button" class="btn btn-success" id="validar">Validar</button>               
-            </div>       
-            <div class="alert alert-primary" role="alert" style="display: none;">
-                Pago Generado: <br>
-                Saldo Restante:
+                    <button type="button" class="btn btn-success" id="validarTarjeta">Validar</button>               
+            </div>
+                 
+            <div id="respuesta" class="alert alert-primary" role="alert" style="display: none;">
+                
             </div>
        
     </div>
-    <button id="cerrarSesion" class="btn btn-danger" style="float:right;">Cerrar Turno</button>
+    <div>
+        <button id="cerrarSesion" class="btn btn-danger" style="float:left;">Cerrar Turno</button>
+    </div>
+    <div>
+        <button id="iniciarCiclo" class="btn btn-success" style="float:right">Iniciar Ciclo</button>
+    </div>
 </fieldset>
-<script src="JS/validar.js"></script>
+<script src="JS/validar.js">
+</script>
 <script src="JS/carga.js"></script>
 <script>
     $(document).ready(function(){
         $('#validar').click(function(){
             $('.alert').show()
         })
+        
+        $().clone().append
     });
 </script>

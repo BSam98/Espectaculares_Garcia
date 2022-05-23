@@ -10,43 +10,54 @@
             <div class="modal-body">
                 <form  enctype="multipart/form-data" name="formularioAgregarLote" id="formularioAgregarLote">
                     <div class="table table-striped table-responsive">
+
                     <!--Tabla AGREGAR LOTES-->
                         <table class="table table-bordered" id="agregarLotes">
-                            <thead>
-                            <!--Titulos de la tabla-->
-                                <th scope="col" style="vertical-align: middle;">Nombre</th>
-                                <th scope="col" style="vertical-align: middle;">Material</th>
-                                <th scope="col" style="vertical-align: middle;">Cantidad</th>
-                                <th scope="col" style="vertical-align: middle;">Folio Inicial</th>
-                                <th scope="col" style="vertical-align: middle;">FolioFinal</th>
-                                <th scope="col" style="vertical-align: middle;">Serial</th>
-                                <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
-                                <th scope="col" style="vertical-align: middle;">Usuario</th>
-                            </thead>
                             <tbody>
                                 <tr class="filas-lote">
-                                    <td><input type="text" class="form-grup" id="nom" name = "nom[]" placeholder="Nombre"></td>
-                                    <td><input type="text" class="form-grup" id="mate" name = "mate[]" placeholder="Material"></td>
-                                    <td><input type="number" class="form-grup" id="cant" name = "cant[]" placeholder="Cantidad"></td>
-                                    <td><input type="number" class="form-grup" id="fi" name = "fi[]" placeholder="Folio inicial"></td>
-                                    <td><input type="number" class="form-grup" id="ff" name = "ff[]" placeholder="Folio final"></td>
-                                    <td><input type="text" class="form-grup" id="ser" name = "ser[]" placeholder="Serie"></td>
-                                    <td><input type="date" class="form-grup" id="date" name = "date[]" placeholder="Fecha de Ingreso"></td>
                                     <td>
-                                        <select class="form-control" type="text"  id="user" name = "user[]" required name="pro">
-                                            <option value="0">Seleccionar Propietario</option>
-                                            <?php foreach ($Usuario as $key => $dU) : ?>
-                                                <option value = "<?= $dU->idUsuario?>"><?= $dU-> UsuarioNombre ?></option>
-                                            <?php endforeach ?>
-                                        </select>
+                                        <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input type="text" class="form-control" id="nom" name = "nom[]" placeholder="Nombre">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Material</label>
+                                            <input type="text" class="form-control" id="mate" name = "mate[]" placeholder="Material">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cantidad</label>
+                                            <input type="number" class="form-control" id="cant" name = "cant[]" placeholder="Cantidad">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Folio Inicial</label>
+                                            <input type="number" class="form-control" id="fi" name = "fi[]" placeholder="Folio inicial">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>FolioFinal</label>
+                                            <input type="number" class="form-control" id="ff" name = "ff[]" placeholder="Folio final">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Serial</label>
+                                            <input type="text" class="form-control" id="ser" name = "ser[]" placeholder="Serie">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Fecha de Ingreso</label>
+                                            <input type="date" class="form-control" id="date" name = "date[]" placeholder="Fecha de Ingreso">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Usuario</label>
+                                            <input type="text" class="form-control" id="nombre" value="<?php echo session('Usuario')?>" readonly>
+                                            <input type="hidden" class="form-control" id="user" name="user[]" value="<?php echo session('idUsuario')?>">
+                                        </div>
                                     </td>
                                     <td class="eliminar-Filasl"><input type="button" value="-"></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <button id="agregar_Filas" name="agregar-Filas" type="button" class="btn btn-warning"> + </button>
                     </div>
-                    <button id="agregar-Filas" name="agregar-Filas" type="button" class="btn btn-warning"> + </button>
                     <button  name="z" type="button" class="btn btn-success" id = "z">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </form>
             </div>
         </div>

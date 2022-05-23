@@ -32,8 +32,8 @@
                                 <td style="vertical-align: middle;"><?= $dA->Nombre?></td>
                                 <td style="vertical-align: middle;"><?= $dA->CapacidadMAX?></td>
                                 <td style="vertical-align: middle;"><?= $dA->CapacidadMIN?></td>
-                                <td style="vertical-align: middle;"></td>
-                                <td style="vertical-align: middle;"></td>
+                                <td style="vertical-align: middle;"><?=$dA->Largo?></td>
+                                <td style="vertical-align: middle;"><?=$dA->Ancho?></td>
                                 <td style="vertical-align: middle;"><?= $dA->Tiempo?></td>
                                 <td style="vertical-align: middle;"><?= $dA->TiempoMAX?></td>
                             </tr>

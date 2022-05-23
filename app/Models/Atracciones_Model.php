@@ -52,6 +52,8 @@ class Atracciones_Model extends Model{
             Atracciones.TiempoMAX,
             Atracciones.Renta,
             Atracciones.CapacidadMIN,
+            Atracciones.Largo,
+            Atracciones.Ancho,
             Propietario.idPropietario,
             Propietario.Nombre'
         );

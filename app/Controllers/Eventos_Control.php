@@ -30,18 +30,49 @@ class Eventos_Control extends BaseController {
     public function agregarEvento(){
         $model = new Eventos_Model();
 
-        $datos = [
-            'Nombre' => $this->request->getVar('Nombre'),
-            'Direccion' => $this->request->getVar('Direccion'),
-            'Ciudad' => $this->request->getVar('Ciudad'),
-            'Estado' => $this->request->getVar('Estado'),
-            'FechaInicio' => $this->request->getVar('fechaInicio'),
-            'FechaFinal' => $this->request->getVar('fechaFinal'),
-            'Precio' => $this->request->getVar('pesos'),
-            'Creditos' => $this->request->getVar('creditos'),
-        ];
+        $nombre = $_POST['Nombre'];
+        $direccion = $_POST['Direccion'];
+        $ciudad = $_POST['Ciudad'];
+        $estado = $_POST['Estado'];
+        $fechaInicio = $_POST['fechaInicio'];
+        $fechaFinal = $_POST['fechaFinal'];
+        $precio = $_POST['pesos'];
+        $creditos = $_POST['creditos'];
 
-        $respuesta = $model->agregarEvento($datos);
+        $num_elementos = 0;
+        $cantidad =count($nombre);
+
+        if(1 == $cantidad){
+            $datos = [
+                'Nombre' => $nombre[$num_elementos],
+                'Direccion' => $direccion[$num_elementos],
+                'Ciudad' => $ciudad[$num_elementos],
+                'Estado' => $estado[$num_elementos],
+                'FechaInicio' => $fechaInicio[$num_elementos],
+                'FechaFinal' => $fechaFinal[$num_elementos],
+                'Precio' => $precio[$num_elementos],
+                'Creditos' => $creditos[$num_elementos]
+            ];
+    
+            $respuesta = $model->agregarEvento($datos);
+        }
+        else{
+            while($num_elementos<$cantidad){
+                $datos = [
+                    'Nombre' => $nombre[$num_elementos],
+                    'Direccion' => $direccion[$num_elementos],
+                    'Ciudad' => $ciudad[$num_elementos],
+                    'Estado' => $estado[$num_elementos],
+                    'FechaInicio' => $fechaInicio[$num_elementos],
+                    'FechaFinal' => $fechaFinal[$num_elementos],
+                    'Precio' => $precio[$num_elementos],
+                    'Creditos' => $creditos[$num_elementos]
+                ];
+        
+                $respuesta = $model->agregarEvento($datos);
+                $num_elementos = $num_elementos + 1;
+            }
+        }
         echo json_encode(array('respuesta'=>true, 'msj'=>$datos));
     }
 

@@ -16,10 +16,9 @@ class Tarjetas_Model extends Model{
         $builder-> select(
             '
             Tarjetas.idTarjeta,
-            Tarjetas.QR,
             Tarjetas.Nombre AS Tarjeta,
             Tarjetas.FechaActivacion,
-            Tarjetas.Status,
+            Status.Iniciales,
             Tarjetas.Tipo,
             Tarjetas.Folio
             '
@@ -28,6 +27,12 @@ class Tarjetas_Model extends Model{
         $builder->join(
             'Lotes',
             'Lotes.idLote = Tarjetas.idLote',
+            'inner'
+        );
+
+        $builder->join(
+            'Status',
+            'Tarjetas.idStatus = Status.idStatus',
             'inner'
         );
 
@@ -167,8 +172,8 @@ class Tarjetas_Model extends Model{
             
             $numeros = $i;
             $db->query(
-                "INSERT INTO Tarjetas(Nombre, FechaActivacion,Status,Tipo,idLote,Folio) 
-                VALUES ('Tarjeta $numeros $FechaIngreso','$FechaIngreso','N','$Material',$idLote,$numeros);
+                "INSERT INTO Tarjetas(Nombre, FechaActivacion,Tipo,idLote,Folio,idStatus) 
+                VALUES ('Tarjeta $numeros $FechaIngreso','$FechaIngreso','$Material',$idLote,$numeros,1);
                 "
             );
         }

@@ -9,7 +9,9 @@
                             <label><h5><i class="fa fa-search" aria-hidden="true"></i>Elige un Evento: </h5></label><br>
                             <select class="form-control" name="evento" id="evento" required>
                                 <option>Elige un evento</option>
-                                    <option value="">Elige un Evento</option>
+                                <?php foreach($Eventos as $key => $dE):?>
+                                    <option value=<?= $dE->idEvento?>><?= $dE->Nombre ?></option>
+                                <?php endforeach ?>
                             </select>
                         </td>
                         <td>
@@ -29,6 +31,7 @@
                 <thead>
                     <tr>
                         <!--th><center>Evento</center></th-->
+                        <th><center>Validador</center></th>
                         <th><center>Atracción</center></th>
                         <th><center>Fecha</center></th>
                         <th><center>Ciclos</center></th>
@@ -39,6 +42,7 @@
                 </thead>
                 <tbody>
                         <tr>
+                            <td style="vertical-align: middle;"></td>
                             <td style="vertical-align: middle;"></td>
                             <td style="vertical-align: middle;"></td>
                             <td style="vertical-align: middle;"></td>
@@ -90,13 +94,9 @@
     </div>
 </div>
 
-
+<script src="JS/supervisarAtracciones.js"></script>
+<script src="JS/carga.js"></script>
 <script>
-
-    $('#fechaesperada').change(function () {
-            var value = document.getElementById('fechaesperada').value;
-            alert('agrego fecha' + value);
-        }); 
 
     $(document).ready(function(){
         $("select.evento").change(function(){

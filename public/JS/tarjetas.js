@@ -23,6 +23,8 @@ $("#z").click(function(){
     });
 });
 */
+var nombre;
+var idUsuario;
 $("#z").click(function(){
     $.ajax({
         beforeSend: function(){
@@ -65,6 +67,56 @@ $("#actualizarLote").click(function(){
     });
 });
 
+$(".datos").click(function(){
+    var datos = $(this).data('book-id');
+    
+    nombre = datos['nombre'];
+    idUsuario = datos['idUsuario'];
+});
+
+$("#agregar_Filas").click(function(){
+    $(
+        '<tr class="filas-lote">'+
+            '<td>'+
+                '<div class="form-group">'+
+                    '<label>Nombre</label>'+
+                    '<input type="text" class="form-control" id="nom" name = "nom[]" placeholder="Nombre">'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label>Material</label>'+
+                    '<input type="text" class="form-control" id="mate" name = "mate[]" placeholder="Material">'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label>Cantidad</label>'+
+                    '<input type="number" class="form-control" id="cant" name = "cant[]" placeholder="Cantidad">'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label>Folio Inicial</label>'+
+                    '<input type="number" class="form-control" id="fi" name = "fi[]" placeholder="Folio inicial">'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label>FolioFinal</label>'+
+                    '<input type="number" class="form-control" id="ff" name = "ff[]" placeholder="Folio final">'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label>Serial</label>'+
+                    '<input type="text" class="form-control" id="ser" name = "ser[]" placeholder="Serie">'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label>Fecha de Ingreso</label>'+
+                    '<input type="date" class="form-control" id="date" name = "date[]" placeholder="Fecha de Ingreso">'+
+                '</div>'+
+                '<div class="form-group">'+
+                    '<label>Usuario</label>'+
+                    '<input type="text" class="form-control" id="nombre" value="'+nombre+'" readonly>'+
+                    '<input type="hidden" class="form-control" id="user" name="user[]" value="'+idUsuario+'">'+
+                '</div>'+
+            '</td>'+
+            '<td class="eliminar-Filasl"><input type="button" value="-"></td>'+
+        '</tr>'
+    ).clone().appendTo("#agregarLotes");
+});
+
 
 $(document).on('click','.mostrarTarjetasLote', function(){
     var idLote = $(this).data('book-id');
@@ -85,7 +137,7 @@ $(document).on('click','.mostrarTarjetasLote', function(){
             '<td>'+data.msj[i]['Tarjeta']+'</td>'+
             '<td>'+data.msj[i]['Folio']+'</td>'+
             '<td>'+data.msj[i]['FechaActivacion']+'</td>'+
-            '<td>'+data.msj[i]['Status']+'</td>'+
+            '<td>'+data.msj[i]['Iniciales']+'</td>'+
             '<td>'+data.msj[i]['Tipo']+'</td>'+
             '</tr>';
             
