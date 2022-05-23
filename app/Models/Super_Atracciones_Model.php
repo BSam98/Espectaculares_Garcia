@@ -166,6 +166,6 @@ class Super_Atracciones_Model extends Model{
             $arreglo.array_push($datos);
             $num_elementos = $num_elementos + 1;
         }
-        return $arreglo; 
+        return $hola; 
     }
 }
