@@ -8,6 +8,7 @@ var minutos;
 
 var segundos;
 var btnTiempo;
+var btnCiclo;
 var descuentos = [];
 var juegosGratis = [];
 var pulseraMagica = [];
@@ -71,7 +72,7 @@ $(document).on('change','#tarjetaVal',function(event){
     var indicePulsera;
     var indiceDescuentos;
     var date = new Date();
-    var cantidad ;
+    var cantidad;
     var boletos;
 
     var fecha = date.toISOString().split('T')[0];
@@ -314,10 +315,13 @@ $(document).on('change','#tarjetaVal',function(event){
 $('#tiempoExtra').click(function() {
     console.log('Tercer Prueba: ' + JSON.stringify(descuentos));
     btnTiempo.disabled = true;
+    btnCiclo.disabled = true;
     mm.style.color = "black";
     ss.style.color = "black";
 
-    minutos = parseInt(4) + parseInt(document.getElementById("minutes").value);
+    $("#tiempos").html('Tiempo de Espera');
+
+    minutos = parseInt(1) + parseInt(document.getElementById("minutes").value);
     segundos = (minutos * 60) + parseInt(document.getElementById("seconds").value);
     document.getElementById("tarjetaVal").focus();
     setTimeout('decrement()',60);
@@ -325,19 +329,42 @@ $('#tiempoExtra').click(function() {
 
 $('#iniciarCiclo').click(function(){
     iniciarCarga();
+    var tiempo = $("#Tiempo").val();
+    var idAtraccionEvento  = $("#idAtraccionEvento").val();
+
+    var datos = tiempo.split(':');
+    btnTiempo.disabled=true;
+    btnCiclo.disabled=true;
+
+    minutos = parseInt(datos[1]);
+    mm.style.color = "black";
+    ss.style.color = "black";
+    segundos = (minutos * 60) + parseInt(datos[2]);
+
+    $("#minutes").val(minutos);
+    $("#seconds").val(segundos);
+
+    html = 'Duración del Ciclo';
+    $("#tiempos").html(html);
+    setTimeout('decrement()',60);
+
     var idAperturaValidador = $("#idAperturaValidador").val();
     var d = new Date();
 
     var fecha = d.toISOString().split('T')[0] +" "+d.toLocaleTimeString()+".000";
 
     ciclo.push({'indice':7,'Personas':cantidadP,'Creditos':cantidadC,'Cortesias':cantidadCC,'Descuentos':cantidadD,'PulserasMagicas':cantidadPM,'Hora':fecha,'idAperturaValidador':idAperturaValidador});
+    
     console.log('Cantidad de personas ' + cantidadP);
     console.log('Cantidad de creditos ' + cantidadC);
     console.log('Cantidad de cortesia '+ cantidadCC);
     console.log('Cantidad de descuentos '+ cantidadD);
     console.log('Cantidad de Pulseras Magica '+ cantidadPM);
     console.log('Informacion del Ciclo ' + JSON.stringify( informacionCiclo));
+    
 
+    
+    
     $.ajax({
         type:"POST",
         url: 'Validacion_Interfaz/Ciclo',
@@ -349,8 +376,17 @@ $('#iniciarCiclo').click(function(){
         },
     }).done(function(data){
         console.log('Respuesta: ' + JSON.stringify(data.msj));
+        promociones(idAtraccionEvento);
+        ciclo = [];
+        informacionCiclo = [];
+        cantidadP = 0;
+        cantidadC = 0;
+        cantidadCC = 0;
+        cantidadD = 0;
+        cantidadPM = 0;
         cerrarCarga();
     });
+    
 });
 
 $('#cerrarSesion').click(function(){
@@ -387,15 +423,15 @@ $('#cerrarSesion').click(function(){
 
 $(document).ready(function(){
     btnTiempo  = document.getElementById('tiempoExtra');
+    btnCiclo = document.getEelementById('iniciarCiclo');
     btnTiempo.disabled=true;
+    btnCiclo.disabled=true;
     iniciarCarga();
     var tiempo = $("#TiempoMAX").val();
     var idAtraccionEvento = $("#idAtraccionEvento").val();
     promociones(idAtraccionEvento);
 
-    console.log('Arreglo:  ' + descuentos);
     var datos = tiempo.split(':');
-    console.log('Separacion: ' + datos);
 
     //alert(datos[2]);
 
@@ -409,6 +445,7 @@ $(document).ready(function(){
     $("#seconds").val(segundos);
 
     setTimeout('decrement()',60);
+    console.log('Hola');
 });
 
 function promociones(idAtraccionEvento){
@@ -427,7 +464,7 @@ function promociones(idAtraccionEvento){
         },
     }).done(function(data){
         if(data.respuesta){
-            console.log('Primera aparicion: ' + JSON.stringify(data.descuentos));
+            //console.log('Primera aparicion: ' + JSON.stringify(data.descuentos));
             descuentos = data.descuentos;
             juegosGratis = data.juegosGratis;
             pulseraMagica = data.pulseraMagica;
@@ -455,8 +492,9 @@ function decrement(){
         }
 
         if(minutos < 0){
-            alert('El tiempo de espera se ha terminado, favor de iniciar el ciclo o añadir tiempo extra.');
+            alert('El tiempo se ha terminado, favor de iniciar el ciclo o añadir tiempo extra.');
             btnTiempo.disabled=false;
+            btnCiclo.disabled=false;
             mm.value = 0;
             ss.value = 0;
         }

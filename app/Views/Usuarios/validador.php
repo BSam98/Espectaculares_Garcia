@@ -14,8 +14,10 @@
             <!-- onload function is evoke when page is load -->
         <!--countdown function is called when page is loaded -->
         <body>
-            <div style="font-size: 20px;">
+            <div id="tiempos" style="font-size: 20px;">
                 Tiempo de Espera:
+            </div>
+            <div style="font-size: 20px;">
                 <input id="minutes" type="text" style="width: 30px; border: none; font-size: 20px; font-weight: bold; color: black;">minutos<font size="5"> :</font>
                 <input id="seconds" type="text" style="width: 30px; border: none; font-size: 20px; font-weight: bold; color: black;">segundos
             </div>

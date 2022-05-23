@@ -57,7 +57,11 @@ $routes->get('/Utilización por Evento','Menu_Principal_Control::uEvento');
 $routes->get('/Utilización por Atracción','Menu_Principal_Control::uAtraccion');
 $routes->get('/Ticket','reporte_Venta_Control::ticket');
 $routes->get('/Roles','Rol_Control::rol');
+
 $routes->get('/Ver Atracciones','super_Atracciones_Control::new');
+$routes->get('/Ver Atracciones/Mostrar_Atracciones','super_Atracciones_Control::ciclos');
+$routes->post('/Ver Atracciones/Mostrar_Atracciones','super_Atracciones_Control::ciclos');
+
 $routes->get('/Ver Taquillas','Taquillas_Control::new');
 $routes->get('/Ver Supervisores','supervisores_control::new');
 //$routes->post('/modulosRol','Rol_Control::MRol');
