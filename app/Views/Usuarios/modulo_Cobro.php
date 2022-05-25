@@ -13,9 +13,6 @@
 
 </head>
 <body id="page-top" style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;" onblur="mueveReloj()">
-<form name="form_reloj">
-    <input type="text" name="reloj" size="40" style="background-color : Black; color : White; font-family : Verdana, Arial, Helvetica; font-size : 8pt; text-align : center;" onfocus="window.document.form_reloj.reloj.blur()">
-</form>
     <?php date_default_timezone_set('America/Mexico_City'); $fecha = date("Y-m-d H:i:s");?>
     <input type="hidden" name="fechaHoy" id="fechaHoy" value="<?php echo $fecha?>">
    <!-- Page Wrapper -->
@@ -23,12 +20,16 @@
 
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"><br>
-<!--ESTE ES EL LOGO QUE APARECE EN LA BARRA DE NAVEGACION IZQUIERDA-->
-        <!--li class="nav-item active">
-            <div class="sidebar-brand-icon">
-                <center><img src = "Img/logo.png" style="width: 50%;"/></center>
-            </div><br>
-        </li-->
+        <!--form name="form_reloj">
+            <input type="text" name="reloj" size="25" style="background-color : black; color : White; font-family : Verdana, Arial, Helvetica; font-size : 8pt; text-align : center;" onfocus="window.document.form_reloj.reloj.blur()">
+        </form><br>
+        <hr class="sidebar-divider"-->
+        <!--ESTE ES EL LOGO QUE APARECE EN LA BARRA DE NAVEGACION IZQUIERDA-->
+            <!--li class="nav-item active">
+                <div class="sidebar-brand-icon">
+                    <center><img src = "Img/logo.png" style="width: 50%;"/></center>
+                </div><br>
+            </li-->
 
             <!-- Divider -->
             <!--hr class="sidebar-divider my-0"-->
@@ -36,51 +37,21 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <center><label>RECARGAS:</label></center>
-                <!--a class="nav-link" href="index.html"><span>RECARGAS:</span></a-->
-                <div>
-                    <?php foreach($Creditos as $key => $cred){?>
+                    <?php foreach($Creditos as $key => $cred){ ?>
                         <button type="button" id="creditos" class="btn btn-success creditosC" style="margin:5px;" value="<?= $cred->idFechaCreditosCortesia?>"><?= $cred->Nombre?></button>
-                    <?php }?>
-                </div>
+                    <?php } ?>
             </li><br>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <li class="nav-item active">
-                <label for="">PROMOCIONES: &nbsp;</label>
-                <?php foreach($Pulsera as $key => $pu){
-                        //if($pu->fechaI==$fecha){?>
-                            <button type="button" id="promocionn" class="btn btn-success promocionnn" value="<?= $pu->idFechaPulseraMagica?>"><?= $pu->Nombre?></button>
-                    <?php //}
-                    }?>
-                        <div id="log"></div>
-                <!--input type="number" name="valorSelect" id="valorSelect" value=""-->
+                <center><label for="">PROMOCIONES: &nbsp;</label></center>
+                <?php foreach($Pulsera as $key => $pu){ ?>
+                    <button type="button" id="promocionn" class="btn btn-success promocionnn" onblur="actualizar()" style="margin:5px;"  value="<?= $pu->idFechaPulseraMagica?>"><?= $pu->Nombre?></button>
+                <?php }?>
                 <div id="log"></div>
             </li>
-            <!-- Heading -->
-            <!--div class="sidebar-heading">
-                Interface
-            </div-->
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <!--li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li-->
         </ul>
         <!-- End of Sidebar -->
 
@@ -100,17 +71,15 @@
 
                     <!-- Topbar datos Evento -->
                     
-                    <div class="">
-                        <?php foreach($Turno as $d){?>
-                            <a class="col-xl-2 col-md-6 mb-4" aria-expanded="false" aria-controls="collapseTwo" style="font-family: monospace; color:black; font-size:16px;">
-                                <?php echo '<b>Zona:</b>&nbsp;'.$d->NombreZona.'&nbsp;<b>Taquilla:</b>&nbsp;'.$d->NombreTaquilla.'&nbsp;<b>Ventanilla:</b>&nbsp;'.$d->NombreVentanilla?>
-                            </a>
-                        <?php }?>
-                    </div>
+                    <?php foreach($Turno as $d){?>
+                        <a aria-expanded="false" aria-controls="collapseTwo" style="font-family: monospace; color:black; font-size:16px;">
+                        <?php echo '<b>Zona:</b>&nbsp;'.$d->Nombre.'&nbsp;<b>Taquilla:</b>&nbsp;'.$d->Nombre.'&nbsp;<b>Ventanilla:</b>&nbsp;'.$d->Nombre?>
+                        </a>
+                    <?php }?>
                     
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
+                        
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -127,7 +96,7 @@
                                     &nbsp;Cerrar Caja&nbsp;<i class="fa fa-times btn btn-danger" aria-hidden="true"></i>
                                 </a>
                             </div>
-                            <a class="nav-link navbar-brand" href="Ticket" target="_blank">Imprimir Ticket</a>
+                            <!--a class="nav-link navbar-brand" href="Ticket" target="_blank">Imprimir Ticket</a-->
                         </li>
                     </ul>
                 </nav>
@@ -140,7 +109,7 @@
                             <input type="hidden" name="ventanillaa" id="ventanillaa" value="<?php echo $_GET["v"]?>">
                             <input type="hidden" name="idventani" id="idventani" value="<?php echo $_GET["idv"]?>">
                             <input type="hidden" name="evento" id="evento" value="<?php echo $_GET["e"]?>">
-                            <input type="text" name="arregloP" id="arregloP" value="">
+                            <input type="hidden" name="arregloP" id="arregloP" value="">
                             <input type="hidden" name="arregloPrecioP" id="arregloPrecioP" value="">
                             <input type="hidden" name="arregloC" id="arregloC" value="">
                             <input type="hidden" name="arregloPrecioC" id="arregloPrecioC" value="">
@@ -148,7 +117,7 @@
                             <input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo session('idUsuario')?>">
                             <input type="hidden" name="precioTa" id="precioTa" value="">
                             <input type="hidden" name="indice" id="indice" value="">
-                            <input type="text" name="fecha" id="fecha" value="">
+                            <input type="hidden" name="fecha" id="fecha" value="">
                             <div class="row">
                                 <!-- Pending Requests Card Example -->
                                 <div class="col-xl-12 col-md-12 mb-12">
@@ -179,9 +148,9 @@
 
                                 <!-- Area Chart -->
                                 <div class="col-xl-8 col-lg-7">
-                                    <div class="card shadow mb-4">
+                                    <div class="card shadow mb-5">
                                         <!-- Card Header - Dropdown -->
-                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <div class="card-header py-4 d-flex flex-row align-items-center justify-content-between">
                                             <h6><center><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Descripcion</center></h6>
                                             <h6><center><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="30px" height="30px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                                                         <g><path d="M256,0C114.625,0,0,114.625,0,256s114.625,256,256,256s256-114.625,256-256S397.375,0,256,0z M256,480
@@ -208,7 +177,7 @@
                                                     </thead-->
                                                     <tbody id="productos">
                                                         <tr>
-                                                            <td><div id="result"><label for="">Tarjeta: &nbsp;</label><input type="number" id="tarjeta" name="tarjeta" value="" style="background : inherit; border:none; text-align:center;" disabled></td></div>
+                                                            <td><div id="result"><!--label for="">Tarjeta: &nbsp;</label--><input type="number" id="tarjeta" name="tarjeta" value="" style="background : inherit; border:none; text-align:center;" disabled></td></div>
                                                             <td><input type="number" class="monto" id="precioT" name="precioT" value="" style="background : inherit; border:none; text-align:center;" disabled></td>
                                                         </tr>
                                                         <tr id="recargaTr" style="display: none;">
@@ -250,7 +219,7 @@
                                         </div>
                                         <!-- Card Body -->
                                         <div class="card-body">
-                                            <h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">Tipo Pago</h6><br>
+                                            <center><h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">TIPO PAGO</h6><br></center>
                                             <?php foreach($tipoPago as $tipo):?>
                                                 <button type="button" class="btn btn-warning pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="<?php echo $tipo->idFormasPago?>"><?php echo $tipo->Nombre?></button>
                                             <?php endforeach ?>
@@ -478,10 +447,8 @@ var acumulador = 0;
 var total;
 let indices = [];
 
-
-
 /***********************************DEVOLUCION DE TARJETAS ********************************************/
-$(document).on('click', '#devolucion', function(){
+    $(document).on('click', '#devolucion', function(){
         console.log('Estoy aqui');
         alert($('#formDevolucion').serialize());
         $.ajax({
@@ -500,36 +467,36 @@ $(document).on('click', '#devolucion', function(){
                // cierra_carg();
             });
     
-});
+    });
 /***********************************DEVOLUCION DE TARJETAS ********************************************/
 
 /*********************************** AGREGAR FAJILLA ********************************************/
-$(document).on('click', '#agregarFajilla', function(){
-    console.log('Estoy aqui');
-    alert($('#fajillaNueva').serialize());
-        $.ajax({
-                beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
-                  //  inicia_carg();//funcion que abre la ventana de carga
-                },
-                url:"",//la ruta a donde enviare la info
-                type:"POST",
-                data:{'tipo':tipo},//toma el valor del boton seleccionado
-                dataType: 'JSON',
-                error: function(jqXHR, textStatus, errorThrown){
-                    alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);//en caso de presentar un error, muestra el msj
-                  //  cierra_carg();//funcion que cierra la ventana de carga
-                },
-            }).done(function(data){//obtiene el valor de data procesado en el controlador
-               // cierra_carg();
-            });
+    $(document).on('click', '#agregarFajilla', function(){
+        console.log('Estoy aqui');
+        alert($('#fajillaNueva').serialize());
+            $.ajax({
+                    beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                    //  inicia_carg();//funcion que abre la ventana de carga
+                    },
+                    url:"",//la ruta a donde enviare la info
+                    type:"POST",
+                    data:{'tipo':tipo},//toma el valor del boton seleccionado
+                    dataType: 'JSON',
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);//en caso de presentar un error, muestra el msj
+                    //  cierra_carg();//funcion que cierra la ventana de carga
+                    },
+                }).done(function(data){//obtiene el valor de data procesado en el controlador
+                // cierra_carg();
+                });
     });
 /*********************************** AGREGAR FAJILLA ********************************************/
 
 /********************************** Tipo Pago*********************************/
-$(document).on('click', '.pagoEfectivo', function(){
+    $(document).on('click', '.pagoEfectivo', function(){
         var total = $('#total').val();
         var tipo = $(this).val();
-        alert(tipo);
+        //alert(tipo);
         $.ajax({
                 beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
                   //  inicia_carg();//funcion que abre la ventana de carga
@@ -607,23 +574,23 @@ $(document).on('click', '.pagoEfectivo', function(){
     });
     
 
-$(document).on('click','#cobrarTransaccion', function(){
-    var totalCobrar = $('#total').val();
-    var totalIngresado = $('#efectivo').val();
-    if(totalIngresado > totalCobrar){
-        var cambio = totalIngresado - totalCobrar;
-        alert('Su cambio es de:' + cambio);
-        cobrarCompra();
-        location.reload();
-    }else if(totalIngresado == totalCobrar){
-        alert('Gracias por su compra');
-        cobrarCompra();
-        location.reload();
-    }else if(totalIngresado < totalCobrar){
-        alert('Dinero Insuficiente');
-        acumulador=0;
-    }
-});
+    $(document).on('click','#cobrarTransaccion', function(){
+        var totalCobrar = $('#total').val();
+        var totalIngresado = $('#efectivo').val();
+        if(totalIngresado > totalCobrar){
+            var cambio = totalIngresado - totalCobrar;
+            alert('Su cambio es de:' + cambio);
+            cobrarCompra();
+            location.reload();
+        }else if(totalIngresado == totalCobrar){
+            alert('Gracias por su compra');
+            cobrarCompra();
+            location.reload();
+        }else if(totalIngresado < totalCobrar){
+            alert('Dinero Insuficiente');
+            acumulador=0;
+        }
+    });
 /********************************** Cobrar Transaccion*********************************/
     //Funcion ventana Carga
     function inicia_carg(){
@@ -680,7 +647,7 @@ $("#tarjetaAdd").on("change", function(){
         var v = $('#ventanillaa').val();
         var e = $('#evento').val();
 
-        alert(v);
+       // alert(v);
         $.ajax({
                 type:"POST",
                 url:"validarTarjeta",
@@ -695,23 +662,23 @@ $("#tarjetaAdd").on("change", function(){
                 if(data.msj){
                     for(var i = 0;i<data.msj.length; i++){
                         idTar = data.msj[i]['idTarjeta'];
-                        alert(idTar);
+                        //alert(idTar);
 
                         $('#idTarjeta').val(data.msj[i]['idTarjeta']);
 
                         if(data.msj[i]['idStatus'] == '1'){
                             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
                             indices.push('0');//tarjeta nueva
-                            alert('Indices' + indices);
+                            //alert('Indices' + indices);
                             $('#indice').val(indices);
                             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
                             $('#precioT').val(data.msj[i]['PrecioTarjeta']);
-                                $('#precioTa').val(data.msj[i]['PrecioTarjeta']);
-                                sumar();
+                            $('#precioTa').val(data.msj[i]['PrecioTarjeta']);
+                            sumar();
                         }else{
                             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
                             indices.push('1');//tarjeta comprada
-                            alert('Indices' + indices);
+                            //alert('Indices' + indices);
                             $('#indice').val(indices);
                             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
                             $('#idTarjeta').val(data.msj[i]['idTarjeta']);
@@ -727,54 +694,53 @@ $("#tarjetaAdd").on("change", function(){
     });
 
 //detectar recarga
-$('#recargaAdd').change(function () {
-    var tarjeta = $('#tarjetaAdd').val();
-    if(tarjeta == ''){
-        alert('Ingresa la tarjeta por favor');
-        $('#recargaAdd').val('');
-    }else{
-        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
-        indices.push('2');//recarga
-        alert('Indices' + indices);
-        $('#indice').val(indices);
-        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+    $('#recargaAdd').change(function () {
+        var tarjeta = $('#tarjetaAdd').val();
+        if(tarjeta == ''){
+            alert('Ingresa la tarjeta por favor');
+            $('#recargaAdd').val('');
+        }else{
+            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+            indices.push('2');//recarga
+            //alert('Indices' + indices);
+            $('#indice').val(indices);
+            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
 
-        alert(valor_recarga = $(this).val());
-        const creditos = 1;
-        const pesos = 0.80;
-        r = (valor_recarga * creditos)/pesos;
-        $('#recargaP').val(valor_recarga);
-        $('#recargaCred').val(r);
-        $('#recargaTr').show();
-        sumar();
-    }
-});
-
-//cambio de pagina
-$('#cerrarCaja').click(function(){
-    //$('#puntoVenta').hide();
-});
-
-
-//alerta pide numero
-$('#celular').click(function(){
-    swal("Ingresa el teléfono", {
-        content: "input",
-    })
-    .then((value) => {
-        //swal(`You typed: ${value}`);
-        swal("Agregado correctamente", {
-            icon: "success",
-        });
+            //alert(valor_recarga = $(this).val());
+            valor_recarga = $(this).val();
+            const creditos = 5;
+            const pesos = 50;
+            r = (valor_recarga * creditos)/pesos;
+            $('#recargaP').val(valor_recarga);
+            $('#recargaCred').val(r);
+            $('#recargaTr').show();
+            sumar();
+        }
     });
-});    
+
+    //cambio de pagina
+    $('#cerrarCaja').click(function(){
+        //$('#puntoVenta').hide();
+    });
+
+    //alerta pide numero
+    $('#celular').click(function(){
+        swal("Ingresa el teléfono", {
+            content: "input",
+        })
+        .then((value) => {
+            //swal(`You typed: ${value}`);
+            swal("Agregado correctamente", {
+                icon: "success",
+            });
+        });
+    });    
 
 //$(document).on('click','.Promo', function(){
 //function promociones(){
 
 // promociones pulsera magica
 $(document).on('click', '.promocionnn', function(event){
-    
     var acum=[];
     var fecha = '<?php echo $fecha;?>';
     var tarjeta = $('#tarjetaAdd').val();
@@ -783,7 +749,7 @@ $(document).on('click', '.promocionnn', function(event){
     }else{
         /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
         indices.push('3');//promo de pulsera
-        alert('Indices' + indices);
+        //alert('Indices' + indices);
         $('#indice').val(indices);
         /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
 
@@ -793,7 +759,7 @@ $(document).on('click', '.promocionnn', function(event){
         $('#arregloP').val(metros);
         var promocion = $(this).val();
         //$('#valorSelect').val(promocion);
-        alert('soy promocion' + promocion);
+        //alert('soy promocion' + promocion);
 
         $.ajax({
             type:"POST",
@@ -818,10 +784,8 @@ $(document).on('click', '.promocionnn', function(event){
             }    
             sumar();
             $('#arregloPrecioP').val(prec);
-            
         });
     }
-
 });
 
 //promociones creditos cortesia(RECARGA)
@@ -835,7 +799,7 @@ $(document).on('click', '.creditosC', function(event){
 
         /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
         indices.push('4');//promo de creditos
-        alert('Indices' + indices);
+        //alert('Indices' + indices);
         $('#indice').val(indices);
         /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
 
@@ -844,7 +808,7 @@ $(document).on('click', '.creditosC', function(event){
 
         $('#arregloC').val(creditosC);
         var promocionc = $(this).val();
-        alert(promocionc);
+        //alert(promocionc);
 
         $.ajax({
             type:"POST",
@@ -871,16 +835,15 @@ $(document).on('click', '.creditosC', function(event){
             var prec = $('#precioC').val();
             preciosC.push(prec);
             $('#arregloPrecioC').val(preciosC);
-            alert(preciosC);
+            //alert(preciosC);
         });
     }
 });
 
-
 //datos formulario para cobrar
 function cobrarCompra(){
-    alert($('#formPuntoVenta').serialize());
-    /*$.ajax({
+    //alert($('#formPuntoVenta').serialize());
+    $.ajax({
     type: "POST",
     url: "guardarVentas",
     data: $('#formPuntoVenta').serialize(),
@@ -893,7 +856,7 @@ function cobrarCompra(){
         console.log(data.msj);
         //    alert('Venta Satisfactoria');
         //  location.reload();
-    });*/
+    });
 }
 /***********************************************ESTO CREO QUE YA TAMPOCO SERVIRA************************************/
 //$("#cobrar").click( function(){
@@ -1007,4 +970,7 @@ function cobrarCompra(){
         $('#fecha').val(horaImprimible);
     }
 
+    function actualizar(){
+        setTimeout("actualizar()",1000);
+    }
 </script>

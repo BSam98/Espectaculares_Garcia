@@ -154,6 +154,19 @@ class mcobro_model extends Model{
         return $datos; 
     }    
 
+    function consultarTurno2($evento,$zona,$taquilla,$idApven,$ventanilla,$usuario){
+        $db = \Config\Database::connect();
+        $query =$db->query("SELECT e.Nombre, z.Nombre, t.Nombre, v.Nombre,e.PrecioTarjeta 
+                            FROM Eventos e, Zona z, Taquilla t, Ventanilla v, Apertura_Ventanilla av, Fajillas f 
+                            WHERE e.idEvento = ".$evento." and z.idEvento = e.idEvento and z.idZona =".$zona." and z.idZona = t.idZona and t.idTaquilla =".$taquilla." and v.idTaquilla = t.idTaquilla 
+                            and v.idVentanilla = ".$ventanilla." and v.idVentanilla = av.idVentanilla and av.idUsuario =".$usuario." and f.idAperturaVentanilla = av.idAperturaVentanilla 
+                            and av.idAperturaVentanilla =".$idApven);
+        if($query){
+            return $query->getResultObject();
+        }
+        
+    }
+
     function guardarTransaccion($totalPago,$fecha,$idventanilla){
         $db = \Config\Database::connect();
         $builder = $db->table('Transaccion');
@@ -711,138 +724,427 @@ class mcobro_model extends Model{
     /*************************************************** AGREGAR RECARGA *********************************************/
     function agregarRecarga($idtarjeta, $recarga, $gtran, $precioTa, $evento){//venta sin promociones
         /**************************************** obtengo el precio y los creditos de eventos *****************************/
-            $db = \Config\Database::connect();
-            $builder = $db->table('Eventos');
-            $builder-> select(
-                'idEvento,
-                Precio,
-                Creditos'
-            );
-            $builder->where('idEvento', $evento);
-            $query = $builder->get();
-            $datosE = $query->getResultArray();
-            foreach($datosE as $row){
-                $precioCreditos = $row['Precio'];//saco el precio de cuanto va a costar el evento
-                $creditosOtorgados = $row['Creditos'];//saco el valor de creditos por dinero
-            }
+        $db = \Config\Database::connect();
+        $builder = $db->table('Eventos');
+        $builder-> select(
+            'idEvento,
+            Precio,
+            Creditos'
+        );
+        $builder->where('idEvento', $evento);
+        $query = $builder->get();
+        $datosE = $query->getResultArray();
+        foreach($datosE as $row){
+            $precioCreditos = $row['Precio'];//saco el precio de cuanto va a costar el evento
+            $creditosOtorgados = $row['Creditos'];//saco el valor de creditos por dinero
+        }
         /******************************* busca si la tarjeta ya existe en la tabla de pagos ****************************************/
-    
-            $db = \Config\Database::connect();
-            $builder = $db->table('Pago');
-            $builder-> select(
-                'idTarjeta'
-            );
-            $builder->where('idTarjeta', $idtarjeta);
-            $query = $builder->get();
-            $datos = $query->getResultObject();
-    
-            if($datos){//la tarjeta ya esta comprada
-                if($recarga != ''){//si recarga no es cero
-                    $builder = $db->table('Pago');
-                    $data = [
-                        'Monto' => $recarga,
-                        'idTarjeta' => $idtarjeta,
-                        'idTipoVenta' => '1',
-                        'idTransaccion' => $gtran,
-                    ];
-                    if($builder->insert($data)){//si me inserta el pago
-                        $idpago = $db->insertID();
-                        $creditosNormales = ($recarga * $creditosOtorgados)/$precioCreditos;//numero de creditos otorgados por recarga
-                        $builder = $db->table('Saldo');// agrega a la tabla de salgo el numero de creditos otorgados a la tarjeta
-                            $data = [
-                                'CreditoN' => $creditosNormales,
-                                'idpago' => $idpago
-                            ];    
-                            if($builder->insert($data)){//si me inserta el saldo
-                                $builder = $db->table('Tarjetas');
-                                $builder-> select(
-                                    'idTarjeta, CreditoN, CreditoC, idStatus'
-                                );
-                                $builder->where('idTarjeta', $idtarjeta);
-                                $query = $builder->get();
-                                $datosRecarga = $query->getResultArray();
-                                foreach($datosRecarga as $rec){
-                                    $nCreditos = $rec['CreditoN'];//saco el valor de creditos normales
-                                }
-                                if(empty($nCreditos)){
-                                    $TotalCreditos = $nCreditos + $creditosNormales;
-                                    $builder = $db->table('Tarjetas');
-                                    $data = [
-                                        'CreditoN' => $creditosNormales,//cambio el estado a tarjeta vendida
-                                    ];
-                                    $builder->where('idTarjeta', $idtarjeta);
-                                    if($builder->update($data)){
-                                        return TRUE;
-                                    }else{
-                                        return FALSE;
-                                    }
-                                }else{
-                                    $TotalCreditos = $nCreditos + $creditosNormales;
-                                    $builder = $db->table('Tarjetas');
-                                    $data = [
-                                        'CreditoN' => $TotalCreditos,//cambio el estado a tarjeta vendida
-                                    ];
-                                    $builder->where('idTarjeta', $idtarjeta);
-                                    if($builder->update($data)){
-                                        return TRUE;
-                                    }else{
-                                        return FALSE;
-                                    }
-                                }
-                            }
+        $builder = $db->table('Pago');
+        $data = [
+            'Monto' => $recarga,
+            'idTarjeta' => $idtarjeta,
+            'idTipoVenta' => '1',
+            'idTransaccion' => $gtran,
+        ];
+        if($builder->insert($data)){//si me inserta el pago
+            $idpago = $db->insertID();
+            $creditosNormales = ($recarga * $creditosOtorgados)/$precioCreditos;//numero de creditos otorgados por recarga
+            $builder = $db->table('Saldo');// agrega a la tabla de salgo el numero de creditos otorgados a la tarjeta
+                $data = [
+                    'CreditoN' => $creditosNormales,
+                    'idpago' => $idpago
+                ];    
+                if($builder->insert($data)){//si me inserta el saldo
+                    $builder = $db->table('Tarjetas');
+                    $builder-> select(
+                        'idTarjeta, CreditoN, CreditoC, idStatus'
+                    );
+                    $builder->where('idTarjeta', $idtarjeta);
+                    $query = $builder->get();
+                    $datosRecarga = $query->getResultArray();
+                    foreach($datosRecarga as $rec){
+                        $nCreditos = $rec['CreditoN'];//saco el valor de creditos normales
+                    }
+                    if(empty($nCreditos)){
+                        $TotalCreditos = $nCreditos + $creditosNormales;
+                        $builder = $db->table('Tarjetas');
+                        $data = [
+                            'CreditoN' => $creditosNormales,//cambio el estado a tarjeta vendida
+                        ];
+                        $builder->where('idTarjeta', $idtarjeta);
+                        if($builder->update($data)){
+                            return TRUE;
+                        }else{
+                            return FALSE;
+                        }
+                    }else{
+                        $TotalCreditos = $nCreditos + $creditosNormales;
+                        $builder = $db->table('Tarjetas');
+                        $data = [
+                            'CreditoN' => $TotalCreditos,//cambio el estado a tarjeta vendida
+                        ];
+                        $builder->where('idTarjeta', $idtarjeta);
+                        if($builder->update($data)){
+                            return TRUE;
+                        }else{
+                            return FALSE;
+                        }
                     }
                 }
-            }else{// la tarjeta NO esta comprada
+        }     
+    }
+
+    /*************************************************** AGREGAR PROMOCIONES *****************************************/
+
+    function agregarPromocionesP($idtarjeta, $gtran, $promo){// venta con promo
+        $db = \Config\Database::connect();
+        $array = [];
+       /* $i=0;
+        while($i < $promo){*/
+            foreach($promo as $p){
+                //echo var_dump($p);
                 $builder = $db->table('Pago');
                 $data = [
-                    'Monto' => $precioTa,
+                    'Monto' => $p,
                     'idTarjeta' => $idtarjeta,
-                    'idTipoVenta' => '0',
+                    'idTipoVenta' => '2',
                     'idTransaccion' => $gtran,
                 ];
-                if($builder->insert($data)){//se inserta el pago en la tarjeta de pago
-                    $builder = $db->table('Tarjetas');
+                //$builder->insert($data);
+                if($builder->insert($data)){
+                    $idpago =$db->insertID();
+                    array_push($array, $idpago);
+                    /*$idpago =$db->insertID();
+                        foreach($idPromo as $ppp){
+                            echo $idpago;   
+                            echo var_dump($ppp);
+                            $builder = $db->table('Promo_Ventas');
+                            $data = [
+                                'pago_Id' => $idpago,
+                                'promo_Id' => $ppp,
+                                'idTransaccion' => $gtran
+                            ];
+                            $builder->insert($data);
+                        }*/
+                    //return $idpago;
+                }
+                
+            }
+            //echo var_dump($array);
+            return $array;
+            
+                //foreach($idpagoss as $pp){
+                   // echo  'Soy array pagos'.$pp;
+                    /*$val = intval($pp);
+                    $builder = $db->table('Promo_Ventas');
                     $data = [
-                        'idStatus' => '0',//cambio el estado a tarjeta vendida
+                        'pago_Id' => $pag,
+                        'promo_Id' => $val,
+                        'idTransaccion' => $gtran
                     ];
-                    $builder->where('idTarjeta', $idtarjeta);
-                    $builder->update($data);
-    
-                };
-                if($recarga != ''){//tiene una recarga
-                    $builder = $db->table('Pago');
+                    if($builder->insert($data)){
+                        return $data;
+                    }else{
+                        return FALSE;
+                    }    */   
+                //}
+           /* $i=$i+1;
+            return $i;
+        }*/
+
+                /*foreach($idPromo as $pp){
+                    $val = intval($pp);
+                    $builder = $db->table('Promo_Ventas');
                     $data = [
-                        'Monto' => $recarga,
-                        'idTarjeta' => $idtarjeta,
-                        'idTipoVenta' => '1',//tipo de venta, recarga
-                        'idTransaccion' => $gtran,
+                        'pago_Id' => $idpago,
+                        'promo_Id' => $val,
+                        'idTransaccion' => $gtran
                     ];
-                    if($builder->insert($data)){//si me inserta el pago
-                        $idpago = $db->insertID();
-    
-                        $creditosNormales = ($recarga * $creditosOtorgados)/$precioCreditos;//numero de creditos otorgados por recarga
-    
-                        $builder = $db->table('Saldo');// agrega a la tabla de salgo el numero de creditos otorgados a la tarjeta
+                    if($builder->insert($data)){
+                        return $data;
+                    }else{
+                        return FALSE;
+                    }       
+                }*/
+        /*$builder = $db->table('Pago');
+        $data = [
+            'Monto' => $promoP,
+            'idTarjeta' => $idtarjeta,
+            'idTipoVenta' => '2',
+            'idTransaccion' => $gtran,
+        ];
+        if($builder->insert($data)){//me inserta el pago
+            $idpago =$db->insertID();
+            
+            foreach($idPromo as $pp){
+                $val = intval($pp);
+                $builder = $db->table('Promo_Ventas');
+                $data = [
+                    'pago_Id' => $idpago,
+                    'promo_Id' => $val,
+                    'idTransaccion' => $gtran
+                ];
+                if($builder->insert($data)){
+                    return $data;
+                }else{
+                    return FALSE;
+                }       
+            }
+        }else{
+            return FALSE;
+        }*/
+    }
+
+    function agregarPromoV($idpay,$idPromo, $gtran){
+        $db = \Config\Database::connect();
+        $array =[];
+        
+            foreach($idpay as $p){
+                //array_push($array,$p);
+                //echo var_dump($p);
+                if(in_array($p,$array)){
+
+                }else{
+                    array_push($array,$p);
+                    foreach($idPromo as $ppp){
+                        if(in_array($ppp,$array)){
+                            
+                        }else{
+                            array_push($array,$ppp);
+                            $builder = $db->table('Promo_Ventas');
+                            $data = [
+                                'pago_Id' => $p,//REVISAR PORQUE NO INCREMENTA EL ID DE PAGO Y SOLO ME TOMA EL PRIMERO
+                                'promo_Id' => $ppp,
+                                'idTransaccion' => $gtran
+                            ];
+                            $builder->insert($data);
+                            
+                        }
+                    }
+                }
+                    
+                        
+                        
+                        //echo $idpago;   
+                        //echo var_dump($ppp);
+                        /*$builder = $db->table('Promo_Ventas');
                         $data = [
-                            'CreditoN' => $creditosNormales,
-                            'idpago' => $idpago
-                        ];    
-                            if($builder->insert($data)){//si me inserta el saldo
+                            'pago_Id' => $idpago,
+                            'promo_Id' => $ppp,
+                            'idTransaccion' => $gtran
+                        ];
+                        $builder->insert($data);*/
+                    //}
+            }
+            echo var_dump($array);
+    }
+
+    /*********************************************** AGREGAR PROMOCIONES CREDITOS ************************************/
+    function agregarPromocionesC($idtarjeta, $gtran, $promoC, $idPromoC, $evento){// venta con promo
+        $db = \Config\Database::connect();
+        $builder = $db->table('Eventos');
+        $builder-> select(
+            'idEvento,
+            Precio,
+            Creditos'
+        );
+        $builder->where('idEvento', $evento);
+        $query = $builder->get();
+        $datosE = $query->getResultArray();
+        foreach($datosE as $row){
+            $precioCreditos = $row['Precio'];//saco el precio de cuanto va a costar el evento
+            $creditosOtorgados = $row['Creditos'];//saco el valor de creditos por dinero
+        }
+
+        $builder = $db->table('Tarjetas');
+        $builder-> select(
+            'idTarjeta, CreditoN, CreditoC, idStatus'
+        );
+        $builder->where('idTarjeta', $idtarjeta);
+        $query = $builder->get();
+        $datosRecarga = $query->getResultArray();
+        foreach($datosRecarga as $rec){
+            $nCreditos = $rec['CreditoN'];//saco el valor de creditos normales
+            $cCreditos = $rec['CreditoC'];//saco el valor de creditos de cortesia
+        }
+
+        $i =0;
+
+        while($i < $promoC){
+            foreach($promoC as $p){
+                $builder = $db->table('Pago');
+                $data = [
+                    'Monto' => $p,
+                    'idTarjeta' => $idtarjeta,
+                    'idTipoVenta' => '3',
+                    'idTransaccion' => $gtran,
+                ];
+                if($builder->insert($data)){
+                    $idpago = $db->insertID();
+                    $creditosNormales = ($p * $creditosOtorgados)/$precioCreditos;//numero de creditos otorgados por precio de la promo
+                    foreach($idPromoC as $pp){
+                        $val = intval($pp);
+                        $builder = $db->table('Registro_Saldo_Pago_Promocion');
+                        $data = [
+                            'idPago' => $idpago,
+                            'idFechaCreditosCortesia' => $val,
+                        ];
+                        if($builder->insert($data)){//si me inserta el saldo
+                            $builder = $db->table('Calendario_Creditos_Cortesia');
+                            $builder-> select(
+                                'Creditos'
+                            );
+                            $builder->where('idFechaCreditosCortesia', $val);
+                            $query = $builder->get();
+                            $datosprom = $query->getResultArray();
+                            foreach($datosprom as $rec2){
+                                $creditosReg = $rec2['Creditos'];//saco el valor de creditos de cortesia
+                                
+                            }
+                            if(empty($nCreditos) && empty($cCreditos)){
+                                echo 'Estoy vacio'.$nCreditos . '' . $cCreditos;
                                 $builder = $db->table('Tarjetas');
-                                $builder-> select(
-                                    'idTarjeta', 'CreditoN'
-                                );
+                                $data = [
+                                    'CreditoN' => $creditosNormales,//cambio el estado a tarjeta vendida
+                                    'CreditoC' => $creditosReg
+                                ];
                                 $builder->where('idTarjeta', $idtarjeta);
-                                $query = $builder->get();
-                                $datosRecarga = $query->getResultArray();
-                                foreach($datosRecarga as $rec){
-                                    $nCreditos = $rec['CreditoN'];//saco el valor de creditos normales
+                                if($builder->update($data)){
+                                    return TRUE;
+                                }else{
+                                    return FALSE;
                                 }
-                                if(empty($nCreditos)){
-                                    $TotalCreditos = $nCreditos + $creditosNormales;
+                            }else{
+                                echo 'no estoy vacio'.$nCreditos . 'ccred' . $cCreditos;
+                                $TotalCreditos = $nCreditos + $creditosNormales;
+                                $TotalCreditosC = $cCreditos + $creditosReg;
+                                $builder = $db->table('Tarjetas');
+                                $data = [
+                                    'CreditoN' => $TotalCreditos,//cambio el estado a tarjeta vendida
+                                    'CreditoC' => $TotalCreditosC
+                                ];
+                                $builder->where('idTarjeta', $idtarjeta);
+                                $builder->update($data);
+                            }
+                        }
+
+                        /*$builder = $db->table('Calendario_Creditos_Cortesia');
+                        $builder-> select(
+                            'Creditos'
+                        );
+                        $builder->where('idFechaCreditosCortesia', $val);
+                        $query = $builder->get();
+                        $datosprom = $query->getResultArray();
+                        foreach($datosprom as $rec2){
+                            $creditosReg = $rec2['Creditos'];//saco el valor de creditos de cortesia
+                            
+                        }
+                            if(empty($cCreditos)){
+                                echo 'soy de regalo'.$creditosReg;
+                                $builder = $db->table('Tarjetas');
+                                $data = [
+                                    'CreditoC' => $creditosReg,//cambio el estado a tarjeta vendida
+                                ];
+                                $builder->where('idTarjeta', $idtarjeta);
+                                if($builder->update($data)){
+                                    echo 'Si actualizo';
+                                }else{
+                                    echo 'no actualizo';
+                                }
+                            }else{
+                                $TotalCreditosC = $cCreditos + $creditosReg;
+                                $builder = $db->table('Tarjetas');
+                                $data = [
+                                    'CreditoC' => $TotalCreditosC,//cambio el estado a tarjeta vendida
+                                ];
+                                $builder->where('idTarjeta', $idtarjeta);
+                                $builder->update($data);
+                                if($builder->update($data)){
+                                    echo 'Si actualizo';
+                                }else{
+                                    echo 'no actualizo';
+                                }
+                            }*/
+                    }
+                }
+            }
+            return $data;
+            $i=$i+1;
+        }
+
+        /*foreach($promoC as $p){
+            $builder = $db->table('Pago');
+            $data = [
+                'Monto' => $p,
+                'idTarjeta' => $idtarjeta,
+                'idTipoVenta' => '3',
+                'idTransaccion' => $gtran,
+            ];
+            
+            if($builder->insert($data)){
+                $idpago = $db->insertID();
+                $creditosNormales = ($p * $creditosOtorgados)/$precioCreditos;//numero de creditos otorgados por recarga4
+                foreach($idPromoC as $pp){
+                    $val = intval($pp);
+                    $builder = $db->table('Registro_Saldo_Pago_Promocion');
+                    $data = [
+                        'idPago' => $idpago,
+                        'idFechaCreditosCortesia' => $val,
+                    ];
+
+                    if($builder->insert($data)){//si me inserta el saldo
+                        $builder = $db->table('Tarjetas');
+                        $builder-> select(
+                            'idTarjeta, CreditoN, CreditoC, idStatus'
+                        );
+                        $builder->where('idTarjeta', $idtarjeta);
+                        $query = $builder->get();
+                        $datosRecarga = $query->getResultArray();
+                        foreach($datosRecarga as $rec){
+                            $nCreditos = $rec['CreditoN'];//saco el valor de creditos normales
+                            $cCreditos = $rec['CreditoC'];//saco el valor de creditos de cortesia
+                        }
+                            if(empty($nCreditos)){
+                                $TotalCreditos = $nCreditos + $creditosNormales;
+                                $builder = $db->table('Tarjetas');
+                                $data = [
+                                    'CreditoN' => $creditosNormales,//cambio el estado a tarjeta vendida
+                                ];
+                                $builder->where('idTarjeta', $idtarjeta);
+                                if($builder->update($data)){
+                                    return TRUE;
+                                }else{
+                                    return FALSE;
+                                }
+                            }else{
+                                $TotalCreditos = $nCreditos + $creditosNormales;
+                                $builder = $db->table('Tarjetas');
+                                $data = [
+                                    'CreditoN' => $TotalCreditos,//cambio el estado a tarjeta vendida
+                                ];
+                                $builder->where('idTarjeta', $idtarjeta);
+                                if($builder->update($data)){
+                                    return TRUE;
+                                }else{
+                                    return FALSE;
+                                }
+                            }
+
+                            $builder = $db->table('Calendario_Creditos_Cortesia');
+                            $builder-> select(
+                                'idFechaCreditosCortesia, Creditos'
+                            );
+                            $builder->where('idFechaCreditosCortesia', $val);
+                            $query = $builder->get();
+                            $datosprom = $query->getResultArray();
+                            foreach($datosprom as $rec2){
+                                $creditosReg = $rec2['Creditos'];//saco el valor de creditos de cortesia
+                            }
+                                if(empty($cCreditos)){
+                                    $TotalCreditosC = $cCreditos + $creditosReg;
                                     $builder = $db->table('Tarjetas');
                                     $data = [
-                                        'CreditoN' => $creditosNormales,//cambio el estado a tarjeta vendida
+                                        'CreditoC' => $creditosReg,//cambio el estado a tarjeta vendida
                                     ];
                                     $builder->where('idTarjeta', $idtarjeta);
                                     if($builder->update($data)){
@@ -851,10 +1153,10 @@ class mcobro_model extends Model{
                                         return FALSE;
                                     }
                                 }else{
-                                    $TotalCreditos = $nCreditos + $creditosNormales;
+                                    $TotalCreditosC = $cCreditos + $creditosReg;
                                     $builder = $db->table('Tarjetas');
                                     $data = [
-                                        'CreditoN' => $TotalCreditos,//cambio el estado a tarjeta vendida
+                                        'CreditoC' => $TotalCreditosC,//cambio el estado a tarjeta vendida
                                     ];
                                     $builder->where('idTarjeta', $idtarjeta);
                                     if($builder->update($data)){
@@ -863,9 +1165,41 @@ class mcobro_model extends Model{
                                         return FALSE;
                                     }
                                 }
-                            }
-                    }
-                }
-            }
-        }
+                                return $data;
+                    }else{
+                        return FALSE;
+                    }    
+                }     */
+
+
+                
+                
+                /*$idpago =$db->insertID();
+
+                foreach($idPromoC as $pp){
+
+                    $val = intval($pp);
+
+                    $builder = $db->table('Registro_Saldo_Pago_Promocion');
+                    $data = [
+                        'idPago' => $idpago,
+                        'idFechaCreditosCortesia' => $val,
+                    ];
+
+                    if($builder->insert($data)){
+
+                        return $data;
+
+                    }else{
+
+                        return FALSE;
+
+                    }    
+                }*/
+
+            //}
+        //}
+    }
+
+
 }
