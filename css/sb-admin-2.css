@@ -7929,7 +7929,7 @@ button.bg-dark:focus {
 
 .pt-3,
 .py-3 {
-  padding-top: 1rem !important;
+  padding-top: 0.5rem !important;/*lo movi 1rem*/
 }
 
 .pr-3,
@@ -7939,7 +7939,7 @@ button.bg-dark:focus {
 
 .pb-3,
 .py-3 {
-  padding-bottom: 1rem !important;
+  padding-bottom: 0.5rem !important;/*lo movi 1rem*/
 }
 
 .pl-3,
@@ -7953,7 +7953,7 @@ button.bg-dark:focus {
 
 .pt-4,
 .py-4 {
-  padding-top: 1.5rem !important;
+  padding-top: 1rem !important;/*lo movi 1.5rem*/
 }
 
 .pr-4,
@@ -7963,7 +7963,7 @@ button.bg-dark:focus {
 
 .pb-4,
 .py-4 {
-  padding-bottom: 1.5rem !important;
+  padding-bottom: 0rem !important;/*lo movi 1.5rem*/
 }
 
 .pl-4,
@@ -9874,8 +9874,8 @@ a:focus {
 .container-md,
 .container-lg,
 .container-xl {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: .5rem;/* lo modifique 1.5rem*/
+  padding-right: .5rem;/* lo modifique 1.5rem*/
 }
 
 .scroll-to-top {
@@ -10230,7 +10230,7 @@ a:focus {
 }
 
 .topbar {
-  height: 4.375rem;
+  height: 2.5rem; /*lo modifique 4.375*/
 }
 
 .topbar #sidebarToggleTop {
