@@ -154,6 +154,19 @@ class mcobro_model extends Model{
         return $datos; 
     }    
 
+    function consultarTurno2($evento,$zona,$taquilla,$idApven,$ventanilla,$usuario){
+        $db = \Config\Database::connect();
+        $query =$db->query("SELECT e.Nombre, z.Nombre, t.Nombre, v.Nombre,e.PrecioTarjeta 
+                            FROM Eventos e, Zona z, Taquilla t, Ventanilla v, Apertura_Ventanilla av, Fajillas f 
+                            WHERE e.idEvento = ".$evento." and z.idEvento = e.idEvento and z.idZona =".$zona." and z.idZona = t.idZona and t.idTaquilla =".$taquilla." and v.idTaquilla = t.idTaquilla 
+                            and v.idVentanilla = ".$ventanilla." and v.idVentanilla = av.idVentanilla and av.idUsuario =".$usuario." and f.idAperturaVentanilla = av.idAperturaVentanilla 
+                            and av.idAperturaVentanilla =".$idApven);
+        if($query){
+            return $query->getResultObject();
+        }
+        
+    }
+
     function guardarTransaccion($totalPago,$fecha,$idventanilla){
         $db = \Config\Database::connect();
         $builder = $db->table('Transaccion');

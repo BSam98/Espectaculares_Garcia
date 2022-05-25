@@ -27,6 +27,7 @@ class Menu_Principal_User_Control extends BaseController {
         $zona = $_POST['zona'];
         $taquilla = $_POST['taquilla'];
         $ventanilla = $_POST['ventanilla'];
+        $ventanilla = $_POST['ventanilla'];
         $usuario = $_POST['usuario'];
         $model = new mcobro_model();
         $data = $model->consultarTurno($evento,$zona,$taquilla,$ventanilla,$usuario);
@@ -49,10 +50,11 @@ class Menu_Principal_User_Control extends BaseController {
         $evento = $_GET['e'];
         $zona = $_GET['z'];
         $taquilla = $_GET['t'];
-        $ventanilla = $_GET['v'];
+        $idApven = $_GET['v'];
+        $ventanilla = $_GET['idv'];
         $usuario = $_GET['u'];
         $data = [
-            'Turno'=>$model->consultarTurno($evento,$zona,$taquilla,$ventanilla,$usuario),
+            'Turno'=>$model->consultarTurno2($evento,$zona,$taquilla,$idApven,$ventanilla,$usuario),
             'Pulsera'=>$model->promoPulsera($fecha),
             'Creditos'=>$model->Creditos($fecha),
             'tipoPago'=>$model->formaPago(),

@@ -20,16 +20,16 @@
 
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"><br>
-        <form name="form_reloj">
+        <!--form name="form_reloj">
             <input type="text" name="reloj" size="25" style="background-color : black; color : White; font-family : Verdana, Arial, Helvetica; font-size : 8pt; text-align : center;" onfocus="window.document.form_reloj.reloj.blur()">
         </form><br>
-        <hr class="sidebar-divider">
-<!--ESTE ES EL LOGO QUE APARECE EN LA BARRA DE NAVEGACION IZQUIERDA-->
-        <!--li class="nav-item active">
-            <div class="sidebar-brand-icon">
-                <center><img src = "Img/logo.png" style="width: 50%;"/></center>
-            </div><br>
-        </li-->
+        <hr class="sidebar-divider"-->
+        <!--ESTE ES EL LOGO QUE APARECE EN LA BARRA DE NAVEGACION IZQUIERDA-->
+            <!--li class="nav-item active">
+                <div class="sidebar-brand-icon">
+                    <center><img src = "Img/logo.png" style="width: 50%;"/></center>
+                </div><br>
+            </li-->
 
             <!-- Divider -->
             <!--hr class="sidebar-divider my-0"-->
@@ -37,12 +37,9 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <center><label>RECARGAS:</label></center>
-                <!--a class="nav-link" href="index.html"><span>RECARGAS:</span></a-->
-                <div>
-                    <?php foreach($Creditos as $key => $cred){?>
+                    <?php foreach($Creditos as $key => $cred){ ?>
                         <button type="button" id="creditos" class="btn btn-success creditosC" style="margin:5px;" value="<?= $cred->idFechaCreditosCortesia?>"><?= $cred->Nombre?></button>
-                    <?php }?>
-                </div>
+                    <?php } ?>
             </li><br>
 
             <!-- Divider -->
@@ -50,38 +47,11 @@
 
             <li class="nav-item active">
                 <center><label for="">PROMOCIONES: &nbsp;</label></center>
-                <?php foreach($Pulsera as $key => $pu){
-                        //if($pu->fechaI==$fecha){?>
-                            <button type="button" id="promocionn" class="btn btn-success promocionnn" style="margin:5px;"  value="<?= $pu->idFechaPulseraMagica?>"><?= $pu->Nombre?></button>
-                    <?php //}
-                    }?>
-                        <div id="log"></div>
-                <!--input type="number" name="valorSelect" id="valorSelect" value=""-->
+                <?php foreach($Pulsera as $key => $pu){ ?>
+                    <button type="button" id="promocionn" class="btn btn-success promocionnn" onblur="actualizar()" style="margin:5px;"  value="<?= $pu->idFechaPulseraMagica?>"><?= $pu->Nombre?></button>
+                <?php }?>
                 <div id="log"></div>
             </li>
-            <!-- Heading -->
-            <!--div class="sidebar-heading">
-                Interface
-            </div-->
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <!--li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li-->
         </ul>
         <!-- End of Sidebar -->
 
@@ -101,13 +71,11 @@
 
                     <!-- Topbar datos Evento -->
                     
-                    <div class="">
-                        <?php foreach($Turno as $d){?>
-                            <a class="col-xl-2 col-md-6 mb-4" aria-expanded="false" aria-controls="collapseTwo" style="font-family: monospace; color:black; font-size:16px;">
-                                <?php echo '<b>Zona:</b>&nbsp;'.$d->NombreZona.'&nbsp;<b>Taquilla:</b>&nbsp;'.$d->NombreTaquilla.'&nbsp;<b>Ventanilla:</b>&nbsp;'.$d->NombreVentanilla?>
-                            </a>
-                        <?php }?>
-                    </div>
+                    <?php foreach($Turno as $d){?>
+                        <a aria-expanded="false" aria-controls="collapseTwo" style="font-family: monospace; color:black; font-size:16px;">
+                        <?php echo '<b>Zona:</b>&nbsp;'.$d->Nombre.'&nbsp;<b>Taquilla:</b>&nbsp;'.$d->Nombre.'&nbsp;<b>Ventanilla:</b>&nbsp;'.$d->Nombre?>
+                        </a>
+                    <?php }?>
                     
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -479,8 +447,6 @@ var acumulador = 0;
 var total;
 let indices = [];
 
-
-
 /***********************************DEVOLUCION DE TARJETAS ********************************************/
     $(document).on('click', '#devolucion', function(){
         console.log('Estoy aqui');
@@ -615,11 +581,11 @@ let indices = [];
             var cambio = totalIngresado - totalCobrar;
             alert('Su cambio es de:' + cambio);
             cobrarCompra();
-            //location.reload();
+            location.reload();
         }else if(totalIngresado == totalCobrar){
             alert('Gracias por su compra');
             cobrarCompra();
-            //location.reload();
+            location.reload();
         }else if(totalIngresado < totalCobrar){
             alert('Dinero Insuficiente');
             acumulador=0;
@@ -728,48 +694,47 @@ $("#tarjetaAdd").on("change", function(){
     });
 
 //detectar recarga
-$('#recargaAdd').change(function () {
-    var tarjeta = $('#tarjetaAdd').val();
-    if(tarjeta == ''){
-        alert('Ingresa la tarjeta por favor');
-        $('#recargaAdd').val('');
-    }else{
-        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
-        indices.push('2');//recarga
-        //alert('Indices' + indices);
-        $('#indice').val(indices);
-        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+    $('#recargaAdd').change(function () {
+        var tarjeta = $('#tarjetaAdd').val();
+        if(tarjeta == ''){
+            alert('Ingresa la tarjeta por favor');
+            $('#recargaAdd').val('');
+        }else{
+            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+            indices.push('2');//recarga
+            //alert('Indices' + indices);
+            $('#indice').val(indices);
+            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
 
-        //alert(valor_recarga = $(this).val());
-        valor_recarga = $(this).val();
-        const creditos = 5;
-        const pesos = 50;
-        r = (valor_recarga * creditos)/pesos;
-        $('#recargaP').val(valor_recarga);
-        $('#recargaCred').val(r);
-        $('#recargaTr').show();
-        sumar();
-    }
-});
-
-//cambio de pagina
-$('#cerrarCaja').click(function(){
-    //$('#puntoVenta').hide();
-});
-
-
-//alerta pide numero
-$('#celular').click(function(){
-    swal("Ingresa el teléfono", {
-        content: "input",
-    })
-    .then((value) => {
-        //swal(`You typed: ${value}`);
-        swal("Agregado correctamente", {
-            icon: "success",
-        });
+            //alert(valor_recarga = $(this).val());
+            valor_recarga = $(this).val();
+            const creditos = 5;
+            const pesos = 50;
+            r = (valor_recarga * creditos)/pesos;
+            $('#recargaP').val(valor_recarga);
+            $('#recargaCred').val(r);
+            $('#recargaTr').show();
+            sumar();
+        }
     });
-});    
+
+    //cambio de pagina
+    $('#cerrarCaja').click(function(){
+        //$('#puntoVenta').hide();
+    });
+
+    //alerta pide numero
+    $('#celular').click(function(){
+        swal("Ingresa el teléfono", {
+            content: "input",
+        })
+        .then((value) => {
+            //swal(`You typed: ${value}`);
+            swal("Agregado correctamente", {
+                icon: "success",
+            });
+        });
+    });    
 
 //$(document).on('click','.Promo', function(){
 //function promociones(){
@@ -819,10 +784,8 @@ $(document).on('click', '.promocionnn', function(event){
             }    
             sumar();
             $('#arregloPrecioP').val(prec);
-            
         });
     }
-
 });
 
 //promociones creditos cortesia(RECARGA)
@@ -876,7 +839,6 @@ $(document).on('click', '.creditosC', function(event){
         });
     }
 });
-
 
 //datos formulario para cobrar
 function cobrarCompra(){
@@ -1008,4 +970,7 @@ function cobrarCompra(){
         $('#fecha').val(horaImprimible);
     }
 
+    function actualizar(){
+        setTimeout("actualizar()",1000);
+    }
 </script>
