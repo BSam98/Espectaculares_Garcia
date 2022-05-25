@@ -27,6 +27,10 @@
                                                     <div class="from-group" id="nombre_Descuentos">
                                                     </div>
                                                     <div class="from-group" id="precio_Descuentos">
+                                                        <label for="cantidad">Cantidad de personas por pase</label>
+                                                        <input type="number" class="form-control" name="cantidadPersonas" id="cantidadPersonas" placeholder="Personas por pase" value="">
+                                                        <label for="cantidad_Boletos">Cantidad de pases a cobrar</label>
+                                                        <input type="number" class="form-control" name="cantidad_Boletos" id="cantidad_Boletos" placeholder="Boletos a cobrar" value="">
                                                     </div>
                                                     <div class="from-group" id="creditos_Descuentos">
                                                     </div>
@@ -37,11 +41,13 @@
                                                                     <td>
                                                                         <div class="container" id="fechas_Descuentos">
                                                                             <center><label>Días</label></center>
-                                                                            <input id="dateinicio" class="form-control" type="datetime-local">
-                                                                            <label for="horaf">Hora de Finalizacion</label>
-                                                                            <input id="nombre2" class="form-control" type="datetime-local">
-                                                                            <input id="precioes" class="form-control" type="hidden" placeholder="Ingresa un precio" value="0">
-                                                                            <button id="adicionar" class="btn btn-success" type="button">Agregar</button></center><br>
+                                                                            <br>
+                                                                            <label for="inicioDescuento">Hora de Inicio</label>
+                                                                            <input id="inicioDescuento" class="form-control" type="datetime-local">
+                                                                            <label for="finDescuento">Hora de Finalizacion</label>
+                                                                            <input id="finDescuento" class="form-control" type="datetime-local">
+                                                                            <br>
+                                                                            <button id="adicionarDescuento" class="btn btn-success" type="button">Agregar</button></center><br>
                                                                         </div>
                                                                     </td>
                                                                     <td>
@@ -49,8 +55,6 @@
                                                                             <tr>
                                                                                 <th>Hora Inicio</th>
                                                                                 <th>Hora Fin</th>
-                                                                                <th>Precio</th>
-                                                                                <th>Creditos</th>
                                                                                 <th>Eliminar</th>
                                                                             </tr>
                                                                         </table>
@@ -83,7 +87,9 @@
                                                 <td>
                                                     <div class="from-group" id="nombre_Pulsera">
                                                     </div>
-                                                    <div class="from-group" id="precio_Pulsera">
+                                                    <div class="from-group" id="precio_Pulseras">
+                                                        <label for="precio_Pulsera">Precio de la Promoción</label>
+                                                        <input type="number" class="form-control" name="precio_Cortesias" id="precio_Pulsera" placeholder="Precio Promoción" value="">
                                                     </div>
                                                     <div class="from-group" id="creditos_Pulsera">
                                                     </div>
@@ -93,10 +99,27 @@
                                                                 <tr>
                                                                     <td>
                                                                         <div class="container" id="fechas_Pulsera">
+                                                                            <center><label>Días</label>
+                                                                            <br>
+                                                                            <label for="inicioPulsera">Hora de Inicio</label>
+                                                                            <input id="inicioPulsera" class="form-control" type="datetime-local">
+                                                                            <label for="finPulsera">Hora de Finalizacion</label>
+                                                                            <input id="finPulsera" class="form-control" type="datetime-local">
+                                                                            <label for="precioPulsera">Precio</label>
+                                                                            <input id="precioPulsera" class="form-control" type="number" placeholder="Ingresa un precio">
+                                                                            <br>
+                                                                            <button id="adicionarPulsera" class="btn btn-success" type="button">Agregar</button></center><br>
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <table id="tabla_Fechas_Pulsera" class="table table-bordered table-hover"></table>
+                                                                        <table id="tabla_Fechas_Pulsera" class="table table-bordered table-hover">
+                                                                            <tr>
+                                                                                <th>Hora Inicio</th>
+                                                                                <th>Hora Fin</th>
+                                                                                <th>Precio</th>
+                                                                                <th>Eliminar</th>
+                                                                            </tr>
+                                                                        </table>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -111,6 +134,7 @@
                                                         <th>Promocion</th>
                                                         <th>Cantidad</th>
                                                         <th>Precio</th>
+                                                        
                                                     </thead>
                                                 </table>
                                             </tr>
@@ -136,10 +160,27 @@
                                                                 <tr>
                                                                     <td>
                                                                         <div class="container" id="fechas_Juegos">
+                                                                            <center><label>Días</label>
+                                                                            <br>
+                                                                            <label for="inicioJuegos">Hora de Inicio</label>
+                                                                            <input id="inicioJuegos" class="form-control" type="datetime-local">
+                                                                            <label for="finJuegos">Hora de Finalizacion</label>
+                                                                            <input id="finJuegos" class="form-control" type="datetime-local">
+                                                                            <label for="precioJuegos">Precio</label>
+                                                                            <input id="precioJuegos" class="form-control" type="number" placeholder="Ingresa un precio">
+                                                                            <br>
+                                                                            <button id="adicionarJuegos" class="btn btn-success" type="button">Agregar</button></center><br>
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <table id="tabla_Fechas_Juegos" class="table table-bordered table-hover"></table>
+                                                                        <table id="tabla_Fechas_Juegos" class="table table-bordered table-hover">
+                                                                            <tr>
+                                                                                <th>Hora Inicio</th>
+                                                                                <th>Hora Fin</th>
+                                                                                <th>Precio</th>
+                                                                                <th>Eliminar</th>
+                                                                            </tr>
+                                                                        </table>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -170,8 +211,12 @@
                                                     <div class="from-group" id="nombre_Cortesias">
                                                     </div>
                                                     <div class="from-group" id="precio_Cortesias">
+                                                        <label for="precio_Promocion">Precio de la Promoción</label>
+                                                        <input type="number" class="form-control" name="precio_Promocion" id="precio_Promocion" placeholder="Precio Promoción" value="">
                                                     </div>
                                                     <div class="from-group" id="creditos_Cortesias">
+                                                        <label for="creditos_Promocion">Creditos de la promoción</label>
+                                                        <input type="number" class="form-control" name="creditos_Promocion" id="creditos_Promocion" placeholder="Creditos Promoción">
                                                     </div>
                                                     <div class="from-group table table-responsive">
                                                         <table>
@@ -179,10 +224,30 @@
                                                                 <tr>
                                                                     <td>
                                                                         <div class="container" id="fechas_Cortesias">
+                                                                            <center><label>Días</label>
+                                                                            <br>
+                                                                            <label for="inicioCortesias">Hora de Inicio</label>
+                                                                            <input id="inicioCortesias" class="form-control" type="datetime-local">
+                                                                            <label for="finCortesias">Hora de Finalizacion</label>
+                                                                            <input id="finCortesias" class="form-control" type="datetime-local">
+                                                                            <label for="precioCortesias">Precio</label>
+                                                                            <input id="precioCortesais" class="form-control" type="number" placeholder="Ingresa un precio">
+                                                                            <label for="creditosI">Creditos</label>
+                                                                            <input id="creditosI" name="creditosI" class="form-control" type="number" placeholder="Creditos cortesia">
+                                                                            <br>
+                                                                            <button id="adicionarJuegos" class="btn btn-success" type="button">Agregar</button></center><br>
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <table id="tabla_Fechas_Cortesias" class="table table-bordered table-hover"></table>
+                                                                        <table id="tabla_Fechas_Cortesias" class="table table-bordered table-hover">
+                                                                            <tr>
+                                                                                <th>Hora Inicio</th>
+                                                                                <th>Hora Fin</th>
+                                                                                <th>Precio</th>
+                                                                                <th>Creditos</th>
+                                                                                <th>Eliminar</th>
+                                                                            </tr>
+                                                                        </table>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>

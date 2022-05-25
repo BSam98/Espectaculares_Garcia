@@ -614,9 +614,11 @@ $(document).on('click','#cobrarTransaccion', function(){
         var cambio = totalIngresado - totalCobrar;
         alert('Su cambio es de:' + cambio);
         cobrarCompra();
+        location.reload();
     }else if(totalIngresado == totalCobrar){
         alert('Gracias por su compra');
         cobrarCompra();
+        location.reload();
     }else if(totalIngresado < totalCobrar){
         alert('Dinero Insuficiente');
         acumulador=0;
