@@ -73,7 +73,8 @@
     include 'editar_Eventos.php';
     include 'agregar_Asociados.php';
     include 'agregar_Asociacion.php';
-    include 'agregar_Promociones.php';
+    //include 'agregar_Promociones.php';
+    include 'prueba_Promociones.php';
     include 'agregar_Atracciones.php';
     include 'creditos_Cortesia.php';
     include 'agregar_Lotes.php';
@@ -84,6 +85,7 @@
     include 'agregar_Zona.php';
 ?>
 <script src ="JS/evento.js"></script>
+<script src="JS/pruebaPromocion.js"></script>
 <script src ="JS/carga.js"></script>
  
     <script>

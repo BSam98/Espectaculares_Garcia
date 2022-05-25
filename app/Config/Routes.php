@@ -61,6 +61,8 @@ $routes->get('/Roles','Rol_Control::rol');
 $routes->get('/Ver Atracciones','super_Atracciones_Control::new');
 $routes->get('/Ver Atracciones/Mostrar_Atracciones','super_Atracciones_Control::ciclos');
 $routes->post('/Ver Atracciones/Mostrar_Atracciones','super_Atracciones_Control::ciclos');
+$routes->get('/Ver Atracciones/Mostrar_Detalles','super_Atracciones_Control::detalles');
+$routes->post('/Ver Atracciones/Mostrar_Detalles','super_Atracciones_Control::detalles');
 
 $routes->get('/Ver Taquillas','Taquillas_Control::new');
 $routes->get('/Ver Supervisores','supervisores_control::new');
@@ -146,8 +148,10 @@ $routes->post('Eventos/Mostrar_Taquillas','Eventos_Control::mostrar_Taquillas_Ev
 $routes->get('/Eventos/Agregar_Taquillas_Evento','Eventos_Control::agregar_Taquillas_Evento');
 $routes->post('/Eventos/Agregar_Taquillas_Evento','Eventos_Control::agregar_Taquillas_Evento');
 
-$routes->get('/Eventos/Mostrar_Promociones','Eventos_Control::mostrar_Promociones');
-$routes->post('/Eventos/Mostrar_Promociones','Eventos_Control::mostrar_Promociones');
+//$routes->get('/Eventos/Mostrar_Promociones','Eventos_Control::mostrar_Promociones');
+//$routes->post('/Eventos/Mostrar_Promociones','Eventos_Control::mostrar_Promociones');
+$routes->get('/Eventos/Mostrar_Promociones','Prueba_Promocion_Control::mostrar_Promociones');
+$routes->post('/Eventos/Mostrar_Promociones','Prueba_Promocion_Control::mostrar_Promociones');
 
 $routes->get('/Eventos/Agregar_Promocion_Evento','Eventos_Control::agregar_Promocion_Evento');
 $routes->post('/Eventos/Agregar_Promocion_Evento','Eventos_Control::agregar_Promocion_Evento');

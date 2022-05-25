@@ -33,23 +33,16 @@
                         <!--th><center>Evento</center></th-->
                         <th><center>Validador</center></th>
                         <th><center>Atracción</center></th>
-                        <th><center>Fecha</center></th>
                         <th><center>Ciclos</center></th>
-                        <th><center>Créditos ingresados</center></th>
-                        <th><center>Pases Generados</center></th>
+                        <th><center>Créditos</center></th>
+                        <th><center>Cortesias</center></th>
+                        <th><center>Descuentos</center></th>
+                        <th><center>Pulseras Magicas</center></th>
+                        <th><center>Pases</center></th>
                         <th>Detalles</th>
                     </tr>
                 </thead>
-                <tbody>
-                        <tr>
-                            <td style="vertical-align: middle;"></td>
-                            <td style="vertical-align: middle;"></td>
-                            <td style="vertical-align: middle;"></td>
-                            <td style="vertical-align: middle;"></td>
-                            <td style="vertical-align: middle;"></td>
-                            <td style="vertical-align: middle;"></td>
-                            <td><a href="#verDetalles" type="button" class="btn btn-success" data-toggle="modal">Ver detalles</a></td>
-                        </tr>
+                <tbody id ="supervisarAtracciones">
                 </tbody>
             </table>
         </div>
@@ -57,7 +50,7 @@
 </fieldset>
 
 <div class="modal fade" id="verDetalles" style="color:black;">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <!--center><h5><i class="fa fa-window-restore" aria-hidden="true"></i>&nbsp;Reporte de Movimientos</h5></center-->
@@ -66,25 +59,20 @@
             <div class="modal-body">
                 <form enctype="multipart/form-data" name="formularioAgregarTarjetasEvento" id="formularioAgregarTarjetasEvento">
                     <div class="table table-responsive" style="color: black;">
-                        <center><h5><i class="fa fa-window-restore" aria-hidden="true"></i>&nbsp;Reporte de Atracción</h5></center>                        
+                        <center><h5><i class="fa fa-window-restore" aria-hidden="true"></i>&nbsp;Ciclos</h5></center>                        
                         <table>
                             <thead>
                                 <tr>
                                     <!--th><center>Evento</center></th-->
-                                    <th><center>Atracción</center></th>
-                                    <th><center>Fecha</center></th>
-                                    <th><center>Ciclo</center></th>
-                                    <th><center>Créditos ingresados por ciclo</center></th>
-                                    <th><center>Pases Generados por ciclo</center></th>
+                                    <th><center>Personas</center></th>
+                                    <th><center>Creditos</center></th>
+                                    <th><center>Cortesias</center></th>
+                                    <th><center>Descuentos</center></th>
+                                    <th><center>Pulseras Magicas</center></th>
+                                    <th><center>Hora</center></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                    <tr>
-                                        <td style="vertical-align: middle;"></td>
-                                        <td style="vertical-align: middle;"></td>
-                                        <td style="vertical-align: middle;"></td>
-                                        <td style="vertical-align: middle;"></td>
-                                    </tr>
+                            <tbody id="detalles_Ciclo">
                             </tbody>
                         </table>
                     </div>

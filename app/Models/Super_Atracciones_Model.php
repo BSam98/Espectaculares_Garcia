@@ -87,7 +87,7 @@ class Super_Atracciones_Model extends Model{
 
         $builder->join(
             'Atracciones',
-            'Atraccion_Evento.idEvento = Atracciones.idAtraccion',
+            'Atraccion_Evento.idAtraccion = Atracciones.idAtraccion',
             'inner'
         );
 
@@ -97,7 +97,7 @@ class Super_Atracciones_Model extends Model{
             'inner'
         );
         
-        $builder->where('Atracciones.idAtraccion',$idEvento);
+        $builder->where('Atraccion_Evento.idEvento',$idEvento);
 
         $builder->where('Apertura_Validador.horaApertura >=',$fechaInicial);
 
@@ -158,14 +158,40 @@ class Super_Atracciones_Model extends Model{
                 FROM
                     Ciclo
                 WHERE
-                    idAperturaValidador = 38;
+                    idAperturaValidador = $hola;
                 "
             );
             $datos = $query->getResultObject(); 
             //$resu = json_encode(array('$hola'=>$datos));
-            $arreglo.array_push($datos);
+            //$arreglo.array_push($datos);
+            $arreglo[$num_elementos] = $datos;
             $num_elementos = $num_elementos + 1;
         }
         return $arreglo; 
+    }
+
+    public function detalles($idAperturaValidacion){
+        $db = \Config\Database::connect();
+
+        $builder=$db->table('Ciclo');
+        $builder->select(
+            '
+            idCiclo,
+            Personas,
+            Creditos,
+            Cortesias,
+            Descuentos,
+            PulserasMagicas,
+            Hora
+            '
+        );
+
+        $builder->where('idAperturaValidador',$idAperturaValidacion);
+
+        $query = $builder->get();
+
+        $datos = $query->getResultObject();
+
+        return $datos;
     }
 }

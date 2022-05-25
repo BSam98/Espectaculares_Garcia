@@ -26,6 +26,8 @@ class super_Atracciones_Control extends BaseController {
 
     public function ciclos(){
         $model = new Super_Atracciones_Model();
+        $arreglo = array();
+        $num_elementos = 0;
 
         $idEvento = $_POST['idEvento'];
         $fechaInicial = $_POST['fechaInicio'];
@@ -34,8 +36,25 @@ class super_Atracciones_Control extends BaseController {
         $respuesta = $model->ciclos($idEvento,$fechaInicial,$fechaFinal);
 
         $datos = $model->cantidad_Ciclos($respuesta);
+        /*
+        foreach($respuesta as $key =>$dC){
+            $datos = $model->cantidad_Ciclos($dC->idAperturaValidador);
+            $arreglo[0]=[
+                "cantidad1" =>
+            ];
+        }
+        */
 
         echo json_encode(array('respuesta'=>true,'msj'=>$respuesta,'datos'=>$datos));
+    }
+
+    public function detalles(){
+        $model = new Super_Atracciones_Model();
+        $idAperturaValidacion = $_POST['idAperturaValidador'];
+
+        $respuesta  = $model->detalles($idAperturaValidacion);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
     }
 
 }
