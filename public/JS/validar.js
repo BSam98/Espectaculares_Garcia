@@ -412,6 +412,7 @@ $('#cerrarSesion').click(function(){
     }).done(function(data){
         if(data.respuesta){
             cerrarCarga();
+            //window.location.href='http://espectacularesgarcia.com.mx/web/public/';
             window.location.href='http://localhost/Espectaculares_Garcia/public/';
         }
         else{
@@ -423,7 +424,7 @@ $('#cerrarSesion').click(function(){
 
 $(document).ready(function(){
     btnTiempo  = document.getElementById('tiempoExtra');
-    btnCiclo = document.getEelementById('iniciarCiclo');
+    btnCiclo = document.getElementById('iniciarCiclo');
     btnTiempo.disabled=true;
     btnCiclo.disabled=true;
     iniciarCarga();
