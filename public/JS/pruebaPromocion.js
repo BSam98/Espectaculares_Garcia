@@ -136,10 +136,6 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
         },
     }).done(function(data){
         if(data.respuesta){
-
-            console.log('Ingresa por aca: ' + JSON.stringify(data.msj.descuentos));
-            console.log('');
-            console.log('Desglose: ' + JSON.stringify(data.listado));
             for(var i=0; i<data.msj.descuentos.length;i++){
                 option_Descuentos_Html += '<option value="'+data.msj.descuentos[i]['idDosxUno']+'">'+data.msj.descuentos[i]['Nombre']+'</option>';
 
@@ -173,7 +169,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
                     }
                 }
                 tabla_Descuentos_Html += '<tr>'+
-                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.descuentos[i]['Nombre']+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.descuentos[i]['Cantidad']+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.descuentos[i]['Boletos']+'</td>'+
@@ -194,7 +190,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
                 }
 
                 tabla_Pulsera_Html +='<tr>'+
-                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.pulsera[i]['Nombre']+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+precio_Pulsera_Html+'</td>'+
                 '<td>'+fecha_Inicial_Pulsera+'</td>'+
@@ -215,7 +211,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
                 }
 
                 tabla_Juegos_Html +='<tr>'+
-                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.juegos[i]['Nombre']+'</td>'+
                 '<td>'+fecha_Inicial_Juegos+'</td>'+
                 '<td>'+fecha_Final_Juegos+'</td>'+
@@ -236,7 +232,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
                 }
 
                 tabla_Creditos_Html += '<tr>'+
-                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.creditos[i]['Nombre']+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+precio_Creditos_Html+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+creditos_Html+'</td>'+
