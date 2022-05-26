@@ -1201,5 +1201,133 @@ class mcobro_model extends Model{
         //}
     }
 
+    function agregarF($e, $v, $idv, $folioI, $folioF, $fecha){
+        $db = \Config\Database::connect();
+    /*********************************** obtener id de las tarjetas de los folios ingresador ************************/
+        $query = $db->query("SELECT COUNT(*) as TarjetasTotales , (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio = ".$folioI.") as foliio,
+                            (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio = ".$folioF.") as folioff
+                            from Tarjetas t WHERE Folio BETWEEN ".$folioI." and ".$folioF);
+        $idTarjetaa = $query->getResultArray();
+        foreach($idTarjetaa as $tnuevas){
+            $folii = $tnuevas['foliio'];
+            $folff = $tnuevas['folioff'];
+        }      
+
+    /*********************************** Consultar el estado de la fajilla ************************/
+        $builder = $db->table('Fajillas');
+        $builder-> select(
+            'folioInicial,
+            folioFinal,
+            idAperturaVentanilla'
+        );
+        $builder->where('idAperturaVentanilla', $v);
+        $query = $builder->get();
+        $datos = $query->getResultArray();
+        foreach($datos as $d){
+            $folioi = $d['folioInicial'];
+            $foliof = $d['folioFinal'];
+        }
+
+        $query = $db->query("SELECT count(*) as vendidas, (SELECT COUNT(*) from Tarjetas WHERE idStatus ='1' and idTarjeta BETWEEN ".$folioi." and ".$foliof.") as sobrantes, 
+                            (SELECT COUNT(*) from Tarjetas WHERE idStatus ='5' and idTarjeta BETWEEN  ".$folioi." and ".$foliof.") as defectuosas, 
+                            (SELECT COUNT(*) from Tarjetas WHERE idTarjeta BETWEEN ".$folioi." and ".$foliof.") as totalTarjetas FROM Tarjetas WHERE idStatus ='0' and idTarjeta BETWEEN ".$folioi." and ".$foliof);
+        $result = $query->getResultArray();
+        foreach($result as $t){
+            $noVendidas = $t['sobrantes'];
+            $defectuosas = $t['defectuosas'];
+        }
+        if($noVendidas == 0){
+        /*********************************** Insertar la nueva fajilla ************************/
+            $builder = $db->table('Fajillas');
+            $data = [
+                'idStatus' => '3'
+            ];
+            $builder->where('idAperturaVentanilla', $v);
+            if($builder->update($data)){
+
+                $builder = $db->table('Fajillas');
+                $data = [
+                    'fecha' => $fecha,
+                    'idStatus' => '6',
+                    'folioInicial' => $folii,
+                    'folioFinal'=>$folff,
+                    'idAperturaVentanilla' => $v
+                ];
+                if($builder->insert($data)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }else{
+            return false;
+        }
+    }
+
+    function devolucionTarjeta($tarjetaDev, $descripcion, $idAp){
+        $db = \Config\Database::connect();
+        /**************************************** Buscar id inicial y final de la ventanilla *******************************/
+        $builder = $db->table('Fajillas');
+        $builder-> select(
+            'folioInicial,
+             folioFinal,
+             idAperturaVentanilla
+            '
+        );
+        $builder ->where('idAperturaVentanilla', $idAp);
+        $query = $builder->get();
+        $datos = $query->getResultArray();
+        foreach($datos as $idTurno){
+            $folInicialTurno = $idTurno['folioInicial'];
+            $folFinalTurno = $idTurno['folioFinal'];
+        }
+
+        /******************************************* Sacar el id de la tarjeta con el folio de la tarjeta a devolver ******************/
+        $builder = $db->table('Tarjetas');
+        $builder-> select(
+            'idTarjeta, idStatus'
+        );
+        $builder->where('Folio', $tarjetaDev);
+        $query = $builder->get();
+        $datosRecarga = $query->getResultArray();
+        foreach($datosRecarga as $rec){
+            $idTar = $rec['idTarjeta'];//saco el valor de idtarjeta
+        }
+
+        /********************* Verificar que la tarjeta ingresada esta dentro del rango inicial y final insertados en la ventanilla ********/
+        $builder = $db->table('Tarjetas');
+        $builder-> select(
+            'idTarjeta, idStatus'
+        );
+        $builder ->where("idTarjeta BETWEEN " . $folInicialTurno . " and ". $folFinalTurno);
+        $builder->where('idTarjeta', $idTar);
+        $builder->where('idStatus !=', 0);
+        $query = $builder->get();
+        $datosRecarga = $query->getResultObject();
+        if($datosRecarga){
+            $builder = $db->table('Devolucion_Tarjetas');
+            $data = [
+                'idTarjeta' => $idTar,
+                'idAperturaVentanilla' => $idAp,
+                'Descripcion' => $descripcion,
+            ];
+            if($builder->insert($data)){
+                $builder = $db->table('Tarjetas');
+                $data = [
+                    'idStatus' => '5',//cambio el estado a tarjeta vendida
+                ];
+                $builder->where('idTarjeta', $idTar);
+                if($builder->update($data)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
 
 }

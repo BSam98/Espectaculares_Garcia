@@ -133,6 +133,9 @@
             //console.log('Zona:'+zona);
             //alert(zona);
             $.ajax({
+                beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                    inicia_carg();//funcion que abre la ventana de carga
+                },
                 url: "eligeTaquilla",
                 type:"POST",
                 dataType:"JSON ",
@@ -146,6 +149,7 @@
                     html += '<option value="'+data.msj[i]['idTaquilla']+'">'+data.msj[i]['Nombre']+'</option>';
                 }
                 $("#taquilla").html(html);
+                cierra_carg();
             });
     });
 
@@ -155,6 +159,9 @@
             //console.log('Taquilla:'+taquilla);
             //alert('Soy taquilla'+taquilla);
             $.ajax({
+                beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                    inicia_carg();//funcion que abre la ventana de carga
+                },
                 url: "eligeVentanilla",
                 type:"POST",
                 dataType:"JSON ",
@@ -168,6 +175,7 @@
                     html += '<option value="'+data.msj[i]['idVentanilla']+'">'+data.msj[i]['Nombre']+'</option>';
                 }
                 $("#ventanilla").html(html);
+                cierra_carg();
             });
     });
     $(document).on('change','select[name="ventanilla"]' ,function(e) {
@@ -182,13 +190,16 @@
             
             //alert($('#form1').serialize());
             $.ajax({
-            type: 'POST',
-            url: 'datosTurno',
-            data: $('#form1').serialize(),
-            dataType: 'JSON',
-            error(jqXHR, textStatus, errorThrown){
-                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
-            },
+                beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                    inicia_carg();//funcion que abre la ventana de carga
+                },
+                type: 'POST',
+                url: 'datosTurno',
+                data: $('#form1').serialize(),
+                dataType: 'JSON',
+                error(jqXHR, textStatus, errorThrown){
+                    alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+                },
             }).done(function(data){
                 var idV=data.msj;
                 alert(idV);
@@ -203,8 +214,12 @@
                     //console.log('soy Data'+data.msj);
                     alert('Error al Ingresar');
                     location.href='turno';
+                    cierra_carg();
                 }else{
                     $.ajax({
+                        beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                            inicia_carg();//funcion que abre la ventana de carga
+                        },
                         url:"PuntoVenta",
                         type:"POST",
                         dataType:"JSON ",
@@ -213,7 +228,7 @@
                         console.log('si entro aqui');
                         console.log(data);
                         location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&v="+idV+"&u="+usuario+"&idv="+ventanilla;
-                        
+                        cierra_carg();
                     });
                 }
             });
@@ -242,6 +257,23 @@
         }
         setInterval(upDate, 1000);
     });*/
+    function inicia_carg(){
+        $('body').loadingModal({
+          position: 'auto',
+          text: 'Espere un momento',
+          color: '#B0AEC6',
+          opacity: '0.7',
+          backgroundColor: 'rgb(1,61,125)', 
+          animation: 'doubleBounce'
+        }); 
+    }
+
+    //funcion Ventana cierra carga
+    function cierra_carg(){
+        $('body').loadingModal('hide');
+        $('body').loadingModal('destroy');
+        console.log('adios perros');
+    }
 </script>
 
 <style>

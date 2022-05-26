@@ -219,5 +219,26 @@ class Menu_Principal_User_Control extends BaseController {
         $data = $model->tipoPagos($tipo);
         echo json_encode(array('respuesta'=>true,'msj'=>$data));
     }
+
+    public function agregarFajillas(){
+        $model = new mcobro_model;
+        $folioI = $_POST['folioI'];
+        $folioF = $_POST['folioF'];
+        $e = $_POST['e'];
+        $v = $_POST['v'];
+        $idv = $_POST['idv'];
+        $fecha = $_POST['fecha'];
+        $data = $model->agregarF($e, $v, $idv, $folioI, $folioF, $fecha);
+        echo json_encode(array('respuesta'=>true,'msj'=>$data));
+    }
+
+    public function devolucion(){
+        $model = new mcobro_model;
+        $tarjetaDev = $_POST['tarjetD'];
+        $descripcion = $_POST['descripcion'];
+        $idAp = $_POST['idv'];
+        $data = $model->devolucionTarjeta($tarjetaDev, $descripcion, $idAp);
+        echo json_encode(array('respuesta'=>true,'msj'=>$data));
+    }
     
 }
