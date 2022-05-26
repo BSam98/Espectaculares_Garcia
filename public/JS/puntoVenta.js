@@ -1,4 +1,3 @@
-
 var prev;
 var previous=[];
 let creditosC = [];
@@ -141,19 +140,13 @@ let indices = [];
         var valor = parseFloat($(this).val());
         acumulador = acumulador + valor;
         $('#efectivo').val(acumulador);
-        //alert('Soy acumulador'+acumulador);
-        //alert('soy valor'+valor);
     });
 
-    //console.log(data);
     $(document).on('click','.borrar', function(){
         var efectivo = $("#efectivo").val("");
         acumulador = 0;
-        //alert("Soy borrar" + efectivo + "acumulador"+ acumulador);
-        //$(".screen").html("");
     });
     
-
     $(document).on('click','#cobrarTransaccion', function(){
         var totalCobrar = $('#total').val();
         var totalIngresado = $('#efectivo').val();
@@ -172,7 +165,8 @@ let indices = [];
         }
     });
 /********************************** Cobrar Transaccion*********************************/
-    //Funcion ventana Carga
+
+/********************************** Iniciar y Cerrar Carga de Pagina *********************************/
     function inicia_carg(){
         $('body').loadingModal({
           position: 'auto',
@@ -184,42 +178,14 @@ let indices = [];
         }); 
     }
 
-    //funcion Ventana cierra carga
     function cierra_carg(){
         $('body').loadingModal('hide');
         $('body').loadingModal('destroy');
         console.log('adios perros');
     }
+/********************************** Iniciar y Cerrar Carga de Pagina *********************************/
 
-/* $("#tarjetaAdd").focus(function() {
-    prev=this.value;    
-}).change(function() {
-    document.getElementById("tarjetaa").innerHTML = "<b>Previous: </b>"+prev;
-    previous.push(this.value);
-    if (previous.length) {
-        alert('Yo soy'+(previous));
-        $('#tarjetasss').val(previous);
-    }
-});*/
-
-//detecta la tarjeta
-/*$(document).ready(function(){
-var cont = 0;
-$("#tarjetaAdd").on("change", function(){
-    if(cont > 1){
-        var v = $(this).val();
-        var inp = '<td><input id="tarjeta1" name="tarjeta1" value="'+v+'" style="background : inherit; border:none; text-align:center;" disabled></td><td id="productos">'+promociones();+'</td></tr>';
-        $("#result").append(inp);
-    }else{
-        var v1 = $(this).val();
-        var inp1 = '<tr id="'+v1+'"><td><input id="tarjeta1" name="tarjeta1" value="'+v1+'" style="background : inherit; border:none; text-align:center;" disabled></td><td id="productos">'+promociones();+'</td></tr>';
-        $("#result").append(inp1);
-        alert("Soy contador"+cont);
-    }
-    
-    cont=cont+1;
-});
-});*/
+/********************************** Detectar Tarjeta *********************************/
     $('#tarjetaAdd').change(function (){
         //console.log($(this).val());
         var valor_inicial = $(this).val();//folio de tarjeta
@@ -227,7 +193,6 @@ $("#tarjetaAdd").on("change", function(){
         var v = $('#ventanillaa').val();
         var e = $('#evento').val();
 
-       // alert(v);
         $.ajax({
                 type:"POST",
                 url:"validarTarjeta",
@@ -272,8 +237,9 @@ $("#tarjetaAdd").on("change", function(){
                 }
             });
     });
+/********************************** Detectar Tarjeta *********************************/
 
-//detectar recarga
+/********************************** Detectar Recarga *********************************/
     $('#recargaAdd').change(function () {
         var tarjeta = $('#tarjetaAdd').val();
         if(tarjeta == ''){
@@ -297,28 +263,15 @@ $("#tarjetaAdd").on("change", function(){
             sumar();
         }
     });
+/********************************** Detectar Recarga *********************************/
 
-    //cambio de pagina
+/********************************** Cambiar Pagina de Venta a Reporte *********************************/
     $(document).on('click','#cerrarCaja', function(){
-        $('#puntoVenta').hide();
-        $('#reporteVenta').show();
         //alert($('#ventanillaa').val());
-        /*var idapV = $('#ventanillaa').val()
-        $.ajax({
-            type:"POST",
-            url:"ReporteVenta",
-            data:{'ventanilla':idapV},
-            dataType: 'JSON',
-            error: function(jqXHR, textStatus, errorThrown){
-                alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
-            },
-        }).done(function(data){
-            console.log('si entro aqui');
-            console.log(data);
-            location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&v="+idV+"&u="+usuario+"&idv="+ventanilla;
-            cierra_carg();
-        });*/
+        var idapV = $('#ventanillaa').val();
+        location.href ="ReporteVenta?idv="+idapV;
     });
+/********************************** Cambiar Pagina de Venta a Reporte *********************************/
 
     //alerta pide numero
     $('#celular').click(function(){
@@ -326,156 +279,119 @@ $("#tarjetaAdd").on("change", function(){
             content: "input",
         })
         .then((value) => {
-            //swal(`You typed: ${value}`);
             swal("Agregado correctamente", {
                 icon: "success",
             });
         });
     });    
 
-//$(document).on('click','.Promo', function(){
-//function promociones(){
+/********************************** Agregar Promociones de Pulsera Magica *********************************/
+    $(document).on('click', '.promocionnn', function(event){
+        var acum=[];
+        var fecha = '<?php echo $fecha;?>';
+        var tarjeta = $('#tarjetaAdd').val();
+        if(tarjeta == ''){
+            alert('Ingresa la tarjeta por favor');
+        }else{
+            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+            indices.push('3');//promo de pulsera
+            //alert('Indices' + indices);
+            $('#indice').val(indices);
+            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
 
-// promociones pulsera magica
-$(document).on('click', '.promocionnn', function(event){
-    var acum=[];
-    var fecha = '<?php echo $fecha;?>';
-    var tarjeta = $('#tarjetaAdd').val();
-    if(tarjeta == ''){
-        alert('Ingresa la tarjeta por favor');
-    }else{
-        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
-        indices.push('3');//promo de pulsera
-        //alert('Indices' + indices);
-        $('#indice').val(indices);
-        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+            metros.push($(this).attr('value'));
 
-        metros.push($(this).attr('value'));
-        //console.log("Soy metros"+metros);
-
-        $('#arregloP').val(metros);
-        var promocion = $(this).val();
-        //$('#valorSelect').val(promocion);
-        //alert('soy promocion' + promocion);
-
-        $.ajax({
-            type:"POST",
-            url:"Productos",
-            data:{'promocion':promocion},
-            dataType: 'JSON',
-            error: function(jqXHR, textStatus, errorThrown){
-                alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
-            },
-        }).done(function(data){
-            var html ='';
-            for(var i = 0;i <data.msj.length; i++){
-                    html += '<tr id="'+data.msj[i]['idFechaPulseraMagica']+'">'+
-                                '<td style="padding:0px;">'+data.msj[i]['Nombre']+'</td>'+
-                                '<td style="padding:0px;"><input type="number" class="precioP monto" name="precioP" id="precioP" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value="'+data.msj[i]['Precio']+'"></td>'+
-                                '<td style="padding:0px;"></td>'+
-                                '<td style="padding:0px;"><a href="#eliminarPromo'+data.msj[i]['idFechaPulseraMagica']+'" class="eliminar" data-toggle="modal"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></a></td>'+
-                            '</tr>';
-                $("#productos").append(html);
-                //$("#precioPRomo").val(data.msj[i]['Precio']);
-                prec.push(data.msj[i]['Precio']);
-            }    
-            sumar();
-            $('#arregloPrecioP').val(prec);
-        });
-    }
-});
-
-//promociones creditos cortesia(RECARGA)
-//function promociones(){
-$(document).on('click', '.creditosC', function(event){
-    var fecha = '<?php echo $fecha;?>';
-    var tarjeta = $('#tarjetaAdd').val();
-    if(tarjeta == ''){
-        alert('Ingresa la tarjeta por favor');
-    }else{
-
-        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
-        indices.push('4');//promo de creditos
-        //alert('Indices' + indices);
-        $('#indice').val(indices);
-        /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
-
-        creditosC.push($(this).attr('value'));
-        console.log("Soy creditosC"+creditosC);
-
-        $('#arregloC').val(creditosC);
-        var promocionc = $(this).val();
-        //alert(promocionc);
-
-        $.ajax({
-            type:"POST",
-            url:"creditosCortesia",
-            data:{'promoCreditos':promocionc},
-            dataType: 'JSON',
-            error: function(jqXHR, textStatus, errorThrown){
-                alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
-            },
-        }).done(function(data){
-            var html ='';
-            for(var i = 0;i<data.msj.length; i++){
-                //if(data.msj[i]['fechaI']==fecha){
-                    html += '<tr id="'+i+'">'+
-                                '<td style="padding:0px;">'+data.msj[i]['Nombre']+'</td>'+
-                                '<td style="padding:0px;"><input type="number" name="precioC" id="precioC" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value='+data.msj[i]['Precio']+'></td>'+
-                                '<td style="padding:0px;"></td>'+
-                                '<td style="padding:0px;"><a href="#eliminarPromo'+data.msj[i]['idFechaCreditosCortesia']+'" class="eliminar" data-toggle="modal"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></a></td>'+
-                            '</tr>';
-                //}
-            }
-            $("#productos").append(html);
-            sumar();
-            var prec = $('#precioC').val();
-            preciosC.push(prec);
-            $('#arregloPrecioC').val(preciosC);
-            //alert(preciosC);
-        });
-    }
-});
-
-//datos formulario para cobrar
-function cobrarCompra(){
-    //alert($('#formPuntoVenta').serialize());
-    $.ajax({
-    type: "POST",
-    url: "guardarVentas",
-    data: $('#formPuntoVenta').serialize(),
-    dataType: "JSON",
-    error(jqXHR, textStatus, errorThrown){
-            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
-    },
-    }).done(function(data){
-        console.log('Si llego');
-        console.log(data.msj);
-        //    alert('Venta Satisfactoria');
-        //  location.reload();
+            $('#arregloP').val(metros);
+            var promocion = $(this).val();
+            $.ajax({
+                type:"POST",
+                url:"Productos",
+                data:{'promocion':promocion},
+                dataType: 'JSON',
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+                },
+            }).done(function(data){
+                var html ='';
+                for(var i = 0;i <data.msj.length; i++){
+                        html += '<tr id="'+data.msj[i]['idFechaPulseraMagica']+'">'+
+                                    '<td style="padding:0px;">'+data.msj[i]['Nombre']+'</td>'+
+                                    '<td style="padding:0px;"><input type="number" class="precioP monto" name="precioP" id="precioP" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value="'+data.msj[i]['Precio']+'"></td>'+
+                                    '<td style="padding:0px;"></td>'+
+                                    '<td style="padding:0px;"><a href="#eliminarPromo'+data.msj[i]['idFechaPulseraMagica']+'" class="eliminar" data-toggle="modal"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></a></td>'+
+                                '</tr>';
+                    $("#productos").append(html);
+                    prec.push(data.msj[i]['Precio']);
+                }    
+                sumar();
+                $('#arregloPrecioP').val(prec);
+            });
+        }
     });
-}
-/***********************************************ESTO CREO QUE YA TAMPOCO SERVIRA************************************/
-//$("#cobrar").click( function(){
-  //  alert($('#formPuntoVenta').serialize());
-  /*  $.ajax({
-    type: "POST",
-    url: "guardarVentas",
-    data: $('#formPuntoVenta').serialize(),
-    dataType: "JSON",
-    error(jqXHR, textStatus, errorThrown){
-            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
-    },
-    }).done(function(data){
-        console.log('Si llego');
-        console.log(data.msj);
-        //    alert('Venta Satisfactoria');
-        //  location.reload();
-    });*/
-//});
-/***********************************************ESTO CREO QUE YA TAMPOCO SERVIRA************************************/
+/********************************** Agregar Promociones de Pulsera Magica *********************************/
 
-//tipo de pago
+/********************************** Agregar Promociones de Creditos de Cortesia*********************************/
+    $(document).on('click', '.creditosC', function(event){
+        var fecha = '<?php echo $fecha;?>';
+        var tarjeta = $('#tarjetaAdd').val();
+        if(tarjeta == ''){
+            alert('Ingresa la tarjeta por favor');
+        }else{
+            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+            indices.push('4');//promo de creditos
+            //alert('Indices' + indices);
+            $('#indice').val(indices);
+            /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+            creditosC.push($(this).attr('value'));
+            $('#arregloC').val(creditosC);
+            var promocionc = $(this).val();
+            $.ajax({
+                type:"POST",
+                url:"creditosCortesia",
+                data:{'promoCreditos':promocionc},
+                dataType: 'JSON',
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+                },
+            }).done(function(data){
+                var html ='';
+                for(var i = 0;i<data.msj.length; i++){
+                        html += '<tr id="'+i+'">'+
+                                    '<td style="padding:0px;">'+data.msj[i]['Nombre']+'</td>'+
+                                    '<td style="padding:0px;"><input type="number" name="precioC" id="precioC" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value='+data.msj[i]['Precio']+'></td>'+
+                                    '<td style="padding:0px;"></td>'+
+                                    '<td style="padding:0px;"><a href="#eliminarPromo'+data.msj[i]['idFechaCreditosCortesia']+'" class="eliminar" data-toggle="modal"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></a></td>'+
+                                '</tr>';
+                }
+                $("#productos").append(html);
+                sumar();
+                var prec = $('#precioC').val();
+                preciosC.push(prec);
+                $('#arregloPrecioC').val(preciosC);
+            });
+        }
+    });
+/********************************** Agregar Promociones de Creditos de Cortesia*********************************/
+
+/********************************** Datos Formulario para Cobrar*********************************/
+    //datos formulario para cobrar
+    function cobrarCompra(){
+        $.ajax({
+        type: "POST",
+        url: "guardarVentas",
+        data: $('#formPuntoVenta').serialize(),
+        dataType: "JSON",
+        error(jqXHR, textStatus, errorThrown){
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+        },
+        }).done(function(data){
+            console.log('Si llego');
+            console.log(data.msj);
+        });
+    }
+/********************************** Datos Formulario para Cobrar *********************************/
+
+/********************************** Tipo de Pago Efectivo *********************************/
     function myFunction() {
         var opcion = $('input:radio[name=rad]:checked').val();
         if(opcion==1){
@@ -490,6 +406,7 @@ function cobrarCompra(){
             }
         }else if(opcion==2 || opcion==3){alert('Favor de Ingresar la Tarjeta');}
     }
+/********************************** Tipo de Pago Efectivo *********************************/
 
 //VALIDAR RADIOBUTTONS
     $("input[name=rad]").click(function () {   
@@ -528,7 +445,7 @@ function cobrarCompra(){
         $('#totalc').val(total);
     }
 
-    /*************************************** FECHA Y HORA************************** */
+/*************************************** FECHA Y HORA************************** */
     function mueveReloj(){
     
         var d = new Date();
@@ -566,11 +483,10 @@ function cobrarCompra(){
 
         $('#fecha').val(horaImprimible);
     }
+/*************************************** FECHA Y HORA************************** */
 
     function actualizar(){
         setTimeout("actualizar()",1000);
     }
 
-    /*$('#cerrarCaja').click(function(){
-        $('#moduloVenta').hide();
-    });*/
+/********************************** Cambio de Pagina ******************************************/

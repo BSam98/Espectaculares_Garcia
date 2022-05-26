@@ -1,6 +1,11 @@
 <?php namespace App\Controllers;
+use App\Models\reporte_Ventas_Model;
 
 class reporte_Venta_Control extends BaseController{
+	public function _construct(){
+		// $this->model = new Atracciones_Model();
+		$this->request = \Config\Services::request();
+	 }
 
 	/*public function index(){
         $mpdf = new \Mpdf\Mpdf();
@@ -10,12 +15,25 @@ class reporte_Venta_Control extends BaseController{
 		$mpdf->Output('arjun.pdf','I');
 	}*/
 
-	public function index(){
+	public function consultarVentanilla(){
+		$model = new reporte_Ventas_Model;
+		$idv = $_GET['idv'];
+		$data = ['Turno'=>$model->consultarV($idv)];
+		//echo view('../Views/header.php');
+		echo view('Usuarios/reporte_Venta', $data);
+		//echo view('../Views/piePagina.php');
+		/*$model = new reporte_Ventas_Model;
+		$idv = $_POST['ventanilla'];
+		$data = $model->consultarV($idv);
+		echo json_encode(array('respuesta'=>true,'msj'=>$data));*/
+	}
+
+	/*public function index(){
 		echo view('../Views/header.php');
 		//echo view('Usuarios/menu_user');
 		echo view('Usuarios/reporte_Venta');
 		echo view('../Views/piePagina.php');
-	}
+	}*/
 
 	public function ticket(){
 		echo view('../../factura.php');
