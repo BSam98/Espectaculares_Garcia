@@ -524,7 +524,7 @@ $(document).on('click','#adicionar',function(evento){
         break;
     }
 });
-
+/*
 $(document).on('click','#agregar_Promocion_Evento',function(){
     var idEvento = document.getElementById("idEventoPromocion").value;
     var tipoPromocion = document.getElementById("promocion_Categoria").value;
@@ -577,6 +577,7 @@ $(document).on('click','#agregar_Promocion_Evento',function(){
         });
     }
 });
+*/
 
 $(document).on('click', '.btn_remove', function() {
     var opcion = ($("#promocion_Categoria option:selected").val());;

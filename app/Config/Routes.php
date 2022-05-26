@@ -153,8 +153,8 @@ $routes->post('/Eventos/Agregar_Taquillas_Evento','Eventos_Control::agregar_Taqu
 $routes->get('/Eventos/Mostrar_Promociones','Prueba_Promocion_Control::mostrar_Promociones');
 $routes->post('/Eventos/Mostrar_Promociones','Prueba_Promocion_Control::mostrar_Promociones');
 
-$routes->get('/Eventos/Agregar_Promocion_Evento','Eventos_Control::agregar_Promocion_Evento');
-$routes->post('/Eventos/Agregar_Promocion_Evento','Eventos_Control::agregar_Promocion_Evento');
+$routes->get('/Eventos/Agregar_Promocion_Evento','Prueba_Promocion_Control::agregar_Promocion_Evento');
+$routes->post('/Eventos/Agregar_Promocion_Evento','Prueba_Promocion_Control::agregar_Promocion_Evento');
 
 $routes->get('/Eventos/Mostrar_Asociacion','Eventos_Control::mostrarAsociacion');
 $routes->post('/Eventos/Mostrar_Asociacion','Eventos_Control::mostrarAsociacion');
