@@ -558,7 +558,7 @@ class mcobro_model extends Model{
 
 
     function guardarVenta2($usuario, $fecha, $idtarjeta, $recarga, $gtran, $precioTa, $evento){//venta sin promociones
-    /**************************************** obtengo el precio y los creditos de eventos *****************************/
+        /**************************************** obtengo el precio y los creditos de eventos *****************************/
         $db = \Config\Database::connect();
         $builder = $db->table('Eventos');
         $builder-> select(
@@ -573,7 +573,7 @@ class mcobro_model extends Model{
             $precioCreditos = $row['Precio'];//saco el precio de cuanto va a costar el evento
             $creditosOtorgados = $row['Creditos'];//saco el valor de creditos por dinero
         }
-    /******************************* busca si la tarjeta ya existe en la tabla de pagos ****************************************/
+        /******************************* busca si la tarjeta ya existe en la tabla de pagos ****************************************/
 
         $db = \Config\Database::connect();
         $builder = $db->table('Pago');
@@ -824,7 +824,6 @@ class mcobro_model extends Model{
     }
 
     /*************************************************** AGREGAR PROMOCIONES *****************************************/
-
     function agregarPromocionesP($idtarjeta, $gtran, $promo){// venta con promo
         $db = \Config\Database::connect();
         $array = [];
@@ -1230,6 +1229,7 @@ class mcobro_model extends Model{
         //}
     }
 
+    /*********************************************** AGREGAR FAJILLA ************************************/
     function agregarF($e, $v, $idv, $folioI, $folioF, $fecha){
         $db = \Config\Database::connect();
         /*********************************** obtener id de las tarjetas de los folios ingresador ************************/
@@ -1293,6 +1293,7 @@ class mcobro_model extends Model{
         }
     }
 
+    /*********************************************** DEVOLVER TARJETA ************************************/
     function devolucionTarjeta($tarjetaDev, $descripcion, $idAp){
         $db = \Config\Database::connect();
         /**************************************** Buscar id inicial y final de la ventanilla *******************************/
