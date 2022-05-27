@@ -27,8 +27,12 @@ let indices = [];
                 console.log(data);
                 if(data.msj == true){
                     alert('La devolución se hizo correctamente');
+                    $('#tarjetD').val('');
+                    $('#descripcion').val('');
                 }else{
                     alert('Error al devolver: 1)No puede hacer una devolucion si la tarjeta ya esta vendida 2)No puede devolver tarjetas que no estan en su fajilla');
+                    $('#tarjetD').val('');
+                    $('#descripcion').val('');
                 }
                // cierra_carg();
             });
@@ -75,6 +79,7 @@ let indices = [];
     $(document).on('click', '.pagoEfectivo', function(){
         var total = $('#total').val();
         var tipo = $(this).val();
+        $("#cobrarTransaccion").val(tipo);
         //alert(tipo);
         $.ajax({
                 beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
@@ -91,7 +96,7 @@ let indices = [];
             }).done(function(data){//obtiene el valor de data procesado en el controlador
                 var html ='';
                 for(var i = 0;i <data.msj.length; i++){
-                    if(data.msj[i]["idFormasPago"]==tipo){
+                    if(data.msj[i]["idFormasPago"] == 1){
                         html +=' <tr>'+
                                     '<td colspan="5">'+
                                         '<div class="input-group">'+
@@ -126,7 +131,16 @@ let indices = [];
                                     '</td>'+'<td><button class="btn btn-danger borrar" name="borrar" id="borrar" value="" style="width:70px; height:70px; margin:5px;">Borrar</button></td>'+
                                 '</tr>';
                     }
+                    if(data.msj[i]["idFormasPago"] == 2){
+                        html +=' <tr>'+
+                                    '<td colspan="5">'+
+                                        '<label>Ingrese el monto</label>'+
+                                        '<input type="text" name="mtarjeta" id="mtarjeta" value="">'+
+                                    '</td>'+
+                                '</tr>';
+                    }
                 }
+                
                 $("#modal_Efectivo .modal-body #efect").html(html);
 
                // cierra_carg();
@@ -148,20 +162,42 @@ let indices = [];
     });
     
     $(document).on('click','#cobrarTransaccion', function(){
-        var totalCobrar = $('#total').val();
-        var totalIngresado = $('#efectivo').val();
-        if(totalIngresado > totalCobrar){
-            var cambio = totalIngresado - totalCobrar;
-            alert('Su cambio es de:' + cambio);
-            cobrarCompra();
-            location.reload();
-        }else if(totalIngresado == totalCobrar){
-            alert('Gracias por su compra');
-            cobrarCompra();
-            location.reload();
-        }else if(totalIngresado < totalCobrar){
-            alert('Dinero Insuficiente');
-            acumulador=0;
+        var tarjeta = $('#tarjetaAdd').val();
+        var tipo = $('#cobrarTransaccion').val();
+
+        if(tarjeta == ''){
+            alert('Debes realizar una compra');
+            
+        }else{
+            if(tipo == 1){
+                var totalCobrar = $('#total').val();
+                var totalIngresado = $('#efectivo').val();
+                if(totalIngresado > totalCobrar){
+                    var cambio = totalIngresado - totalCobrar;
+                    alert('Su cambio es de:' + cambio);
+                    cobrarCompra();
+                    location.reload();
+                }else if(totalIngresado == totalCobrar){
+                    alert('Gracias por su compra');
+                    cobrarCompra();
+                    location.reload();
+                }else if(totalIngresado < totalCobrar){
+                    alert('Dinero Insuficiente');
+                    acumulador=0;
+                }
+            }
+            if(tipo == 2){
+                var totalCobrar = $('#total').val();
+                var totalIngresado = $('#mtarjeta').val();
+                if(totalIngresado < totalCobrar){
+                    alert('Verifica el monto');
+                    location.reload();
+                }else if(totalIngresado == totalCobrar){
+                    alert('Gracias por su compra');
+                    cobrarCompra();
+                    location.reload();
+                }
+            }
         }
     });
 /********************************** Cobrar Transaccion*********************************/
@@ -230,7 +266,7 @@ let indices = [];
                         }
                     }
                 }else{
-                    alert('Usted no puede vender tarjetas que no estan en su fajilla');
+                    alert('Usted no puede vender tarjetas que no estan en su fajilla o que ha cancelado');
                     $('#tarjeta').val('');
                     $('#idTarjeta').val('');
                     location.reload();
@@ -267,7 +303,6 @@ let indices = [];
 
 /********************************** Cambiar Pagina de Venta a Reporte *********************************/
     $(document).on('click','#cerrarCaja', function(){
-        //alert($('#ventanillaa').val());
         var idapV = $('#ventanillaa').val();
         location.href ="ReporteVenta?idv="+idapV;
     });
@@ -376,10 +411,11 @@ let indices = [];
 /********************************** Datos Formulario para Cobrar*********************************/
     //datos formulario para cobrar
     function cobrarCompra(){
+        var tipo = $('#cobrarTransaccion').val();
         $.ajax({
         type: "POST",
         url: "guardarVentas",
-        data: $('#formPuntoVenta').serialize(),
+        data: $('#formPuntoVenta').serialize() + '&tipo=' + tipo,
         dataType: "JSON",
         error(jqXHR, textStatus, errorThrown){
                 alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
@@ -447,40 +483,27 @@ let indices = [];
 
 /*************************************** FECHA Y HORA************************** */
     function mueveReloj(){
-    
         var d = new Date();
-
         var month = d.getMonth()+1;
         var day = d.getDate();
-
         var output = d.getFullYear() + '-' +((''+month).length<2 ? '0' : '') + month + '-' +((''+day).length<2 ? '0' : '') + day;
-
-
         momentoActual = new Date()
         hora = momentoActual.getHours()
         minuto = momentoActual.getMinutes()
         segundo = momentoActual.getSeconds()
-
         str_segundo = new String (segundo)
         if (str_segundo.length == 1)
         segundo = "0" + segundo
-
         str_minuto = new String (minuto)
         if (str_minuto.length == 1)
         minuto = "0" + minuto
-
         str_hora = new String (hora)
         if (str_hora.length == 1)
         hora = "0" + hora
-
         horaImprimible = output+" "+ hora + ":" + minuto + ":" + segundo
-
         //console.log(output+" "+horaImprimible);
-
         document.form_reloj.reloj.value = horaImprimible
-
         setTimeout("mueveReloj()",1000);
-
         $('#fecha').val(horaImprimible);
     }
 /*************************************** FECHA Y HORA************************** */

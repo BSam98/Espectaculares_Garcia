@@ -4,22 +4,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../css/sb-admin-2.css" rel="stylesheet"><!--Esta linea la acabo de agregar, tiene el estilo del radio en tipo pago-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 </head>
-<body id="page-top" style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;" onblur="mueveReloj()">
-    <?php date_default_timezone_set('America/Mexico_City'); $fecha = date("Y-m-d H:i:s");?>
-    <input type="hidden" name="fechaHoy" id="fechaHoy" value="<?php echo $fecha?>">
+<body id="page-top" style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;" onload="mueveReloj()">
    <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"><br>
+            <form name="form_reloj">
+                <input type="text" name="reloj" size="25" style="color:white;background : inherit; border:none; font-family : Arial; font-size : 14px; text-align:right;" onload="window.document.form_reloj.reloj.blur()">
+            </form>
+            <hr class="sidebar-divider">
         <!--ESTE ES EL LOGO QUE APARECE EN LA BARRA DE NAVEGACION IZQUIERDA-->
             <!--li class="nav-item active">
                 <div class="sidebar-brand-icon">
@@ -32,7 +32,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <center><label>RECARGAS:</label></center>
+                <center><b><label>RECARGAS:</label></b></center>
                     <?php foreach($Creditos as $key => $cred){ ?>
                         <button type="button" id="creditos" class="btn btn-success creditosC" style="margin:5px;" value="<?= $cred->idFechaCreditosCortesia?>"><?= $cred->Nombre?></button>
                     <?php } ?>
@@ -42,7 +42,7 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item active">
-                <center><label for="">PROMOCIONES: &nbsp;</label></center>
+                <center><b><label>PROMOCIONES: &nbsp;</label></b></center>
                 <?php foreach($Pulsera as $key => $pu){ ?>
                     <button type="button" id="promocionn" class="btn btn-success promocionnn" onblur="actualizar()" style="margin:5px;"  value="<?= $pu->idFechaPulseraMagica?>"><?= $pu->Nombre?></button>
                 <?php }?>
@@ -72,12 +72,10 @@
                         <?php echo '<b>Zona:</b>&nbsp;'.$d->Nombre.'&nbsp;<b>Taquilla:</b>&nbsp;'.$d->Nombre.'&nbsp;<b>Ventanilla:</b>&nbsp;'.$d->Nombre?>
                         </a>
                     <?php }?>
-                    <form name="form_reloj">
-                        <input type="text" name="reloj" size="25" style="background : inherit; border:none; font-family : Arial; font-size : 14px; text-align:right;" onfocus="window.document.form_reloj.reloj.blur()">
-                    </form>
+                    
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        
+                    
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -99,7 +97,7 @@
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
-                
+               
                 <!-- Begin Page Content -->
                 <div class="container-fluid" id="puntoVenta">
                         <!-- Tarjeta y Recarga -->
@@ -123,7 +121,7 @@
                                         <div class="input-group">
                                             <div class="col-xs-4 col-sm-4">
                                                 <h5 class="m-0 font-weight-bold text-primary"><i class="fa fa-credit-card" aria-hidden="true" style="margin:5px;"></i>&nbsp;Tarjeta:</h5>
-                                                <input type="text" class="form-control" name="tarjetaAdd" id="tarjetaAdd" onblur="ingresarTarjeta()" autofocus>
+                                                <input type="number" class="form-control" name="tarjetaAdd" id="tarjetaAdd" onblur="ingresarTarjeta()" autofocus>
                                             </div>
                                             <div class="col-xs-4 col-sm-4">
                                                 <h5 class="m-0 font-weight-bold text-primary"><i class="fa fa-retweet" aria-hidden="true"  style="margin:5px;"></i>&nbsp;Recarga:</h5>
@@ -132,7 +130,7 @@
                                             <!-- Optional: clear the XS cols if their content doesn't match in height -->
                                             <div class="col-xs-4 col-sm-4">
                                                 <!--a href="#" id="celular" class="btn btn-success">Tarjeta Electónica</a-->  
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_Devolucion" value=""><i class="fa fa-reply-all" aria-hidden="true"></i>&nbsp;Devolucion de Tarjeta</button>
+                                                <button type="button" style="margin: 1px;" class="btn btn-danger" data-toggle="modal" data-target="#modal_Devolucion" value=""><i class="fa fa-reply-all" aria-hidden="true"></i>&nbsp;Devolucion de Tarjeta</button>
                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_Fajilla" value=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar Fajilla</button>
                                             </div>
                                         </div>
@@ -276,26 +274,26 @@
 
 <!--**********************************Modal Efectivo*********************************-->
 <div class="modal fade" id="modal_Efectivo">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-      <h4 class="modal-title">Efectivo</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-responsive" style="margin: 0 auto;">
-            <tbody id="efect">
-               
-               
-            </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="cobrarTransaccion" id="cobrarTransaccion" value="">Cobrar</button>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title">Efectivo</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-responsive" style="margin: 0 auto;">
+                    <tbody id="efect">
+                    
+                    
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="cobrarTransaccion" id="cobrarTransaccion" value="<?php ?>">Cobrar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <!--**********************************Modal Efectivo*********************************-->
 

@@ -67,6 +67,7 @@ class Menu_Principal_User_Control extends BaseController {
 
     public function guardar_Ventas(){
         $model = new mcobro_model;
+        $tipoP = $_POST['tipo'];
         $fecha = $_POST['fecha'];
         $evento = $_POST['evento'];
         $v = $_POST["ventanillaa"];//este es el idaperturaventanilla
@@ -107,6 +108,7 @@ class Menu_Principal_User_Control extends BaseController {
 
 
         $gtran = $model->guardarTransaccion($totalPago,$fecha,$idventanilla);
+        $tipo = $model->tipoVenta($totalPago, $gtran, $tipoP);
 
         /******************************* Arreglos de Promociones Pulsera Magica ******************/
         $promo = explode(",", $promocionesPrecio);

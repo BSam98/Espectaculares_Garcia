@@ -36,14 +36,11 @@
                         </form>
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
-                            
                             <div class="topbar-divider d-none d-sm-block"></div>
-
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black; font-size:14px;">
-                                    <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
-                                        <?php echo session('Usuario'); ?>
+                                    <i class="fa fa-user" aria-hidden="true"></i>&nbsp;<?php echo session('Usuario'); ?>
                                 </a>
                                 <!-- Dropdown - menu deslizable -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

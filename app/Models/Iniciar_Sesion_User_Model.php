@@ -94,7 +94,7 @@ class Iniciar_Sesion_User_Model extends Model{
         return $datos; 
     }
 
-    function insertarTurno($fecha,$fondo,$ventanilla,$usuario){
+   /* function insertarTurno($fecha,$fondo,$ventanilla,$usuario){
         $db = \Config\Database::connect();
         $builder = $db->table('Apertura_Ventanilla');
         $data = [
@@ -109,41 +109,57 @@ class Iniciar_Sesion_User_Model extends Model{
             return false;
         }
     }
-
-
-    function agregarFajilla($fecha,$folioI,$folioF,$data){
+    */
+    function agregarFajilla($fondo,$ventanilla,$usuario,$fecha,$folioI,$folioF){
         $db = \Config\Database::connect();
+        /***** Obtengo el id de las tarjetas con los folios que me ingreso y los comparo con los que ya estan registrados en Fajillas ******/
         $query1= $db->query(
             "SELECT DISTINCT(folioInicial), Folio, folioFinal  from Tarjetas t, Fajillas av
             WHERE folioInicial = (SELECT DISTINCT(idTarjeta) from Tarjetas t,Fajillas WHERE Folio = ".$folioI." and idTarjeta=folioInicial)
             and folioFinal = (SELECT DISTINCT(idTarjeta) from Tarjetas t, Fajillas WHERE Folio  = ".$folioF." and idTarjeta=folioFinal)
             and idTarjeta = folioInicial"
         );
-        if($query1){
-            $query= $db->query(
-                "INSERT INTO Fajillas (
-                    fecha,
-                    idStatus,
-                    folioInicial,
-                    folioFinal,
-                    idAperturaVentanilla
-                )
-                VALUES(
-                    '$fecha',
-                    '6',
-                    (SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),
-                    (SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),
-                    $data
-                )"
-            );
-            if($query){
-                return $db->insertID();
-            }
-            else{
-                return FALSE;
-            }
+        $result = $query1->getResult();
+        if($result){
+            /********************************************** Ya existen datos Registrados **********************************************/
+            return false;
         }else{
-            return FALSE;
+            /********************************************** NO existen datos Registrados **********************************************/
+            $builder = $db->table('Apertura_Ventanilla');
+            $data = [
+                'fondoCaja' => $fondo,
+                'horaApertura' => $fecha,
+                'idUsuario' => $usuario,
+                'idVentanilla' => $ventanilla,
+            ];
+            if($builder->insert($data)){
+                $idAperturaVent =  $db->insertID();//id apertura ventanilla
+                // insertar las tarjetas a fajillas
+                $query= $db->query(
+                    "INSERT INTO Fajillas (
+                        fecha,
+                        idStatus,
+                        folioInicial,
+                        folioFinal,
+                        idAperturaVentanilla
+                    )
+                    VALUES(
+                        '$fecha',
+                        '6',
+                        (SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),
+                        (SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),
+                        $idAperturaVent
+                    )"
+                );
+                if($query){
+                    return $db->insertID();
+                   // return true;
+                }else{
+                    return FALSE;
+                }
+            }else{
+                return false;
+            }            
         }
     }
 }

@@ -127,7 +127,8 @@ class mcobro_model extends Model{
         return $datos;
     }
 
-    function consultarTurno($evento,$zona, $taquilla,$ventanilla,$usuario){
+    // creo que ya no va
+    /*function consultarTurno($evento,$zona, $taquilla,$ventanilla,$usuario){
         $db = \Config\Database::connect();
         $builder = $db->table('Eventos');
         $builder-> select(
@@ -152,15 +153,20 @@ class mcobro_model extends Model{
         $query = $builder->get();
         $datos = $query->getResultObject();
         return $datos; 
-    }    
+    }   */ 
 
     function consultarTurno2($evento,$zona,$taquilla,$idApven,$ventanilla,$usuario){
         $db = \Config\Database::connect();
+        /*$query =$db->query("SELECT e.Nombre, z.Nombre, t.Nombre, v.Nombre,e.PrecioTarjeta 
+                            FROM Eventos e, Zona z, Taquilla t, Ventanilla v, Apertura_Ventanilla av, Fajillas f 
+                            WHERE e.idEvento = ".$evento." and z.idEvento = e.idEvento and z.idZona =".$zona." and z.idZona = t.idZona and t.idTaquilla =".$taquilla." and v.idTaquilla = t.idTaquilla 
+                            and v.idVentanilla = ".$ventanilla." and v.idVentanilla = av.idVentanilla and av.idUsuario =".$usuario." and f.idAperturaVentanilla = av.idAperturaVentanilla 
+                            and av.idAperturaVentanilla =".$idApven);*/
         $query =$db->query("SELECT e.Nombre, z.Nombre, t.Nombre, v.Nombre,e.PrecioTarjeta 
                             FROM Eventos e, Zona z, Taquilla t, Ventanilla v, Apertura_Ventanilla av, Fajillas f 
                             WHERE e.idEvento = ".$evento." and z.idEvento = e.idEvento and z.idZona =".$zona." and z.idZona = t.idZona and t.idTaquilla =".$taquilla." and v.idTaquilla = t.idTaquilla 
                             and v.idVentanilla = ".$ventanilla." and v.idVentanilla = av.idVentanilla and av.idUsuario =".$usuario." and f.idAperturaVentanilla = av.idAperturaVentanilla 
-                            and av.idAperturaVentanilla =".$idApven);
+                            and f.idFajilla =".$idApven);
         if($query){
             return $query->getResultObject();
         }
@@ -182,6 +188,20 @@ class mcobro_model extends Model{
             }
     }
 
+    function tipoVenta($totalPago, $gtran, $tipoP){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Cobro');
+        $data = [
+            'Monto' => $totalPago,
+            'idFormasPago' => $tipoP,
+            'idTransaccion' => $gtran
+        ];
+        if($builder->insert($data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     function guardarVenta($usuario, $fecha, $idtarjeta, $recarga, $gtran, $precioTa, $promoP, $idPromo, $evento){// venta con promo
         $db = \Config\Database::connect();
@@ -446,7 +466,8 @@ class mcobro_model extends Model{
             folioFinal
             '
         );
-        $builder->where('idAperturaVentanilla', $v);
+        //$builder->where('idAperturaVentanilla', $v);
+        $builder->where('idFajilla', $v);
         $query = $builder->get();
         $datos2 = $query->getResultArray();
         
@@ -456,7 +477,10 @@ class mcobro_model extends Model{
         }
 
         /**************** Verifico si el id ingresado de la tarjeta existe entre los rangos ingresados en el turno ***************/
-        $builder = $db->table('Tarjetas');
+        $query2 = $db->query("SELECT idTarjeta, idStatus, e.PrecioTarjeta from Tarjetas t, Eventos e  WHERE t.idEvento = e.idEvento and t.idTarjeta BETWEEN " . $ini . " and " . $fin.  " and t.idStatus != '5' and t.idTarjeta = " . $tarjet);
+        $datos = $query2->getResultObject();
+
+        /*$builder = $db->table('Tarjetas');
         $builder-> select(
             'idTarjeta,
              idStatus,
@@ -465,28 +489,33 @@ class mcobro_model extends Model{
         );
         $builder->join('Eventos', 'Eventos.idEvento = Tarjetas.idEvento');
         $builder ->where("idTarjeta BETWEEN " . $ini . " and ". $fin);
+        $builder ->where('idStatus !=', 5);
         $builder ->where('idTarjeta', $tarjet);
         $query = $builder->get();
-        $datos = $query->getResultObject();
+        $datos = $query->getResultObject();*/
         if($datos){
+           // echo var_dump($datos);
             return $datos;
         }else{
             //la tarjeta no pertenece a la tablilla
-            $builder = $db->table('Tarjetas');
+            $query3 = $db->query("SELECT idTarjeta,idStatus from Tarjetas t WHERE idStatus != '5' and idTarjeta =".$tarjet);
+            $datosS = $query3->getResultArray();
+            /*$builder = $db->table('Tarjetas');
             $builder-> select(
                 'idTarjeta,
                 idStatus'
             );
+            $builder->where('idStatus !=', 5);
             $builder->where('idTarjeta', $tarjet);
             $query = $builder->get();
-            $datosS = $query->getResultArray();
+            $datosS = $query->getResultArray();*/
             //return $datosS;
             foreach($datosS as $row){
                     $estado = $row['idStatus'];
                 if($estado != '1'){
                     return $datosS;
                 }else{
-                    return false;
+                    return false; 
                 }
             }  
         }
@@ -1203,7 +1232,7 @@ class mcobro_model extends Model{
 
     function agregarF($e, $v, $idv, $folioI, $folioF, $fecha){
         $db = \Config\Database::connect();
-    /*********************************** obtener id de las tarjetas de los folios ingresador ************************/
+        /*********************************** obtener id de las tarjetas de los folios ingresador ************************/
         $query = $db->query("SELECT COUNT(*) as TarjetasTotales , (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio = ".$folioI.") as foliio,
                             (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio = ".$folioF.") as folioff
                             from Tarjetas t WHERE Folio BETWEEN ".$folioI." and ".$folioF);
@@ -1213,7 +1242,7 @@ class mcobro_model extends Model{
             $folff = $tnuevas['folioff'];
         }      
 
-    /*********************************** Consultar el estado de la fajilla ************************/
+        /*********************************** Consultar el estado de la fajilla ************************/
         $builder = $db->table('Fajillas');
         $builder-> select(
             'folioInicial,
@@ -1302,6 +1331,7 @@ class mcobro_model extends Model{
         $builder ->where("idTarjeta BETWEEN " . $folInicialTurno . " and ". $folFinalTurno);
         $builder->where('idTarjeta', $idTar);
         $builder->where('idStatus !=', 0);
+        $builder->where('idStatus !=', 5);
         $query = $builder->get();
         $datosRecarga = $query->getResultObject();
         if($datosRecarga){
