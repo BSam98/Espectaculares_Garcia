@@ -574,7 +574,7 @@ $(document).on('click','.editar_Juegos',function(){
         fila = '<tr id="renglon_Juego'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td><a id="'+fechas[i]['idFechaJuegosGratis']+'" class="editar_Fecha_Juego"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
         contador++;
 
-        $("#tabla_Editar_Juego tr:first").after(fila);
+        $("#tabla_Editar_Fechas_Juego tr:first").after(fila);
     }
 
     $("#nombre_Editado_Juego").val(datos['Nombre']);
