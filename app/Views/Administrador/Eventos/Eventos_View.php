@@ -83,6 +83,7 @@
     include 'agregar_Usuarios.php';
     include 'editar_Atracciones.php';
     include 'agregar_Zona.php';
+    include 'editar_Promocion.php';
 ?>
 <script src ="JS/evento.js"></script>
 <script src="JS/pruebaPromocion.js"></script>

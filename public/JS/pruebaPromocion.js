@@ -136,10 +136,6 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
         },
     }).done(function(data){
         if(data.respuesta){
-
-            console.log('Ingresa por aca: ' + JSON.stringify(data.msj.descuentos));
-            console.log('');
-            console.log('Desglose: ' + JSON.stringify(data.listado));
             for(var i=0; i<data.msj.descuentos.length;i++){
                 option_Descuentos_Html += '<option value="'+data.msj.descuentos[i]['idDosxUno']+'">'+data.msj.descuentos[i]['Nombre']+'</option>';
 
@@ -164,22 +160,30 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
                 precio_Cortesias.push({'idCC':data.msj.cortesias[i]['idCC'],'Precio':data.msj.cortesias[i]['Precio'],'Creditos':data.msj.cortesias[i]['Creditos']});
             }
 
-            
             for(var i=0; i<data.nombres.descuentos.length;i++){
+                var datos_Descuentos = '';
+                var arreglo = [];
+                
                 for(var j= 0; j<data.listado.listadoDescuentos.length;j++){
                     if(data.nombres.descuentos[i]['idDosxUno'] == data.listado.listadoDescuentos[j]['idDosxUno']){
+
                         fecha_Inicial_Descuento += data.listado.listadoDescuentos[j]['FechaInicial']+'<br><br>';
                         fecha_Final_Descuento += data.listado.listadoDescuentos[j]['FechaFinal']+'<br><br>';
+                        
+                        arreglo.push({'idFechaDosxUno':data.listado.listadoDescuentos[j]['idFechaDosxUno'],'FechaInicial':data.listado.listadoDescuentos[j]['FechaInicial'],'FechaFinal':data.listado.listadoDescuentos[j]['FechaFinal']});
+                        datos_Descuentos = JSON.stringify(arreglo);
                     }
                 }
+
                 tabla_Descuentos_Html += '<tr>'+
-                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Descuento" class="editar_Descuentos" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Descuentos+','+'"Nombre":"'+data.nombres.descuentos[i]['Nombre']+'",'+'"Cantidad":'+data.nombres.descuentos[i]['Cantidad']+','+'"Boletos":'+data.nombres.descuentos[i]['Boletos']+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.descuentos[i]['Nombre']+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.descuentos[i]['Cantidad']+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.descuentos[i]['Boletos']+'</td>'+
                 '<td>'+fecha_Inicial_Descuento+'</td>'+
                 '<td>'+fecha_Final_Descuento+'</td>'+
                 '</tr>';
+
                 fecha_Inicial_Descuento = '';
                 fecha_Final_Descuento = '';
             }
@@ -194,7 +198,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
                 }
 
                 tabla_Pulsera_Html +='<tr>'+
-                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Pulsera" class="editar_Pulseras" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.pulsera[i]['Nombre']+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+precio_Pulsera_Html+'</td>'+
                 '<td>'+fecha_Inicial_Pulsera+'</td>'+
@@ -215,7 +219,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
                 }
 
                 tabla_Juegos_Html +='<tr>'+
-                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Juego" class="editar_Juegos" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.juegos[i]['Nombre']+'</td>'+
                 '<td>'+fecha_Inicial_Juegos+'</td>'+
                 '<td>'+fecha_Final_Juegos+'</td>'+
@@ -236,7 +240,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
                 }
 
                 tabla_Creditos_Html += '<tr>'+
-                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Promocion" class="editar_Promocion" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Credito" class="editar_Creditos" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.creditos[i]['Nombre']+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+precio_Creditos_Html+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+creditos_Html+'</td>'+
@@ -502,4 +506,13 @@ $("#agregar_Promocion_Evento").click(function(){
 
        cerrarCarga();
    });
+});
+
+$(document).on('click','.editar_Descuentos', function(){
+    var datos = $(this).data('book-id');
+    var fechas = datos['datos'];
+
+    var fechas_Html='';
+    for(var i=0; i<datos.length;i++){
+    }
 });
