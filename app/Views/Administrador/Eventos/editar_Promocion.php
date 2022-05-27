@@ -9,15 +9,15 @@
                 <form enctype="multipart/form-data" name="formulario_Editar_Descuento" id="formulario_Editar_Descuento">
                     <div class="from-group" id="nombre_Descuentos">
                         <label for="promocionesDescuentos">Nombre de la promocion</label>
-                        <input type="text" class="form-control">
+                        <input id="nombre_Editado_Descuento" type="text" class="form-control" readonly>
                         <br>
                     </div>
                     <div class="from-group" id="precio_Descuentos">
                         <label for="cantidad">Cantidad de personas por pase</label>
-                        <input type="number" class="form-control" name="cantidadPersonas" id="cantidadPersonas" placeholder="Personas por pase" value="">
+                        <input type="number" class="form-control" name="cantidadPersonas" id="cantidad_Editada_Descuentos" placeholder="Personas por pase" value="" readonly>
                         <br>
                         <label for="cantidad_Boletos">Cantidad de pases a cobrar</label>
-                        <input type="number" class="form-control" name="cantidad_Boletos" id="cantidad_Boletos" placeholder="Boletos a cobrar" value="">
+                        <input type="number" class="form-control" name="cantidad_Boletos" id="boletos_Editada_Descuentos" placeholder="Boletos a cobrar" value="" readonly>
                         <br>
                     </div>
                     <div class="from-group table table-responsive">
@@ -28,21 +28,21 @@
                                         <div class="container" id="fechas_Descuentos">
                                             <center><label>Días</label></center>
                                             <br>
-                                            <label for="inicioDescuento">Hora de Inicio</label>
-                                            <input id="inicioDescuento" class="form-control" type="datetime-local">
+                                            <label for="editar_Inicio_Descuento">Hora de Inicio</label>
+                                            <input id="editar_Inicio_Descuento" class="form-control" type="datetime-local">
                                             <br>
-                                            <label for="finDescuento">Hora de Finalizacion</label>
-                                            <input id="finDescuento" class="form-control" type="datetime-local">
+                                            <label for="editar_Fin_Descuento">Hora de Finalizacion</label>
+                                            <input id="editar_Final_Descuento" class="form-control" type="datetime-local">
                                             <br>
                                             <button id="adicionarDescuento" class="btn btn-success" type="button">Agregar</button></center><br>
                                         </div>
                                     </td>
                                     <td>
-                                        <table id="tabla_Fechas_Descuentos" class="table table-bordered table-hover">
+                                        <table id="tabla_Editar_Fechas_Descuento" class="table table-bordered table-hover">
                                             <tr>
                                                 <th>Hora Inicial</th>
                                                 <th>Hora Final</th>
-                                                <th>Eliminar</th>
+                                                <th>Editar</th>
                                             </tr>
                                         </table>
                                     </td>
@@ -71,12 +71,7 @@
                 <form enctype="multipart/form-data" name="formulario_Editar_Descuento" id="formulario_Editar_Descuento">
                     <div class="from-group" id="nombre_Pulsera">
                         <label>Nombre de la promoción</label>
-                        <input type="text" class="form-control">
-                        <br>
-                    </div>
-                    <div class="from-group" id="precio_Pulseras">
-                        <label for="precio_Pulsera">Precio de la Promoción</label>
-                        <input type="number" class="form-control" name="precio_Pulsera" id="precio_Pulsera" placeholder="Precio Promoción" value="">
+                        <input id="nombre_Editado_Pulsera" type="text" class="form-control" readonly>
                         <br>
                     </div>
                     <div class="from-group table table-responsive">
@@ -88,24 +83,24 @@
                                             <center><label>Días</label>
                                             <br>
                                             <label for="inicioPulsera">Hora de Inicio</label>
-                                            <input id="inicioPulsera" class="form-control" type="datetime-local">
+                                            <input id="editar_Inicio_Pulsera" class="form-control" type="datetime-local">
                                             <br>
                                             <label for="finPulsera">Hora de Finalizacion</label>
-                                            <input id="finPulsera" class="form-control" type="datetime-local">
+                                            <input id="editar_Fin_Pulsera" class="form-control" type="datetime-local">
                                             <br>
                                             <label for="precioPulsera">Precio</label>
-                                            <input id="precioPulsera" class="form-control" type="number" placeholder="Ingresa un precio">
+                                            <input id="editar_Precio_Pulsera" class="form-control" type="number" placeholder="Ingresa un precio">
                                             <br>
                                             <button id="adicionarPulsera" class="btn btn-success" type="button">Agregar</button></center><br>
                                         </div>
                                     </td>
                                     <td>
-                                        <table id="tabla_Fechas_Pulsera" class="table table-bordered table-hover">
+                                        <table id="tabla_Editar_Fechas_Pulsera" class="table table-bordered table-hover">
                                             <tr>
                                                 <th>Hora Inicial</th>
                                                 <th>Hora Final</th>
                                                 <th>Precio</th>
-                                                <th>Eliminar</th>
+                                                <th>Editar</th>
                                             </tr>
                                         </table>
                                     </td>
@@ -134,7 +129,7 @@
                 <form enctype="multipart/form-data" name="formulario_Editar_Descuento" id="formulario_Editar_Descuento">
                     <div class="from-group" id="nombre_Juegos">
                         <label>Nombre de la Promoción</label>
-                        <input text="" class="form-control">
+                        <input id="nombre_Editado_Juego" text="" class="form-control" readonly>
                         <br>
                     </div>
                     <div class="from-group" id="precio_Juegos">
@@ -147,21 +142,21 @@
                                         <div class="container" id="fechas_Juegos">
                                             <center><label>Días</label>
                                             <br>
-                                            <label for="inicioJuegos">Hora de Inicio</label>
-                                            <input id="inicioJuegos" class="form-control" type="datetime-local">
+                                            <label for="">Hora de Inicio</label>
+                                            <input id="editar_Inicio_Juego" class="form-control" type="datetime-local">
                                             <br>
                                             <label for="finJuegos">Hora de Finalizacion</label>
-                                            <input id="finJuegos" class="form-control" type="datetime-local">
+                                            <input id="editar_Final_Juego" class="form-control" type="datetime-local">
                                             <br>
                                             <button id="adicionarJuegos" class="btn btn-success" type="button">Agregar</button></center><br>
                                         </div>
                                     </td>
                                     <td>
-                                        <table id="tabla_Fechas_Juegos" class="table table-bordered table-hover">
+                                        <table id="tabla_Editar_Fechas_Juego" class="table table-bordered table-hover">
                                             <tr>
                                                 <th>Hora Inicial</th>
                                                 <th>Hora Final</th>
-                                                <th>Eliminar</th>
+                                                <th>Editar</th>
                                             </tr>
                                         </table>
                                     </td>

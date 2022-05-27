@@ -171,9 +171,9 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
                         fecha_Final_Descuento += data.listado.listadoDescuentos[j]['FechaFinal']+'<br><br>';
                         
                         arreglo.push({'idFechaDosxUno':data.listado.listadoDescuentos[j]['idFechaDosxUno'],'FechaInicial':data.listado.listadoDescuentos[j]['FechaInicial'],'FechaFinal':data.listado.listadoDescuentos[j]['FechaFinal']});
-                        datos_Descuentos = JSON.stringify(arreglo);
                     }
                 }
+                datos_Descuentos = JSON.stringify(arreglo);
 
                 tabla_Descuentos_Html += '<tr>'+
                 '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Descuento" class="editar_Descuentos" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Descuentos+','+'"Nombre":"'+data.nombres.descuentos[i]['Nombre']+'",'+'"Cantidad":'+data.nombres.descuentos[i]['Cantidad']+','+'"Boletos":'+data.nombres.descuentos[i]['Boletos']+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
@@ -189,16 +189,20 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
             }
 
             for(var i=0; i<data.nombres.pulsera.length;i++){
+                var datos_Pulsera = '';
+                var arreglo = [];
                 for(var j =0;j<data.listado.listadoPulseras.length;j++){
                     if(data.nombres.pulsera[i]['idPulseraMagica'] == data.listado.listadoPulseras[j]['idPulseraMagica']){
                         fecha_Inicial_Pulsera += data.listado.listadoPulseras[j]['FechaInicial']+ '<br><br>';
                         fecha_Final_Pulsera += data.listado.listadoPulseras[j]['FechaFinal']+ '<br><br>';
                         precio_Pulsera_Html += data.listado.listadoPulseras[j]['Precio'] + '<br><br>';
+                        
+                        arreglo.push({'idFechaPulseraMagica':data.listado.listadoPulseras[j]['idFechaPulseraMagica'],'Precio':data.listado.listadoPulseras[j]['Precio'],'FechaInicial':data.listado.listadoPulseras[j]['FechaInicial'],'FechaFinal':data.listado.listadoPulseras[j]['FechaFinal']});
                     }
                 }
-
+                datos_Pulsera = JSON.stringify(arreglo);
                 tabla_Pulsera_Html +='<tr>'+
-                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Pulsera" class="editar_Pulseras" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Pulsera" class="editar_Pulseras" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Pulsera+','+'"Nombre":"'+data.nombres.pulsera[i]['Nombre']+'"'+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.pulsera[i]['Nombre']+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+precio_Pulsera_Html+'</td>'+
                 '<td>'+fecha_Inicial_Pulsera+'</td>'+
@@ -211,15 +215,21 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
             }
 
             for(var i =0; i<data.nombres.juegos.length;i++){
+                var datos_Juegos = [];
+                var arreglo = [];
                 for(var j=0;j<data.listado.listadoJuegos.length;j++){
                     if(data.nombres.juegos[i]['idJuegosGratis'] == data.listado.listadoJuegos[j]['idJuegosGratis']){
                         fecha_Inicial_Juegos += data.listado.listadoJuegos[j]['FechaInicial'] + '<br><br>';
                         fecha_Final_Juegos += data.listado.listadoJuegos[j]['FechaFinal'] + '<br><br>';
+                    
+                        arreglo.push({'idFechaJuegosGratis':data.listado.listadoJuegos[j]['idFechaJuegosGratis'],'FechaInicial':data.listado.listadoJuegos[j]['FechaInicial'],'FechaFinal': data.listado.listadoJuegos[j]['FechaFinal']});
                     }
                 }
 
+                datos_Juegos = JSON.stringify(arreglo);
+
                 tabla_Juegos_Html +='<tr>'+
-                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Juego" class="editar_Juegos" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Juego" class="editar_Juegos" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Juegos+','+'"Nombre":"'+data.nombres.juegos[i]['Nombre']+'"'+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.juegos[i]['Nombre']+'</td>'+
                 '<td>'+fecha_Inicial_Juegos+'</td>'+
                 '<td>'+fecha_Final_Juegos+'</td>'+
@@ -509,10 +519,71 @@ $("#agregar_Promocion_Evento").click(function(){
 });
 
 $(document).on('click','.editar_Descuentos', function(){
+    iniciarCarga();
     var datos = $(this).data('book-id');
     var fechas = datos['datos'];
 
     var fechas_Html='';
-    for(var i=0; i<datos.length;i++){
+    var fila='';
+    var contador = 0;
+
+    $('#tabla_Editar_Fechas_Descuento').html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Editar</th></tr>');
+    for(var i=0; i<fechas.length;i++){
+        fila = '<tr id="renglon_Descuento'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td><a id="'+fechas[i]['idFechaDosxUno']+'" class="editar_Fecha_Descuento"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        contador++;
+
+        $('#tabla_Editar_Fechas_Descuento tr:first').after(fila);
     }
+
+    $("#nombre_Editado_Descuento").val(datos['Nombre']);
+    $("#cantidad_Editada_Descuentos").val(datos['Cantidad']);
+    $("#boletos_Editada_Descuentos").val(datos['Boletos']);
+    cerrarCarga();
+});
+
+$(document).on('click','.editar_Pulseras',function(){
+    iniciarCarga();
+
+    var datos = $(this).data('book-id');
+    var fechas = datos['datos'];
+    var fila='';
+    var contador= 0;
+
+    $("#tabla_Editar_Fechas_Pulsera").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Editar</th></tr>');
+
+    for(var i=0; i<fechas.length;i++){
+        fila = '<tr id="renglon_Pulsera'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td>'+fechas[i]['Precio']+'</td><td><a id="'+fechas[i]['idFechaPulseraMagica']+'" class="editar_Fecha_Pulsera"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        contador++;
+        $("#tabla_Editar_Fechas_Pulsera tr:first").after(fila);
+    }
+
+    $("#nombre_Editado_Pulsera").val(datos['Nombre']);
+    cerrarCarga();
+});
+
+$(document).on('click','.editar_Juegos',function(){
+    iniciarCarga();
+    var datos = $(this).data('book-id');
+    var fechas = datos['datos'];
+    var fila='';
+    var contador= 0;
+
+    $("#tabla_Editar_Fechas_Juego").val('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Editar</th></tr>');
+
+    for(var i= 0;i<fechas.length;i++){
+        fila = '<tr id="renglon_Juego'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td><a id="'+fechas[i]['idFechaJuegosGratis']+'" class="editar_Fecha_Juego"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        contador++;
+
+        $("#tabla_Editar_Juego tr:first").after(fila);
+    }
+
+    $("#nombre_Editado_Juego").val(datos['Nombre']);
+
+    cerrarCarga();
+});
+
+$(document).on('click','.editar_Fecha_Descuento',function(){
+    var id = $(this).attr("id");
+
+    console.log();
 });
