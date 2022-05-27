@@ -689,7 +689,7 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
 
 
                 html += '<tr>'+
-                '<td><a href="#editar_Atraccion_Evento" class="editar_Atraccion" data-toggle="modal" data-book-id='+"'{"+'"idAtraccionEvento":'+data.msj.Atraccion[i]['idAtraccionEvento']+','+'"idAtraccion":'+data.msj.Atraccion[i]['idAtraccion']+','+'"atraccion":"'+data.msj.Atraccion[i]['Atraccion']+'",'+'"creditos":'+data.msj.Atraccion[i]['Creditos']+','+'"idContrato":'+data.msj.Atraccion[i]['idContrato']+','+'"contrato":"'+data.msj.Atraccion[i]['Contrato']+'",'+'"idPoliza":'+data.msj.Atraccion[i]['idPoliza']+','+'"poliza":"'+data.msj.Atraccion[i]['Poliza']+'"'+"}'"+'><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+                '<td><a href="#editar_Atraccion_Evento" class="editar_Atraccion" data-toggle="modal" data-book-id='+"'{"+'"idAtraccionEvento":'+data.msj.Atraccion[i]['idAtraccionEvento']+','+'"idAtraccion":'+data.msj.Atraccion[i]['idAtraccion']+','+'"atraccion":"'+data.msj.Atraccion[i]['Atraccion']+'",'+'"creditos":'+data.msj.Atraccion[i]['Creditos']+','+'"idContrato":'+data.msj.Atraccion[i]['idContrato']+','+'"contrato":"'+data.msj.Atraccion[i]['Contrato']+'",'+'"idPoliza":'+data.msj.Atraccion[i]['idPoliza']+','+'"poliza":"'+data.msj.Atraccion[i]['Poliza']+'"'+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td>'+data.msj.Atraccion[i]['Atraccion']+'</td>'+
                 '<td>'+data.msj.Atraccion[i]['Creditos']+'</td>'+
                 '<td>'+html_Promociones+'</td>'+

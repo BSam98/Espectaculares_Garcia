@@ -35,6 +35,7 @@
                                             </div>
                                         </nav>
                                         <div class="tab-content" id="nav-tabContent">
+                                            
                                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                                 <div class="table table-striped table-responsive">
                                                     <table class="table table-borderd" id="tabla_Descuentos">
@@ -50,8 +51,6 @@
                                                                         <label for="cantidad_Boletos">Cantidad de pases a cobrar</label>
                                                                         <input type="number" class="form-control" name="cantidad_Boletos" id="cantidad_Boletos" placeholder="Boletos a cobrar" value="">
                                                                         <br>
-                                                                    </div>
-                                                                    <div class="from-group" id="creditos_Descuentos">
                                                                     </div>
                                                                     <div class="from-group table table-responsive">
                                                                         <table>
