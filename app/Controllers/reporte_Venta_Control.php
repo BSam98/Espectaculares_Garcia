@@ -47,4 +47,14 @@ class reporte_Venta_Control extends BaseController{
 		//return view('welcome_message');
 	}
 
+	public function CerrarCaja(){
+		$model = new reporte_Ventas_Model;
+		$fI = $_POST['devtI'];
+		$fF = $_POST['devtF'];
+		$efec = $_POST['efectivo'];
+		$vouch = $_POST['vouch'];
+		$idv = $_POST['idv'];
+		$data = $model->cerrarCaja($fI,$fF, $efec, $vouch, $idv);
+		echo json_encode(array('respuesta'=>true,'msj'=>$data));
+	}
 }	

@@ -85,9 +85,11 @@ class Iniciar_Sesion_User_Model extends Model{
         $builder-> select(
                 'idVentanilla,
                 Nombre,
-                idTaquilla
+                idTaquilla,
+                Status
                 '
             );
+        $builder->where('Status !=', 1);
         $builder->where('idTaquilla', $taquilla);
         $query = $builder->get();
         $datos = $query->getResultObject();
@@ -112,54 +114,63 @@ class Iniciar_Sesion_User_Model extends Model{
     */
     function agregarFajilla($fondo,$ventanilla,$usuario,$fecha,$folioI,$folioF){
         $db = \Config\Database::connect();
-        /***** Obtengo el id de las tarjetas con los folios que me ingreso y los comparo con los que ya estan registrados en Fajillas ******/
-        $query1= $db->query(
-            "SELECT DISTINCT(folioInicial), Folio, folioFinal  from Tarjetas t, Fajillas av
-            WHERE folioInicial = (SELECT DISTINCT(idTarjeta) from Tarjetas t,Fajillas WHERE Folio = ".$folioI." and idTarjeta=folioInicial)
-            and folioFinal = (SELECT DISTINCT(idTarjeta) from Tarjetas t, Fajillas WHERE Folio  = ".$folioF." and idTarjeta=folioFinal)
-            and idTarjeta = folioInicial"
-        );
-        $result = $query1->getResult();
-        if($result){
-            /********************************************** Ya existen datos Registrados **********************************************/
-            return false;
-        }else{
-            /********************************************** NO existen datos Registrados **********************************************/
-            $builder = $db->table('Apertura_Ventanilla');
-            $data = [
-                'fondoCaja' => $fondo,
-                'horaApertura' => $fecha,
-                'idUsuario' => $usuario,
-                'idVentanilla' => $ventanilla,
-            ];
-            if($builder->insert($data)){
-                $idAperturaVent =  $db->insertID();//id apertura ventanilla
-                // insertar las tarjetas a fajillas
-                $query= $db->query(
-                    "INSERT INTO Fajillas (
-                        fecha,
-                        idStatus,
-                        folioInicial,
-                        folioFinal,
-                        idAperturaVentanilla
-                    )
-                    VALUES(
-                        '$fecha',
-                        '6',
-                        (SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),
-                        (SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),
-                        $idAperturaVent
-                    )"
-                );
-                if($query){
-                    return $db->insertID();
-                   // return true;
-                }else{
-                    return FALSE;
-                }
-            }else{
+        /**************************************** VERIFICAR EL ESTATUS DE LA VENTANILLA *****************/
+        $builder = $db->table('Ventanilla');
+        $builder-> select(
+                'idVentanilla, Status
+                '
+            );
+        $builder->where('idVentanilla', $ventanilla);
+        $query = $builder->get();
+        $datosV = $query->getResultArray();
+        foreach($datosV as $vent){
+            if($vent['Status'] == '1'){
                 return false;
-            }            
+            }else{
+                /***** Obtengo el id de las tarjetas con los folios que me ingreso y los comparo con los que ya estan registrados en Fajillas ******/
+                $query1= $db->query(
+                                "SELECT DISTINCT(folioInicial), Folio, folioFinal  from Tarjetas t, Fajillas av
+                                WHERE folioInicial = (SELECT DISTINCT(idTarjeta) from Tarjetas t,Fajillas WHERE Folio = ".$folioI." and idTarjeta=folioInicial)
+                                and folioFinal = (SELECT DISTINCT(idTarjeta) from Tarjetas t, Fajillas WHERE Folio  = ".$folioF." and idTarjeta=folioFinal)
+                                and idTarjeta = folioInicial"
+                            );
+                $result = $query1->getResult();
+                if($result){
+                    /********************************************** Ya existen datos Registrados **********************************************/
+                    return false;
+                }else{
+                        /********************************************** NO existen datos Registrados **********************************************/
+                        $builder = $db->table('Apertura_Ventanilla');
+                        $data = [
+                            'fondoCaja' => $fondo,
+                            'horaApertura' => $fecha,
+                            'idUsuario' => $usuario,
+                            'idVentanilla' => $ventanilla,
+                        ];
+                        if($builder->insert($data)){
+                            $idAperturaVent =  $db->insertID();//id apertura ventanilla
+                            // insertar las tarjetas a fajillas
+                            $query= $db->query(
+                                "INSERT INTO Fajillas (fecha,idStatus,folioInicial,folioFinal,idAperturaVentanilla)
+                                        VALUES('$fecha','6',(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),$idAperturaVent)"
+                            );
+                            if($query){
+                                $builder = $db->table('Ventanilla');
+                                $data = [
+                                    'idVentanilla' => $ventanilla,
+                                    'Status' => '1',
+                                ];
+                                $builder->update($data);
+                                
+                                return $db->insertID();
+                            }else{
+                                return FALSE;
+                            }
+                        }else{
+                            return false;
+                        }            
+                    }
+            }
         }
     }
 }

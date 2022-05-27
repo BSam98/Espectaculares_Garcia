@@ -8,7 +8,7 @@
         <link href="../css/sb-admin-2.css" rel="stylesheet"><!--Esta linea la acabo de agregar, tiene el estilo del radio en tipo pago-->
         <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     </head>
-    <body id="page-top" style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;" onblur="mueveReloj()">
+    <body id="page-top" style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;" onload="mueveReloj()">
         <div id="wrapper">
         <!--ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"><br>
             <li class="nav-item active">
@@ -32,7 +32,7 @@
                             </a>
                         <?php }?>
                         <form name="form_reloj">
-                            <input type="text" name="reloj" size="25" style="background : inherit; border:none; font-family : Arial; font-size : 14px; text-align:right;" onfocus="window.document.form_reloj.reloj.blur()">
+                            <input type="text" name="reloj" size="25" style="background : inherit; border:none; font-family : Arial; font-size : 14px; text-align:right;" onload="window.document.form_reloj.reloj.blur()">
                         </form>
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
@@ -64,11 +64,11 @@
                                     &nbsp;&nbsp;<center><h5 class="m-0 font-weight-bold"><i class="fa fa-share" aria-hidden="true"></i>&nbsp;Devolver Tarjetas:&nbsp;&nbsp;</h5></center>
                                         <label>Folio Inicial:&nbsp;</label>
                                         <div class="input-group-append">
-                                            <input type="number" class="form-control" name="devTarjet" id="devTarjet" style="width:150px;">
+                                            <input type="number" class="form-control" name="dtI" id="dtI" style="width:150px;">
                                         </div>
                                         <label>Folio Final:&nbsp;</label>
                                         <div class="input-group-append">
-                                            <input type="number" class="form-control" name="devTarjet" id="devTarjet" style="width:150px;">
+                                            <input type="number" class="form-control" name="dtF" id="dtF" style="width:150px;">
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +85,14 @@
                                     <!-- Card Body -->
                                     <div class="card-body"> 
                                         <form action="">
+                                        <input type="hidden" class="form-control" name="idv" id="idv" value="<?php echo $_GET['idv']?>">
                                             <div class="chart-area table table-responsive table-wrapper">
+                                                <div class="alert alert-success" id="alertaSucc" style="display:none;">
+                                                    <strong>Los datos se han registrado correctamente</strong> Ya puedes cerrar sesión 
+                                                </div>
+                                                <div class="alert alert-danger" id="alertaDan" style="display:none;">
+                                                    <strong>Tu registro esta en cero</strong> Ya no puedes ingresar datos
+                                                </div>
                                                 <table class="table table-responsive" style=" color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
                                                     <tbody style="color: black;">
                                                         <tr>

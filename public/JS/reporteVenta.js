@@ -124,6 +124,10 @@ $('#cincuentac').change(function () {
 });
 
 function suma(){
+    
+}
+
+$(document).on('click', '#registrar', function(){
     var mil=quin=dosc=cien=cinc=veint=total=md=mc=mdos=mu=mcc=0;
         $("#bmil").each(function() {
             if (isNaN(parseFloat($(this).val()))) {
@@ -203,12 +207,69 @@ function suma(){
             }
         });
     total=mil+quin+dosc+cien+cinc+veint+md+mc+mdos+mu+mcc;
-    alert(total);
-    $('#money').val('$ '+ total);
+    $('#money').val(total);
     var totalV = $('#voucher').val();
-    $('#vouch').val('$' + totalV);
-}
+    $('#vouch').val(totalV);
+    
+    if((total != 0) || (totalV != 0)){
+        $('#alertaSucc').show();
+        $('#registrar').hide();
+        $('#dtI').prop('disabled', true);
+        $('#dtF').prop('disabled', true);
+        $('#mil').prop('disabled', true);
+        $('#quinientos').prop('disabled', true);
+        $('#dosc').prop('disabled', true);
+        $('#cien').prop('disabled', true);
+        $('#cincuenta').prop('disabled', true);
+        $('#veinte').prop('disabled', true);
+        $('#diez').prop('disabled', true);
+        $('#cinco').prop('disabled', true);
+        $('#dos').prop('disabled', true);
+        $('#uno').prop('disabled', true);
+        $('#cincuentac').prop('disabled', true);
+        $('#voucher').prop('disabled', true);
+    }else{
+        $('#alertaDan').show();
+        $('#registrar').hide();
+        $('#cerrarCaja').hide();
+        $('#dtI').prop('disabled', true);
+        $('#dtF').prop('disabled', true);
+        $('#mil').prop('disabled', true);
+        $('#quinientos').prop('disabled', true);
+        $('#dosc').prop('disabled', true);
+        $('#cien').prop('disabled', true);
+        $('#cincuenta').prop('disabled', true);
+        $('#veinte').prop('disabled', true);
+        $('#diez').prop('disabled', true);
+        $('#cinco').prop('disabled', true);
+        $('#dos').prop('disabled', true);
+        $('#uno').prop('disabled', true);
+        $('#cincuentac').prop('disabled', true);
+        $('#voucher').prop('disabled', true);
+    }
 
-$(document).on('click', '#registrar', function(){
-    suma();
+   /* $('#money').val();
+    var devTarjFI = $('#dtI').val();
+    var devTarjFI = s$('#dtF').val();
+
+   */
+});
+
+$(document).on('click', '#cerrarCaja', function(){
+    var dtI = $('#dtI').val();
+    var dtF = $('#dtF').val();
+    var efect = $('#money').val();
+    var vou = $('#vouch').val();
+    var idv = $('#idv').val();
+    $.ajax({
+        type:"POST",
+        url:"cerrarCaja",
+        data:{'devtI':dtI, 'devtF':dtF, 'efectivo':efect, 'vouch':vou, 'idv':idv},
+        dataType: 'JSON',
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+        },
+    }).done(function(data){
+
+    });
 });
