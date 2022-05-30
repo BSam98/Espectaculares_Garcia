@@ -106,4 +106,90 @@ class Prueba_Promocion_Control extends BaseController{
 
         echo json_encode(array('respuesta'=>$respuesta));
     }
+
+    public function editar_Promocion_Evento(){
+        $model = new Prueba_Promocion_Model();
+
+        $descuentos = $_POST['descuento'];
+        $pulsera = $_POST['pulsera'];
+        $juego = $_POST['juego'];
+        $creditos = $_POST['credito'];
+
+        if($descuentos !="0"){
+            $num_elementos = 0;
+            $cantidad = count($descuentos);
+
+            while($num_elementos<$cantidad){
+                $datos = [
+                    'idFechaDosxUno' => $descuentos[$num_elementos]['idFechaDosxUno'],
+                    'FechaInicial' => $descuentos[$num_elementos]['FechaInicial'],
+                    'FechaFinal' => $descuentos[$num_elementos]['FechaFinal']
+                ];
+                $respuesta = $model->editar_Descuento_Evento($datos);
+
+                $num_elementos = $num_elementos +1;
+            }
+        }
+
+        if($pulsera !="0"){
+            $model = new Prueba_Promocion_Model();
+
+            $num_elementos = 0;
+            $cantidad = count($pulsera);
+
+            while($num_elementos<$cantidad){
+                $datos = [
+                    'idFechaPulseraMagica' => $pulsera[$num_elementos]['idFechaPulseraMagica'],
+                    'Precio' => $pulsera[$num_elementos]['Precio'],
+                    'FechaInicial' => $pulsera[$num_elementos]['FechaInicial'],
+                    'FechaFinal' => $pulsera[$num_elementos]['FechaFinal']
+                ];
+
+                $respuesta = $model->editar_Pulsera_Evento($datos);
+                $num_elementos = $num_elementos +1;
+            }
+
+        }
+
+        if($juego !="0"){
+
+            $model = new Prueba_Promocion_Model();
+            $num_elementos = 0;
+            $cantidad = count($juego);
+
+            while($num_elementos<$cantidad){
+                $datos = [
+                    'idFechaJuegosGratis' => $juego[$num_elementos]['idFechaJuegosGratis'],
+                    'FechaInicial' => $juego[$num_elementos]['FechaInicial'],
+                    'FechaFinal' => $juego[$num_elementos]['FechaFinal']
+                ];
+
+                $respuesta = $model->editar_Juego_Evento($datos);
+                $num_elementos = $num_elementos + 1;
+            }
+
+        }
+
+        if($creditos !="0"){
+            $model = new Prueba_Promocion_Model();
+            $num_elementos = 0;
+            $cantidad = count($creditos);
+
+            while($num_elementos<$cantidad){
+                $datos= [
+                    'idFechaCreditosCortesia' => $creditos[$num_elementos]['idFechaCreditosCortesia'],
+                    'Precio' => $creditos[$num_elementos]['Precio'],
+                    'Creditos' => $creditos[$num_elementos]['Creditos'],
+                    'FechaInicial' => $creditos[$num_elementos]['FechaInicial'],
+                    'FechaFinal' => $creditos[$num_elementos]['FechaFinal']
+                ];
+
+                $respuesta = $model->editar_Credito_Evento($datos);
+
+                $num_elementos = $num_elementos + 1;
+            }
+        }
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
 }

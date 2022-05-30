@@ -46,7 +46,19 @@ var tabla_Pulsera_Html = '';
 var tabla_Juegos_Html = '';
 var tabla_Creditos_Html = '';
 
+var fechaDescuento =[];
+var fechaPulsera = [];
+var fechaJuego = [];
+var fechaCredito = [];
+
+var fecha_Editada_Descuento = [];
+var fecha_Editada_Pulsera = [];
+var fecha_Editada_Juego = [];
+var fecha_Editada_Credito = []; 
+
 var idEvento;
+
+/**Primer nivel, para agregar una promoción a un evento */
 
 $(document).on('click','.mostrar_Promociones_Evento',function(){
     iniciarCarga();
@@ -240,17 +252,23 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
             }
             
             for(var i=0;i<data.nombres.creditos.length;i++){
+                var datos_Creditos = '';
+                var arreglo = [];
+
                 for(var j=0;j<data.listado.listadoCreditos.length;j++){
                     if(data.nombres.creditos[i]['idCC'] == data.listado.listadoCreditos[j]['idCC']){
                         fecha_Inicial_Creditos += data.listado.listadoCreditos[j]['FechaInicial'] +'<br><br>';
                         fecha_Final_Creditos += data.listado.listadoCreditos[j]['FechaFinal'] + '<br><br>';
                         precio_Creditos_Html += data.listado.listadoCreditos[j]['Precio'] +'<br><br>';
                         creditos_Html += data.listado.listadoCreditos[j]['Creditos'] +'<br><br>';
+                        arreglo.push({'idFechaCreditosCortesia':data.listado.listadoCreditos[j]['idFechaCreditosCortesia'],'Precio':data.listado.listadoCreditos[j]['Precio'],'Creditos':data.listado.listadoCreditos[j]['Creditos'],'FechaInicial':data.listado.listadoCreditos[j]['FechaInicial'],'FechaFinal':data.listado.listadoCreditos[j]['FechaFinal']});
                     }
                 }
 
+                datos_Creditos = JSON.stringify(arreglo);
+
                 tabla_Creditos_Html += '<tr>'+
-                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Credito" class="editar_Creditos" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Credito" class="editar_Creditos" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Creditos+','+'"Nombre":"'+data.nombres.creditos[i]['Nombre']+'"'+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+data.nombres.creditos[i]['Nombre']+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+precio_Creditos_Html+'</td>'+
                 '<td style="text-align: center; vertical-align:middle;">'+creditos_Html+'</td>'+
@@ -518,8 +536,18 @@ $("#agregar_Promocion_Evento").click(function(){
    });
 });
 
+/**-Segundo Nivel cuando se edita una promocion en el evento */
+
 $(document).on('click','.editar_Descuentos', function(){
     iniciarCarga();
+    fechaDescuento = [];
+    fecha_Editada_Descuento = [];
+    $("#td_Descuento").val('')
+    $("#editar_Inicio_Descuento").val('');
+    $("#editar_Final_Descuento").val('');
+    $("#renglon_Descuento").val('');
+    $("#idFechaDosxUno").val('');
+
     var datos = $(this).data('book-id');
     var fechas = datos['datos'];
 
@@ -529,10 +557,13 @@ $(document).on('click','.editar_Descuentos', function(){
 
     $('#tabla_Editar_Fechas_Descuento').html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Editar</th></tr>');
     for(var i=0; i<fechas.length;i++){
-        fila = '<tr id="renglon_Descuento'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td><a id="'+fechas[i]['idFechaDosxUno']+'" class="editar_Fecha_Descuento"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        fila = '<tr id="renglon_Descuento'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td id="'+contador+'"><a id="'+fechas[i]['idFechaDosxUno']+'" class="editar_Fecha_Descuento"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        //$("#renglon_Descuento").val('renglon_Descuento'+contador);
+        fechaDescuento.push({'idFechaDosxUno':fechas[i]['idFechaDosxUno'],'FechaInicial':fechas[i]['FechaInicial'],'FechaFinal':fechas[i]['FechaFinal']});
         contador++;
 
         $('#tabla_Editar_Fechas_Descuento tr:first').after(fila);
+
     }
 
     $("#nombre_Editado_Descuento").val(datos['Nombre']);
@@ -543,6 +574,14 @@ $(document).on('click','.editar_Descuentos', function(){
 
 $(document).on('click','.editar_Pulseras',function(){
     iniciarCarga();
+    fechaPulsera = [];
+    fecha_Editada_Pulsera = [];
+    $("#td_Pulsera").val('');
+    $("#renglon_Pulsera").val('');
+    $("#idFechaPulseraMagica").val('');
+    $("#editar_Inicio_Pulsera").val('');
+    $("#editar_Final_Pulsera").val('');
+    $("#editar_Precio_Pulsera").val('');
 
     var datos = $(this).data('book-id');
     var fechas = datos['datos'];
@@ -552,8 +591,10 @@ $(document).on('click','.editar_Pulseras',function(){
     $("#tabla_Editar_Fechas_Pulsera").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Editar</th></tr>');
 
     for(var i=0; i<fechas.length;i++){
-        fila = '<tr id="renglon_Pulsera'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td>'+fechas[i]['Precio']+'</td><td><a id="'+fechas[i]['idFechaPulseraMagica']+'" class="editar_Fecha_Pulsera"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        fila = '<tr id="renglon_Pulsera'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td>'+fechas[i]['Precio']+'</td><td id="'+contador+'"><a id="'+fechas[i]['idFechaPulseraMagica']+'" class="editar_Fecha_Pulsera"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        fechaPulsera.push({'idFechaPulseraMagica':fechas[i]['idFechaPulseraMagica'],'FechaInicial':fechas[i]['FechaInicial'],'FechaFinal':fechas[i]['FechaFinal'],'Precio':fechas[i]['Precio']});
         contador++;
+
         $("#tabla_Editar_Fechas_Pulsera tr:first").after(fila);
     }
 
@@ -563,6 +604,15 @@ $(document).on('click','.editar_Pulseras',function(){
 
 $(document).on('click','.editar_Juegos',function(){
     iniciarCarga();
+    fechaJuego = [];
+    fecha_Editada_Juego = [];
+
+    $("#td_Juego").val('');
+    $("#editar_Inicio_Juego").val('');
+    $("#editar_Final_Juego").val('');
+    $("#renglon_Juego").val('');
+    $("#idFechaJuegosGratis").val('');
+
     var datos = $(this).data('book-id');
     var fechas = datos['datos'];
     var fila='';
@@ -571,10 +621,11 @@ $(document).on('click','.editar_Juegos',function(){
     $("#tabla_Editar_Fechas_Juego").val('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Editar</th></tr>');
 
     for(var i= 0;i<fechas.length;i++){
-        fila = '<tr id="renglon_Juego'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td><a id="'+fechas[i]['idFechaJuegosGratis']+'" class="editar_Fecha_Juego"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        fila = '<tr id="renglon_Juego'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td id="'+contador+'"><a id="'+fechas[i]['idFechaJuegosGratis']+'" class="editar_Fecha_Juego"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        fechaJuego.push({'idFechaJuegosGratis':fechas[i]['idFechaJuegosGratis'],'FechaInicial':fechas[i]['FechaInicial'],'FechaFinal':fechas[i]['FechaFinal']});
         contador++;
 
-        $("#tabla_Editar_Juego tr:first").after(fila);
+        $("#tabla_Editar_Fechas_Juego tr:first").after(fila);
     }
 
     $("#nombre_Editado_Juego").val(datos['Nombre']);
@@ -582,8 +633,205 @@ $(document).on('click','.editar_Juegos',function(){
     cerrarCarga();
 });
 
-$(document).on('click','.editar_Fecha_Descuento',function(){
-    var id = $(this).attr("id");
+$(document).on('click','.editar_Creditos',function(){
+    iniciarCarga();
+    fechaCredito = [];
+    fecha_Editada_Credito = [];
 
-    console.log();
+    $("#td_Credito").val('')
+    $("#editar_Inicio_Credito").val('');
+    $("#editar_Final_Credito").val('');
+    $("#renglon_Credito").val('');
+    $("#idFechaCreditosCortesia").val('');
+    $("#editar_Precio_Credito").val('');
+    $("#editar_Credito").val('');
+
+    var datos = $(this).data('book-id');
+    var fechas = datos['datos'];
+
+    var fila='';
+    var contador = 0;
+
+    $("#tabla_Editar_Fechas_Creditos").val('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Creditos</th><th>Eliminar</th></tr>');
+
+    for(var i=0;i<fechas.length;i++){
+        fila = '<tr id="renglon_Creditos'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td>'+fechas[i]['Precio']+'</td><td>'+fechas[i]['Creditos']+'</td><td id="'+contador+'"><a id="'+fechas[i]['idFechaCreditosCortesia']+'" class="editar_Fecha_Creditos"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        fechaCredito.push({'idFechaCreditosCortesia':fechas[i]['idFechaCreditosCortesia'],'FechaInicial':fechas[i]['FechaInicial'],'FechaFinal':fechas[i]['FechaFinal'],'Precio':fechas[i]['Precio'],'Creditos':fechas[i]['Creditos']});
+        contador++;
+        $("#tabla_Editar_Fechas_Creditos tr:first").after(fila);
+    }
+
+    $("#nombre_Editado_Creditos").val(datos['Nombre']);
+
+    cerrarCarga();
+});
+
+$(document).on('click','.editar_Fecha_Descuento',function(){
+    var id = $(this).parents('td').attr('id');
+    var idFechaDosxUno = $(this).attr('id');
+
+    $("#td_Descuento").val(id);
+    $("#renglon_Descuento").val($(this).parents('tr').attr('id'));
+    $("#idFechaDosxUno").val(idFechaDosxUno);
+
+    $("#editar_Inicio_Descuento").val(fechaDescuento[id]['FechaInicial'].replace(' ','T'));
+    $("#editar_Final_Descuento").val(fechaDescuento[id]['FechaFinal'].replace(' ','T'));
+
+});
+
+$(document).on('click','.editar_Fecha_Pulsera', function(){
+    var id=$(this).parents('td').attr('id');
+    var idFechaPulseraMagica = $(this).attr('id');
+
+    $("#td_Pulsera").val(id);
+    $("#renglon_Pulsera").val($(this).parents('tr').attr('id'));
+    $("#idFechaPulseraMagica").val(idFechaPulseraMagica);
+
+
+    $("#editar_Inicio_Pulsera").val(fechaPulsera[id]['FechaInicial'].replace(' ','T'));
+    $("#editar_Final_Pulsera").val(fechaPulsera[id]['FechaFinal'].replace(' ', 'T'));
+
+    $("#editar_Precio_Pulsera").val(fechaPulsera[id]['Precio']);
+});
+
+$(document).on('click','.editar_Fecha_Juego',function(){
+    var id = $(this).parents('td').attr('id');
+    var idFechaJuegosGratis = $(this).attr('id');
+
+    $("#td_Juego").val(id);
+    $("#renglon_Juego").val($(this).parents('tr').attr('id'));
+    $("#idFechaJuegosGratis").val(idFechaJuegosGratis);
+
+    $("#editar_Inicio_Juego").val(fechaJuego[id]['FechaInicial'].replace(' ', 'T'));
+    $("#editar_Final_Juego").val(fechaJuego[id]['FechaFinal'].replace(' ','T'));
+});
+
+$(document).on('click','.editar_Fecha_Creditos', function(){
+    var id =$(this).parents('td').attr('id');
+    var idFechaCreditosCortesia= $(this).attr('id');
+
+    $("#td_Credito").val(id);
+    $("#renglon_Credito").val($(this).parents('tr').attr('id'));
+    $("#idFechaCreditosCortesia").val(idFechaCreditosCortesia);
+
+    $("#editar_Inicio_Credito").val(fechaCredito[id]['FechaInicial'].replace(' ', 'T'));
+    $("#editar_Final_Credito").val(fechaCredito[id]['FechaFinal'].replace(' ', 'T'));
+    $("#editar_Precio_Credito").val(fechaCredito[id]['Precio']);
+    $("#editar_Creditos").val(fechaCredito[id]['Creditos']);
+});
+
+/**-------------------Tercer nivel */
+
+$("#editar_Horario_Descuento").on('click',function(){
+    var td = $("#td_Descuento").val();
+    var id= $("#renglon_Descuento").val();
+    var inicio = $("#editar_Inicio_Descuento").val() + ":00";
+    var final = $("#editar_Final_Descuento").val() + ":00";
+    var idFechaDosxUno = $("#idFechaDosxUno").val();
+
+    $("#td_Descuento").val('');
+    $("#renglon_Descuento").val('');
+    $("#editar_Inicio_Descuento").val('');
+    $("#editar_Final_Descuento").val('');
+    $("#idFechaDosxUno").val('');
+
+    $('#'+id).html('<td>'+inicio+'</td><td>'+final+'</td><td id="'+td+'"><a id="'+idFechaDosxUno+'" class="editar_Fecha_Descuento"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
+    fecha_Editada_Descuento.push({'idFechaDosxUno':idFechaDosxUno,'FechaInicial':inicio,'FechaFinal':final});
+    
+    //fechaDescuento.splice(id,1,{'idFechaDosxUno':idFechaDosxUno,'FechaInicial':inicio,'FechaFinal':final});
+});
+
+$("#editar_Horario_Pulsera").on('click',function(){
+    var id=$("#renglon_Pulsera").val();
+    var td_Pulsera = $("#td_Pulsera").val();
+    var inicio =$("#editar_Inicio_Pulsera").val() + ":00";
+    var final = $("#editar_Final_Pulsera").val() + ":00";
+    var precio = $("#editar_Precio_Pulsera").val();
+    var idFechaPulseraMagica = $("#idFechaPulseraMagica").val();
+
+    $("#td_Pulsera").val('');
+    $("#renglon_Pulsera").val('');
+    $("#editar_Inicio_Pulsera").val('');
+    $("#editar_Final_Pulsera").val('');
+    $("#editar_Precio_Pulsera").val('');
+    $("#idFechaPulseraMagica").val('');
+
+    $('#'+id).html('<td>'+inicio+'</td><td>'+final+'</td><td>'+precio+'</td><td id="'+td_Pulsera+'"><a id="'+idFechaPulseraMagica+'" class="editar_Fecha_Pulsera"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
+    fecha_Editada_Pulsera.push({'idFechaPulseraMagica':idFechaPulseraMagica,'FechaInicial':inicio,'FechaFinal':final,'Precio':precio});
+    //console.log('Datos nuevos: ' + JSON.stringify(fecha_Editada_Pulsera));
+});
+
+$("#editar_Horario_Juego").on('click',function(){
+    var td = $("#td_Juego").val();
+    var id= $("#renglon_Juego").val();
+    var inicio = $("#editar_Inicio_Juego").val() + ":00";
+    var final = $("#editar_Final_Juego").val() + ":00";
+    var idFechaJuegosGratis = $("#idFechaJuegosGratis").val();
+
+    $("#td_Juego").val('');
+    $("#renglon_Juego").val('');
+    $("#editar_Inicio_Juego").val('');
+    $("#editar_Final_Juego").val('');
+    $("#idFechaJuegosGratis").val('');
+
+    $('#'+id).html('<td>'+inicio+'</td><td>'+final+'</td><td id="'+td+'"><a id="'+idFechaJuegosGratis+'" class="editar_Fecha_Juego"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
+
+    fecha_Editada_Juego.push({'idFechaJuegosGratis':idFechaJuegosGratis,'FechaInicial':inicio,'FechaFinal':final});
+});
+
+$("#editar_Horario_Credito").on('click',function(){
+    var td = $("#td_Credito").val();
+    var id= $("#renglon_Credito").val();
+    var inicio = $("#editar_Inicio_Credito").val() + ":00";
+    var final = $("#editar_Final_Credito").val() + ":00";
+    var precio = $("#editar_Precio_Credito").val();
+    var credito =$("#editar_Creditos").val()
+    var idFechaCreditosCortesia = $("#idFechaCreditosCortesia").val();
+
+    $("#td_Credito").val('');
+    $("#renglon_Credito").val('');
+    $("#editar_Inicio_Credito").val('');
+    $("#editar_Final_Credito").val('');
+    $("#editar_Precio_Credito").val('');
+    $("#editar_Creditos").val('')
+    $("#idFechaCreditosCortesia").val('');
+
+    $('#'+id).html('<td>'+inicio+'</td><td>'+final+'</td><td>'+precio+'</td><td>'+credito+'</td><td id="'+td+'"><a id="'+idFechaCreditosCortesia+'" class="editar_Fecha_Creditos"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
+
+    fecha_Editada_Credito.push({'idFechaCreditosCortesia':idFechaCreditosCortesia,'FechaInicial':inicio,'FechaFinal':final,'Precio':precio,'Creditos':credito});
+
+    //console.log('Datos: ' + JSON.stringify(fecha_Editada_Credito));
+});
+
+$(document).on('click','.actualizar_Fechas_Promocion', function(){
+    iniciarCarga();
+
+    if(!fecha_Editada_Descuento.length){
+        fecha_Editada_Descuento = 0;
+    }
+    if(!fecha_Editada_Pulsera.length){
+        fecha_Editada_Pulsera = 0;
+    }
+    if(!fecha_Editada_Juego.length){
+        fecha_Editada_Juego = 0;
+    }
+    if(!fecha_Editada_Credito.length){
+        fecha_Editada_Credito = 0;
+    }
+
+    $.ajax({
+        type:"POST",
+        url: 'Eventos/Editar_Promocion_Evento',
+        data: {'descuento':fecha_Editada_Descuento,'pulsera':fecha_Editada_Pulsera,'juego':fecha_Editada_Juego,'credito':fecha_Editada_Credito},
+        dataType:'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            cerrarCarga();
+            location.reload();
+        }
+    });
 });
