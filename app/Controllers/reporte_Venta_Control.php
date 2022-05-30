@@ -1,7 +1,7 @@
 <?php namespace App\Controllers;
 use App\Models\reporte_Ventas_Model;
 
-class reporte_Venta_Control extends BaseController{
+class Reporte_Venta_Control extends BaseController{
 	public function _construct(){
 		// $this->model = new Atracciones_Model();
 		$this->request = \Config\Services::request();
@@ -49,12 +49,12 @@ class reporte_Venta_Control extends BaseController{
 
 	public function CerrarCaja(){
 		$model = new reporte_Ventas_Model;
-		$fI = $_POST['devtI'];
-		$fF = $_POST['devtF'];
-		$efec = $_POST['efectivo'];
-		$vouch = $_POST['vouch'];
-		$idv = $_POST['idv'];
-		$data = $model->cerrarCaja($fI,$fF, $efec, $vouch, $idv);
+		$fI = $_POST['devtI'];//folios devueltos
+		$fF = $_POST['devtF'];//folios devueltos
+		$efec = $_POST['efectivo'];//efectivo entrante
+		$vouch = $_POST['vouch'];//dinero en vouchers
+		$idv = $_POST['idv'];//idApertura ventanilla
+		$data = $model->cerrarCajas($fI,$fF, $efec, $vouch, $idv);
 		echo json_encode(array('respuesta'=>true,'msj'=>$data));
 	}
 }	

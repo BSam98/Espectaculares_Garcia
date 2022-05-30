@@ -173,13 +173,13 @@ class mcobro_model extends Model{
         
     }
 
-    function guardarTransaccion($totalPago,$fecha,$idventanilla){
+    function guardarTransaccion($totalPago,$fecha,$v){
         $db = \Config\Database::connect();
         $builder = $db->table('Transaccion');
             $data = [
                 'Total' => $totalPago,
                 'Fecha' => $fecha,
-                'idVentanilla' => $idventanilla,
+                'idFajilla' => $v,
             ];
             if($builder->insert($data)){
                 return $db->insertID();

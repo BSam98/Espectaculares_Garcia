@@ -92,7 +92,7 @@ $routes->post('/consultaDatos','Iniciar_Sesion_User_Control::consultaDatosT');
 $routes->post('/guardarVentas','Menu_Principal_User_Control::guardar_Ventas');
 $routes->post('/agregarFaj','Menu_Principal_User_Control::agregarFajillas');
 $routes->post('/devolverTarjeta','Menu_Principal_User_Control::devolucion');
-$routes->post('/cerrarCaja','reporte_Ventas_Control::CerrarCaja');
+$routes->post('/cerrarC','reporte_Venta_Control::CerrarCaja');
 //$routes->post('/ingresoxEvento','Menu_Principal_Control::rEvento');
 //$routes->post('/Ver Atracciones','super_Atracciones_Control::new');
 //$routes->post('/supervisores','supervisores_control::new');

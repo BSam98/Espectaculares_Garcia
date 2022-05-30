@@ -107,7 +107,8 @@ class Menu_Principal_User_Control extends BaseController {
         $ids = explode(",", $idss);
 
 
-        $gtran = $model->guardarTransaccion($totalPago,$fecha,$idventanilla);
+        //$gtran = $model->guardarTransaccion($totalPago,$fecha,$idventanilla);
+        $gtran = $model->guardarTransaccion($totalPago,$fecha,$v);
         $tipo = $model->tipoVenta($totalPago, $gtran, $tipoP);
 
         /******************************* Arreglos de Promociones Pulsera Magica ******************/

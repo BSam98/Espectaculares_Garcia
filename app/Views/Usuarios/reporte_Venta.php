@@ -87,12 +87,6 @@
                                         <form action="">
                                         <input type="hidden" class="form-control" name="idv" id="idv" value="<?php echo $_GET['idv']?>">
                                             <div class="chart-area table table-responsive table-wrapper">
-                                                <div class="alert alert-success" id="alertaSucc" style="display:none;">
-                                                    <strong>Los datos se han registrado correctamente</strong> Ya puedes cerrar sesión 
-                                                </div>
-                                                <div class="alert alert-danger" id="alertaDan" style="display:none;">
-                                                    <strong>Tu registro esta en cero</strong> Ya no puedes ingresar datos
-                                                </div>
                                                 <table class="table table-responsive" style=" color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
                                                     <tbody style="color: black;">
                                                         <tr>
@@ -202,36 +196,19 @@
                                         <center><h5><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Información:&nbsp;<a href="#detalles" type="button" data-toggle="modal">Detalles</a></h5></center>
                                     </div>
                                     <div class="card-body">
+                                        <input type="hidden" name="money" id="money" value="">
+                                        <input type="hidden" name="vouch" id="vouch" value="">
                                         <table class="table table-responsive" style="color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <h5><i class="fa fa-fax" aria-hidden="true"></i>&nbsp;Fondo Inicial:</h5>
-                                                            <?php foreach($Turno as $t){
-                                                                echo '<input type="text" class="form-control" name="cierre" id="cierre" value="$'.$t->fondoCaja.'" style="background : inherit; border:none;" disabled>';
-                                                            }?>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <h5><i class="fa fa-calculator" aria-hidden="true"></i>&nbsp;Total de Efectivo:</h5>
-                                                            <input type="text" class="form-control" name="money" id="money" disabled style="background : inherit; border:none;">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <h5><i class="fa fa-braille" aria-hidden="true"></i>&nbsp;Total Voucher:</h5>
-                                                            <input type="text" class="form-control" name="vouch" id="vouch" style="background : inherit; border:none;" disabled>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                            <tbody id="informacion">
+                                                
                                             </tbody>
                                         </table>
+                                        <div class="alert alert-success" id="alertaSucc" style="display:none;">
+                                            <strong>Los datos se han registrado correctamente</strong> Ya puedes cerrar sesión 
+                                        </div>
+                                        <div class="alert alert-danger" id="alertaDan" style="display:none;">
+                                            <strong>Verifíca</strong> tu corte de caja
+                                        </div>
                                     </div>
                                 </div>      
                             </div>

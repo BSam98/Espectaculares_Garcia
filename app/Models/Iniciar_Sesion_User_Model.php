@@ -117,8 +117,7 @@ class Iniciar_Sesion_User_Model extends Model{
         /**************************************** VERIFICAR EL ESTATUS DE LA VENTANILLA *****************/
         $builder = $db->table('Ventanilla');
         $builder-> select(
-                'idVentanilla, Status
-                '
+                'idVentanilla, Status'
             );
         $builder->where('idVentanilla', $ventanilla);
         $query = $builder->get();
@@ -150,22 +149,22 @@ class Iniciar_Sesion_User_Model extends Model{
                         if($builder->insert($data)){
                             $idAperturaVent =  $db->insertID();//id apertura ventanilla
                             // insertar las tarjetas a fajillas
-                            $query= $db->query(
-                                "INSERT INTO Fajillas (fecha,idStatus,folioInicial,folioFinal,idAperturaVentanilla)
-                                        VALUES('$fecha','6',(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),$idAperturaVent)"
-                            );
-                            if($query){
-                                $builder = $db->table('Ventanilla');
-                                $data = [
-                                    'idVentanilla' => $ventanilla,
-                                    'Status' => '1',
-                                ];
-                                $builder->update($data);
-                                
-                                return $db->insertID();
-                            }else{
-                                return FALSE;
-                            }
+                                $query= $db->query(
+                                    "INSERT INTO Fajillas (fecha,idStatus,folioInicial,folioFinal,idAperturaVentanilla)
+                                            VALUES('$fecha','6',(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),$idAperturaVent)"
+                                );
+                                if($query){
+                                    $builder = $db->table('Ventanilla');
+                                    $data = [
+                                        //'idVentanilla' => $ventanilla,
+                                        'Status' => '1',
+                                    ];
+                                    $builder->where('idVentanilla', $ventanilla);
+                                    $builder->update($data);
+                                    return $db->insertID();
+                                }else{
+                                    return FALSE;
+                                }
                         }else{
                             return false;
                         }            
