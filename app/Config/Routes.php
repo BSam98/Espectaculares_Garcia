@@ -159,6 +159,9 @@ $routes->post('/Eventos/Mostrar_Promociones','Prueba_Promocion_Control::mostrar_
 $routes->get('/Eventos/Agregar_Promocion_Evento','Prueba_Promocion_Control::agregar_Promocion_Evento');
 $routes->post('/Eventos/Agregar_Promocion_Evento','Prueba_Promocion_Control::agregar_Promocion_Evento');
 
+$routes->get('/Eventos/Editar_Promocion_Evento','Prueba_Promocion_Control::editar_Promocion_Evento');
+$routes->post('/Eventos/Editar_Promocion_Evento','Prueba_Promocion_Control::editar_Promocion_Evento');
+
 $routes->get('/Eventos/Mostrar_Asociacion','Eventos_Control::mostrarAsociacion');
 $routes->post('/Eventos/Mostrar_Asociacion','Eventos_Control::mostrarAsociacion');
 

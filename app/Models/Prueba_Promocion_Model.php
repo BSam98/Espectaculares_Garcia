@@ -185,4 +185,75 @@ class Prueba_Promocion_Model extends Model{
             return false;
         }
     }
+
+    public function editar_Descuento_Evento($datos){
+        $db = \Config\Database::connect();
+
+        $db->query(
+            "UPDATE
+                Calendario_Dos_x_Uno
+            SET
+                FechaInicial = '$datos[FechaInicial]',
+                FechaFinal = '$datos[FechaFinal]'
+            WHERE
+                idFechaDosxUno = $datos[idFechaDosxUno];
+            "
+        );
+
+        return true;
+    }
+
+    public function editar_Pulsera_Evento($datos){
+        $db = \Config\Database::connect();
+
+        $db->query(
+            "UPDATE
+                Calendario_Pulsera_Magica
+            SET
+                Precio = $datos[Precio],
+                FechaInicial = '$datos[FechaInicial]',
+                FechaFinal = '$datos[FechaFinal]'
+            WHERE
+                idFechaPulseraMagica = $datos[idFechaPulseraMagica];
+            "
+        );
+
+        return true;
+    }
+
+    public function editar_Juego_Evento($datos){
+        $db = \Config\Database::connect();
+
+        $db->query(
+            "UPDATE
+                Calendario_Juegos_Gratis
+            SET
+                FechaInicial = '$datos[FechaInicial]',
+                FechaFinal = '$datos[FechaFinal]'
+            WHERE
+                idFechaJuegosGratis = $datos[idFechaJuegosGratis];
+            "
+        );
+
+        return true;
+    }
+
+    public function editar_Credito_Evento($datos){
+        $db = \Config\Database::connect();
+
+        $db->query(
+            "UPDATE
+                Calendario_Creditos_Cortesia
+            SET
+                Precio = $datos[Precio],
+                Creditos = $datos[Creditos],
+                FechaInicial = '$datos[FechaInicial]',
+                FechaFinal = '$datos[FechaFinal]'
+            WHERE
+                idFechaCreditosCortesia = $datos[idFechaCreditosCortesia];
+            "
+        );
+
+        return true;
+    }
 }
