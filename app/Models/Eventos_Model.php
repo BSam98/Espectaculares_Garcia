@@ -876,7 +876,72 @@ class Eventos_Model extends Model{
         }
     }
 
-    public function actualizar_Atraccion_Evento($datos){}
+    public function actualizar_Atraccion_Evento($datos){
+        $db = \Config\Database::connect();
+
+        $db->query(
+            "UPDATE
+                Atraccion_Evento
+            SET
+                idContrato = $datos[idContrato],
+                idPoliza = $datos[idPoliza],
+                Creditos = $datos[Creditos],
+                idZona = $datos[idZona]
+            WHERE
+                idAtraccionEvento = $datos[idAtraccionEvento];
+            "
+        );
+
+        return true;
+    }
+
+    public function eliminar_Descuento_Atraccion($datos){
+        $db =\Config\Database::connect();
+
+        $db->query(
+            "DELETE FROM
+                Atracciones_Incluidas_Dos_x_Uno
+            WHERE
+                idAtraccionEvento = $datos[idAtraccionEvento]
+            AND
+                idDosxUno = $datos[idDosxUno];
+            "
+        );
+
+        return true;
+    }
+
+    public function eliminar_Pulseras_Atraccion($datos){
+        $db = \Config\Database::connect();
+
+        $db->query(
+            "DELETE FROM
+                Atracciones_Incluidas_Pulsera_Magica
+            WHERE
+                idPulseraMagica = $datos[idPulseraMagica]
+            AND
+                idAtraccionEvento = $datos[idAtraccionEvento];
+            "
+        );
+
+        return true;
+    }
+
+    public function eliminar_Gratis_Atraccion($datos){
+        $db = \Config\Database::connect();
+
+        $db->query(
+            "DELETE FROM
+                Atracciones_Incluidas_Juegos_Gratis
+            WHERE
+                idAtraccionEvento = $datos[idAtraccionEvento]
+            AND
+                idJuegosGratis = $datos[idJuegosGratis];
+            "
+        );
+
+        return true;
+    }
 
     public function listado_Precios_Por_Evento(){}
 
