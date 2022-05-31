@@ -943,6 +943,42 @@ class Eventos_Model extends Model{
         return true;
     }
 
+    public function editar_Taquillas($datos){
+        $nombre = $datos['Nombre'];
+        $db = \Config\Database::connect();
+
+        $db->query(
+            "UPDATE
+                Taquilla
+            SET
+                Nombre = '$nombre',
+                idZona = $datos[idZona]
+            WHERE
+                idTaquilla = $datos[idTaquilla];
+            
+            "
+        );
+
+        return true;
+    }
+
+    public function editar_Ventanillas($datos){
+        $Nombre = $datos['Nombre'];
+        $db = \Config\Database::connect();
+
+        $db->query(
+            "UPDATE 
+                Ventanilla
+            SET
+                Nombre = '$Nombre'
+            WHERE
+                idVentanilla = $datos[idVentanilla];
+            "
+        );
+
+        return true;
+    }
+
     public function listado_Precios_Por_Evento(){}
 
     public function listado_Usuarios_Por_Evento(){}

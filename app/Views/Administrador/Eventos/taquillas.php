@@ -9,11 +9,11 @@
             <div class="modal-body">
                 <form enctype="multipart/form-data" name="formulario_Taquilla_Evento" id="formulario_Taquilla_Evento">
                     <div class="table table-striped table-responsive">
-                        <table class="table table-bordered" id="agregarTaq">
+                        <table class="table table-borderd">
                             <thead>
                                 <th scope="col" style="vertical-align: middle;">Nombre</th>
                             </thead>
-                            <tbody>
+                            <tbody id="agregarTaq">
                                 <tr class="filas" id="0">
                                     <td>
                                         <div class="form-group" id="selectZonas">

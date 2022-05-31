@@ -822,6 +822,58 @@ class Eventos_Control extends BaseController {
 
     }
 
+    public function editar_Taquillas(){
+        $model = new Eventos_Model();
+
+        $taquilla = $_POST['taquilla'];
+        $ventanilla = $_POST['ventanillas'];
+        $nuevo = $_POST['nuevos'];
+
+        $datos = [
+            'Nombre' => $taquilla[0]['Nombre'],
+            'idZona' => $taquilla[0]['idZona'],
+            'idTaquilla' => $taquilla[0]['idTaquilla']
+        ];
+
+        $respuesta = $model ->editar_Taquillas($datos);
+
+        
+        $num_elementos = 0;
+        $contador = count($ventanilla);
+
+        while($num_elementos<$contador){
+
+            $datos=[
+                'idVentanilla' => $ventanilla[$num_elementos]['idVentanilla'],
+                'Nombre' => $ventanilla[$num_elementos]['Nombre']
+            ];
+            $respuesta = $model->editar_Ventanillas($datos);
+            $num_elementos = $num_elementos + 1;
+        }
+        
+
+        
+        if($nuevo!="0"){
+            $num_elementos = 0;
+            $contador = count($nuevo);
+    
+            while($num_elementos<$contador){
+                $datos = [
+                    'Nombre' => $nuevo[$num_elementos]['Nombre'],
+                    'idTaquilla' => $nuevo[$num_elementos]['idTaquilla'],
+                    'Status' =>0
+                ];
+    
+                $respuesta = $model->agregar_Ventanillas_Evento($datos);
+                $num_elementos = $num_elementos + 1;
+            }   
+        }
+        
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+
+    }
+
     public function create(){
         return "";
     }

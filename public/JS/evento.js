@@ -4,6 +4,7 @@ var contadorVentanilla=0;
 var contadorPromociones=0;
 var precio_Promocion =[];
 var select_Zonas_Html = '';
+var option_Zonas_Html = '';
 var opcion;
 var contadorFila=0; //contador para asignar id al boton que borrara la fila
 var diaInicial=[],diaFinal=[],precio=[];
@@ -34,6 +35,7 @@ var zonas = [];
 var descuentos_Atraccion = [];
 var pulsera_Atraccion = [];
 var juegos_Atraccion = [];
+var datos;
 
 $("#agregarEvento").click(function(){
     $.ajax({
@@ -1159,12 +1161,16 @@ $("#editar_Atraccion").click(function(){
 $(document).on('click','.mostrarTarjetasEvento', function(){
     var idEvento = $(this).data('book-id');
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Eventos/Mostrar_Tarjetas',
         data: idEvento,
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
     }).done(function(data){
 
@@ -1185,7 +1191,7 @@ $(document).on('click','.mostrarTarjetasEvento', function(){
         
         $("#idEventoLote").val(idEvento['idEvento']);
         $("#tarjetasEvento").html(html);
-
+        cerrarCarga();
     });
 });
 /*--------------------------Asociacion_Evento---------------------------------------------*/
@@ -1290,10 +1296,12 @@ $("#agregar_Zona").click(function(){
 
 $(document).on('click','.mostrar_Taquillas_Evento', function(){
     var idEvento = $(this).data('book-id');
-    var option_Zonas_Html = '';
+    option_Zonas_Html = '';
     select_Zonas_Html = '';
     var tabla_Taquilla_Html = '';
     var ventanillas_Html = '';
+    contadorTaquilla = 0;
+    contadorVentanilla = 0;
 
     $.ajax({
         beforeSend: function(){
@@ -1314,15 +1322,20 @@ $(document).on('click','.mostrar_Taquillas_Evento', function(){
             }
 
             for(var i=0; i<data.Taquilla.length; i++){
+                var arreglo = [];
+                var datos_Ventanilla = '';
 
                 for(var j=0; j<data.Ventanilla.length; j++){
                     if(data.Taquilla[i]['idTaquilla'] == data.Ventanilla[j]['idTaquilla']){
                         ventanillas_Html += data.Ventanilla[j]['Nombre']+', ';
+                        arreglo.push({'idVentanilla':data.Ventanilla[j]['idVentanilla'],'Nombre':data.Ventanilla[j]['Nombre']});
                     }
                 }
 
+                datos_Ventanilla = JSON.stringify(arreglo);
+
                 tabla_Taquilla_Html +='<tr>'+
-                '<td></td>'+
+                '<td><a href="#modal_Editar_Taquillas" class="editar_Taquillas" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Ventanilla+','+'"idTaquilla":'+data.Taquilla[i]['idTaquilla']+','+'"Nombre":"'+data.Taquilla[i]['Nombre']+'",'+'"idZona":'+data.Taquilla[i]['idZona']+','+'"Zona":"'+data.Taquilla[i]['Zona']+'",'+'"idEvento":'+JSON.stringify(idEvento)+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td>'+data.Taquilla[i]['Zona']+'</td>'+
                 '<td>'+data.Taquilla[i]['Nombre']+'</td>'+
                 '<td>'+ventanillas_Html+'</td>'+
@@ -1334,6 +1347,39 @@ $(document).on('click','.mostrar_Taquillas_Evento', function(){
         select_Zonas_Html += '<label for="selectZona">Selecciona la zona</label>'+
         '<select class="form-control" type="text" name ="selectZona[]" id="selectZona">'+option_Zonas_Html+'</select>';
 
+        $("#agregarTaq").html(
+            '<tr class="filas" id=0>'+
+            '<td>'+
+                '<div class="form-group" id="selectZonas">'+
+                '</div>'+
+                '<div class ="form-group">'+
+                    '<label for="">Nombre Taquilla</label>'+
+                    '<input type="text" name="nombre_Taquilla[]" id="nombre_Taquilla" class="form-control">'+
+
+                    '<table id="tablaVentanilla" class="table table-bordered">'+
+                        '<thead>'+
+                            '<th style="vertical-align: middle;" colspan="2">Ventanilla</th>'+
+                            '<br>'+
+                        '</thead>'+
+                        '<tbody id=1>'+
+                            '<tr>'+
+                                '<td colspan="2">'+
+                                '<button name="adicional" type="button" class="btn btn-warning ventanillas"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Ventanilla</button>'+
+                                '</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>'+
+                                    '<input type="text" name="nombre_Ventanilla[]" id="nombre_Ventanilla" placeholder="Nombre de la ventanilla">'+
+                                '</td>'+
+                                '<td class="elimAsoci"><input type="button"   value="-"/></td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                    '</table>'+
+                '</div>'+
+            '</td>'+
+            '<td class="deletef"><input type="button" value="-"></td>'+
+        '</tr>' 
+        );
         $("#selectZonas").html(select_Zonas_Html);
         $("#taquillasEvento").html(tabla_Taquilla_Html);
         cerrarCarga();
@@ -1384,7 +1430,7 @@ $("#addf").on('click',function(){
                 '</div>'+
             '</td>'+
             '<td class="deletef"><input type="button" value="-"></td>'+
-        '<tr>' 
+        '</tr>' 
     ).clone().appendTo("#agregarTaq");
     cerrarCarga();
 });
@@ -1396,6 +1442,7 @@ $(parent).remove();
 
 
 $("#guardarTaquilla").click(function(){
+    iniciarCarga();
     var indice = -1;
     var indice2 = -1;
 
@@ -1414,20 +1461,8 @@ $("#guardarTaquilla").click(function(){
             ventanillas.push({"Nombre":n.value,"indiceTaquilla": indice2});
         }
     });
-
-    console.log('Zona');
-    console.log(JSON.stringify(zonas));
-
-    console.log('Taquillas');
-    console.log(JSON.stringify(taquillas));
-
-    console.log('Ventanillas');
-    console.log(JSON.stringify(ventanillas));
     
     $.ajax({
-        beforeSend: function(){
-            iniciarCarga();
-        },
         type: "POST",
         url: 'Eventos/Agregar_Taquillas_Evento',
         data: {"zonas":zonas,"taquillas":taquillas,"ventanillas":ventanillas},
@@ -1445,4 +1480,123 @@ $("#guardarTaquilla").click(function(){
         
     });
     
+});
+
+
+$(document).on('click','.editar_Taquillas', function(){
+
+    datos = $(this).data('book-id');
+    var ventanillas = datos['datos'];
+    var html = '';
+    var opt = '';
+    var select= '';
+
+    opt = '<option value="'+datos['idZona']+'">'+datos['Zona']+'</option>';
+    $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
+        type:"POST",
+        url: 'Eventos/Mostrar_Zonas',
+        data: datos['idEvento'],
+        dataType: 'JSON',
+        error(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            for(var i = 0; i<data.msj.length; i++){
+                opt +='<option value="'+data.msj[i]['idZona']+'">'+data.msj[i]['Nombre']+'</option>';
+            }
+            html =
+            '<tr>'+
+                '<td colspan="2">'+
+                    '<button name="adicional" type="button" class="btn btn-warning nueva_Ventanilla"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Ventanilla</button>'+
+                '</td>'+
+            '</tr>';
+        
+            for(var i=0;i<ventanillas.length;i++){
+                html += '<tr>'+
+                '<td>'+
+                    '<input value="'+ventanillas[i]['idVentanilla']+'" type="hidden" name="editar_idVentanilla[]" id="editar_idVentanilla">'+
+                    '<input value="'+ventanillas[i]['Nombre']+'" type="text" name ="editar_Nombre_Ventanilla[]" id="editar_Nombre_Ventanilla" placeholder="Nombre de la ventanilla">'+
+                '</td>'+
+                '<td class=""></td>'+
+            '</tr>';
+            }
+
+            select = '<label for="selectZona">Selecciona la zona</label>'+
+            '<select class="form-control" type="text" name ="editar_Zona_Taquilla[]" id="editar_Zona_Taquilla">'+opt+'</select>';
+            $("#editar_Select_Zona").html(select);
+            $("#editar_Nombre_Taquilla").val(datos['Nombre']);
+            $("#editar_Tabla_Ventanilla").html(html);
+        }
+        cerrarCarga();
+    });
+});
+
+$(document).on('click','.nueva_Ventanilla', function(){
+    var id  = $(this).parents('tbody').attr('id');
+            
+    $(
+        '<tr>'+
+            '<td>'+
+                '<input type="text" name ="nuevo_Nombre_Ventanilla[]" id="nuevo_Nombre_Ventanilla" placeholder="Nombre de la ventanilla">'+
+            '</td>'+
+            '<td class="elimAsoci"><input type="button" value="-"></td>'+
+        '</tr>'
+    ).clone().appendTo($('#'+id));
+});
+
+$("#guardar_Taquilla_Editada").on('click',function(){
+    iniciarCarga();
+    console.log($("#formulario_Taquilla_Editada").serializeArray());
+    var editar_Taquilla = [];
+    var editar_Ventanilla= [];
+    var nuevas_Ventanillas =[];
+    var idVentanilla;
+    var idZona;
+    var Nombre;
+
+    $.each(($("#formulario_Taquilla_Editada").serializeArray()),function(i,n){
+        if("editar_Zona_Taquilla[]" === n.name){
+            idZona = n.value;
+        }
+        if("editar_Nombre_Taquilla[]" === n.name){
+            editar_Taquilla.push({'idTaquilla': datos['idTaquilla'],'Nombre':n.value,'idZona':idZona});
+        }
+
+        if("editar_idVentanilla[]" === n.name){
+            idVentanilla = n.value;
+        }
+
+        if("editar_Nombre_Ventanilla[]" === n.name){
+            editar_Ventanilla.push({'idVentanilla':idVentanilla,'Nombre':n.value});
+        }
+
+        if("nuevo_Nombre_Ventanilla[]" === n.name){
+            nuevas_Ventanillas.push({'idTaquilla': datos['idTaquilla'],'Nombre':n.value});
+        }
+    });
+
+    if(!nuevas_Ventanillas.length){
+        nuevas_Ventanillas = 0;
+    }
+
+    $.ajax({
+        type:"POST",
+        url: 'Eventos/Editar_Taquillas',
+        data:{'taquilla':editar_Taquilla,'ventanillas':editar_Ventanilla,'nuevos':nuevas_Ventanillas},
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            cerrarCarga();
+            location.reload();
+        }
+    });
 });
