@@ -12,30 +12,30 @@
                 <!--Tabla-->
                 <table id="example" class="table table-striped table-responsive table-bordered">
                     <thead>
-                        <th style="vertical-align: middle;"></th>
-                        <th style="vertical-align: middle;">Nombre</th>
-                        <th style="vertical-align: middle;">Renta</th>
-                        <th style="vertical-align: middle;">Propietario</th>
-                        <th style="vertical-align: middle;">Capacidad maxima</th>
-                        <th style="vertical-align: middle;">Capacidad minima</th>
-                        <th style="vertical-align: middle;">Largo(m)</th>
-                        <th style="vertical-align: middle;">Ancho(m)</th>
-                        <th style="vertical-align: middle;">Duración por ciclo</th>
-                        <th style="vertical-align: middle;">Tiempo de espera</th>   
+                        <th style="text-align: center; vertical-align: middle;"></th>
+                        <th style="text-align: center; vertical-align: middle;">Nombre</th>
+                        <th style="text-align: center; vertical-align: middle;">Renta</th>
+                        <th style="text-align: center; vertical-align: middle;">Propietario</th>
+                        <th style="text-align: center; vertical-align: middle;">Capacidad maxima</th>
+                        <th style="text-align: center; vertical-align: middle;">Capacidad minima</th>
+                        <th style="text-align: center; vertical-align: middle;">Largo(m)</th>
+                        <th style="text-align: center; vertical-align: middle;">Ancho(m)</th>
+                        <th style="text-align: center; vertical-align: middle;">Duración por ciclo</th>
+                        <th style="text-align: center; vertical-align: middle;">Tiempo de espera</th>   
                     </thead>
                     <tbody>
                         <?php foreach ($Atraccion as $key => $dA) : ?>
                             <tr>
-                                <td style="vertical-align: middle;"><a href="#eAtraccion" class ="btn btn-outline-warning editarAtraccion" data-toggle="modal" data-book-id='{"idAtraccion":<?= $dA->idAtraccion?>,"Atraccion":"<?= $dA->Atraccion?>","Renta":<?= $dA->Renta?>,"Nombre":"<?= $dA->Nombre?>","CapacidadMAX":<?= $dA->CapacidadMAX?>,"CapacidadMIN":<?= $dA->CapacidadMIN?>,"Tiempo":"<?= $dA->Tiempo?>","TiempoMAX":"<?= $dA->TiempoMAX?>"}'><i class="fa fa-paint-brush" aria-hidden="true"></i></a></td>
-                                <td style="vertical-align: middle;"><?= $dA->Atraccion?></td>
-                                <td style="vertical-align: middle;"><?= $dA->Renta?></td>
-                                <td style="vertical-align: middle;"><?= $dA->Nombre?></td>
-                                <td style="vertical-align: middle;"><?= $dA->CapacidadMAX?></td>
-                                <td style="vertical-align: middle;"><?= $dA->CapacidadMIN?></td>
-                                <td style="vertical-align: middle;"><?=$dA->Largo?></td>
-                                <td style="vertical-align: middle;"><?=$dA->Ancho?></td>
-                                <td style="vertical-align: middle;"><?= $dA->Tiempo?></td>
-                                <td style="vertical-align: middle;"><?= $dA->TiempoMAX?></td>
+                                <td style="text-align: center; vertical-align: middle;"><a href="#eAtraccion" class ="btn btn-outline-warning editarAtraccion" data-toggle="modal" data-book-id='{"idAtraccion":<?= $dA->idAtraccion?>,"Atraccion":"<?= $dA->Atraccion?>","Renta":<?= $dA->Renta?>,"Nombre":"<?= $dA->Nombre?>","CapacidadMAX":<?= $dA->CapacidadMAX?>,"CapacidadMIN":<?= $dA->CapacidadMIN?>,"Tiempo":"<?= $dA->Tiempo?>","TiempoMAX":"<?= $dA->TiempoMAX?>"}'><i class="fa fa-paint-brush" aria-hidden="true"></i></a></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dA->Atraccion?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dA->Renta?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dA->Nombre?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dA->CapacidadMAX?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dA->CapacidadMIN?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?=$dA->Largo?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?=$dA->Ancho?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dA->Tiempo?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dA->TiempoMAX?></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>
@@ -57,13 +57,13 @@
                         <div class="table table-striped table-responsive">
                             <table id="tab" class="table table-bordered">
                                 <thead>
-                                    <th scope="col" style="vertical-align: middle;">Nombre</th>
-                                    <th scope="col" style="vertical-align: middle;">Apellido Paterno</th>
-                                    <th scope="col" style="vertical-align: middle;">Apellido Materno</th>
-                                    <th scope="col" style="vertical-align: middle;">Dirección</th>
-                                    <th scope="col" style="vertical-align: middle;">Teléfono</th>
-                                    <th scope="col" style="vertical-align: middle;">RFC</th>
-                                    <th scope="col" style="vertical-align: middle;">Fecha de Nacimiento</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;">Nombre</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;">Apellido Paterno</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;">Apellido Materno</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;">Dirección</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;">Teléfono</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;">RFC</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;">Fecha de Nacimiento</th>
                                 </thead>
                                 <tbody>
                                     <tr class="fila-fila">
@@ -87,26 +87,26 @@
                         <!--Tabla-->
                         <table id="examplePro" class="table table-bordered"><!--tenia id="tablas"-->
                             <thead>
-                                <th style="vertical-align: middle;"></th>
-                                <th style="vertical-align: middle;">Nombre</th>
-                                <th style="vertical-align: middle;">Apellido Paterno</th>
-                                <th style="vertical-align: middle;">Apellido Materno</th>
-                                <th style="vertical-align: middle;">Dirección</th>
-                                <th style="vertical-align: middle;">Teléfono</th>
-                                <th style="vertical-align: middle;">RFC</th>
-                                <th style="vertical-align: middle;">Fecha de Nacimiento</th>
+                                <th style="text-align: center; vertical-align: middle;"></th>
+                                <th style="text-align: center; vertical-align: middle;">Nombre</th>
+                                <th style="text-align: center; vertical-align: middle;">Apellido Paterno</th>
+                                <th style="text-align: center; vertical-align: middle;">Apellido Materno</th>
+                                <th style="text-align: center; vertical-align: middle;">Dirección</th>
+                                <th style="text-align: center; vertical-align: middle;">Teléfono</th>
+                                <th style="text-align: center; vertical-align: middle;">RFC</th>
+                                <th style="text-align: center; vertical-align: middle;">Fecha de Nacimiento</th>
                             </thead>
                             <tbody>
                                 <?php foreach ($Propietario as $key => $dP) : ?>
                                     <tr>
-                                        <td><a href="#ePropietario" class="editarPropietario" data-book-id='{"idPropietario":<?=$dP->idPropietario?>,"Nombre":"<?=$dP->Nombre?>","ApellidoP":"<?=$dP->ApellidoP?>","ApellidoM":"<?=$dP->ApellidoM?>","Direccion":"<?=$dP->Direccion?>","Telefono":"<?=$dP->Telefono?>","RFC":"<?=$dP->RFC?>","FechaNacimiento":"<?=$dP->FechaNacimiento?>"}' data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
-                                        <td><?= $dP->Nombre ?></td>
-                                        <td><?= $dP->ApellidoP?></td>
-                                        <td><?= $dP->ApellidoM?></td>
-                                        <td><?= $dP->Direccion?></td>
-                                        <td><?= $dP->Telefono?></td>
-                                        <td><?= $dP->RFC?></td>
-                                        <td><?= $dP->FechaNacimiento?></td>
+                                        <td style="text-align: center; vertical-align: middle;"><a href="#ePropietario" class="editarPropietario" data-book-id='{"idPropietario":<?=$dP->idPropietario?>,"Nombre":"<?=$dP->Nombre?>","ApellidoP":"<?=$dP->ApellidoP?>","ApellidoM":"<?=$dP->ApellidoM?>","Direccion":"<?=$dP->Direccion?>","Telefono":"<?=$dP->Telefono?>","RFC":"<?=$dP->RFC?>","FechaNacimiento":"<?=$dP->FechaNacimiento?>"}' data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
+                                        <td style="text-align: center; vertical-align: middle;"><?= $dP->Nombre ?></td>
+                                        <td style="text-align: center; vertical-align: middle;"><?= $dP->ApellidoP?></td>
+                                        <td style="text-align: center; vertical-align: middle;"><?= $dP->ApellidoM?></td>
+                                        <td style="text-align: center; vertical-align: middle;"><?= $dP->Direccion?></td>
+                                        <td style="text-align: center; vertical-align: middle;"><?= $dP->Telefono?></td>
+                                        <td style="text-align: center; vertical-align: middle;"><?= $dP->RFC?></td>
+                                        <td style="text-align: center; vertical-align: middle;"><?= $dP->FechaNacimiento?></td>
                                     </tr>
                                 <?php endforeach ?>
                             </tbody>

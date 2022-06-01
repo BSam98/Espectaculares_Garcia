@@ -14,29 +14,29 @@
                 <table id="searchL" class="table table-bordered">
                     <thead>
                         <th></th>
-                        <th scope="col" style="vertical-align: middle;">Nombre</th>
-                        <th scope="col" style="vertical-align: middle;">Material</th>
-                        <th scope="col" style="vertical-align: middle;">Cantidad</th>
-                        <th scope="col" style="vertical-align: middle;">Folio Inicial</th>
-                        <th scope="col" style="vertical-align: middle;">Folio Final</th>
-                        <th scope="col" style="vertical-align: middle;">Serial</th>
-                        <th scope="col" style="vertical-align: middle;">Usuario</th>
-                        <th scope="col" style="vertical-align: middle;">Fecha de Ingreso</th>
-                        <th scope="col" style="vertical-align: middle;">Tarjetas</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Nombre</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Material</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Cantidad</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Folio Inicial</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Folio Final</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Serial</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Usuario</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Fecha de Ingreso</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Tarjetas</th>
                     </thead>
                     <tbody>
                         <?php foreach ($Lote as $key => $dL) : ?>
                             <tr>
-                                <td style="vertical-align: middle;"><a href="#eLote" class ="editarLotes"  data-book-id='{"idLote":<?= $dL->idLote?>,"Nombre":"<?= $dL->Nombre?>","Material":"<?= $dL->Material?>","Cantidad":<?= $dL->Cantidad?>,"Serie":"<?= $dL->Serie?>","Usuario":"<?= $dL->Usuario?>"}' data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
-                                <td style="vertical-align: middle;"><?= $dL->Nombre?></td>
-                                <td style="vertical-align: middle;"><?= $dL->Material?></td>
-                                <td style="vertical-align: middle;"><?= $dL->Cantidad?></td>
-                                <td style="vertical-align: middle;"><?= $dL->FolioInicial?></td>
-                                <td style="vertical-align: middle;"><?= $dL->FolioFinal?></td>
-                                <td style="vertical-align: middle;"><?= $dL->Serie?></td>
-                                <td style="vertical-align: middle;"><?= $dL->Usuario?></td>
-                                <td style="vertical-align: middle;"><?= $dL->FechaIngreso?></td>
-                                <td><a href="#verTarjetas"  class="btn btn-outline-success mostrarTarjetasLote" data-toggle="modal"  data-book-id='{"idLote":<?= $dL->idLote?>}' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
+                                <td style="text-align: center; vertical-align: middle;"><a href="#eLote" class ="editarLotes"  data-book-id='{"idLote":<?= $dL->idLote?>,"Nombre":"<?= $dL->Nombre?>","Material":"<?= $dL->Material?>","Cantidad":<?= $dL->Cantidad?>,"Serie":"<?= $dL->Serie?>","Usuario":"<?= $dL->Usuario?>"}' data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dL->Nombre?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dL->Material?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dL->Cantidad?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dL->FolioInicial?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dL->FolioFinal?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dL->Serie?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dL->Usuario?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dL->FechaIngreso?></td>
+                                <td style="text-align: center; vertical-align: middle;"><a href="#verTarjetas"  class="btn btn-outline-success mostrarTarjetasLote" data-toggle="modal"  data-book-id='{"idLote":<?= $dL->idLote?>}' ><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>

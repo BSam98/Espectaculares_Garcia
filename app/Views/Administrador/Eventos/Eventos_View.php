@@ -3,20 +3,20 @@
         <center><label><h1>EVENTOS</h1></label></center>
         <a href="#myModal" type="button" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Nuevo Evento</a>
 
-        <div class="contenedorTabla">
+        <div class="table table-striped table-responsive contenedorTabla">
             <br>
             <!--Tabla-->
-            <table id="example" class="table table-striped table-responsive">
+            <table id="example" class="table table-bordered">
                 <thead>
                     <!--Titulos de la tabla-->
-                    <th style="vertical-align: middle;"></th>
-                    <th style="vertical-align: middle;">Nombre</th>
-                    <th style="vertical-align: middle;">Direccion</th>
-                    <th style="vertical-align: middle;">Ciudad</th>
-                    <th style="vertical-align: middle;">Estado</th>
-                    <th style="vertical-align: middle;">Fecha de inicio</th>
-                    <th style="vertical-align: middle;">Fecha de termino</th>
-                    <th>Opciones</th>
+                    <th scope="col" style="text-align: center; vertical-align: middle;"></th>
+                    <th scope="col" style="text-align: center; vertical-align: middle;">Nombre</th>
+                    <th scope="col" style="text-align: center; vertical-align: middle;">Direccion</th>
+                    <th scope="col" style="text-align: center; vertical-align: middle;">Ciudad</th>
+                    <th scope="col" style="text-align: center; vertical-align: middle;">Estado</th>
+                    <th scope="col" style="text-align: center; vertical-align: middle;">Fecha de inicio</th>
+                    <th scope="col" style="text-align: center; vertical-align: middle;">Fecha de termino</th>
+                    <th scope="col" style="text-align: center; vertical-align: middle;">Opciones</th>
                     <!--th style="vertical-align: middle;">Status</th>
                     <th style="vertical-align: middle;">Atracciones</th>
                     <th-- style="vertical-align: middle;">Precios</th-->
@@ -26,14 +26,14 @@
                 <tbody>
                     <?php foreach ($Eventos as $key => $dE) : ?>
                         <tr>
-                            <td style="vertical-align: middle;"><a href="#editarEvento" type="button" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
-                            <td style="vertical-align: middle;"><?= $dE->Nombre ?></td>
-                            <td style="vertical-align: middle;"><?= $dE->Direccion?></td>
-                            <td style="vertical-align: middle;"><?= $dE->Ciudad?></td>
-                            <td style="vertical-align: middle;"><?= $dE->Estado?></td>
-                            <td style="vertical-align: middle;"><?= $dE->FechaInicio?></td>
-                            <td style="vertical-align: middle;"><?= $dE->FechaFinal?></td>
-                            <td style="vertical-align: middle;">
+                            <td style="text-align: center; vertical-align: middle;"><a href="#editarEvento" type="button" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dE->Nombre ?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dE->Direccion?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dE->Ciudad?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dE->Estado?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dE->FechaInicio?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dE->FechaFinal?></td>
+                            <td style="text-align: center; vertical-align: middle;">
                             <table>
                                 <tbody>
                                     <tr>

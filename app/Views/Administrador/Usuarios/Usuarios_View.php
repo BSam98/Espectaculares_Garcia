@@ -9,29 +9,29 @@
                 <table id="example" class="table table-striped">
                     <thead>
                         <th></th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Correo electronico</th>
-                        <th>NSS</th>
-                        <th>CURP</th>
-                        <th>Usuario</th>
-                        <th>Contraseña</th>
-                        <th>Rango</th>
-                        <th>Evento</th>
+                        <th style="text-align: center; vertical-align: middle;">Nombre</th>
+                        <th style="text-align: center; vertical-align: middle;">Apellidos</th>
+                        <th style="text-align: center; vertical-align: middle;">Correo electronico</th>
+                        <th style="text-align: center; vertical-align: middle;">NSS</th>
+                        <th style="text-align: center; vertical-align: middle;">CURP</th>
+                        <th style="text-align: center; vertical-align: middle;">Usuario</th>
+                        <th style="text-align: center; vertical-align: middle;">Contraseña</th>
+                        <th style="text-align: center; vertical-align: middle;">Rango</th>
+                        <th style="text-align: center; vertical-align: middle;"> Evento</th>
                     </thead>
                     <tbody>
                         <?php foreach ($Usuario as $key => $dU) : ?>
                             <tr>
-                                <td><a href="#eUsuario" class="editarUsuario" data-book-id='{"idUsuario":<?=$dU->idUsuario?>,"UsuarioNombre":"<?=$dU->UsuarioNombre?>","UsuarioApellido":"<?=$dU->UsuarioApellido?>","CorreoE":"<?=$dU->CorreoE?>","NSS":<?=$dU->NSS?>,"CURP":"<?=$dU->CURP?>","Usuario":"<?=$dU->Usuario?>","Contraseña":"<?=$dU->Contraseña?>"}' data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
-                                <td><?= $dU->UsuarioNombre?></td>
-                                <td><?= $dU->UsuarioApellido?></td>
-                                <td><?= $dU->CorreoE?></td>
-                                <td><?= $dU->NSS?></td>
-                                <td><?= $dU->CURP?></td>
-                                <td><?= $dU->Usuario?></td>
-                                <td><?= $dU->Contraseña?></td>
-                                <td><?= $dU->Nombre?></td>
-                                <td><?= $dU->Ciudad?></td>
+                                <td style="text-align: center; vertical-align: middle;"><a href="#eUsuario" class="editarUsuario" data-book-id='{"idUsuario":<?=$dU->idUsuario?>,"UsuarioNombre":"<?=$dU->UsuarioNombre?>","UsuarioApellido":"<?=$dU->UsuarioApellido?>","CorreoE":"<?=$dU->CorreoE?>","NSS":<?=$dU->NSS?>,"CURP":"<?=$dU->CURP?>","Usuario":"<?=$dU->Usuario?>","Contraseña":"<?=$dU->Contraseña?>"}' data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->UsuarioNombre?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->UsuarioApellido?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->CorreoE?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->NSS?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->CURP?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->Usuario?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->Contraseña?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->Nombre?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->Ciudad?></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>

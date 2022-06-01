@@ -32,14 +32,14 @@
                         <input type="button" class="btn btn-danger" id="cancelC" value="Cancelar">
                 </form>
             </div><br>
-            <div class="table table-responsive" id="tablaContrato">
+            <div class="table table-striped table-responsive" id="tablaContrato">
                 <!--------------------------------------------Tabla de Contratos------------------------------------------>
-                <table class="table table-striped" id="contratos">
+                <table class="table table-bordered" id="contratos">
                     <thead>
-                        <th>Contrato</th>
-                        <th>Fecha de Inicio</th>
-                        <th>Fecha de Termino</th>
-                        <th>Opciones</th>
+                        <th scope="col" style="vertical-align: middle;">Contrato</th>
+                        <th scope="col" style="vertical-align: middle;">Fecha de Inicio</th>
+                        <th scope="col" style="vertical-align: middle;">Fecha de Termino</th>
+                        <th scope="col" style="vertical-align: middle;">Opciones</th>
                     </thead>
                     <tbody>
                         <?php foreach($Contrato as $con):?>

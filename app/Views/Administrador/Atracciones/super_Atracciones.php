@@ -27,7 +27,7 @@
         </div>
     <hr>
         <div class="table table-striped table-responsive">
-            <table>
+            <table id="tabla_Atracciones_Supervisar" class="tabla table-bordered">
                 <thead>
                     <tr>
                         <!--th><center>Evento</center></th-->
@@ -58,9 +58,9 @@
             </div>
             <div class="modal-body">
                 <form enctype="multipart/form-data" name="formularioAgregarTarjetasEvento" id="formularioAgregarTarjetasEvento">
-                    <div class="table table-responsive" style="color: black;">
+                    <div class="table table-striped table-responsive" style="color: black;">
                         <center><h5><i class="fa fa-window-restore" aria-hidden="true"></i>&nbsp;Ciclos</h5></center>                        
-                        <table>
+                        <table id="tabla_Ciclo" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <!--th><center>Evento</center></th-->
