@@ -608,6 +608,7 @@ $(document).on('click', '.btn_remove', function() {
 /*------------------------------Atracciones_Evento--------------------------------------------------------*/
 $(document).on('click','.mostrar_Atracciones_Evento', function(){
     iniciarCarga();
+    $("#atraccionesAdd").DataTable().destroy();
     atraccion_Promocion_Descuentos = [];
     atraccion_Promocion_Pulsera = [];
     atraccion_Promocion_Juegos = [];
@@ -741,6 +742,22 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
         $("#promocion_Pulsera").html(pulsera_Html);
         $("#promocion_Juegos_Gratis").html(juegos_Gratis_Html);
         $("#idEventoAtraccion").val(idEvento['idEvento']);
+
+        $('#atraccionesAdd').DataTable( {
+            "aProcessing": true,//Activamos el procesamiento del datatables
+            "aServerSide": true,//Paginación y filtrado realizados por el servidor
+            dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [		          
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+            "bDestroy": true,
+            "iDisplayLength": 15,//Paginación
+            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+        });
+
         cerrarCarga();
     });
 });
@@ -905,7 +922,7 @@ $(document).on('click','.editar_Atraccion', function(){
     promocion_Juegos_Atraccion_Nuevo = [];
     promocion_Juegos_Atraccion_Eliminar = [];
 
-    idAtraccionEvento_Html += '<input class="form-control" type="text" id="idAtraccionEvento" name="idAtraccionEvento" value="'+datos_Atraccion['idAtraccionEvento']+'">';
+    idAtraccionEvento_Html += '<input class="form-control" type="hidden" id="idAtraccionEvento" name="idAtraccionEvento" value="'+datos_Atraccion['idAtraccionEvento']+'">';
 
     contrato_Seleccionado_Html = '<option value="'+datos_Atraccion['idContrato']+'">"'+datos_Atraccion['contrato']+'"</Option>';
     poliza_Seleccionada_Html = '<option value="'+datos_Atraccion['idPoliza']+'">"'+datos_Atraccion['poliza']+'"</option>';
@@ -1159,6 +1176,7 @@ $("#editar_Atraccion").click(function(){
 /*-----------------------------Tarjetas_Evento------------------------------------------------------*/
 
 $(document).on('click','.mostrarTarjetasEvento', function(){
+    $("#tabla_Tarjetas_Evento").DataTable().destroy();
     var idEvento = $(this).data('book-id');
     $.ajax({
         beforeSend: function(){
@@ -1179,7 +1197,7 @@ $(document).on('click','.mostrarTarjetasEvento', function(){
 
             
             html += '<tr>'+
-            '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+            '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
             '<td>'+data.msj[i]['Nombre']+'</td>'+
             '<td>'+data.msj[i]['Folio']+'</td>'+
             '<td>'+data.msj[i]['FechaActivacion']+'</td>'+
@@ -1191,6 +1209,20 @@ $(document).on('click','.mostrarTarjetasEvento', function(){
         
         $("#idEventoLote").val(idEvento['idEvento']);
         $("#tarjetasEvento").html(html);
+        $('#tabla_Tarjetas_Evento').DataTable( {
+            "aProcessing": true,//Activamos el procesamiento del datatables
+            "aServerSide": true,//Paginación y filtrado realizados por el servidor
+            dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [		          
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+            "bDestroy": true,
+            "iDisplayLength": 10,//Paginación
+            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+        });
         cerrarCarga();
     });
 });
@@ -1295,6 +1327,7 @@ $("#agregar_Zona").click(function(){
 /**--------------------------Taquillas Evento------------------------------------------- */
 
 $(document).on('click','.mostrar_Taquillas_Evento', function(){
+    $("#tablaTaquillas").DataTable().destroy();
     var idEvento = $(this).data('book-id');
     option_Zonas_Html = '';
     select_Zonas_Html = '';
@@ -1382,6 +1415,21 @@ $(document).on('click','.mostrar_Taquillas_Evento', function(){
         );
         $("#selectZonas").html(select_Zonas_Html);
         $("#taquillasEvento").html(tabla_Taquilla_Html);
+
+        $('#tablaTaquillas').DataTable( {
+            "aProcessing": true,//Activamos el procesamiento del datatables
+            "aServerSide": true,//Paginación y filtrado realizados por el servidor
+            dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [		          
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+            "bDestroy": true,
+            "iDisplayLength": 15,//Paginación
+            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+        });
         cerrarCarga();
     });
 });
@@ -1551,7 +1599,6 @@ $(document).on('click','.nueva_Ventanilla', function(){
 
 $("#guardar_Taquilla_Editada").on('click',function(){
     iniciarCarga();
-    console.log($("#formulario_Taquilla_Editada").serializeArray());
     var editar_Taquilla = [];
     var editar_Ventanilla= [];
     var nuevas_Ventanillas =[];

@@ -11,7 +11,7 @@
                     <div class="table table-striped table-responsive">
                     <!--Tabla AGREGAR LOTES-->
                         <input type="hidden" class="form-control" id = "idEventoLote" name = "idEventoLote" value="">
-                        <table class="table table-bordered">
+                        <table class="table table-borderd">
                             <thead>
                             <!--Titulos de la tabla-->
                                 <th scope="col" style="vertical-align: middle;">Nombre del Lote</th>
@@ -43,7 +43,7 @@
 
                 <!--TABLA DE LOTES-->
                 <div class="table table-striped table-responsive">
-                    <table id="searchL" class="table table-bordered"><!--tenia id="tablas"-->
+                    <table id="tabla_Tarjetas_Evento" class="table table-bordered"><!--tenia id="tablas"-->
                         <thead>
                             <th></th>
                             <th scope="col" style="vertical-align: middle;">Nombre de la tarjeta</th>

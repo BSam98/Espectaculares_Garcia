@@ -120,6 +120,7 @@ $("#agregar_Filas").click(function(){
 
 $(document).on('click','.mostrarTarjetasLote', function(){
     var idLote = $(this).data('book-id');
+    $("#newTarjet1").DataTable().destroy();
     $.ajax({
         beforeSend: function(){
             iniciarCarga();
@@ -134,22 +135,32 @@ $(document).on('click','.mostrarTarjetasLote', function(){
 
             
             html += '<tr>'+
-            '<td>'+data.msj[i]['Tarjeta']+'</td>'+
-            '<td>'+data.msj[i]['Folio']+'</td>'+
-            '<td>'+data.msj[i]['FechaActivacion']+'</td>'+
-            '<td>'+data.msj[i]['Iniciales']+'</td>'+
-            '<td>'+data.msj[i]['Tipo']+'</td>'+
+            '<td style="vertical-align: middle;">'+data.msj[i]['Tarjeta']+'</td>'+
+            '<td style="vertical-align: middle;">'+data.msj[i]['Folio']+'</td>'+
+            '<td style="vertical-align: middle;">'+data.msj[i]['FechaActivacion']+'</td>'+
+            '<td style="vertical-align: middle;">'+data.msj[i]['Iniciales']+'</td>'+
+            '<td style="vertical-align: middle;">'+data.msj[i]['Tipo']+'</td>'+
             '</tr>';
             
         }
-        
         $("#tarjetasLote").html(html);
+        $('#newTarjet1').DataTable( {
+            "aProcessing": true,//Activamos el procesamiento del datatables
+            "aServerSide": true,//Paginación y filtrado realizados por el servidor
+            dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [		          
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+            "bDestroy": true,
+            "iDisplayLength": 15,//Paginación
+            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+        });
         cerrarCarga();
-        
-
     });
 });
-
 $(document).on('click','.editarLotes', function(){
     iniciarCarga();
     var Lote = $(this).data('book-id');
