@@ -1702,6 +1702,10 @@ $(document).on('click','.mostrar_Cortesias_Evento', function(){
         },
     }).done(function(data){
         if(data.respuesta){
+
+            for(var i=0;i<data.datos.length;i++){
+                
+            }
             for(var i=0; i<data.msj.length;i++){
                 option_Lote +='<option value="'+data.msj[i]['idLote']+'">'+data.msj[i]['Nombre']+'</option>'
             }

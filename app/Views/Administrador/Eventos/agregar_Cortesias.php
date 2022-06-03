@@ -55,11 +55,12 @@
                     <table id="tablaTaquillas" class="table table-bordered">
                         <thead>
                         <th></th>
-                        <th scope="col" style="text-align: center; vertical-align: middle;">Nombre de la tarjeta</th>
-                        <th scope="col" style="text-align: center; vertical-align: middle;">Folio</th>
-                        <th scope="col" style="text-align: center; vertical-align: middle;">Fecha de Activación</th>
-                        <th scope="col" style="text-align: center; vertical-align: middle;">Status</th>
-                        <th scope="col" style="text-align: center; vertical-align: middle;">Tipo</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Cantidad</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Folio Inicial</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Folio Final</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Usuario</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Fecha</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Descripcion</th>
                         </thead>
                         <tbody id = "taquillasEvento">
                         </tbody>
