@@ -1796,20 +1796,18 @@ $("#guardarCortesias").on('click',function(){
         data: $("#formulario_Cortesias_Evento").serialize(),
         dataType: 'JSON',
         error(jqXHR, textStatus, errorThrown){
-            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);7
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
             cerrarCarga();
         }
     }).done(function(data){
         if(data.respuesta){
             //location.reload();
-            console.log(JSON.stringify(data.msj));
-            cerrarCarga();
+            location.reload();
+            cerrarCarga(); 
         }
         else{
-            alert('Favor de verificar los rangos de los folios');
+            alert('Favor de verificar los rangos de los folios, folio inicial: ' + JSON.stringify(data.folioInicial) + ' folio final: ' +JSON.stringify( data.folioFinal));
             cerrarCarga();
         }
     });
-
-    cerrarCarga();
 });

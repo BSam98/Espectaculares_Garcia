@@ -998,6 +998,31 @@ class Eventos_Model extends Model{
         return true;
     }
 
+    public function mostrar_Cortesias($idEvento){
+        $db = \Config\Database::connect();
+        
+        $query = $db->query(
+            "SELECT
+                Tarjeta_Regalo.idTarjetaRegalo,
+                Tarjeta_Regalo.Descripcion,
+                (SELECT Folio FROM Tarjetas WHERE idTarjeta = Tarjeta_Regalo.folio_Inicial) AS Folio_Inicial,
+                (SELECT Folio FROM Tarjetas WHERE idTarjeta = Tarjeta_Regalo.folio_Final) AS Folio_Final
+            FROM
+                Tarjeta_Regalo
+            INNER JOIN
+                Tarjetas
+            ON
+                Tarjeta_Regalo.folio_Inicial = Tarjetas.idTarjeta
+            WHERE
+                Tarjeta_Regalo.idEvento = $idEvento;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
     public function buscar_Lotes($datos){
         $db = \Config\Database::connect();
 
@@ -1049,6 +1074,71 @@ class Eventos_Model extends Model{
         $datos = $query->getResultObject();
 
         return $datos;
+    }
+    public function evaluar_Folios($datos){
+
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT DISTINCT
+                Lotes.idLote
+            FROM
+                Lotes
+            INNER JOIN
+                Tarjetas
+            ON
+                Tarjetas.idLote = Lotes.idLote
+            WHERE
+                Lotes.idLote = (SELECT Tarjetas.idLote FROM Tarjetas WHERE Folio =$datos[folioInicial])
+            AND
+                Lotes.idLote = (SELECT Tarjetas.idLote FROM Tarjetas WHERE Folio=$datos[folioFinal])
+            AND
+                (SELECT Tarjetas.idStatus FROM Tarjetas WHERE Folio = $datos[folioInicial]) = 1
+            AND
+                (SELECT Tarjetas.idStatus FROM Tarjetas WHERE Folio = $datos[folioFinal]) = 1	
+            AND
+                Tarjetas.idFajilla IS NULL
+            AND
+                Tarjetas.idStatus = 1;
+            "
+        );
+
+        if($query->getResultObject()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function agregar_Cortesias($datos){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "UPDATE
+                Tarjetas
+            SET
+                idStatus = 2,
+                CreditoC = $datos[creditos]
+            WHERE
+                idFajilla IS NULL
+            AND
+                idStatus = 1
+            AND
+                Folio BETWEEN $datos[folioInicial] AND $datos[folioFinal];
+            "
+        );
+
+        $query = $db->query(
+            "INSERT INTO
+                Tarjeta_Regalo
+            VALUES(
+                '$datos[descripcion]',
+                (SELECT idTarjeta FROM Tarjetas WHERE Folio= $datos[folioInicial]),
+                (SELECT idTarjeta FROM Tarjetas WHERE Folio = $datos[folioFinal])
+            );
+            "
+        );
+        return true;
     }
 
     public function listado_Precios_Por_Evento(){}
