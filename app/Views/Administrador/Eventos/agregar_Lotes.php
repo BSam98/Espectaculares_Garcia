@@ -30,7 +30,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <textarea id="folios" name="folios" cols="30" rows="2" disabled></textarea>
+                                        <textarea id="folios" name="folios" cols="30" rows="2" readonly></textarea>
                                         <!--input type="text" class="form-control" id="folios" name="folios" value=""--></td>
                                     <td><input type="number" class="form-control" placeholder="Folio Inicial" id="folioInicial" name = "folioInicial"></td>
                                     <td><input type="number" class="form-control" placeholder="Folio Final" id = "folioFinal" name = "folioFinal"></td>

@@ -139,6 +139,15 @@ $routes->post('/Eventos/Mostrar_Tarjetas_Nuevas','Eventos_Control::mostrar_Tarje
 $routes->get('/Eventos/Agregar_Tarjetas_Evento','Eventos_Control::agregar_Tarjetas_Evento');
 $routes->post('/Eventos/Agregar_Tarjetas_Evento','Eventos_Control::agregar_Tarjetas_Evento');
 
+$routes->get('/Eventos/Lotes_Cortesias','Eventos_Control::buscar_Lotes');
+$routes->post('/Eventos/Lotes_Cortesias','Eventos_Control::buscar_Lotes');
+
+$routes->get('/Eventos/Tarjetas_Cortesias','Eventos_Control::buscar_Tarjetas');
+$routes->post('/Eventos/Tarjetas_Cortesias','Eventos_Control::buscar_Tarjetas');
+
+$routes->get('/Eventos/Agregar_Cortesias','Eventos_Control::agregar_Cortesias');
+$routes->post('/Eventos/Agregar_Cortesias','Eventos_Control::agregar_Cortesias');
+
 $routes->get('/Eventos/Mostrar_Zonas','Eventos_Control::mostrar_Zonas_Evento');
 $routes->post('/Eventos/Mostrar_Zonas','Eventos_Control::mostrar_Zonas_Evento');
 

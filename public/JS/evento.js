@@ -2,9 +2,12 @@ var contadorAtraccion=0;
 var contadorTaquilla=0;
 var contadorVentanilla=0;
 var contadorPromociones=0;
+var contadorCortesias=0;
 var precio_Promocion =[];
+var string= [];
 var select_Zonas_Html = '';
 var option_Zonas_Html = '';
+var select_Lote = '';
 var opcion;
 var contadorFila=0; //contador para asignar id al boton que borrara la fila
 var diaInicial=[],diaFinal=[],precio=[];
@@ -895,7 +898,6 @@ $("#nuevaAt").click(function(){
     contadorAtraccion = contadorAtraccion + 1;
     $("#agregarAtracciones tbody tr:eq(0)").clone().attr('id',contadorAtraccion).removeClass('f-Atracciones').appendTo("#agregarAtracciones");
 });
-
 /**--- Aqui seguimos */
 $(document).on('click','.editar_Atraccion', function(){
     var idAtraccionEvento_Html = '';
@@ -1368,10 +1370,10 @@ $(document).on('click','.mostrar_Taquillas_Evento', function(){
                 datos_Ventanilla = JSON.stringify(arreglo);
 
                 tabla_Taquilla_Html +='<tr>'+
-                '<td><a href="#modal_Editar_Taquillas" class="editar_Taquillas" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Ventanilla+','+'"idTaquilla":'+data.Taquilla[i]['idTaquilla']+','+'"Nombre":"'+data.Taquilla[i]['Nombre']+'",'+'"idZona":'+data.Taquilla[i]['idZona']+','+'"Zona":"'+data.Taquilla[i]['Zona']+'",'+'"idEvento":'+JSON.stringify(idEvento)+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
-                '<td>'+data.Taquilla[i]['Zona']+'</td>'+
-                '<td>'+data.Taquilla[i]['Nombre']+'</td>'+
-                '<td>'+ventanillas_Html+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;"><a href="#modal_Editar_Taquillas" class="editar_Taquillas" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Ventanilla+','+'"idTaquilla":'+data.Taquilla[i]['idTaquilla']+','+'"Nombre":"'+data.Taquilla[i]['Nombre']+'",'+'"idZona":'+data.Taquilla[i]['idZona']+','+'"Zona":"'+data.Taquilla[i]['Zona']+'",'+'"idEvento":'+JSON.stringify(idEvento)+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.Taquilla[i]['Zona']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.Taquilla[i]['Nombre']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+ventanillas_Html+'</td>'+
                 '</tr>';
                 ventanillas_Html ='';
             }
@@ -1646,4 +1648,168 @@ $("#guardar_Taquilla_Editada").on('click',function(){
             location.reload();
         }
     });
+});
+
+/**----------------------------Tarjetas Cortesia------------------------------------------------ */
+$(document).on('click','.mostrar_Cortesias_Evento', function(){
+    iniciarCarga();
+
+    $("#cuerpo_agregar_Cortesias").html(
+        '<tr>'+
+        '<td>'+
+            '<div id="lote_Cortesias0" class="form-group">'+
+            '</div>'+
+            '<div id="folios_Disponibles0" class="form-group">'+
+                '<label for="folios_Cortesia">Folios Diposnibles</label>'+
+                '<br>'+
+                '<textarea id="folios_Cortesia" name="folios_Cortesia[]" cols="70",rows="70" class="form-control" readonly>'+
+                '</textarea>'+
+            '</div>'+
+            '<div id="folios_Seleccionados0" class="form-group">'+
+                '<label for="b">Folio Inicial</label>'+
+                '<input id="folio_Inicial_Cortesias" name="folio_Inicial_Cortesias[]" class="form-control">'+
+                '<br>'+
+                '<label for="c">Folio Final</label>'+
+                '<input id="folio_Final_Cortesias" name="folio_Final_Cortesias[]" class="form-control">'+
+            '</div>'+
+            '<div id="creditos_Otorgados0" class="form-group">'+
+                '<label>Creditos a otorgar</label>'+
+                '<input id="creditos_Otorgados" name="creditos_Otorgados[]" class="form-control" type="number">'+
+            '</div>'+
+            '<div id="descripción_Cortesias0" >'+
+                '<label>Concepto</label>'+
+                '<textarea id="descripcion_Cortesias" name="descripcion_Cortesias[]" cols="10", rows="2" class="form-control"></textarea>'+
+            '</div>'+
+        '</td>'+
+        '<td class="eliminar_Registro_Cortesias"><input type="button" value="-"/></td>'+
+    '</tr>'
+    );
+    contadorCortesias=0;
+    datos = $(this).data('book-id');
+    select_Lote ='';
+    var option_Lote = '';
+
+    option_Lote = '<option>Lotes</option>';
+
+    $.ajax({
+        type:'POST',
+        url: 'Eventos/Lotes_Cortesias',
+        data: datos,
+        dataType: 'JSON',
+        error(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            for(var i=0; i<data.msj.length;i++){
+                option_Lote +='<option value="'+data.msj[i]['idLote']+'">'+data.msj[i]['Nombre']+'</option>'
+            }
+            select_Lote ='<label>Seleccione un lote disponible</label>'+ 
+            '<select id="lote_Cortesia" name="lote_Cortesia[]" class="lote_Cortesias form-control">'+option_Lote+'</select>'
+            
+            $("#lote_Cortesias0").html(select_Lote);
+            cerrarCarga();
+        }
+    });
+    
+});
+
+
+$('#agregar_Registro').on('click', function(){
+    contadorCortesias++;
+    
+    $(
+        '<tr>'+
+            '<td>'+
+                '<div id="lote_Cortesias'+contadorCortesias+'" class="form-group">'+
+                    select_Lote+
+                '</div>'+
+                '<div id="folios_Disponibles'+contadorCortesias+'" class="form-group">'+
+                    '<label for="folios_Cortesia">Folios Diposnibles</label>'+
+                    '<br>'+
+                    '<textarea id="folios_Cortesia" name="folios_Cortesia[]" cols="70",rows="70" class="form-control" readonly>'+
+                    '</textarea>'+
+                '</div>'+
+                '<div id="folios_Seleccionados'+contadorCortesias+'" class="form-group">'+
+                    '<label for="b">Folio Inicial</label>'+
+                    '<input id="folio_Inicial_Cortesias" name="folio_Inicial_Cortesias[]" class="form-control">'+
+                    '<br>'+
+                    '<label for="c">Folio Final</label>'+
+                    '<input id="folio_Final_Cortesias" name="folio_Final_Cortesias[]" class="form-control">'+
+                '</div>'+
+                '<div id="creditos_Otorgados'+contadorCortesias+'" class="form-group">'+
+                    '<label>Creditos a otorgar</label>'+
+                    '<input id="creditos_Otorgados" name="creditos_Otorgados[]" class="form-control" type="number">'+
+                '</div>'+
+                '<div id="descripción_Cortesias'+contadorCortesias+'" class="form-group">'+
+                    '<label>Concepto</label>'+
+                    '<textarea id="descripcion_Cortesias" name="descripcion_Cortesias[]" cols="10", rows="2" class="form-control"></textarea>'+
+                '</div>'+
+            '</td>'+
+            '<td class="eliminar_Registro_Cortesias"><input type="button" value="-"/></td>'+
+        '</tr>'
+    ).clone().appendTo("#agregar_Cortesias");
+});
+
+$(document).on('change','.lote_Cortesias', function(){
+    var lote = $(this).val();
+    var id = $(this).parents('div').attr('id').substr(-1);
+
+    if(lote != "Lotes"){
+        $.ajax({
+            beforSend: function(){
+                iniciarCarga();
+            },
+            type:'POST',
+            url:'Eventos/Tarjetas_Cortesias',
+            data:{'idLote':lote,'idEvento':datos},
+            dataType:'JSON',
+            error(jqXHR, textStatus, errorThrown){
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+                cerrarCarga();
+            }
+        }).done(function(data){
+            if(data.respuesta){
+                string= [];
+                for(var i=0; i<data.msj.length;i++){
+                    string[i] = data.msj[i]['Folio'];
+                }
+                $('#folios_Disponibles'+id).html('<label for="folios_Cortesia">Folios Disponibles</label><br><textarea id="folios_Cortesia" name="folios_Cortesia" cols="70",rows="70" class="form-control" readonly>'+string+'</textarea>');
+                cerrarCarga();
+            }
+        });
+    }
+});
+
+$(document).on('click','.eliminar_Registro_Cortesias', function(){
+    var parent = $(this).parents().get(0);
+    $(parent).remove();
+});
+
+$("#guardarCortesias").on('click',function(){
+    iniciarCarga();
+
+    $.ajax({
+        type:'POST',
+        url:'Eventos/Agregar_Cortesias',
+        data: $("#formulario_Cortesias_Evento").serialize(),
+        dataType: 'JSON',
+        error(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);7
+            cerrarCarga();
+        }
+    }).done(function(data){
+        if(data.respuesta){
+            //location.reload();
+            console.log(JSON.stringify(data.msj));
+            cerrarCarga();
+        }
+        else{
+            alert('Favor de verificar los rangos de los folios');
+            cerrarCarga();
+        }
+    });
+
+    cerrarCarga();
 });

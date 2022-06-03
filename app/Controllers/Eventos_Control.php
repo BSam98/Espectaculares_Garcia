@@ -874,6 +874,49 @@ class Eventos_Control extends BaseController {
 
     }
 
+
+    public function buscar_Lotes(){
+        $model = new Eventos_Model();
+
+        $idEvento = $_POST['idEvento'];
+
+        $respuesta = $model->buscar_Lotes($idEvento);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
+
+    public function buscar_Tarjetas(){
+        $model = new Eventos_Model();
+
+        $idLote = $_POST['idLote'];
+        $idEvento = $_POST['idEvento'];
+
+        $respuesta = $model->buscar_Tarjetas($idLote,$idEvento['idEvento']);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
+
+    public function agregar_Cortesias(){
+        $model = new Eventos_Model();
+
+        $idLote = $_POST['lote_Cortesia'];
+        $folios = $_POST['folios_Cortesia'];
+        $folioInicial = $_POST['folio_Inicial_Cortesias'];
+        $folioFinal = $_POST['folio_Final_Cortesias'];
+        $creditos = $_POST['creditos_Otorgados'];
+        $descripcion = $_POST['descripcion_Cortesias'];
+
+        $datos = [
+            'lotes'=>$idLote,
+            'folio inicial'=> $folioInicial,
+            'folio final' => $folioFinal,
+            'creditos' => $creditos,
+            'descripcion' => $descripcion
+        ];
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$datos));
+    }
+
     public function create(){
         return "";
     }

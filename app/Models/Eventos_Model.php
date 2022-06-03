@@ -39,6 +39,24 @@ class Eventos_Model extends Model{
 
     public function listadoLotes(){
         $db = \Config\Database::connect();
+
+        $query =$db->query(
+            "SELECT DISTINCT
+                Lotes.idLote,
+                Lotes.Nombre
+            FROM
+                Lotes
+            INNER JOIN
+                Tarjetas
+            ON
+                Lotes.idLote = Tarjetas.idLote
+            WHERE
+                Tarjetas.idEvento IS NULL;
+        ");
+
+        $datos = $query->getResultObject();
+        
+        /*
         $builder = $db->table('Lotes');
 
         $builder-> select(
@@ -48,7 +66,8 @@ class Eventos_Model extends Model{
             '
         );
 
-        $query = $builder->get();
+        $query = $builder->get();*/
+        
      
         $datos = $query->getResultObject();
 
@@ -977,6 +996,59 @@ class Eventos_Model extends Model{
         );
 
         return true;
+    }
+
+    public function buscar_Lotes($datos){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT DISTINCT
+                Lotes.idLote,
+                Lotes.Nombre
+            FROM
+                Lotes
+            INNER JOIN
+                Tarjetas
+            ON
+                Lotes.idLote = Tarjetas.idLote
+            WHERE
+                Tarjetas.idEvento = $datos
+            AND
+                idStatus = 1
+            AND
+                Tarjetas.idFajilla IS NULL;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+
+    }
+
+    public function buscar_Tarjetas($idLote,$idEvento){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                idTarjeta,
+                Folio
+            FROM 
+                Tarjetas
+            WHERE 
+                idEvento = $idEvento
+            AND
+                idStatus = 1
+            AND
+                idLote = $idLote
+            AND
+                idFajilla IS NULL;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
     }
 
     public function listado_Precios_Por_Evento(){}
