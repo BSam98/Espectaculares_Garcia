@@ -874,6 +874,85 @@ class Eventos_Control extends BaseController {
 
     }
 
+
+    public function buscar_Lotes(){
+        $model = new Eventos_Model();
+
+        $idEvento = $_POST['idEvento'];
+
+        $datos = $model->mostrar_Cortesias($idEvento);
+
+        $respuesta = $model->buscar_Lotes($idEvento);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta,'datos'=>$datos));
+    }
+
+    public function buscar_Tarjetas(){
+        $model = new Eventos_Model();
+
+        $idLote = $_POST['idLote'];
+        $idEvento = $_POST['idEvento'];
+
+        $respuesta = $model->buscar_Tarjetas($idLote,$idEvento['idEvento']);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
+
+    public function agregar_Cortesias(){
+        $model = new Eventos_Model();
+
+        $idLote = $_POST['lote_Cortesia'];
+        $folios = $_POST['folios_Cortesia'];
+        $folioInicial = $_POST['folio_Inicial_Cortesias'];
+        $folioFinal = $_POST['folio_Final_Cortesias'];
+        $creditos = $_POST['creditos_Otorgados'];
+        $descripcion = $_POST['descripcion_Cortesias'];
+
+        $num_elementos = 0;
+        $cantidad = count($idLote);
+
+        while($num_elementos<$cantidad){
+
+            $datos = [
+                'idLote' => $idLote[$num_elementos],
+                'folioInicial' => $folioInicial[$num_elementos],
+                'folioFinal' => $folioFinal[$num_elementos],
+            ];
+
+            $respuesta = $model->evaluar_Folios($datos);
+
+            
+            if($respuesta){
+
+                $num_elementos = $num_elementos + 1;
+
+                if($num_elementos == $cantidad){
+                    $contador = 0;
+                    $tamaño = count($idLote);
+        
+                    while($contador<$tamaño){
+                        $datos=[
+                            'creditos' => $creditos[$contador],
+                            'folioInicial' => $folioInicial[$contador],
+                            'folioFinal' => $folioFinal[$contador],
+                            'descripcion' => $descripcion[$contador]
+                        ];
+                        $respuesta = $model->agregar_Cortesias($datos);
+                        $contador = $contador + 1;
+
+                        if($contador == $tamaño){
+                            echo json_encode(array('respuesta'=> true));
+                        }
+                    }
+                }
+            }
+            else{
+                echo json_encode(array('respuesta'=>false,'folioInicial' =>$folioInicial[$num_elementos],'folioFinal'=>$folioFinal[$num_elementos]));
+                $num_elementos = $cantidad + 1;
+            };
+        }
+    }
+
     public function create(){
         return "";
     }
