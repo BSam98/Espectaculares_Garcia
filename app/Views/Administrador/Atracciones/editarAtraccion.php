@@ -1,4 +1,4 @@
-<div class="modal fade" id="eAtraccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="eAtraccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <!-- Modal Header -->
@@ -44,7 +44,7 @@
                         <input type="text"  class="form-control" id = "TiempoMAX" name = "TiempoMAX" value="">
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id = "actualizarAtraccion">Actualizar</button>
+                        <button type="button" class="btn btn-success" id = "actualizarAtraccion">Actualizar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>

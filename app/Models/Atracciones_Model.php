@@ -19,6 +19,7 @@ class Atracciones_Model extends Model{
         //$this->builder = $this->table;
     }
 
+
     public function listadoAtracciones(){
         /*
         $this->builder-> select(
@@ -113,14 +114,14 @@ class Atracciones_Model extends Model{
         return 'Funciono';
     }
 
-    public function actualizarAtraccion($idAtraccion,array $datos){
+    public function actualizarAtraccion($idAtraccion,$datos){
         $db= \Config\Database::Connect();
         $builder = $db->table('Atracciones');
 
         $builder->where('idAtraccion',$idAtraccion);
         $builder->update($datos);
 
-        //return 'Funciono';
+        return 'Funciono';
     }
 
     public function actualizarPropietario($idPropietario, array $datos){

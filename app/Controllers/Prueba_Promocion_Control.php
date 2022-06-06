@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controllers;
-
 use App\Models\Prueba_Promocion_Model;
 class Prueba_Promocion_Control extends BaseController{
     protected $model;

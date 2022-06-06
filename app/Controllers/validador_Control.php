@@ -1,6 +1,5 @@
 <?php namespace App\Controllers;
 use App\Models\Validador_Model;
-
 class validador_Control extends BaseController {
 
     protected $model;
@@ -44,8 +43,6 @@ class validador_Control extends BaseController {
 
     public function Cerrar_Sesion(){
         $model = new Validador_Model();
-        
-
         $fecha = $_POST['fecha'];
 
         $idAtraccionEvento = $_POST['idAtraccionEvento'];
@@ -58,7 +55,7 @@ class validador_Control extends BaseController {
         $respuesta = $model->Cerrar_Sesion($datos,$idAtraccionEvento);
 
         if($respuesta !=false){
-            echo json_encode(array('respuesta'=>true,'msj'=>'Funciono'));
+            echo json_encode(array('respuesta'=>true,'msj'=>'Funciono'));            
         }
         else{
             echo json_encode(array('respuesta'=>false,'msj'=>'No se logro cerrar sesion, favor de comunicarse con el supervisor.'));
@@ -229,6 +226,12 @@ class validador_Control extends BaseController {
     }
 
     public function new (){
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
         $model = new Validador_Model();
 
         //$fechaInicial = date("Y-m-d");
@@ -252,10 +255,10 @@ class validador_Control extends BaseController {
         */
         
         
-        echo View('../Views/header');
-        echo View('Usuarios/menu_user');
+        //echo View('../Views/header');
+        //echo View('Usuarios/menu_user');
         echo View('Usuarios/validador',$datos);
-        echo View('../Views/piePagina');
+       // echo View('../Views/piePagina');
         
         
         /*

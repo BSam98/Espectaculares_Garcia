@@ -1,3 +1,9 @@
+<?php 
+if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
+    header('Location: http://localhost/Espectaculares_Garcia/public/');
+    exit();
+}else{
+?>
 <fieldset id="fieldset">
     <center><h2><i class="fa fa-star" aria-hidden="true"></i>&nbsp;REPORTE DE ATRACCIONES</h2></center><hr>
     <div class="container">
@@ -93,3 +99,4 @@
         });
     });
 </script>
+<?php }?>

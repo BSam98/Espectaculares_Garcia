@@ -1,8 +1,16 @@
-<!--Contenedor Superior-->
+<?php 
+if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['Usuario']))) {
+    header('Location: http://localhost/Espectaculares_Garcia/public/');
+    exit();
+}else{
+?>
     <div class="container">
+        <?php if($_SESSION['idRango'] == '5' ){ ?><script>location.href="turno?t="+<?php echo $_SESSION['idUsuario']?>;</script><?php }?>
+        <?php if($_SESSION['idRango'] == '8' ){ ?><script>location.href="turnoValidador?t="+<?php echo $_SESSION['idUsuario']?>;</script><?php } ?>
         <nav class="navbar navbar-fixed-top tm_navbar negro" role="navigation">
             <a href="Menu_Principal_User"><img src = "Img/logo.png" style="width: 70px; height:7   0px;"/></a>
             <ul class="nav navbar-nav sf-menu">
+            
                 <!--li class="dropdown">
                     <a href="Menu_Principal_User" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home" aria-hidden="true"></i>Punto de Venta</a>
                 </li>
@@ -18,7 +26,7 @@
                 <li--><!--a href=""><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Asistencia</a>
                 </li-->
                 <li class="dropdown">
-                    <a class="navbar-brand" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;<?php echo session('Usuario');?></a>
+                    <a class="navbar-brand" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;<?php echo $_SESSION['Usuario']?></a>
                         <ul class="dropdown-submenu" id="subMenuCatalago">
                             <li><a href="CerrarSesion" id="button"><span>Salir</span></a></a></li>
                         </ul>
@@ -26,4 +34,4 @@
             </ul>
         </nav>
     </div>
-<!--/Contenedor Superior-->
+<?php }?>

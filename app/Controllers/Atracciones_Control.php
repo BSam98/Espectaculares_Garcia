@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 
 use App\Models\Atracciones_Model;
+use App\Models\Iniciar_Sesion_Administrador_Model;
 
 class Atracciones_Control extends BaseController {
 
@@ -13,16 +14,25 @@ class Atracciones_Control extends BaseController {
         $this->request = \Config\Services::request();
     }
 
-    public function new (){
+    public function new(){
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
         $model = new Atracciones_Model();
-
-        //$datos["Atraccion"] = $model->listadoAtracciones();
+        $model2 = new Iniciar_Sesion_Administrador_Model();
+        $rango = $_GET['idT'];
         $datos =[
             'Atraccion' => $model->listadoAtracciones(),
-            'Propietario' => $model->listadoPropietartios()
+            'Propietario' => $model->listadoPropietartios(),
+            'Privilegios' => $model2->consultarPrivilegiosR($rango),
         ];
-        echo view('../Views/header');
-        echo view('../Views/menu');
+
+        echo view('../Views/header',$datos);
+        //echo view('../Views/menu');
+        //echo view('Administrador/Menu_Principal_View');
         echo view ('Administrador/Atracciones/Atracciones_View', $datos);
         echo view('../Views/piePagina');
     }
@@ -159,7 +169,7 @@ class Atracciones_Control extends BaseController {
             'CapacidadMIN' => $this->request->getVar('CapacidadMIN'),
         ];
         $respuesta = $model->actualizarAtraccion($idAtraccion,$datos);
-        echo json_encode(array('respuesta'=>true,'msj'=>'actualizar modelo'));
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
     }
 
     public function actualizarPropietario(){

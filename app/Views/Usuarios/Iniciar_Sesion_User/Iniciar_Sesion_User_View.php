@@ -5,35 +5,55 @@
         <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content = "ie=edge"/>
         <title>Inicio de Sesion</title>
-
-        <!--Asi se asocian los estilos con html-->
         <link href="CSS/inicio_sesion_style.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+        <link rel="stylesheet" href="../bootstrap/bootstrap.min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="../bootstrap/bootstrap.min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <script src="../bootstrap/jquery.min.js"></script>
+        <script src="../bootstrap/jquery.slim.min.js" crossorigin="anonymous"></script>
+        <script src="../bootstrap/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
-        <!--<link rel = "stylesheet" type = "text/css" href = "<?= base_url()?> /CSS/inicio_sesion_style.css">-->
-
+        <link rel="stylesheet" href="../bootstrap/jquery.dataTables.min.css"> 
+        <link rel="stylesheet" href="../bootstrap/buttons.dataTables.min.css"> 
+        <script src="../bootstrap/jquery-3.5.1.js"></script>
+        <script src="../bootstrap/jquery.dataTables.min.js"></script>
+        <script src="../bootstrap/dataTables.buttons.min.js"></script>
+        <script src="../bootstrap/jszip.min.js"></script>
+        <script src="../bootstrap/pdfmake.min.js"></script>
+        <script src="../bootstrap/vfs_fonts.js"></script>
+        <script src="../bootstrap/buttons.html5.min.js"></script>
+        <script src="../bootstrap/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../bootstrap/bootstrap-icons.css">
+        <link rel="stylesheet" href="../bootstrap/aos.css" />
+        <script src="../bootstrap/aos.js"></script>
+        <script src="../bootstrap/sweetalert.min.js"></script>
+        <script src="../bootstrap/jquery.easing.min.js"></script>
+        <!--link href="../bootstrap/sb-admin-2.min.css" rel="stylesheet"-->
+        <script src="../bootstrap/moment-with-locales.min.js"></script>
+        <script src="../bootstrap/jquery.loadingModal.js"></script>
+        <link rel="stylesheet" href="../bootstrap/jquery.loadingModal.css">
+        <link href="CSS/inicio_sesion_style.css" rel="stylesheet" type="text/css">
     </head>
     <body class="body">
         <div class="container">
             <div class="row">
                 <div class="col-xl-6 col-md-6 col-sm-6">
-                    <form method="POST" action="Busuarios" class="form-horizontal">
+                    <form id="formularioLogin"  name="formularioLogin" class="form-horizontal">
                         <center><img src="./Img/logo.png" class="logo" alt="logo"></center><br>
                             <div class="form-group col-sm-4 col-md-8 col-lg-12">
-                                <label class="Usuario" for="Usuario">USUARIO</label>
-                                <input class="inputUsario form-control" type="text" name="usuario" required placeholder="Usuario">
+                                <label>USUARIO</label>
+                                <input class="inputUsario form-control" type="text" name="usuario" id="usuario" required placeholder="Usuario">
                             </div>
                             <div class="form-group col-sm-4 col-md-8 col-lg-12">
-                                <label class="Contraseña" for="Contraseña">CONTRASEÑA</label>
-                                <input class="form-control" type="password" required name="pass" placeholder="Contraseña">
+                                <label>CONTRASEÑA</label>
+                                <input class="form-control" type="password" required name="pass" id="pass" placeholder="Contraseña">
                                 <!-- pattern="[A-Za-z_-0-9]{1,20}"-->
                                 <br>
                                 <p id="sevive"># SE VIVE ESPECTACULAR</p>
                             </div>
                             <br><br>
                             <!--button class="btn btn-success botac" onClick="window.location.href='Menu_Principal_Administrador'" href='menu_Principal.html'>Acceder</button-->
-                            <button class="btn btn-success botac" type="submit" name="register" value="register">Iniciar Sesion</button>
+                            <button class="btn btn-success" type="button" id="Iniciar" name="Iniciar">Iniciar Sesion</button>
                     </form>
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-6" id="textoTitulo">PUNTO DE VENTA</div>
@@ -41,3 +61,23 @@
         </div>
     </body>
 </html>
+
+<script>
+  $(document).on('click','#Iniciar', function(){
+     // alert($("#formularioLogin").serialize());
+       $.ajax({
+            type: "POST",
+            url: "Busuarios",
+            dataType: 'JSON',
+            data: $("#formularioLogin").serialize(),
+            success: function(data){ 
+                console.log('soy data'+data.idUsuario);
+                if(data.resultado == true){
+                    location.href="TipoT?idT="+data.idRango;              
+                }else{
+                    alert(data.msg);
+                }
+            }
+        });
+    });
+</script>

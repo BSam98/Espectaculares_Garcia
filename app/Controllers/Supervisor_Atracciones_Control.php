@@ -1,5 +1,4 @@
 <?php namespace App\Controllers;
-
 class Supervisor_Atracciones_Control extends BaseController {
 
     protected $model;

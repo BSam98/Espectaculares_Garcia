@@ -16,6 +16,12 @@ class Reporte_Venta_Control extends BaseController{
 	}*/
 
 	public function consultarVentanilla(){
+		session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
 		$model = new reporte_Ventas_Model;
 		$idv = $_GET['idv'];
 		$data = ['Turno'=>$model->consultarV($idv)];
@@ -53,8 +59,15 @@ class Reporte_Venta_Control extends BaseController{
 		$fF = $_POST['devtF'];//folios devueltos
 		$efec = $_POST['efectivo'];//efectivo entrante
 		$vouch = $_POST['vouch'];//dinero en vouchers
-		$idv = $_POST['idv'];//idApertura ventanilla
+		$idv = $_POST['idv'];//idFajilla
 		$data = $model->cerrarCajas($fI,$fF, $efec, $vouch, $idv);
 		echo json_encode(array('respuesta'=>true,'msj'=>$data));
+	}
+
+	public function cerrarTurn(){
+		$model = new reporte_Ventas_Model;
+		$idv = $_POST['idv'];//idFajilla
+		$data = $model->cerrarTurno($idv);
+		echo json_encode(array('respuesta'=>true, 'msj'=>$data));
 	}
 }	

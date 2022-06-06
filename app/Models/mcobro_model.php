@@ -1247,14 +1247,16 @@ class mcobro_model extends Model{
         $builder-> select(
             'folioInicial,
             folioFinal,
-            idAperturaVentanilla'
+            idAperturaVentanilla,
+            idFajilla'
         );
-        $builder->where('idAperturaVentanilla', $v);
+        $builder->where('idFajilla', $v);
         $query = $builder->get();
         $datos = $query->getResultArray();
         foreach($datos as $d){
             $folioi = $d['folioInicial'];
             $foliof = $d['folioFinal'];
+            $idApVentanilla = $d['idAperturaVentanilla'];
         }
 
         $query = $db->query("SELECT count(*) as vendidas, (SELECT COUNT(*) from Tarjetas WHERE idStatus ='1' and idTarjeta BETWEEN ".$folioi." and ".$foliof.") as sobrantes, 
@@ -1271,7 +1273,7 @@ class mcobro_model extends Model{
             $data = [
                 'idStatus' => '3'
             ];
-            $builder->where('idAperturaVentanilla', $v);
+            $builder->where('idFajilla', $v);
             if($builder->update($data)){
 
                 $builder = $db->table('Fajillas');
@@ -1280,7 +1282,7 @@ class mcobro_model extends Model{
                     'idStatus' => '6',
                     'folioInicial' => $folii,
                     'folioFinal'=>$folff,
-                    'idAperturaVentanilla' => $v
+                    'idAperturaVentanilla' => $idApVentanilla
                 ];
                 if($builder->insert($data)){
                     return true;
@@ -1301,15 +1303,18 @@ class mcobro_model extends Model{
         $builder-> select(
             'folioInicial,
              folioFinal,
-             idAperturaVentanilla
+             idAperturaVentanilla,
+             idFajilla
             '
         );
-        $builder ->where('idAperturaVentanilla', $idAp);
+        //$builder ->where('idAperturaVentanilla', $idAp);
+        $builder ->where('idFajilla', $idAp);
         $query = $builder->get();
         $datos = $query->getResultArray();
         foreach($datos as $idTurno){
             $folInicialTurno = $idTurno['folioInicial'];
             $folFinalTurno = $idTurno['folioFinal'];
+            $idAperturaV = $idTurno['idAperturaVentanilla'];
         }
 
         /******************************************* Sacar el id de la tarjeta con el folio de la tarjeta a devolver ******************/
@@ -1339,7 +1344,7 @@ class mcobro_model extends Model{
             $builder = $db->table('Devolucion_Tarjetas');
             $data = [
                 'idTarjeta' => $idTar,
-                'idAperturaVentanilla' => $idAp,
+                'idAperturaVentanilla' => $idAperturaV,
                 'Descripcion' => $descripcion,
             ];
             if($builder->insert($data)){

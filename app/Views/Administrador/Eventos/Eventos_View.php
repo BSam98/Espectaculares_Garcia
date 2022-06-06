@@ -1,6 +1,11 @@
-
-    <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
-        <center><label><h1>EVENTOS</h1></label></center>
+<?php 
+if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
+    header('Location: http://localhost/Espectaculares_Garcia/public/');
+    exit();
+}else{
+?>
+<fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+        <center><h1 style="color:black; ">EVENTOS</h1></center>
         <a href="#myModal" type="button" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Nuevo Evento</a>
 
         <div class="contenedorTabla">
@@ -64,9 +69,9 @@
                 </tbody>
             </table>
             <!--/Tabla-->
-        </div>
-        
-    </fieldset>
+        </div>        
+</fieldset>
+
 
 <?php
    include 'agregar_Evento.php';
@@ -132,3 +137,4 @@
         });
         
     </script>
+<?php }?>

@@ -1,7 +1,7 @@
-<?php namespace App\Controllers;
-
+<?php 
+namespace App\Controllers;
 use App\Models\Usuarios_Model;
-
+use App\Models\Iniciar_Sesion_Administrador_Model;
 
 
 class Usuarios_Control extends BaseController {
@@ -12,20 +12,25 @@ class Usuarios_Control extends BaseController {
     public function _construct(){}
 
     public function new (){
-
-        //$rol = session('idRango');
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
         $model =new Usuarios_Model();
-
+        $model2 = new Iniciar_Sesion_Administrador_Model();
+        $rango = $_GET['idT'];
         $datos = [
             'Usuario'=>$model->listadoUsuarios(),
             'Rango' =>$model->listadoRango(),
             'Evento' =>$model->listadoEventos(),
-            'Privilegios' =>$model->privilegios(),
-            'Modulos' =>$model->listaModulos(),
+            //'Modulos' =>$model->listaModulos(),
+            'Privilegios' => $model2->consultarPrivilegiosR($rango),
             //'Rango' => $model->privMod($rol),
         ];
-        echo view('../Views/header');
-        echo view('../Views/menu');
+        echo view('../Views/header', $datos);
+        //echo view('../Views/menu');
         echo view ('Administrador/Usuarios/Usuarios_View', $datos);
         echo view('../Views/piePagina');
     }
@@ -105,7 +110,7 @@ class Usuarios_Control extends BaseController {
         echo json_encode(array('respuesta'=>true,'msj'=>'asdasdasd'));
     }
 
-    public function privilegiosUsuarios(){
+    /*public function privilegiosUsuarios(){
         $model = new Usuarios_Model();
         $rol = $_POST['rango'];
         $data = [
@@ -115,9 +120,9 @@ class Usuarios_Control extends BaseController {
         //echo json_encode(array('respuesta'=>true,'msj'=>$data));
 
         echo json_encode(array('respuesta'=>true,'msj'=>$data));
-    }
+    }*/
 
-    public function insertarPriv(){
+    /*public function insertarPriv(){
         $model = new Usuarios_Model();
         $rol = $_POST['rango'];
         $privilegios = $_POST['select'];
@@ -130,7 +135,7 @@ class Usuarios_Control extends BaseController {
       //  $data = json_decode($rol, true); // true es para recibir un array en $datA
         //echo $data; 
         echo json_encode(array('msj'=>$data));
-    }
+    }*/
 
     public function create(){
         return "";

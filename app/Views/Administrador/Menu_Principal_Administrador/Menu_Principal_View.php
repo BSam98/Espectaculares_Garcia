@@ -1,5 +1,10 @@
-<!--Contenedor Inferior-->
+<?php 
+if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
+    header('Location: http://localhost/Espectaculares_Garcia/public/');
+    exit();
+}else{
+?>
     <div Class = "contenedorInferior">
-		<br>
+
     </div>
-<!--/ContenedorInferior-->
+<?php }?>
