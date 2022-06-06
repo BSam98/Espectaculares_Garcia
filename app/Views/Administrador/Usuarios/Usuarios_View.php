@@ -1,5 +1,11 @@
     <!--/Contenedor Superior-->
-    <fieldset id="fieldset" style="background-color: white;color:black;" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+<?php 
+    if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
+        header('Location: http://localhost/Espectaculares_Garcia/public/');
+        exit();
+    }else{
+?>
+    <fieldset id="fieldset" style="color:black;" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
         <center><label><h1>USUARIOS</h1></label></center>
         <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nuevo Usuario</a>
         <!--button onClick="">Nuevo Usuario</button-->
@@ -38,50 +44,6 @@
                 </table>
             </div>
         </div>
-
-        <div class="table table-stripped table-responsive">
-            <table>
-                <th></th>
-                <th>Rol</th>
-                <th>Privilegios</th>
-                <tbody>
-                    <?php foreach ($Privilegios as $key => $dP) : ?>
-                        <tr>
-                            <td><button type="button" class="btn btn-warning editarRol" value="<?= $dP->idRango?>" data-toggle="modal" data-target="#modal_privilegios">Editar</button></td>
-                            <!--td><a href="#editar_Rol<?php echo $dP->idRango?>" class="btn btn-warning" value="<?= $dP->idRango?>" data-toggle="modal">Editar</a></td-->
-                            <?php include 'editarRol.php'?>
-                            <td><?= $dP->Nombre?></td>
-                            <td><?= $dP->modulo?></td>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
-        </div>
-
-<!--**********************************EDITAR ROL*********************************-->
-<div class="modal fade" id="modal_privilegios">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-      <h4 class="modal-title">Privilegios</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <table>
-            <tbody id="privilegios">
-            </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregar" id="agregar" value="<?php echo $dP->idRango?>">Guardar</button>
-        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cerrar" id="cerrar">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--**********************************EDITAR ROL*********************************-->
-
         <!--AGREGAR USUARIOS-->
         <div class="modal fade" id="myModal" style="color:black;">
             <div class="modal-dialog modal-lg">
@@ -172,21 +134,21 @@
 <script src="JS/usuarios.js"></script>
 <script src="JS/carga.js"></script>
 <script>
-
-        $(document).ready(function() {
-            $('#example').DataTable( {
-                "aProcessing": true,//Activamos el procesamiento del datatables
-                "aServerSide": true,//Paginación y filtrado realizados por el servidor
-                dom: 'Bfrtip',//Definimos los elementos del control de tabla
-                buttons: [		          
-                            'copyHtml5',
-                            'excelHtml5',
-                            'csvHtml5',
-                            'pdf'
-                        ],
-                "bDestroy": true,
-                "iDisplayLength": 15,//Paginación
-                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
-            });
+    $(document).ready(function() {
+        $('#example').DataTable( {
+            "aProcessing": true,//Activamos el procesamiento del datatables
+            "aServerSide": true,//Paginación y filtrado realizados por el servidor
+            dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [		          
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdf'
+                    ],
+            "bDestroy": true,
+            "iDisplayLength": 15,//Paginación
+            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
         });
-    </script>
+    });
+</script>
+<?php }?>

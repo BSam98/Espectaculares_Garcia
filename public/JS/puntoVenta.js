@@ -13,7 +13,7 @@ let indices = [];
     $(document).on('click', '#devolucion', function(){
         $.ajax({
                 beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
-                  //  inicia_carg();//funcion que abre la ventana de carga
+                   // inicia_carg();//funcion que abre la ventana de carga
                 },
                 url:"devolverTarjeta",//la ruta a donde enviare la info
                 type:"POST",
@@ -34,7 +34,7 @@ let indices = [];
                     $('#tarjetD').val('');
                     $('#descripcion').val('');
                 }
-               // cierra_carg();
+                //cierra_carg();
             });
     
     });
@@ -61,9 +61,23 @@ let indices = [];
                 }).done(function(data){//obtiene el valor de data procesado en el controlador
                     console.log(data);
                     if(data.msj == false){
-                        alert('Usted no puede agregar una fajilla nueva, favor de terminar de vender la fajilla actual');
+                        /*<div class="alert alert-success fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="True">&times;</span>
+                        </button>
+                        <p id="mensaje"></p>
+                        <center><span class="badge badge-success" type="button" data-dismiss="modal">Aceptar</span></center>
+                    </div>*/
+
+
+                        MENSAJE = "Usted no puede agregar una fajilla nueva, favor de terminar de vender la fajilla actual";
+                        $("#mensaje").html(MENSAJE);
+                        $('#staticBackdrop').modal('show');
                     }else{
-                        alert('Si puede agregar');
+                        MENSAJE = "Agregado correctamente";
+                        $("#mensaje").html(MENSAJE);
+                        $('#alertaCorrecta').modal('show');
+                        //alert('Si puede agregar');
                     }
                 // cierra_carg();
                 });
@@ -166,21 +180,25 @@ let indices = [];
         var tipo = $('#cobrarTransaccion').val();
 
         if(tarjeta == ''){
-            alert('Debes realizar una compra');
-            
+            MENSAJE = "Debes realizar una compra";
+            $("#mensaje").html(MENSAJE);
+            $('#staticBackdrop').modal('show');            
         }else{
             if(tipo == 1){
                 var totalCobrar = $('#total').val();
                 var totalIngresado = $('#efectivo').val();
                 if(totalIngresado > totalCobrar){
                     var cambio = totalIngresado - totalCobrar;
-                    alert('Su cambio es de:' + cambio);
+                    MENSAJE = 'Su cambio es de:' + cambio;
+                    $("#mensaje").html(MENSAJE);
+                    $('#alertaCorrecta').modal('show');
+                    //alert('Su cambio es de:' + cambio);
                     cobrarCompra();
-                    location.reload();
+                   // location.reload();
                 }else if(totalIngresado == totalCobrar){
                     alert('Gracias por su compra');
                     cobrarCompra();
-                    location.reload();
+                    //location.reload();
                 }else if(totalIngresado < totalCobrar){
                     alert('Dinero Insuficiente');
                     acumulador=0;
@@ -266,10 +284,12 @@ let indices = [];
                         }
                     }
                 }else{
-                    alert('Usted no puede vender tarjetas que no estan en su fajilla o que ha cancelado');
+                    MENSAJE = "Usted no puede vender tarjetas que no estan en su fajilla o que ha cancelado";
+                    $("#mensaje").html(MENSAJE);
+                    $('#staticBackdrop').modal('show');
                     $('#tarjeta').val('');
                     $('#idTarjeta').val('');
-                    location.reload();
+                    //location.reload();// acomodar para recargar en 3 segundos
                 }
             });
     });
@@ -279,7 +299,9 @@ let indices = [];
     $('#recargaAdd').change(function () {
         var tarjeta = $('#tarjetaAdd').val();
         if(tarjeta == ''){
-            alert('Ingresa la tarjeta por favor');
+            MENSAJE = "Ingresa la tarjeta por favor";
+            $("#mensaje").html(MENSAJE);
+            $('#staticBackdrop').modal('show');
             $('#recargaAdd').val('');
         }else{
             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
@@ -326,7 +348,9 @@ let indices = [];
         var fecha = '<?php echo $fecha;?>';
         var tarjeta = $('#tarjetaAdd').val();
         if(tarjeta == ''){
-            alert('Ingresa la tarjeta por favor');
+            MENSAJE = "Ingresa la tarjeta por favor";
+            $("#mensaje").html(MENSAJE);
+            $('#staticBackdrop').modal('show');
         }else{
             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
             indices.push('3');//promo de pulsera
@@ -370,7 +394,9 @@ let indices = [];
         var fecha = '<?php echo $fecha;?>';
         var tarjeta = $('#tarjetaAdd').val();
         if(tarjeta == ''){
-            alert('Ingresa la tarjeta por favor');
+            MENSAJE = "Ingresa la tarjeta por favor";
+            $("#mensaje").html(MENSAJE);
+            $('#staticBackdrop').modal('show');
         }else{
             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
             indices.push('4');//promo de creditos
@@ -411,19 +437,26 @@ let indices = [];
 /********************************** Datos Formulario para Cobrar*********************************/
     //datos formulario para cobrar
     function cobrarCompra(){
-        var tipo = $('#cobrarTransaccion').val();
-        $.ajax({
-        type: "POST",
-        url: "guardarVentas",
-        data: $('#formPuntoVenta').serialize() + '&tipo=' + tipo,
-        dataType: "JSON",
-        error(jqXHR, textStatus, errorThrown){
-                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
-        },
-        }).done(function(data){
-            console.log('Si llego');
-            console.log(data.msj);
-        });
+        var tarjeta = $('#tarjetaAdd').val();
+        if(tarjeta == ''){
+            MENSAJE = "Ingresa la tarjeta por favor";
+            $("#mensaje").html(MENSAJE);
+            $('#staticBackdrop').modal('show');
+        }else{
+            var tipo = $('#cobrarTransaccion').val();
+            $.ajax({
+            type: "POST",
+            url: "guardarVentas",
+            data: $('#formPuntoVenta').serialize() + '&tipo=' + tipo,
+            dataType: "JSON",
+            error(jqXHR, textStatus, errorThrown){
+                    alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            },
+            }).done(function(data){
+                console.log('Si llego');
+                console.log(data.msj);
+            });
+        }
     }
 /********************************** Datos Formulario para Cobrar *********************************/
 

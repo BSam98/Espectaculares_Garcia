@@ -268,63 +268,73 @@ function ajaxCaja(){
         },
     }).done(function(data){
         console.log(data.msj);
-        var html ='';
-        for(var i = 0;i<data.msj.length; i++){
-            //if((efect >= data.msj[i]['totalEfectivo']) && (vou >= data.msj[i]['totalTarjeta'])){
-            if(efect < data.msj[i]['totalEfectivo'] || vou < data.msj[i]['totalTarjeta']){
-                //alert("Verifica la cantidad ingresada"+data.msj[i]["totalEfectivo"]+'*'+efect+'/'+data.msj[i]["totalTarjeta"]+'*'+vou);
-                $('#alertaDan').show();
-                //location.reload();
-                setTimeout('document.location.reload()',5000);
-            }else{
-                console.log(efect);
-                console.log(data.msj[i]['totalEfectivo']);
-                html +='<tr>'+
-                            '<td>'+
-                                '<div class="form-group">'+
-                                    '<h5><i class="fa fa-fax" aria-hidden="true"></i>&nbsp;Fondo Inicial:</h5>'+
-                                    '<input type="text" class="form-control" name="cierre" id="cierre" value="'+data.msj[i]["fondoCaja"]+'" style="background : inherit; border:none;" disabled>'+
-                                '</div>'+
-                            '</td>'+
-                        '</tr>';
-                        /*'<tr>'+
-                            '<td>'+
-                                '<div class="form-group">'+
-                                    '<h5><i class="fa fa-calculator" aria-hidden="true"></i>&nbsp;Total de Efectivo:</h5>'+
-                                    '<input type="text" class="form-control" name="dinEf" id="dinEf" value="'+data.msj[i]["totalEfectivo"]+'" disabled style="background : inherit; border:none;">'+
-                                '</div>'+
-                            '</td>'+
-                        '</tr>'+
-                        '<tr>'+
-                            '<td>'+
-                                '<div class="form-group">'+
-                                    '<h5><i class="fa fa-braille" aria-hidden="true"></i>&nbsp;Total Voucher:</h5>'+
-                                    '<input type="text" class="form-control" name="dinVouch" id="dinVouch" value="'+data.msj[i]["totalTarjeta"]+'" style="background : inherit; border:none;" disabled>'+
-                                '</div>'+
-                            '</td>'+
-                        '</tr>'; */
-                    $('#alertaSucc').show();
+        if(data.msj != ''){
+            var html ='';
+            for(var i = 0;i<data.msj.length; i++){
+                //if((efect >= data.msj[i]['totalEfectivo']) && (vou >= data.msj[i]['totalTarjeta'])){
+                if(efect < data.msj[i]['totalEfectivo'] || vou < data.msj[i]['totalTarjeta']){
+                    //alert("Verifica la cantidad ingresada"+data.msj[i]["totalEfectivo"]+'*'+efect+'/'+data.msj[i]["totalTarjeta"]+'*'+vou);
+                    $('#alertaDan').show();
+                    //location.reload();
+                    setTimeout('document.location.reload()',3000);
+                }else{
+                    //console.log(efect);
+                    //console.log(data.msj[i]['totalEfectivo']);
+                    html +='<tr>'+
+                                '<td>'+
+                                    '<div class="form-group">'+
+                                        '<h5><i class="fa fa-fax" aria-hidden="true"></i>&nbsp;Fondo Inicial:</h5>'+
+                                        '<input type="text" class="form-control" name="cierre" id="cierre" value="'+data.msj[i]["fondoCaja"]+'" style="background : inherit; border:none;" disabled>'+
+                                    '</div>'+
+                                '</td>'+
+                            '</tr>';
+                            /*'<tr>'+
+                                '<td>'+
+                                    '<div class="form-group">'+
+                                        '<h5><i class="fa fa-calculator" aria-hidden="true"></i>&nbsp;Total de Efectivo:</h5>'+
+                                        '<input type="text" class="form-control" name="dinEf" id="dinEf" value="'+data.msj[i]["totalEfectivo"]+'" disabled style="background : inherit; border:none;">'+
+                                    '</div>'+
+                                '</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>'+
+                                    '<div class="form-group">'+
+                                        '<h5><i class="fa fa-braille" aria-hidden="true"></i>&nbsp;Total Voucher:</h5>'+
+                                        '<input type="text" class="form-control" name="dinVouch" id="dinVouch" value="'+data.msj[i]["totalTarjeta"]+'" style="background : inherit; border:none;" disabled>'+
+                                    '</div>'+
+                                '</td>'+
+                            '</tr>'; */
+                        $('#alertaSucc').show();
+                        $('#registrar').prop('disabled', true);
+                        setTimeout("cerrarTur()", 2000);
+                }
+                $("#informacion").html(html);
             }
-            $("#informacion").html(html);
+        }else{
+            alert('Los datos ingresados son incorrectos');
         }
+        
     });
 }
 
-$(document).on('click', '#cerrarCaja', function(){
-    var dtI = $('#dtI').val();
-    var dtF = $('#dtF').val();
-    var efect = $('#money').val();
-    var vou = $('#vouch').val();
+function cerrarTur(){
     var idv = $('#idv').val();
     $.ajax({
         type:"POST",
         url:"cerrarTurno",
-        data:{'devtI':dtI, 'devtF':dtF, 'efectivo':efect, 'vouch':vou, 'idv':idv},
+        data:{'idv':idv},
         dataType: 'JSON',
         error: function(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
         },
     }).done(function(data){
-
+        console.log(data.msj);
+        if(data.msj == true){
+            window.location.href = "CerrarSesion";
+        }else{
+            alert('Error al cerrar el turno');
+        }
     });
-});
+
+   
+}

@@ -1,12 +1,55 @@
 <fieldset id="fieldset">
-    <center><h2>Rol</h2></center>
-    <div class="container">
-        <button class="btn btn-success agregarRol" type="button" data-toggle="modal" data-target="#modal_privilegios">Agregar Rol</button>
-        
-    </div>
+    <center><h2>Tipos de Usuarios</h2></center>
+        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal_agregar_privilegios">Nuevo Rol</button><hr>
 
-    <!--**********************************AGREGAR ROL*********************************-->
+        <div class="table table-stripped table-responsive">
+            <table>
+                <th>Opciones</th>
+                <th>Rol</th>
+                <th>Privilegios</th>
+                <tbody>
+                    <?php foreach ($Privilegio as $key => $dP) : ?>
+                        <tr>
+                            <td><button type="button" class="btn btn-warning editarRol" id="idRang" value="<?= $dP->idRango?>" data-toggle="modal" data-target="#modal_privilegios">Editar</button></td>
+                            <!--td><a href="#editar_Rol<?php echo $dP->idRango?>" class="btn btn-warning" value="<?= $dP->idRango?>" data-toggle="modal">Editar</a></td-->
+                            <td><?= $dP->Nombre?></td>
+                            <td><?= $dP->modulo?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+
+    <!--**********************************EDITAR ROL*********************************-->
     <div class="modal fade" id="modal_privilegios">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Privilegios</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+                <form id="privilegiosUsuarios">
+                    <input type="hidden" name="rango" id="rango" value="">
+                    <div class="modal-body">
+                            <table>
+                                <tbody id="privilegios">
+
+                                </tbody>
+                            </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="editarRoles" id="editarRoles" value="<?php echo $dP->idRango?>">Guardar</button>
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cerrar" id="cerrar">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--**********************************EDITAR ROL*********************************-->
+        
+    <!--**********************************AGREGAR ROL*********************************-->
+    <div class="modal fade" id="modal_agregar_privilegios">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -14,247 +57,120 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body">
-                    <form action="">
+                <form id="nuevoRol">
+                    <div class="modal-body">
                         <div class="form-group">
                             <label for="nombre">Nombre del Rol</label>
-                            <input type="text" class="form-control" name="nombre" id="nombre">
+                            <input type="text" class="form-control" name="nombreRol" id="nombreRol">
                         </div>
                         <div class="form-group">
                             <label for="privilegios">Privilegios</label><br>
-                            <div class="form-group">
-                                <input type="checkbox" class="rol" name="rol1" id="rol1" value="1">Administrador
-                            </div>
                             <table>
                                 <tbody>
+                                <?php foreach ($Modulos as $key => $dP) : ?>
                                     <tr>
-                                        <td id="modulosAdm"></td>
-                                        <td id="submodulosAdm"></td>
+                                        <td><input class="modulos" type="checkbox" name="modulos[]" value="<?= $dP->idModulo?>"><?= $dP->modulo?></td>
                                     </tr>
-                                </tbody>
-                            </table>
-                            <div class="form-grup">
-                                <input type="checkbox" class="rol" name="rol2" id="rol2" value="2">Punto de Venta
-                            </div>
-                            <table id="modulosPun">
-                                <tbody>
+                                <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregar" id="agregar">Guardar</button>
-                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cerrar" id="cerrar">Cerrar</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregarRol" id="agregarRol">Guardar</button>
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cerrar" id="cerrar">Cerrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     <!--**********************************AGREGAR ROL*********************************-->
+
 </fieldset>
-
 <script>
-    $(document).ready(function() {
-    /***********************************************   OBTIENE LOS MODULOS POR CADA PRIVILEGIO  ****************************************************/
-        $( document ).on( 'click', '.rol', function(){
-            if($(this).is(':checked')){
-                console.log("Lo ha seleccionado");
-                rol = $(this).val();
-                //alert(rol);
-                $.ajax({
-                url:"listarModulos",//la ruta a donde enviare la info
-                type:"POST",
-                data:{'rol':rol},//toma el valor del boton seleccionado
-                dataType: 'JSON',
-                error: function(jqXHR, textStatus, errorThrown){
-                    alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);//en caso de presentar un error, muestra el msj
-                },
-                }).done(function(data){//obtiene el valor de data procesado en el controlador
-                    console.log(data);
-                    //alert('Rol:'+rol);
-                    var html='';//creamos una variable
-                    if(rol==1){
-                        for(var i = 0;i<data.msj.length; i++){//hacemos el recorrido de valores del objeto que queremos 
-                            html += '<input class="privilegios" id="privilegios" name="modulo" type="checkbox" value="'+data.msj[i]['idModulo']+'">'+data.msj[i]['modulo']+'<br>';
-                        }
-                        $("#modulosAdm").html(html);//abrimos el modal, en el apartado de body con la clase de la tabla e imprimimos nuestra variable declarada
-                    }else{
-                        for(var i = 0;i<data.msj.length; i++){//hacemos el recorrido de valores del objeto que queremos 
-                            html += '<input class="privilegiosventa" id="privilegiosventa" name="" type="checkbox" value="'+data.msj[i]['idModulo']+'">'+data.msj[i]['modulo'];
-                        }
-                    $("#modulosPun").html(html);//abrimos el modal, en el apartado de body con la clase de la tabla e imprimimos nuestra variable declarada
-                    }
-                });
-            }else{
-                console.log('Lo a desmarcado');
-            }
-            
-
-
-            
-            rol = $(this).val();
-            //alert(rol+'Privilegios');
-
-            var selected = [];
-
-/*************************************************  OBTIENE LOS SUBMODULOS POR CADA MODULO  **************************************************/
-            $(document).on('change','input[type="checkbox"]' ,function(e) {
-                
-                if(this.id=="privilegios") {
-                    if($(this).is(':checked')){
-                    
-                    console.log("Lo ha seleccionado");
-
-                    selected.push($(this).val());                    
-                    
-                    if (selected.length) {
-                        //alert('Estoy en if selected');
-                        $.ajax({
-                            type: 'POST',
-                            dataType: 'JSON', // importante para que 
-                            data: {'select':selected, 'rol':rol}, // jQuery convierta el array a JSON
-                            url: 'listaSubmodulos',
-                            success: function(data){
-                                console.log(data);
-                                var html='';
-                                for(var i=0; i < data.msj.length; i++){
-                                    html += '<input class="submod" id="submod" type="checkbox" value="'+data.msj[i]['idSubM']+'">'+data.msj[i]['subModulo']+'<br>';
-                                }
-                                $("#submodulosAdm").append(html);
-                            }//success
-                        });//ajax
-                        alert(JSON.stringify(selected));
-
-
-
-                        rol = $(this).val();
-                        //alert(rol+'Privilegios 2');
-
-/***********************************   NECESITO SABER QUE MODULO CLICKEO Y QUE SUBMODULOS CLICKEO PARA GUARDAR ********************/
-
-                        $(document).on('change','input[type="checkbox"]' ,function(e) {
-                            var selected2 = [];
-                            if(this.id=="submod") {
-                                //alert(this.value);
-                                selected2.push($(this).val());
-                                if (selected2.length) {
-                                   // alert('Estoy en if selected 2');
-                                    $.ajax({
-                                        type: 'POST',
-                                        dataType: 'JSON', // importante para que 
-                                        data: {'select':selected, 'select2':selected2, 'rol':rol}, // jQuery convierta el array a JSON
-                                       // url: 'agregarPrivilegios',
-                                    }).done(function(data){
-                                        alert('Agregado Correctamente');
-                                    });
-                                    
-                                    alert(JSON.stringify('sub modulos'+selected2));
-                                }
-                            }
-                        });
-
-                    }//if
-                    else{
-                        alert('Debes seleccionar al menos una opción.');
-                    }
-                }else {
-                    console.log('Lo ha desmarcado');
-                }
-                /*if(this.id=="privilegiosventa"){
-                    alert(this.value);
-                    selected.push($(this).val());
-                }*/
-            }
-            });
-
-
-
-            
-           
-        });
-
-        /*$('#rol1').change(function() {
-            if(this.checked) {
-               var rol = $(this).val();
-                alert(rol);
-                if(rol == '1'){
-                    $('#modulosAdm').show();
-                }
-            }     
-        });
-        $('#rol2').change(function() {
-            if(this.checked) {
-               var rol = $(this).val();
-                alert(rol);
-                if(rol == '2'){
-                    $('#modulosPun').show();
-                }
-            }     
-        });*/
-    });
-
-    function seleccionar_Modulo(rol){
-        var liga='modulosRol';
-        //alert(liga+' - '+mostrar)
+    /**********************************EDITAR ROL*********************************/
+    $(document).on('click', '.editarRol', function(){
+        var rango = $(this).val();//obtiene el id del boton seleccionado
+        $('#rango').val(rango);
         $.ajax({
-            beforeSend:function () {
-                //inicia_carg();
-            },
-            url:liga,
-            type:'POST',
-            data:'rol='+rol,
-            dataType: 'JSON',
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Se produjo un error : ' + errorThrown + ' '+ textStatus);
-                //cierra_carg();
-            },
-            success: function (data) { 
-                if(liga=='modulosRol'){
-                    if(rol=='1'){
-                        
-                        console.log(liga);
-                        console.log(data);
-                
-                        evento_contenido(rol,'2');
-                    }else if(rol=='2'){
-                        
-                        
-                       // cierra_carg();
-                    }
-                }
-            },
-            complete: function (xhr, status){
-            }
-        });
-    }
-
-    $(document).ready(function() {
-        $( document ).on( 'click', '.administrador', function(){
-            if($(this).is(':checked')){
-                // agregas cada elemento.
-                console.log("Lo ha seleccionado");
-                modulo = $(this).val();
-                alert(modulo);
-                $.ajax({
-                url:"subModulos",//la ruta a donde enviare la info
+                beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                 //   inicia_carg();//funcion que abre la ventana de carga
+                },
+                url:"privUser",//la ruta a donde enviare la info
                 type:"POST",
-                data:{'modulo':modulo},//toma el valor del boton seleccionado
+                data:{'rango':rango},//toma el valor del boton seleccionado
                 dataType: 'JSON',
                 error: function(jqXHR, textStatus, errorThrown){
                     alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);//en caso de presentar un error, muestra el msj
+                 //   cierra_carg();//funcion que cierra la ventana de carga
                 },
             }).done(function(data){//obtiene el valor de data procesado en el controlador
-                console.log(data);
                 var html='';//creamos una variable
-                    for(var i = 0;i<data.msj.length; i++){//hacemos el recorrido de valores del objeto que queremos 
-                        html += '<input class="privilegios" type="checkbox" value="'+data.msj[i]['idSubM']+'">'+data.msj[i]['subModulo'];
+                    for(var i = 0;i<data.msj.Modulos.length; i++){//hacemos el recorrido de valores del objeto que queremos 
+                        //console.log(data.msj.Privilegios[i]['privilegio_Modulo']);
+                        html += '<tr>'+
+                                    '<td style="padding:0px;">';
+                                        if(data.msj.Privilegios.find(object => object.privilegio_Modulo == data.msj.Modulos[i]['idModulo'])){//buscamos el valor del objeto en el arreglo Privilegios que pasamos en data y hacemos la comparacion con el idModulo del arreglo de Modulos extraido del data
+                                            html += '<input class="privilegios" type="checkbox" name="op[]" value="'+data.msj.Modulos[i]['idModulo']+'" checked>'+data.msj.Modulos[i]['modulo'];//si la comparacion es verdadera, va a marcar el valor del dato
+                                        }
+                                        else{
+                                            html += '<input class="privilegios" type="checkbox" name="op[]" value="'+data.msj.Modulos[i]['idModulo']+'">'+data.msj.Modulos[i]['modulo'];//si la comparacion es falsa, va a mostrar el valor del dato
+                                        }
+                                html+='</td>'+
+                            '</tr>';
                     }
-                $("#submodulos").append(html);//abrimos el modal, en el apartado de body con la clase de la tabla e imprimimos nuestra variable declarada
-      
+                $("#modal_privilegios .modal-body #privilegios").html(html);//abrimos el modal, en el apartado de body con la clase de la tabla e imprimimos nuestra variable declarada
+                //cierra_carg();
             });
+    });
+
+    $(document).on('click', '#editarRoles', function(){
+       //alert( $('#privilegiosUsuarios').serialize());
+        $.ajax({
+            beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                //inicia_carg();//funcion que abre la ventana de carga
+            },
+            type: 'POST',
+            url: 'editarPrivilegiosUser',
+            data: $('#privilegiosUsuarios').serialize(),
+            dataType: 'JSON',
+            error(jqXHR, textStatus, errorThrown){
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            },
+        }).done(function(data){
+            if(data.msj == true){
+                alert('Actualizado Correctamente');
+                location.reload();
             }else{
-                console.log('Lo a desmarcado');
+                alert('Error al Actualizar');
             }
         });
     });
+
+    $(document).on('click', '#agregarRol', function(){
+        //( $('#nuevoRol').serialize());
+        $.ajax({
+            beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                //inicia_carg();//funcion que abre la ventana de carga
+            },
+            type: 'POST',
+            url: 'agregarRol',
+            data: $('#nuevoRol').serialize(),
+            dataType: 'JSON',
+            error(jqXHR, textStatus, errorThrown){
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            },
+        }).done(function(data){
+            if(data.msj == true){
+                alert('Agregado Correctamente');
+                location.reload();
+            }else{
+                alert('Error al Actualizar');
+            }
+        });
+    });
+
+
+
 </script>
+<script src="JS/carga.js"></script>

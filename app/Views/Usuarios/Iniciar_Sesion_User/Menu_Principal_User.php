@@ -10,7 +10,6 @@
             <path id="Circulo---imagotipo" d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
             </svg>
             <br>
-
             Punto de Venta</a>
         </div>
         <div class="col-xs-2 col-md-4" style="padding: 15px;">

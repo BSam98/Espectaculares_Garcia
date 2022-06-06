@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
-
 use App\Models\Tarjetas_Model;
+use App\Models\Iniciar_Sesion_Administrador_Model;
 
 class Tarjetas_Control extends BaseController {
 
@@ -12,7 +12,14 @@ class Tarjetas_Control extends BaseController {
     }
 
     public function new (){
-        $session = session();
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
+        $model2 = new Iniciar_Sesion_Administrador_Model();
+        $rango = $_GET['idT'];
         $model = new Tarjetas_Model();
 
         $datos = [
@@ -20,9 +27,10 @@ class Tarjetas_Control extends BaseController {
             'Lote' => $model->listadoLotes(),
             'Evento' => $model->listadoEvento(),
             'Usuario' => $model->listadoUsuarios(),
+            'Privilegios' => $model2->consultarPrivilegiosR($rango),
         ];
-        echo view('../Views/header');
-        echo view('../Views/menu');
+        echo view('../Views/header',$datos);
+        //echo view('../Views/menu');
         echo view ('Administrador/Tarjetas/Tarjetas_View',$datos);
         echo view('../Views/piePagina');
     }

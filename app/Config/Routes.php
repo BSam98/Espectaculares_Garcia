@@ -1,6 +1,4 @@
-<?php
-
-namespace Config;
+<?php namespace Config;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
@@ -35,16 +33,40 @@ $routes->get('/', 'Home::index');
 
 //$routes->resource('Atracciones_Control');
 
+$routes->get('/Iniciar_Sesion_User','Iniciar_Sesion_User_Control::new');
+
+
+$routes->post('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
+
+$routes->get('/TipoT','Iniciar_Sesion_User_Control::inicioP');
+//$routes->post('/turno','Iniciar_Sesion_User_Control::inicio');
+$routes->get('/turno','Iniciar_Sesion_User_Control::Turno');
+
+
+$routes->get('/Menu_Principal_User','Menu_Principal_User_Control::new');
+$routes->post('/Menu_Principal_User','Menu_Principal_User_Control::new');
+
+
+
+
 $routes->get('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
 $routes->post('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
+$routes->get('/TipoUsuario','Iniciar_Sesion_Administrador_Control::menuBuscar');
+$routes->post('/subMenus','Iniciar_Sesion_Administrador_Control::bsubMenu');
+//$routes->get('/new','Iniciar_Sesion_Administrador_Control::new');
+//$routes->get('/user','Iniciar_Sesion_Administrador_Control::user');
+//$routes->post('/agregarPrivilegios','Rol_Control::agregarP');
+//$routes->post('/listarModulos','Rol_Control::MRol');
+//$routes->post('/listaSubmodulos','Rol_Control::submodulos');
+$routes->post('/privUser','Rol_Control::ModulRol');
+$routes->post('/editarPrivilegiosUser','Rol_Control::editarPrivilegios');
+$routes->post('/agregarRol','Rol_Control::nuevoRol');
 
 
-$routes->get('/new','Iniciar_Sesion_Administrador_Control::new');
-$routes->get('/user','Iniciar_Sesion_Administrador_Control::user');
-$routes->get('/turno','Iniciar_Sesion_User_Control::Turno');
+
 $routes->get('/turnoValidador','Iniciar_Sesion_User_Control::turnoValidador');
-$routes->post('/privUser','Usuarios_Control::privilegiosUsuarios');
-$routes->post('/insertarP','Usuarios_Control::insertarPriv');
+
+//$routes->post('/insertarP','Usuarios_Control::insertarPriv');
 //ORIGINAL->  $routes->get('/PuntoVenta','Menu_Principal_User_Control::cobrar');
 $routes->post('/PuntoVenta','Menu_Principal_User_Control::ConsultaTurno');
 $routes->get('/ModuloCobro','Menu_Principal_User_Control::Cobro');
@@ -53,10 +75,11 @@ $routes->get('/valida','Iniciar_Sesion_User_Control::valida');
 $routes->post('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
 $routes->get('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
 $routes->get('/Ingresos x Evento','Menu_Principal_Control::rEvento');
-$routes->get('/Utilización por Evento','Menu_Principal_Control::uEvento');
-$routes->get('/Utilización por Atracción','Menu_Principal_Control::uAtraccion');
+$routes->get('/Utilizacion por Evento','Menu_Principal_Control::uEvento');
+$routes->get('/Utilizacion por Atracción','Menu_Principal_Control::uAtraccion');
 $routes->get('/Ticket','reporte_Venta_Control::ticket');
-$routes->get('/Roles','Rol_Control::rol');
+$routes->get('/Rol','Rol_Control::rol');
+//$routes->get('/Roles','Rol_Control::rol');
 
 $routes->get('/Ver Atracciones','super_Atracciones_Control::new');
 $routes->get('/Ver Atracciones/Mostrar_Atracciones','super_Atracciones_Control::ciclos');
@@ -67,9 +90,8 @@ $routes->post('/Ver Atracciones/Mostrar_Detalles','super_Atracciones_Control::de
 $routes->get('/Ver Taquillas','Taquillas_Control::new');
 $routes->get('/Ver Supervisores','supervisores_control::new');
 //$routes->post('/modulosRol','Rol_Control::MRol');
-$routes->post('/listarModulos','Rol_Control::MRol');
-$routes->post('/listaSubmodulos','Rol_Control::submodulos');
-$routes->post('/agregarPrivilegios','Rol_Control::agregarP');
+
+
 $routes->post('/Productos','Menu_Principal_User_Control::resultados');
 $routes->post('/validarTarjeta','Menu_Principal_User_Control::validar_Tarjeta');
 $routes->post('/creditosCortesia','Menu_Principal_User_Control::creditos_Cortesia');
@@ -93,6 +115,7 @@ $routes->post('/guardarVentas','Menu_Principal_User_Control::guardar_Ventas');
 $routes->post('/agregarFaj','Menu_Principal_User_Control::agregarFajillas');
 $routes->post('/devolverTarjeta','Menu_Principal_User_Control::devolucion');
 $routes->post('/cerrarC','reporte_Venta_Control::CerrarCaja');
+$routes->post('/cerrarTurno','reporte_Venta_Control::cerrarTurn');
 //$routes->post('/ingresoxEvento','Menu_Principal_Control::rEvento');
 //$routes->post('/Ver Atracciones','super_Atracciones_Control::new');
 //$routes->post('/supervisores','supervisores_control::new');
@@ -216,14 +239,6 @@ $routes->get('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociadas
 $routes->post('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociadas');
 
 $routes->get('/Contratos','Contratos_Control::new');
-
-
-
-$routes->get('/Iniciar_Sesion_User','Iniciar_Sesion_User_Control::new');
-$routes->post('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
-$routes->get('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
-$routes->get('/Menu_Principal_User','Menu_Principal_User_Control::new');
-$routes->post('/Menu_Principal_User','Menu_Principal_User_Control::new');
 
 
 

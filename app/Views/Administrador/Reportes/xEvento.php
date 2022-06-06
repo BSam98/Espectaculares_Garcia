@@ -1,4 +1,10 @@
-<fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000" style="background-color: white;color:black;">
+<?php 
+if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
+    header('Location: http://localhost/Espectaculares_Garcia/public/');
+    exit();
+}else{
+?>
+<fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000" style="color:black;">
     <center><label><h2>Ingresos por Evento</h2></label></center>
         <div class="table table-responsive">
             <table>
@@ -15,3 +21,4 @@
             </table>
         </div>
 </fieldset><!--/Ventana de la atracción-->
+<?php }?>

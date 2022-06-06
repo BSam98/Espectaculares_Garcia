@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang = "es">
     <head>
@@ -33,7 +34,8 @@
         <script src="../bootstrap/moment-with-locales.min.js"></script>
         <script src="../bootstrap/jquery.loadingModal.js"></script>
         <link rel="stylesheet" href="../bootstrap/jquery.loadingModal.css">
-
+        <!--link href="CSS/inicio_sesion_style.css" rel="stylesheet" type="text/css"-->
+        <script src="JS/menu.js"></script>
 
 
 <!--link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -58,4 +60,37 @@
     </head>
     <body style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;">
         <!--Contenedor Principal-->
-        <div Class = "contenedorPrincipal">
+        <!--div Class = "contenedorPrincipal"-->
+        <?php 
+if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
+    header('Location: http://localhost/Espectaculares_Garcia/public/');
+    exit();
+}else{
+?>
+            <nav class="navbar navbar-fixed-top tm_navbar negro" role="navigation">
+                <a class="logo" href="Menu_Principal_Administrador"><img src = "Img/logo.png"></a>
+                <input type="hidden" name="idRang" id="idRang" value="<?php echo $_GET['idT']?>">
+                
+                <?php foreach($Privilegios as $p){?>
+                    <ul class="nav navbar-nav sf-menu" id="<?php echo $p->idModulo?>">
+                        <li class="dropdown">
+                            <a href="" size= "50px" class="dropdown-toggle menu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-id="<?php echo $p->idModulo?>"><i class="fa fa-folder-open" aria-hidden="true"></i> &nbsp;<?php echo $p->modulo?></a>
+                            <ul class="dropdown-submenu" id="id<?php echo $p->idModulo?>">
+
+                            </ul>
+                        </li>
+                    </ul>
+                <?php }?>
+                <ul class="nav navbar-nav sf-menu">
+                    <li class="dropdown">
+                        <a class="navbar-brand" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;<?php echo $_SESSION['Usuario'];?></a>
+                            <ul class="dropdown-submenu" id="subMenuCatalago">
+                                <li><a href="CerrarSesion" id="button"><span>Salir</span></a></a></li>
+                            </ul>
+                    </li>
+                </ul>
+            </nav>
+            <?php }?>
+    <div class="contenedorPrincipal">
+        
+

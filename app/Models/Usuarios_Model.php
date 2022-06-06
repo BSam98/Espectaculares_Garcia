@@ -66,37 +66,7 @@ class Usuarios_Model extends Model{
         return $datos;
     }
 
-    public function listaModulos(){
-        $db = \Config\Database::connect();
-        $builder = $db->table('Modulos');
-        $builder-> select(
-            '
-            Modulos.idModulo,
-            Modulos.modulo
-            '
-        );
-        $query = $builder->get();
-        $datos = $query->getResultObject();
-        return $datos;
-    }
-
-    public function privilegios(){
-        $db = \Config\Database::Connect();
-        $query = $db->query("SELECT idRango, Nombre, STRING_AGG(modulo, ',') as modulo
-        FROM Privilegios, Modulos m, Rangos r 
-        WHERE privilegio_Modulo = idModulo and idRango = rango_Id GROUP BY idRango, Nombre ");
-        /*$query = $db->query(
-            "SELECT modulo, Nombre 
-                FROM Privilegios p, Modulos m, Rangos r 
-                    WHERE privilegio_Modulo = idModulo and idRango = rango_Id  GROUP BY modulo, Nombre ;
-            "
-        );*/
-        
-        $datos = $query->getResultObject();
-
-        return $datos;
-    }
-
+    
     public function listadoEventos(){
         $db = \Config\Database::connect();
         $builder = $db->table('Eventos');
@@ -136,47 +106,6 @@ class Usuarios_Model extends Model{
         return 'Funciono';
     }
 
-    public function privMod($rol){
-        $db = \Config\Database::connect();
-        $builder = $db->table('Privilegios');
-
-        $builder-> select(
-            '
-            Privilegios.idPrivilegio,
-            Privilegios.privilegio_Modulo, 
-            Privilegios.rango_Id,
-            Modulos.modulo
-            '
-        );
-        $builder-> join(
-            'Modulos',
-            'Modulos.idModulo = Privilegios.privilegio_Modulo',
-            'inner'
-        );
-
-        $builder->where('rango_id',$rol);
-        $query = $builder->get();
-        $datos = $query->getResultObject();
-        return $datos;  
-    }
-
-    public function insertarPriv($rol, $pr){
-        $db = \Config\Database::connect();
-        $builder = $db->table('Privilegios');
-        /*$builder-> select(
-            '
-            idPrivilegio,
-            privilegio_Modulo, 
-            rango_Id
-            '
-        );
-        $builder->where('rango_Id', $rol);
-        $builder->delete();*/
-
-        $data = [
-            'privilegio_Modulo'  => $pr, 
-            'rango_Id'  => $rol,
-        ];
-        $builder->insert($data);
-    }
+    
+   
 }

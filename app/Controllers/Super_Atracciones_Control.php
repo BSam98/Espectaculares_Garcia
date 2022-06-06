@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
-
 use App\Models\Super_Atracciones_Model;
+use App\Models\Iniciar_Sesion_Administrador_Model;
 
 class super_Atracciones_Control extends BaseController {
 
@@ -12,14 +12,25 @@ class super_Atracciones_Control extends BaseController {
     }
 
     public function new (){
+
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
+        $model2 = new Iniciar_Sesion_Administrador_Model();
+        $rango = $_GET['idT'];
+
         $model = new Super_Atracciones_Model();
 
         $datos = [
-            'Eventos' => $model->listado_Eventos()
+            'Eventos' => $model->listado_Eventos(),
+            'Privilegios' => $model2->consultarPrivilegiosR($rango),
         ];
 
-        echo view('../Views/header.php');
-        echo view('menu');
+        echo view('../Views/header', $datos);
+        //echo view('menu');
         echo view('Administrador/Atracciones/super_Atracciones',$datos);
         echo view('../Views/piePagina.php');
     }

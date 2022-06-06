@@ -7,27 +7,107 @@ use App\Models\Iniciar_Sesion_User_Model;
 class Iniciar_Sesion_User_Control extends BaseController {
 
     protected $request;
-    //protected $model;
 
     public function  _construct(){
         $this->request = \Config\Services::request();
     }
+
+    public function inicioP(){
+        $model = new Iniciar_Sesion_User_Model();
+        $rango = $_GET['idT'];
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
+            $data = [ 'Privilegios' => $model->consultaPrivilegios($rango)];
+            //echo view('../Views/header');
+            echo view('Usuarios/menu_user', $data);
+           // echo view('../Views/header',$data);
+           // echo view('Usuarios/iniciar_Turno');
+           // echo view('../Views/piePagina');
+        /*$this->load->view('templates/header',$datos);
+        $this->load->view('iniciovt');
+        $this->load->view('templates/footer');*/
+	}
+
+    public function getBusqueda(){
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
+
+        $username = $_POST['usuario'];
+        $password = $_POST['pass'];
+        $model = new Iniciar_Sesion_User_Model();
+        $datos = $model->buscarUsuarios($username,$password);
+        if($datos['resultado'] == true){
+            $_SESSION['idUsuario']=$datos["idUsuario"];
+            $_SESSION['Nombre']=$datos['Nombre'];
+            $_SESSION['CorreoE']=$datos['CorreoE'];
+            $_SESSION['Usuario']=$datos['Usuario'];
+            $_SESSION['Contraseña']=$datos['Contraseña'];
+            $_SESSION['idRango']=$datos['idRango'];
+            $_SESSION['idEvento']=$datos['idEvento'];
+        }
+        echo json_encode($datos);
+    }
     
-    public function Turno (){
-        $session = session();
-        $idUser = $session->idUsuario;
+    public function Turno(){
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
+        $model = new Iniciar_Sesion_User_Model();
+        $idU = $_GET['t'];
+        $data = [
+            'Eventos'=>$model->Eventos($idU),
+        ];
+        //echo view('../Views/header');
+        echo view('Usuarios/iniciar_Turno',$data);
+        //echo view('../Views/piePagina');
+    }
+
+    public function turnoValidador(){
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
+        $idUser = $_GET['t'];
         $model = new Iniciar_Sesion_User_Model();
         $data = [
             'Eventos'=>$model->Eventos($idUser),
         ];
-        echo view('../Views/header');
-        echo view('Usuarios/iniciar_Turno',$data);
-        echo view('../Views/piePagina');
+        //echo view('../Views/header');
+        echo view('Usuarios/Turno_Validador_View',$data);
+        //echo view('../Views/piePagina.php');
     }
 
+
+
+
+
+
+
+
+
+
     public function valida(){
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
         echo view('../Views/header');
-        echo view('Usuarios/menu_user');
+        //echo view('Usuarios/menu_user');
         echo view('Usuarios/validador');
         echo view('../Views/piePagina');
     }
@@ -44,19 +124,9 @@ class Iniciar_Sesion_User_Control extends BaseController {
         echo view('../Views/piePagina');*/
     }
 
-    public function turnoValidador(){
-        $session = session();
-        $idUser = $session->idUsuario;
-        $model = new Iniciar_Sesion_User_Model();
-        $data = [
-            'Eventos'=>$model->Eventos($idUser),
-        ];
-        echo view('../Views/header');
-        echo view('Usuarios/Turno_Validador_View',$data);
-        echo view('../Views/piePagina.php');
-    }
+    
 
-    public function getBusqueda(){
+   /* public function getBusqueda(){
         $model = new Iniciar_Sesion_User_Model();
         $username = $this->request->getPost('usuario');
         $password = $this->request->getPost('pass');
@@ -74,7 +144,7 @@ class Iniciar_Sesion_User_Control extends BaseController {
         }else{
             echo "<script>alert('Usuario Incorrecto'); window.location= 'SesionUser'</script>";
         }
-    }
+    }*/
 
     private function __redirectAuth(){
         $session = session(); 
@@ -99,11 +169,16 @@ class Iniciar_Sesion_User_Control extends BaseController {
     }
 
     public function logout(){
-        $session = session();
+            session_start();
+            session_unset(); 
+            session_destroy(); 
+            //redirect(base_url());
+            return $this->response->redirect(site_url(''));
+        /*$session = session();
         //echo $session->Usuario;
         $session->destroy();
 		//session()->remove('username');
-		return $this->response->redirect(site_url(''));
+		return $this->response->redirect(site_url(''));*/
 	}
 
     public function Zonas(){

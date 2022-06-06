@@ -1,3 +1,9 @@
+<?php 
+if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
+    header('Location: http://localhost/Espectaculares_Garcia/public/');
+    exit();
+}else{
+?>
 <fieldset id="fieldset">
     <center><h2><i class="fa fa-university" aria-hidden="true"></i>SUPERVISAR TAQUILLAS</h2></center>
     <div class="container-fluid">
@@ -121,3 +127,4 @@
         }); 
     });
 </script>
+<?php }?>

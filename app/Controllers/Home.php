@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Models\Iniciar_Sesion_Administrador_Model;
 
 class Home extends BaseController
 {
     public function index()
     {
-        echo view('header');
+        //echo view('header');
         echo view('index');
         echo view('piePagina');
     }
@@ -36,9 +37,10 @@ class Home extends BaseController
 */
 
     public function admin(){
-        /*$mensaje = session('mensaje');
-        return view('Administrador/Iniciar_Sesion_Administrador/Iniciar_Sesion_Administrador_View', ["mensaje"=>$mensaje]);*/
-        return view('Administrador/Iniciar_Sesion_Administrador/Iniciar_Sesion_Administrador_View');
+        //echo view('../Views/header');
+        echo view('Administrador/Iniciar_Sesion_Administrador/Iniciar_Sesion_Administrador_View');
+        //echo view('../Views/piePagina');
+        //return view('Administrador/Iniciar_Sesion_Administrador/Iniciar_Sesion_Administrador_View');
     }
 
    /* public function inicio(){
@@ -49,6 +51,9 @@ class Home extends BaseController
     }*/
 
     public function user(){
-        return view('Usuarios/Iniciar_Sesion_User/Iniciar_Sesion_User_View');
+        //echo view('../Views/header');
+        echo view('Usuarios/Iniciar_Sesion_User/Iniciar_Sesion_User_View');
+        //echo view('../Views/piePagina');
+        //return view('Usuarios/Iniciar_Sesion_User/Iniciar_Sesion_User_View');
     }
 }

@@ -44,6 +44,12 @@ class Menu_Principal_User_Control extends BaseController {
     }
 
     public function Cobro(){
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
         date_default_timezone_set('America/Mexico_City');
         $fecha = date("Y-m-d H:i:s");
         $model = new mcobro_model;
@@ -66,6 +72,12 @@ class Menu_Principal_User_Control extends BaseController {
     }
 
     public function guardar_Ventas(){
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
         $model = new mcobro_model;
         $tipoP = $_POST['tipo'];
         $fecha = $_POST['fecha'];
@@ -130,7 +142,7 @@ class Menu_Principal_User_Control extends BaseController {
                     break;
                 
                 case '2';
-                   $data = $model->agregarRecarga($idtarjeta, $recarga, $gtran, $precioTa, $evento);
+                    $data = $model->agregarRecarga($idtarjeta, $recarga, $gtran, $precioTa, $evento);
                     break;
 
                 case '3';

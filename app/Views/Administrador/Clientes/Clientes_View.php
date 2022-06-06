@@ -1,5 +1,11 @@
 <!--TABLA PRINCIPAL-->
-<fieldset id="fieldset" style="background-color: white;color:black;" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000"> 
+<?php 
+if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
+    header('Location: http://localhost/Espectaculares_Garcia/public/');
+    exit();
+}else{
+?>
+<fieldset id="fieldset" style="color:black;" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000"> 
     <center><label><h1>CLIENTES</h1></label></center>
         <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalT"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nuevo Cliente</a>
     
@@ -155,3 +161,4 @@
             });
         });
 </script>
+<?php }?>
