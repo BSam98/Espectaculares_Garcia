@@ -39,6 +39,10 @@
                                             <label>Concepto</label>
                                             <textarea id="descripcion_Cortesias" name="descripcion_Cortesias[]" cols="10", rows="2" class="form-control"></textarea>
                                         </div>
+                                        <div>
+                                            <label>Usuario</label>
+                                            <input id="" value="<?= session('Usuario')?>" readonly>
+                                        </div>
                                     </td>
                                     <td class="eliminar_Registro_Cortesias"><input type="button" value="-"/></td>
                                 </tr>

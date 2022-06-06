@@ -1130,7 +1130,7 @@ class Eventos_Model extends Model{
 
         $query = $db->query(
             "INSERT INTO
-                Tarjeta_Regalo
+                Tarjeta_Regalo (Descripcion,folio_Inicial,folio_Final)
             VALUES(
                 '$datos[descripcion]',
                 (SELECT idTarjeta FROM Tarjetas WHERE Folio= $datos[folioInicial]),
