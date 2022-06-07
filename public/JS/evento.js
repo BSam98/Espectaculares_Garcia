@@ -1286,8 +1286,8 @@ $(document).on('click','.mostrar_Zonas_Evento', function(){
         if(data.respuesta){
             for(var i = 0; i<data.msj.length; i++){
                 zonas_Html += '<tr>'+
-                '<td><a href="#editar_Zona_Evento" class="editar_Zona" data-toggle="modal" data-book-id='+"'{"+'"idZona":'+data.msj[i]['idZona']+','+'"idEvento":'+data.msj[i]['idEvento']+','+'"Nombre":"'+data.msj[i]['Nombre']+'"'+"}'"+'><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
-                '<td>'+data.msj[i]['Nombre']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;"><a href="#editar_Zona_Evento" class="editar_Zona" data-toggle="modal" data-book-id='+"'{"+'"idZona":'+data.msj[i]['idZona']+','+'"idEvento":'+data.msj[i]['idEvento']+','+'"Nombre":"'+data.msj[i]['Nombre']+'"'+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></i></a></td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['Nombre']+'</td>'+
                 '</tr>';
             }
         }
@@ -1396,7 +1396,7 @@ $(document).on('click','.mostrar_Taquillas_Evento', function(){
                             '<th style="vertical-align: middle;" colspan="2">Ventanilla</th>'+
                             '<br>'+
                         '</thead>'+
-                        '<tbody id=1>'+
+                        '<tbody id=a1>'+
                             '<tr>'+
                                 '<td colspan="2">'+
                                 '<button name="adicional" type="button" class="btn btn-warning ventanillas"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Ventanilla</button>'+
@@ -1463,7 +1463,7 @@ $("#addf").on('click',function(){
                             '<th style="vertical-align: middle;" colspan="2">Ventanilla</th>'+
                             '<br>'+
                         '</thead>'+
-                        '<tbody id='+contadorVentanilla+'>'+
+                        '<tbody id=a'+contadorVentanilla+'>'+
                             '<tr>'+
                                 '<td colspan="2">'+
                                 '<button name="adicional" type="button" class="btn btn-warning ventanillas"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Ventanilla</button>'+
@@ -1490,6 +1490,17 @@ $(document).on("click",".deletef",function(){
 $(parent).remove();
 });
 
+$(document).on('click','.ventanillas', function(){
+    var id  = $(this).parents('tbody').attr('id');
+    $(
+    '<tr>'+
+        '<td>'+
+            '<input type="text" name ="nombre_Ventanilla[]" id="nombre_Ventanilla" placeholder="Nombre de la ventanilla">'+
+        '</td>'+
+        '<td class="elimAsoci"><input type="button" value="-"></td>'+
+    '</tr>'
+    ).clone().appendTo($('#'+id));
+});
 
 $("#guardarTaquilla").click(function(){
     iniciarCarga();

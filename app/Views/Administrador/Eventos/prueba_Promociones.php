@@ -15,8 +15,8 @@
 
                         <nav>
                             <div class="nav nav-tabs" id="nav-1" role="tablist">
-                                <a class="nav-link active" id="nav-primero-tab" data-toggle="tab" href="#nav-primero" role="tab" ari-controls="nav-primero" ari-selected="tre">Agregar Promociones</a>
-                                <a class="nav-link" id="nav-segundo-tab" data-toggle="tab" href="#nav-segundo" role="tab" ari-controls="nav-segundo" ari-selected="false">Ver Promociones</a>
+                                <a class="nav-link active" id="nav-primero-tab" data-toggle="tab" href="#nav-primero" role="tab" aria-controls="nav-primero" aria-selected="true">Agregar Promociones</a>
+                                <a class="nav-link" id="nav-segundo-tab" data-toggle="tab" href="#nav-segundo" role="tab" aria-controls="nav-segundo" aria-selected="false">Ver Promociones</a>
                             </div>
                         </nav>
 
