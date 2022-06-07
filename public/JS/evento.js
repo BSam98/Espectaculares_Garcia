@@ -38,7 +38,7 @@ var zonas = [];
 var descuentos_Atraccion = [];
 var pulsera_Atraccion = [];
 var juegos_Atraccion = [];
-var datos;
+var datos_Cortesia;
 
 $("#agregarEvento").click(function(){
     $.ajax({
@@ -1653,6 +1653,9 @@ $("#guardar_Taquilla_Editada").on('click',function(){
 /**----------------------------Tarjetas Cortesia------------------------------------------------ */
 $(document).on('click','.mostrar_Cortesias_Evento', function(){
     iniciarCarga();
+    datos_Cortesia = $(this).data('book-id');
+    $("#tabla_Tarjetas_Cortesias").DataTable().destroy();
+    var d = new Date();
 
     $("#cuerpo_agregar_Cortesias").html(
         '<tr>'+
@@ -1680,21 +1683,33 @@ $(document).on('click','.mostrar_Cortesias_Evento', function(){
                 '<label>Concepto</label>'+
                 '<textarea id="descripcion_Cortesias" name="descripcion_Cortesias[]" cols="10", rows="2" class="form-control"></textarea>'+
             '</div>'+
+            '<div id="usuario_Cortesias0">'+
+                '<label>Usuario</label>'+
+                '<input id="nombre_cortesia" name="nombre_cortesia[]" type="text" value="'+datos_Cortesia['Nombre']+'" class="form-control" readonly>'+
+                '<input type="hidden" id="idUsuario" name="idUsuario[]" type="text" value="'+datos_Cortesia['idUsuario']+'" class="form-control">'+
+            '</div>'+
+            '<div id="fecha_Cortesias0">'+
+                '<input type="hidden" id="fecha_cortesia" name="fecha_cortesia[]" value="'+d.toISOString().split('T')[0]+" "+d.toLocaleTimeString()+".000"+'" class="form-control">'+
+            '</div>'+
+            '<div id="idEvento0">'+
+                '<input type="hidden" id="idEvento_Cortesia" name="idEvento_Cortesia[]" value="'+datos_Cortesia['idEvento']+'" class="form-control">'+
+            '</div>'+
         '</td>'+
         '<td class="eliminar_Registro_Cortesias"><input type="button" value="-"/></td>'+
     '</tr>'
     );
     contadorCortesias=0;
-    datos = $(this).data('book-id');
     select_Lote ='';
     var option_Lote = '';
+    var html_cortesias = '';
+    $("#idEventoCortesia").val(datos_Cortesia['idEvento']);
 
     option_Lote = '<option>Lotes</option>';
 
     $.ajax({
         type:'POST',
         url: 'Eventos/Lotes_Cortesias',
-        data: datos,
+        data: {'idEvento':datos_Cortesia['idEvento']},
         dataType: 'JSON',
         error(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
@@ -1704,6 +1719,15 @@ $(document).on('click','.mostrar_Cortesias_Evento', function(){
         if(data.respuesta){
 
             for(var i=0;i<data.datos.length;i++){
+                html_cortesias += '<tr>'+
+                '<td style="text-align: center; vertical-align: middle;"><a href="" class="" data-toggle="modal" data-book-id=""><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.datos[i]['Cantidad']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.datos[i]['Folio_Inicial']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.datos[i]['Folio_Final']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.datos[i]['Nombre'] + " " +data.datos[i]['Apellidos'] +'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.datos[i]['Fecha']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.datos[i]['Descripcion']+'</td>'+
+                '</tr>';
                 
             }
             for(var i=0; i<data.msj.length;i++){
@@ -1712,7 +1736,27 @@ $(document).on('click','.mostrar_Cortesias_Evento', function(){
             select_Lote ='<label>Seleccione un lote disponible</label>'+ 
             '<select id="lote_Cortesia" name="lote_Cortesia[]" class="lote_Cortesias form-control">'+option_Lote+'</select>'
             
+
             $("#lote_Cortesias0").html(select_Lote);
+            
+            $("#cuerpo_tabla_tarjetas-cortesias").html(html_cortesias);
+
+            $('#tabla_Tarjetas_Cortesias').DataTable( {
+                "aProcessing": true,//Activamos el procesamiento del datatables
+                "aServerSide": true,//Paginación y filtrado realizados por el servidor
+                dom: 'Bfrtip',//Definimos los elementos del control de tabla
+                buttons: [		          
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdf'
+                ],
+                "bDestroy": true,
+                "iDisplayLength": 10,//Paginación
+                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+            });
+
+
             cerrarCarga();
         }
     });
@@ -1722,7 +1766,7 @@ $(document).on('click','.mostrar_Cortesias_Evento', function(){
 
 $('#agregar_Registro').on('click', function(){
     contadorCortesias++;
-    
+    var d = new Date();
     $(
         '<tr>'+
             '<td>'+
@@ -1750,6 +1794,17 @@ $('#agregar_Registro').on('click', function(){
                     '<label>Concepto</label>'+
                     '<textarea id="descripcion_Cortesias" name="descripcion_Cortesias[]" cols="10", rows="2" class="form-control"></textarea>'+
                 '</div>'+
+                '<div id="usuario_Cortesias'+contadorCortesias+'">'+
+                    '<label>Usuario</label>'+
+                    '<input id="nombre_cortesia" name="nombre_cortesia[]" type="text" value="'+datos_Cortesia['Nombre']+'" class="form-control" readonly>'+
+                    '<input type="hidden" id="idUsuario" name="idUsuario[]" type="text" value="'+datos_Cortesia['idUsuario']+'" class="form-control">'+
+                '</div>'+
+                '<div id="fecha_Cortesias'+contadorCortesias+'">'+
+                    '<input type="hidden" id="fecha_cortesia" name="fecha_cortesia[]" value="'+d.toISOString().split('T')[0]+" "+d.toLocaleTimeString()+".000"+'" class="form-control">'+
+                '</div>'+
+                '<div id="idEvento'+contadorCortesias+'">'+
+                    '<input type="hidden" id="idEvento_Cortesia" name="idEvento_Cortesia[]" value="'+datos_Cortesia['idEvento']+'" class="form-control">'+
+                '</div>'+
             '</td>'+
             '<td class="eliminar_Registro_Cortesias"><input type="button" value="-"/></td>'+
         '</tr>'
@@ -1767,7 +1822,7 @@ $(document).on('change','.lote_Cortesias', function(){
             },
             type:'POST',
             url:'Eventos/Tarjetas_Cortesias',
-            data:{'idLote':lote,'idEvento':datos},
+            data:{'idLote':lote,'idEvento':datos_Cortesia['idEvento']},
             dataType:'JSON',
             error(jqXHR, textStatus, errorThrown){
                 alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
@@ -1793,7 +1848,13 @@ $(document).on('click','.eliminar_Registro_Cortesias', function(){
 
 $("#guardarCortesias").on('click',function(){
     iniciarCarga();
+    var d = new Date();
 
+    var idUsuario = $("#idUsuarioCortesia").val();
+    var idEvento = $("#idEventoCortesia").val();
+    
+    var fecha = d.toISOString().split('T')[0] + " " + d.toLocaleTimeString() + ".000";
+    
     $.ajax({
         type:'POST',
         url:'Eventos/Agregar_Cortesias',
@@ -1805,8 +1866,8 @@ $("#guardarCortesias").on('click',function(){
         }
     }).done(function(data){
         if(data.respuesta){
-            //location.reload();
             location.reload();
+            
             cerrarCarga(); 
         }
         else{
@@ -1814,4 +1875,5 @@ $("#guardarCortesias").on('click',function(){
             cerrarCarga();
         }
     });
+    
 });

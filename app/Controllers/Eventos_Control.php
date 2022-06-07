@@ -903,7 +903,7 @@ class Eventos_Control extends BaseController {
         $idLote = $_POST['idLote'];
         $idEvento = $_POST['idEvento'];
 
-        $respuesta = $model->buscar_Tarjetas($idLote,$idEvento['idEvento']);
+        $respuesta = $model->buscar_Tarjetas($idLote,$idEvento);
 
         echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
     }
@@ -911,13 +911,18 @@ class Eventos_Control extends BaseController {
     public function agregar_Cortesias(){
         $model = new Eventos_Model();
 
+        
         $idLote = $_POST['lote_Cortesia'];
         $folios = $_POST['folios_Cortesia'];
         $folioInicial = $_POST['folio_Inicial_Cortesias'];
         $folioFinal = $_POST['folio_Final_Cortesias'];
         $creditos = $_POST['creditos_Otorgados'];
         $descripcion = $_POST['descripcion_Cortesias'];
-
+        $nombre = $_POST['nombre_cortesia'];
+        $idEvento = $_POST['idEvento_Cortesia'];
+        $idUsuario = $_POST['idUsuario'];
+        $fecha = $_POST['fecha_cortesia'];
+        
         $num_elementos = 0;
         $cantidad = count($idLote);
 
@@ -945,7 +950,10 @@ class Eventos_Control extends BaseController {
                             'creditos' => $creditos[$contador],
                             'folioInicial' => $folioInicial[$contador],
                             'folioFinal' => $folioFinal[$contador],
-                            'descripcion' => $descripcion[$contador]
+                            'descripcion' => $descripcion[$contador],
+                            'Fecha'=> $fecha[$contador],
+                            'idUsuario' => $idUsuario[$contador],
+                            'idEvento' => $idEvento[$contador]
                         ];
                         $respuesta = $model->agregar_Cortesias($datos);
                         $contador = $contador + 1;

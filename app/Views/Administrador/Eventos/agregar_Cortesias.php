@@ -11,7 +11,7 @@
                     <div class="table table-striped table-responsive">
                         <table id="agregar_Cortesias" class="table table-bordered">
                             <thead>
-                                <th scope="col" style="vertical-align: middle;"></th>
+                                <th id="idCortesia" scope="col" style="vertical-align: middle;" value=""></th>
                             </thead>
                             <tbody id="cuerpo_agregar_Cortesias">
                                 <tr>
@@ -39,10 +39,6 @@
                                             <label>Concepto</label>
                                             <textarea id="descripcion_Cortesias" name="descripcion_Cortesias[]" cols="10", rows="2" class="form-control"></textarea>
                                         </div>
-                                        <div>
-                                            <label>Usuario</label>
-                                            <input id="" value="<?= session('Usuario')?>" readonly>
-                                        </div>
                                     </td>
                                     <td class="eliminar_Registro_Cortesias"><input type="button" value="-"/></td>
                                 </tr>
@@ -56,9 +52,9 @@
                 <hr>
                 <!--TABLA DE LISTADOS-->
                 <div class="table table-striped table-responsive">
-                    <table id="tablaTaquillas" class="table table-bordered">
+                    <table id="tabla_Tarjetas_Cortesias" class="table table-bordered">
                         <thead>
-                        <th></th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;"></th>
                         <th scope="col" style="text-align: center; vertical-align: middle;">Cantidad</th>
                         <th scope="col" style="text-align: center; vertical-align: middle;">Folio Inicial</th>
                         <th scope="col" style="text-align: center; vertical-align: middle;">Folio Final</th>
@@ -66,7 +62,7 @@
                         <th scope="col" style="text-align: center; vertical-align: middle;">Fecha</th>
                         <th scope="col" style="text-align: center; vertical-align: middle;">Descripcion</th>
                         </thead>
-                        <tbody id = "taquillasEvento">
+                        <tbody id = "cuerpo_tabla_tarjetas-cortesias">
                         </tbody>
                     </table>
                 </div>

@@ -584,7 +584,7 @@ $(document).on('click','.editar_Pulseras',function(){
 
     var datos = $(this).data('book-id');
     var fechas = datos['datos'];
-    var fila='';
+    var fila = '';
     var contador= 0;
 
     $("#tabla_Editar_Fechas_Pulsera").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Editar</th></tr>');
@@ -724,8 +724,8 @@ $(document).on('click','.editar_Fecha_Creditos', function(){
 $("#editar_Horario_Descuento").on('click',function(){
     var td = $("#td_Descuento").val();
     var id= $("#renglon_Descuento").val();
-    var inicio = $("#editar_Inicio_Descuento").val() + ":00";
-    var final = $("#editar_Final_Descuento").val() + ":00";
+    var inicio = $("#editar_Inicio_Descuento").val();
+    var final = $("#editar_Final_Descuento").val();
     var idFechaDosxUno = $("#idFechaDosxUno").val();
 
     $("#td_Descuento").val('');
@@ -818,6 +818,8 @@ $(document).on('click','.actualizar_Fechas_Promocion', function(){
         fecha_Editada_Credito = 0;
     }
 
+    console.log('pulsera ' + JSON.stringify(fecha_Editada_Pulsera));
+
     $.ajax({
         type:"POST",
         url: 'Eventos/Editar_Promocion_Evento',
@@ -830,7 +832,7 @@ $(document).on('click','.actualizar_Fechas_Promocion', function(){
     }).done(function(data){
         if(data.respuesta){
             cerrarCarga();
-            location.reload();
+            //location.reload();
         }
     });
 });
