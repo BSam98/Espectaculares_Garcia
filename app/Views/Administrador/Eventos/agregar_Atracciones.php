@@ -19,6 +19,7 @@
                         <div class="tab-content" id="nav-tabAtraccion">
                             <div class="tab-pane fade show active" id="nav-agregar-atracciones" role="tabpanel" aria-labelledby="nav-agregar-atracciones-tab">
                                 <div class="modal-body">
+
                                     <form enctype="multipart/form-data" name="formulario_Agregar_Atracciones" id="formulario_Agregar_Atracciones">
                                         <div class="table table-striped table-responsive">
                                             <div>
@@ -70,6 +71,7 @@
                                         <button name="agregar_Atracciones" id="agregar_Atracciones" type="button" class="btn btn-success">Agregar </button>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                     </form>
+                                    
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="nav-ver-atracciones" role="tabpanel" aria-labelledby="nav-ver-atracciones-tab">

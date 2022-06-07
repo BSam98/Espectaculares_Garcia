@@ -188,9 +188,9 @@ $(document).on('change', '#idLote', function(event) {
     }).done(function(data){
         var folio = [];
         for(var i =0;i<data.msj.length;i++){
-            folio[i] = JSON.stringify(data.msj[i]['Folio']);
+            folio[i] = data.msj[i]['Folio'];
         }
-        $("#folios").val(folio.toString());
+        $("#folios").val(folio);
         cerrarCarga();
     });
 });
@@ -1676,7 +1676,7 @@ $(document).on('click','.mostrar_Cortesias_Evento', function(){
             '<div id="folios_Disponibles0" class="form-group">'+
                 '<label for="folios_Cortesia">Folios Diposnibles</label>'+
                 '<br>'+
-                '<textarea id="folios_Cortesia" name="folios_Cortesia[]" cols="70",rows="70" class="form-control" readonly>'+
+                '<textarea id="folios_Cortesia" name="folios_Cortesia[]" cols="70" rows="10" class="form-control" readonly>'+
                 '</textarea>'+
             '</div>'+
             '<div id="folios_Seleccionados0" class="form-group">'+
@@ -1787,7 +1787,7 @@ $('#agregar_Registro').on('click', function(){
                 '<div id="folios_Disponibles'+contadorCortesias+'" class="form-group">'+
                     '<label for="folios_Cortesia">Folios Diposnibles</label>'+
                     '<br>'+
-                    '<textarea id="folios_Cortesia" name="folios_Cortesia[]" cols="70",rows="70" class="form-control" readonly>'+
+                    '<textarea id="folios_Cortesia" name="folios_Cortesia[]" cols="30" rows="10" class="form-control" readonly>'+
                     '</textarea>'+
                 '</div>'+
                 '<div id="folios_Seleccionados'+contadorCortesias+'" class="form-group">'+
@@ -1845,7 +1845,7 @@ $(document).on('change','.lote_Cortesias', function(){
                 for(var i=0; i<data.msj.length;i++){
                     string[i] = data.msj[i]['Folio'];
                 }
-                $('#folios_Disponibles'+id).html('<label for="folios_Cortesia">Folios Disponibles</label><br><textarea id="folios_Cortesia" name="folios_Cortesia" cols="70",rows="70" class="form-control" readonly>'+string+'</textarea>');
+                $('#folios_Disponibles'+id).html('<label for="folios_Cortesia">Folios Disponibles</label><br><textarea id="folios_Cortesia" name="folios_Cortesia" cols="30" rows="10" class="form-control" readonly>'+string+'</textarea>');
                 cerrarCarga();
             }
         });
