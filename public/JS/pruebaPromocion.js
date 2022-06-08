@@ -724,8 +724,8 @@ $(document).on('click','.editar_Fecha_Creditos', function(){
 $("#editar_Horario_Descuento").on('click',function(){
     var td = $("#td_Descuento").val();
     var id= $("#renglon_Descuento").val();
-    var inicio = $("#editar_Inicio_Descuento").val();
-    var final = $("#editar_Final_Descuento").val();
+    var inicio = $("#editar_Inicio_Descuento").val() + ":00";
+    var final = $("#editar_Final_Descuento").val() + ":00";
     var idFechaDosxUno = $("#idFechaDosxUno").val();
 
     $("#td_Descuento").val('');
@@ -832,7 +832,7 @@ $(document).on('click','.actualizar_Fechas_Promocion', function(){
     }).done(function(data){
         if(data.respuesta){
             cerrarCarga();
-            //location.reload();
+            location.reload();
         }
     });
 });

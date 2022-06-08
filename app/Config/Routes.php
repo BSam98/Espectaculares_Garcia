@@ -74,9 +74,17 @@ $routes->post('/valida','Iniciar_Sesion_User_Control::valida');
 $routes->get('/valida','Iniciar_Sesion_User_Control::valida');
 $routes->post('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
 $routes->get('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
+
 $routes->get('/Ingresos x Evento','Menu_Principal_Control::rEvento');
-$routes->get('/Utilizacion por Evento','Menu_Principal_Control::uEvento');
+
+$routes->get('/Utilizacion por Evento','Reporte_Personas_Evento_Control::uEvento');
+
+$routes->get('/Utilizacion por Evento/Reporte','Reporte_Personas_Evento_Control::listado_Eventos');
+$routes->post('/Utilizacion por Evento/Reporte','Reporte_Personas_Evento_Control::listado_Eventos');
+
+
 $routes->get('/Utilizacion por Atracción','Menu_Principal_Control::uAtraccion');
+
 $routes->get('/Ticket','reporte_Venta_Control::ticket');
 $routes->get('/Rol','Rol_Control::rol');
 //$routes->get('/Roles','Rol_Control::rol');

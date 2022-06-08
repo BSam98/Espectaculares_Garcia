@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form enctype="multipart/form-data">
+                <!--<form enctype="multipart/form-data">-->
                     <fieldset>
                         <nav>
                             <div class="nav nav-tabs" id="nav-taquillas" role="tablist">
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     </fieldset>
-                </form>
+                <!--</form>-->
             </div>                 
         </div>
     </div>

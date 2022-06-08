@@ -154,7 +154,8 @@ class Super_Atracciones_Model extends Model{
                     SUM(Creditos) AS Cantidad_Creditos,
                     SUM(Cortesias) AS Cantidad_Cortesias,
                     SUM(Descuentos) AS Cantidad_Descuentos,
-                    SUM(PulserasMagicas) AS Cantidad_Pulseras
+                    SUM(PulserasMagicas) AS Cantidad_Pulseras,
+                    SUM(Gratis) AS Cantidad_Gratis
                 FROM
                     Ciclo
                 WHERE
@@ -182,6 +183,7 @@ class Super_Atracciones_Model extends Model{
             Cortesias,
             Descuentos,
             PulserasMagicas,
+            Gratis,
             Hora
             '
         );

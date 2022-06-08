@@ -29,6 +29,7 @@ $('#fechaesperada').change(function () {
                 '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Cantidad_Cortesias']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Cantidad_Descuentos']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Cantidad_Pulseras']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Cantidad_Gratis']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Cantidad_Personas']+'</td>'+
                 '<td><a href="#verDetalles" type="button" class="btn btn-success detalles_Ciclo" data-toggle="modal" data-book-id='+"'{"+'"idAperturaValidador":'+data.msj[i]['idAperturaValidador']+"}'"+' >Ver detalles</a></td>'+
                 '</tr>';
@@ -79,6 +80,7 @@ $(document).on('click','.detalles_Ciclo', function(){
                 '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['Cortesias']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['Descuentos']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['PulserasMagicas']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['Gratis']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['Hora']+'</td>'+
                 '</tr>';
             }

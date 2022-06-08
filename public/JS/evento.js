@@ -1506,6 +1506,8 @@ $("#guardarTaquilla").click(function(){
     iniciarCarga();
     var indice = -1;
     var indice2 = -1;
+    console.log('dato: ' + $("#formulario_Taquilla_Evento").serializeArray());
+    alert('dato: ' + $("#selectZona").val());
 
 
     $.each(($("#formulario_Taquilla_Evento").serializeArray()),function(i,n){

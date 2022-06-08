@@ -25,23 +25,6 @@ class Menu_Principal_Control extends BaseController {
         echo view('Administrador/Reportes/xEvento');
         echo view('../Views/piePagina');
     }
-    public function uEvento(){
-        session_start([
-            'use_only_cookies' => 1,
-            'cookie_lifetime' => 0,
-            'cookie_secure' => 1,
-            'cookie_httponly' => 1
-        ]);
-        $model = new Iniciar_Sesion_Administrador_Model();
-        $rango = $_GET['idT'];
-        $datos = [
-            'Privilegios' => $model->consultarPrivilegiosR($rango),
-        ];
-        echo view('../Views/header',$datos);
-        //echo view('../Views/menu');
-        echo view('Administrador/Reportes/uEvento');
-        echo view('../Views/piePagina');
-    }
     public function uAtraccion(){
         session_start([
             'use_only_cookies' => 1,

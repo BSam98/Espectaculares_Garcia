@@ -115,7 +115,8 @@ class validador_Control extends BaseController {
             'Descuentos' => $ciclo[0]['Descuentos'],
             'PulserasMagicas' => $ciclo[0]['PulserasMagicas'],
             'Hora' => $ciclo[0]['Hora'],
-            'idAperturaValidador' => $ciclo[0]['idAperturaValidador']
+            'idAperturaValidador' => $ciclo[0]['idAperturaValidador'],
+            'Gratis' => $ciclo[0]['Gratis']
         ];
 
         $idCiclo = $model->Insertar_Ciclo($datos);
@@ -124,7 +125,7 @@ class validador_Control extends BaseController {
                 case '1':
                     $datos = [
                         'Folio' => $datosCiclo[$num_elementos]['folio'],
-                        'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionCiclo'],
+                        'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionEvento'],
                         'idFechaJuegosGratis' => $datosCiclo[$num_elementos]['idFechaJuegosGratis'],
                         'idCiclo' => $idCiclo
                     ];
@@ -175,7 +176,7 @@ class validador_Control extends BaseController {
                     case '1':
                         $datos = [
                             'Folio' => $datosCiclo[$num_elementos]['folio'],
-                            'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionCiclo'],
+                            'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionEvento'],
                             'idFechaJuegosGratis' => $datosCiclo[$num_elementos]['idFechaJuegosGratis'],
                             'idCiclo' => $idCiclo
                         ];
