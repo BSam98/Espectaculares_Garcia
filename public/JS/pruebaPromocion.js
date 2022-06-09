@@ -584,7 +584,7 @@ $(document).on('click','.editar_Pulseras',function(){
 
     var datos = $(this).data('book-id');
     var fechas = datos['datos'];
-    var fila='';
+    var fila = '';
     var contador= 0;
 
     $("#tabla_Editar_Fechas_Pulsera").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Editar</th></tr>');
@@ -817,6 +817,8 @@ $(document).on('click','.actualizar_Fechas_Promocion', function(){
     if(!fecha_Editada_Credito.length){
         fecha_Editada_Credito = 0;
     }
+
+    console.log('pulsera ' + JSON.stringify(fecha_Editada_Pulsera));
 
     $.ajax({
         type:"POST",

@@ -334,11 +334,40 @@ class Eventos_Model extends Model{
     public function agregarEvento($datos){
         $db= \Config\Database::Connect();
         $builder = $db->table('Eventos');
+        
+        if($builder -> insert($datos)){
+            return $db->insertID();
+        }
+        else{
+            return false;
+        }
+    }
 
-        $builder -> insert($datos);
+    public function agregar_Fechas_Evento($datos){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Calendario_Evento');
 
-        return 'Funciono';
-    
+        if($builder->insert($datos)){
+            return $db->insertID();
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function actualizarEvento($idEvento){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "UPDATE
+                Eventos
+            SET
+                FechaInicio = (SELECT MIN(DiaInicial) FROM Calendario_Evento WHERE idEvento =$idEvento),
+                FechaFinal = (SELECT MAX(DiaFinal) FROM Calendario_Evento WHERE idEvento =$idEvento)
+            WHERE
+                idEvento = $idEvento;
+            "
+        );
     }
 
     public function mostrarAtracciones($datos){
@@ -1005,14 +1034,23 @@ class Eventos_Model extends Model{
             "SELECT
                 Tarjeta_Regalo.idTarjetaRegalo,
                 Tarjeta_Regalo.Descripcion,
-                (SELECT Folio FROM Tarjetas WHERE idTarjeta = Tarjeta_Regalo.folio_Inicial) AS Folio_Inicial,
-                (SELECT Folio FROM Tarjetas WHERE idTarjeta = Tarjeta_Regalo.folio_Final) AS Folio_Final
+                (SELECT Folio  FROM Tarjetas WHERE idTarjeta = Tarjeta_Regalo.folio_Inicial) AS Folio_Inicial,
+                (SELECT Folio  FROM Tarjetas WHERE idTarjeta = Tarjeta_Regalo.folio_Final) AS Folio_Final,
+                Tarjeta_Regalo.Cantidad,
+                Tarjeta_Regalo.Fecha,
+                Usuarios.Nombre,
+                Usuarios.Apellidos
+
             FROM
                 Tarjeta_Regalo
             INNER JOIN
                 Tarjetas
             ON
                 Tarjeta_Regalo.folio_Inicial = Tarjetas.idTarjeta
+            INNER JOIN
+                Usuarios
+            ON
+                Tarjeta_Regalo.idUsuario = Usuarios.idUsuario
             WHERE
                 Tarjeta_Regalo.idEvento = $idEvento;
             "
@@ -1039,7 +1077,7 @@ class Eventos_Model extends Model{
             WHERE
                 Tarjetas.idEvento = $datos
             AND
-                idStatus = 1
+                Tarjetas.idStatus = 1
             AND
                 Tarjetas.idFajilla IS NULL;
             "
@@ -1114,6 +1152,21 @@ class Eventos_Model extends Model{
         $db = \Config\Database::connect();
 
         $query = $db->query(
+            "INSERT INTO
+                Tarjeta_Regalo
+            VALUES(
+                '$datos[descripcion]',
+                (SELECT idTarjeta FROM Tarjetas WHERE Folio= $datos[folioInicial]),
+                (SELECT idTarjeta FROM Tarjetas WHERE Folio = $datos[folioFinal]),
+                (SELECT COUNT(idTarjeta) FROM Tarjetas WHERE idFajilla IS NULL AND idStatus = 1 AND Folio BETWEEN $datos[folioInicial] AND $datos[folioFinal]),
+                '$datos[Fecha]',
+                $datos[idUsuario],
+                $datos[idEvento]
+            );
+            "
+        );
+
+        $query = $db->query(
             "UPDATE
                 Tarjetas
             SET
@@ -1125,17 +1178,6 @@ class Eventos_Model extends Model{
                 idStatus = 1
             AND
                 Folio BETWEEN $datos[folioInicial] AND $datos[folioFinal];
-            "
-        );
-
-        $query = $db->query(
-            "INSERT INTO
-                Tarjeta_Regalo (Descripcion,folio_Inicial,folio_Final)
-            VALUES(
-                '$datos[descripcion]',
-                (SELECT idTarjeta FROM Tarjetas WHERE Folio= $datos[folioInicial]),
-                (SELECT idTarjeta FROM Tarjetas WHERE Folio = $datos[folioFinal])
-            );
             "
         );
         return true;

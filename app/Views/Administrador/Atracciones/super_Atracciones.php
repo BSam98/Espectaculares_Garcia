@@ -4,7 +4,7 @@ if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
     exit();
 }else{
 ?>
-<fieldset id="fieldset">
+<fieldset id="fieldset" data-aos-anchor-placement="top-bottom" data-ais-duration="1000" style="color:black;">
     <center><h2><i class="fa fa-star" aria-hidden="true"></i>&nbsp;REPORTE DE ATRACCIONES</h2></center><hr>
     <div class="container">
         <div class="table table-responsive">
@@ -31,7 +31,7 @@ if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
                 </tbody>
             </table>
         </div>
-    <hr>
+        <hr>
         <div class="table table-striped table-responsive">
             <table id="tabla_Atracciones_Supervisar" class="tabla table-bordered">
                 <thead>
@@ -44,6 +44,7 @@ if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
                         <th><center>Cortesias</center></th>
                         <th><center>Descuentos</center></th>
                         <th><center>Pulseras Magicas</center></th>
+                        <th><center>Juego Gratis</center></th>
                         <th><center>Pases</center></th>
                         <th>Detalles</th>
                     </tr>
@@ -75,6 +76,7 @@ if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
                                     <th><center>Cortesias</center></th>
                                     <th><center>Descuentos</center></th>
                                     <th><center>Pulseras Magicas</center></th>
+                                    <th><center>Juegos Gratis</center></th>
                                     <th><center>Hora</center></th>
                                 </tr>
                             </thead>

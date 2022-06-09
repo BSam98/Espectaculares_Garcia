@@ -17,6 +17,7 @@ var cantidadC = 0;
 var cantidadCC = 0;
 var cantidadD= 0;
 var cantidadPM = 0;
+var cantidadJG = 0;
 var ciclo = [];
 var informacionCiclo = [];
 
@@ -77,7 +78,7 @@ $(document).on('change','#tarjetaVal',function(event){
 
     var fecha = date.toISOString().split('T')[0];
     fecha += ' ' + date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
-    fecha += '.'+'000';
+    fecha += '.000';
     var folio = $("#tarjetaVal").val();
     var creditos = parseInt( $("#Creditos").val());
     var idAtraccionEvento = $("#idAtraccionEvento").val();
@@ -108,7 +109,11 @@ $(document).on('change','#tarjetaVal',function(event){
                  * indiceJuegos para despues realizar el registro de 
                  * la promocion en especifico
                  */
+                // 9:5:1 = 09:05:10
+                console.log('datos: ' + JSON.stringify(juegosGratis));
+                console.log('Informacion: ' + fecha+ ' fecha inicial : ' + juegosGratis[i]['FechaInicial'] + 'Fecha Final  '  + juegosGratis[i]['FechaFinal']);
                 if(fecha >= juegosGratis[i]['FechaInicial'] && fecha<=juegosGratis[i]['FechaFinal']){
+                    console.log('Hay juego gratisa ctivado');
                     indiceJuegos = i;
                 }
     
@@ -139,6 +144,7 @@ $(document).on('change','#tarjetaVal',function(event){
                         '<br>'+
                         '<label>'+juegosGratis[indiceJuegos]['Nombre']+'</label>'+
                     '</center>';
+                    cantidadJG +=1;
                     cantidadP += 1;
 
                 informacionCiclo.push({'indice':1,'folio':folio,'idAtraccionEvento':idAtraccionEvento,'idFechaJuegosGratis':juegosGratis[indiceJuegos]['idFechaJuegosGratis']});
@@ -353,7 +359,7 @@ $('#iniciarCiclo').click(function(){
 
     var fecha = d.toISOString().split('T')[0] +" "+d.toLocaleTimeString()+".000";
 
-    ciclo.push({'indice':7,'Personas':cantidadP,'Creditos':cantidadC,'Cortesias':cantidadCC,'Descuentos':cantidadD,'PulserasMagicas':cantidadPM,'Hora':fecha,'idAperturaValidador':idAperturaValidador});
+    ciclo.push({'indice':7,'Personas':cantidadP,'Creditos':cantidadC,'Cortesias':cantidadCC,'Descuentos':cantidadD,'PulserasMagicas':cantidadPM,'Hora':fecha,'idAperturaValidador':idAperturaValidador,'Gratis': cantidadJG});
     
     console.log('Cantidad de personas ' + cantidadP);
     console.log('Cantidad de creditos ' + cantidadC);
@@ -384,6 +390,7 @@ $('#iniciarCiclo').click(function(){
         cantidadCC = 0;
         cantidadD = 0;
         cantidadPM = 0;
+        cantidadJG = 0;
         cerrarCarga();
     });
     

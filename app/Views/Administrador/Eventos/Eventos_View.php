@@ -6,7 +6,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
 ?>
 <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
         <center><h1 style="color:black; ">EVENTOS</h1></center>
-        <a href="#myModal" type="button" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Nuevo Evento</a>
+        <a href="#myModal" type="button" id="nueva_Evento" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Nuevo Evento</a>
 
         <div class="table table-striped table-responsive contenedorTabla">
             <br>
@@ -45,7 +45,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                             <td>
                                                 <ul class="circulo">
                                                     <li><a href="#AgregarL" class ="mostrarTarjetasEvento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Tarjetas</a></li>
-                                                    <li><a href="#tarjetas_Cortesia" class ="mostrar_Cortesias_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Cortesías</a></li>
+                                                    <li><a href="#tarjetas_Cortesia" class ="mostrar_Cortesias_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>,"idUsuario":<?= $_SESSION['idUsuario']?>,"Nombre":"<?= $_SESSION['Usuario']?>"}'>Cortesías</a></li>
                                                     <li><a href="#Promociones" class ="mostrar_Promociones_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Promociones</a></li>
                                                     <li><a href="#Zonas" class ="mostrar_Zonas_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Zonas</a></li>
                                                     <li><a href="#taquillas" class ="mostrar_Taquillas_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Taquillas</a></li>
