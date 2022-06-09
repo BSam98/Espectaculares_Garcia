@@ -6,7 +6,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
 ?>
 <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
         <center><h1 style="color:black; ">EVENTOS</h1></center>
-        <a href="#myModal" type="button" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Nuevo Evento</a>
+        <a href="#myModal" type="button" id="nueva_Evento" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Nuevo Evento</a>
 
         <div class="table table-striped table-responsive contenedorTabla">
             <br>

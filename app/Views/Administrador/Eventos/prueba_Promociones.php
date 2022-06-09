@@ -53,7 +53,7 @@
                                                                         <br>
                                                                     </div>
                                                                     <div class="from-group table table-responsive">
-                                                                        <table>
+                                                                        <table class="table table-bordered">
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td>

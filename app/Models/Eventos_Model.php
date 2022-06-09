@@ -334,11 +334,40 @@ class Eventos_Model extends Model{
     public function agregarEvento($datos){
         $db= \Config\Database::Connect();
         $builder = $db->table('Eventos');
+        
+        if($builder -> insert($datos)){
+            return $db->insertID();
+        }
+        else{
+            return false;
+        }
+    }
 
-        $builder -> insert($datos);
+    public function agregar_Fechas_Evento($datos){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Calendario_Evento');
 
-        return 'Funciono';
-    
+        if($builder->insert($datos)){
+            return $db->insertID();
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function actualizarEvento($idEvento){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "UPDATE
+                Eventos
+            SET
+                FechaInicio = (SELECT MIN(DiaInicial) FROM Calendario_Evento WHERE idEvento =$idEvento),
+                FechaFinal = (SELECT MAX(DiaFinal) FROM Calendario_Evento WHERE idEvento =$idEvento)
+            WHERE
+                idEvento = $idEvento;
+            "
+        );
     }
 
     public function mostrarAtracciones($datos){

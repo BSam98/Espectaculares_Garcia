@@ -3,7 +3,10 @@ var contadorTaquilla=0;
 var contadorVentanilla=0;
 var contadorPromociones=0;
 var contadorCortesias=0;
+var contadorEvento = 0;
+var contadorRenglon = 0;
 var precio_Promocion =[];
+var fechas_Evento = [];
 var string= [];
 var select_Zonas_Html = '';
 var option_Zonas_Html = '';
@@ -40,31 +43,88 @@ var pulsera_Atraccion = [];
 var juegos_Atraccion = [];
 var datos_Cortesia;
 
+$("#nueva_Evento").on('click', function(){
+    contadorEvento = 0;
+    contadorRenglon = 0;
+    fechas_Evento = [];
+});
+
 $("#agregarEvento").click(function(){
-    $.ajax({
-        beforeSend: function(){
-            iniciarCarga();
-        },
-        type: "POST",
-        url: 'Eventos/Agregar_Evento',
-        data: $("#formularioAgregarEvento").serialize(),
-        dataType: 'JSON',
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
-            cerrarCarga();
-        },
-    }).done(function(data){
-        if(data.respuesta){
-            cerrarCarga();
-            location.reload();
-        }
-    });
+    iniciarCarga();
+    var id_Arreglo = [];
+    var nombre =[];
+    var direccion = [];
+    var ciudad = [];
+    var estado = [];
+    var costo = [];
+    var pesos = [];
+    var creditos = [];
+    var fechaInicial = [];
+    var fechaFinal = [];
+
+    if(!fechas_Evento.length){
+        alert('Favor de completar los campos faltantes');
+        cerrarCarga();
+    }else{
+        dt = $("#formularioAgregarEvento").serializeArray();
+    
+        $.each(dt, function(i,n){
+            console.log('entras ' + n.name);
+            if("id_Arreglo[]"=== n.name){
+                id_Arreglo.push(n.value);
+            }
+            if("Nombre[]" === n.name){
+                nombre.push(n.value)
+            }
+            if("Direccion[]" === n.name){
+                direccion.push(n.value);
+            }
+            if("Ciudad[]"=== n.name){
+                ciudad.push(n.value);
+            }
+            if("Estado[]" === n.name){
+                estado.push(n.value);
+            }
+            if("costo_Tarjeta[]" === n.name){
+                costo.push(n.value);
+            }
+            if("pesos[]" === n.name){
+                pesos.push(n.value);
+            }
+            if("creditos[]" === n.name){
+                creditos.push(n.value);
+            }
+        });
+    
+        $.ajax({
+            beforeSend: function(){
+                iniciarCarga();
+            },
+            type: "POST",
+            url: 'Eventos/Agregar_Evento',
+            data: {'id':id_Arreglo,'Nombre':nombre,'Direccion':direccion,'Ciudad':ciudad,'Estado':estado,'fechas':fechas_Evento,'pesos':pesos,'creditos':creditos,'costo':costo},
+            dataType: 'JSON',
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+                cerrarCarga();
+            },
+        }).done(function(data){
+            if(data.respuesta){
+                cerrarCarga();
+                location.reload();
+            }
+        });
+    }
 });
 
 $("#duplicar_Registro").click(function(){
+    contadorEvento++;
     $(
         '<tr class="a-Eventos">'+
             '<td>'+
+                '<div class="form-group">'+
+                    '<input type="hidden" id="id_Arreglo" name="id_Arreglo[]" value="'+contadorEvento+'">'+
+                '</div>'+
                 '<div class="form-group">'+
                     '<label for="nombre">Nombre</label>'+
                     '<input class="form-control" type="text" name = "Nombre[]"  id="Nombre" required placeholder="Nombre"/>'+
@@ -82,25 +142,46 @@ $("#duplicar_Registro").click(function(){
                     '<input class="form-control" type="text" name="Estado[]"  id="Estado" required placeholder="Estado"/>'+
                 '</div>'+
                 '<div class="form-group">'+
-                    '<label for="fechas">Fechas</label>'+
-                    '<table class="table table-bordered">'+
-                        '<th>Fecha de Inicio</th>'+
-                        '<th>Fecha de Termino</th>'+
-                        '<tbody>'+
-                            '<td>'+
-                                '<input class="form-control" type="date" name="fechaInicio[]"  id="fechaInicio" >'+
-                            '</td>'+
-                            '<td>'+
-                                '<input class="form-control" type="date" name="fechaFinal[]"  id="fechaTermino" >'+
-                            '</td>'+
-                        '</tbody>'+
-                    '</table>'+
+                    '<label for="costo_Tarjeta">Costo por tarjeta</label>'+
+                    '<input class="form-control" type="number" name="costo_Tarjeta[]" id="costo_Tarjeta" required placeholder="Costo">'+
                 '</div>'+
                 '<div class="form-group">'+
                     '<label for="estado">Equivalencia de pesos a creditos</label>'+
                     '<input class="form-control" type="number" name="pesos[]"  id="pesos" required placeholder="Pesos"/>'+
                     '<br>'+
                     '<input class="form-control" type="number" name="creditos[]"  id="creditos" required placeholder="Creditos"/>'+
+                '</div>'+
+                '<!--TABLA DE FECHAS-->'+
+                '<div class="from-group table table-responsive">'+
+                    '<table class="table table-bordered">'+
+                        '<tbody>'+
+                            '<tr>'+
+                                '<td id="evento'+contadorEvento+'">'+
+                                    '<div class="container" id="fechas_Evento">'+
+                                        '<center><label>Días</label></center>'+
+                                        '<br>'+
+                                        '<label for="inicioEvento'+contadorEvento+'">Hora de Inicio</label>'+
+                                        '<input id="inicioEvento'+contadorEvento+'" class="form-control" type="datetime-local">'+
+                                        '<br>'+
+                                        '<label for="finEvento'+contadorEvento+'">Hora de Finalizacion</label>'+
+                                        '<input id="finEvento'+contadorEvento+'" class="form-control" type="datetime-local">'+
+                                        '<br>'+
+                                        '<button class="agregar_Fecha_Evento btn btn-success" type="button">Añadir Fecha</button></center><br>'+
+                                    '</div>'+
+                                '</td>'+
+                                '<td>'+
+                                    '<table id="tabla_Fechas_Evento'+contadorEvento+'" class="table table-bordered table-hover">'+
+                                        '<thead>'+
+                                            '<th style="text-align: center; vertical-align: middle;">Hora Inicial</th>'+
+                                            '<th style="text-align: center; vertical-align: middle;">Hora Final</th>'+
+                                            '<th style="text-align: center; vertical-align: middle;">Eliminar</th>'+
+                                        '</thead>'+
+                                        '<tbody id="cuerpo_Fechas_Evento'+contadorEvento+'"></tbody>'+
+                                    '</table>'+
+                                '</td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                    '</table>'+
                 '</div>'+
             '</td>'+
             '<td class="eliminarAt"><input type="button" value="-"/></td>'+
@@ -109,43 +190,30 @@ $("#duplicar_Registro").click(function(){
 });
 
 
-/*
-$("#idLote").on('change',function(event){
-    //var idLote = $("#idLote").val();
-    var b = '{idLote:0}';
-    console.log(b);
-    alert(b);
-    $.ajax({
-        type: "POST",
-        url: 'Eventos/Mostrar_Tarjetas_Nuevas',
-        data: a,
-        dataType: 'JSON'
-    }).done(function(data){
+$(document).on('click','.agregar_Fecha_Evento', function(){
+    contadorRenglon++;
+    var contador=$(this).parents('td').attr('id').substr(-1); 
 
-        alert(data.msj);
-        console.log(data.msj);
-        
-        var html ='';
-        for(var i = 0;i<data.msj.length; i++){
+    var fechaInicial = $('#inicioEvento'+contador).val() + ":00";
+    var fechaFinal =$('#finEvento'+contador).val() + ":00";
 
-            
-            html += '<tr>'+
-            '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
-            '<td>'+data.msj[i]['Atraccion']+'</td>'+
-            '<td>'+data.msj[i]['Creditos']+'</td>'+
-            '<td></td>'+
-            '<td>'+data.msj[i]['Contrato']+'</td>'+
-            '<td>'+data.msj[i]['Poliza']+'</td>'+
-            '</tr>';
-            
-        }
-        
-        $("#atraccionesEvento").html(html);
-        
+    fechas_Evento.push({'idEvento':contador,'idRenglon':contadorRenglon,'fechaInicial':fechaInicial,'fechaFinal':fechaFinal});
 
-    });
+    $('<tr id="'+contadorRenglon+'"><td>'+fechaInicial+'</td><td>'+fechaFinal+'</td><td><button type="button" name="remover_Cortesias" class="btn btn-danger remover_Fecha_Evento">Remover</button></td></tr>').clone().appendTo("#cuerpo_Fechas_Evento"+contador);
+}
+);
+
+$(document).on('click','.remover_Fecha_Evento', function(){
+    var parent=$(this).parents().get(1);
+
+    var id=$(this).parents('tr').attr('id');
+    var indiceRenglon = fechas_Evento.findIndex((objeto)=>objeto.idRenglon == id);
+
+    fechas_Evento.splice(indiceRenglon,1);
+    $(parent).remove();
 });
-*/
+
+/**--------------------------------------------------------------------------- */
 
 $("#asociarTarjetas").click(function(){
     $.ajax({
@@ -844,6 +912,7 @@ $("#agregar_Atracciones").click(function(){
     datos = $("#formulario_Agregar_Atracciones").serializeArray();
 
     $.each(datos, function(i, dato){
+        console.log('data: ' + dato.name);
         if(dato.name === "atracciones_Nuevas[]"){
             atracciones.push(dato.value);
         }
@@ -891,7 +960,7 @@ $("#agregar_Atracciones").click(function(){
             location.reload();
         }
     });
-    
+
 });
 
 $("#nuevaAt").click(function(){
@@ -1506,8 +1575,6 @@ $("#guardarTaquilla").click(function(){
     iniciarCarga();
     var indice = -1;
     var indice2 = -1;
-    console.log('dato: ' + $("#formulario_Taquilla_Evento").serializeArray());
-    alert('dato: ' + $("#selectZona").val());
 
 
     $.each(($("#formulario_Taquilla_Evento").serializeArray()),function(i,n){

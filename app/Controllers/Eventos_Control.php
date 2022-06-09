@@ -40,48 +40,51 @@ class Eventos_Control extends BaseController {
     public function agregarEvento(){
         $model = new Eventos_Model();
 
+        $id =$_POST['id'];
         $nombre = $_POST['Nombre'];
         $direccion = $_POST['Direccion'];
         $ciudad = $_POST['Ciudad'];
         $estado = $_POST['Estado'];
-        $fechaInicio = $_POST['fechaInicio'];
-        $fechaFinal = $_POST['fechaFinal'];
         $precio = $_POST['pesos'];
         $creditos = $_POST['creditos'];
+        $costo = $_POST['costo'];
+        $fechas =$_POST['fechas'];
 
         $num_elementos = 0;
         $cantidad =count($nombre);
 
-        if(1 == $cantidad){
+        $cantidadFechas = count($fechas);
+
+
+        while($num_elementos<$cantidad){
             $datos = [
                 'Nombre' => $nombre[$num_elementos],
                 'Direccion' => $direccion[$num_elementos],
                 'Ciudad' => $ciudad[$num_elementos],
                 'Estado' => $estado[$num_elementos],
-                'FechaInicio' => $fechaInicio[$num_elementos],
-                'FechaFinal' => $fechaFinal[$num_elementos],
                 'Precio' => $precio[$num_elementos],
-                'Creditos' => $creditos[$num_elementos]
+                'Creditos' => $creditos[$num_elementos],
+                'precioTarjeta' =>$precio[$num_elementos]
             ];
     
             $respuesta = $model->agregarEvento($datos);
-        }
-        else{
-            while($num_elementos<$cantidad){
-                $datos = [
-                    'Nombre' => $nombre[$num_elementos],
-                    'Direccion' => $direccion[$num_elementos],
-                    'Ciudad' => $ciudad[$num_elementos],
-                    'Estado' => $estado[$num_elementos],
-                    'FechaInicio' => $fechaInicio[$num_elementos],
-                    'FechaFinal' => $fechaFinal[$num_elementos],
-                    'Precio' => $precio[$num_elementos],
-                    'Creditos' => $creditos[$num_elementos]
-                ];
-        
-                $respuesta = $model->agregarEvento($datos);
-                $num_elementos = $num_elementos + 1;
+            if($respuesta != false){
+                $contador= 0;
+                while($contador<$cantidadFechas){
+                    if($id[$num_elementos] == $fechas[$contador]['idEvento']){
+                        $datos = [
+                            'DiaInicial' => $fechas[$contador]['fechaInicial'],
+                            'DiaFinal' => $fechas[$contador]['fechaFinal'],
+                            'idEvento' => $respuesta
+                        ];
+                        $respuesta2 = $model->agregar_Fechas_Evento($datos);
+                    }
+                    $contador = $contador + 1;
+                }
+
+                $respuesta3 = $model->actualizarEvento($respuesta);
             }
+            $num_elementos = $num_elementos + 1;
         }
         echo json_encode(array('respuesta'=>true, 'msj'=>$datos));
     }
