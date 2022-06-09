@@ -1,5 +1,5 @@
 <?php 
-if(!isset($_SESSION['Usuario'])) {
+if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
     header('Location: http://localhost/Espectaculares_Garcia/public/');
     exit();
 }else{
@@ -10,16 +10,13 @@ if(!isset($_SESSION['Usuario'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../css/sb-admin-2.css" rel="stylesheet"><!--Esta linea la acabo de agregar, tiene el estilo del radio en tipo pago-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
 </head>
 <body id="page-top" style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;" onload="mueveReloj()">
    <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"><br>
             <form name="form_reloj">
@@ -66,10 +63,10 @@ if(!isset($_SESSION['Usuario'])) {
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
                     <!-- Topbar datos Evento -->
                     
@@ -104,9 +101,32 @@ if(!isset($_SESSION['Usuario'])) {
                 </nav>
                 <!-- End of Topbar -->
                
+                <!--***************** MODAL DE CARGA ****************-->
+                    <div class="modal fade bd-example-modal-lg" id="modalCarga" data-backdrop="static" data-keyboard="false" tabindex="-1">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content" style="width: 48px">
+                                <span class="fa fa-spinner fa-spin fa-3x"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+                        .bd-example-modal-lg .modal-dialog{
+                            display: table;
+                            position: relative;
+                            margin: 0 auto;
+                            top: calc(50% - 24px);
+                        }
+                        
+                        .bd-example-modal-lg .modal-dialog .modal-content{
+                            background-color: transparent;
+                            border: none;
+                        }
+                    </style>
+                <!--***************** MODAL DE CARGA ****************-->
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid" id="puntoVenta">
-                        <!-- Tarjeta y Recarga -->
+                    <!-- Tarjeta y Recarga -->
                     <form id="formPuntoVenta">
                             <input type="hidden" name="ventanillaa" id="ventanillaa" value="<?php echo $_GET["v"]?>">
                             <input type="hidden" name="idventani" id="idventani" value="<?php echo $_GET["idv"]?>">
@@ -127,11 +147,11 @@ if(!isset($_SESSION['Usuario'])) {
                                         <div class="input-group">
                                             <div class="col-xs-4 col-sm-4">
                                                 <h5 class="m-0 font-weight-bold text-primary"><i class="fa fa-credit-card" aria-hidden="true" style="margin:5px;"></i>&nbsp;Tarjeta:</h5>
-                                                <input type="text" class="form-control" name="tarjetaAdd" id="tarjetaAdd" minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" onblur="ingresarTarjeta()" autofocus>
+                                                <input type="text" class="form-control" name="tarjetaAdd" id="tarjetaAdd" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" onblur="ingresarTarjeta()" autofocus>
                                             </div>
                                             <div class="col-xs-4 col-sm-4">
                                                 <h5 class="m-0 font-weight-bold text-primary"><i class="fa fa-retweet" aria-hidden="true"  style="margin:5px;"></i>&nbsp;Recarga:</h5>
-                                                <input class="form-control" type="number" name="recargaAdd" id="recargaAdd" onblur="ingresarRecarga()">&nbsp;
+                                                <input class="form-control" type="number" name="recargaAdd" id="recargaAdd" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="0" onblur="ingresarRecarga()">&nbsp;
                                             </div>
                                             <!-- Optional: clear the XS cols if their content doesn't match in height -->
                                             <div class="col-xs-4 col-sm-4">
@@ -215,7 +235,7 @@ if(!isset($_SESSION['Usuario'])) {
                                                     <label>Total: $</label>
                                                 </div>
                                                 <div class="col-xs-2 col-sm-6">
-                                                    <input class="form-control" type="number" name="total" id="total" value="">
+                                                    <input class="form-control" type="number" name="total" id="total" min="0" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -289,7 +309,7 @@ if(!isset($_SESSION['Usuario'])) {
 
 <!--***************************************** Alertas *************************************************-->
 <div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
-  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="row no-gutters fixed-center">
             <div class="alert alert-danger fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -299,25 +319,24 @@ if(!isset($_SESSION['Usuario'])) {
                 <center><span class="badge badge-danger" type="button" data-dismiss="modal">Aceptar</span></center>
             </div>
         </div>
-  </div>
+    </div>
 </div>
 
-
 <div class="modal fade" id="alertaCorrecta" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
-  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="row no-gutters fixed-center">
             <div class="alert alert-success fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="True">&times;</span>
                 </button>
-                <p id="mensaje"></p>
+                <p id="mensaje2"></p>
                 <center><span class="badge badge-success" type="button" data-dismiss="modal">Aceptar</span></center>
             </div>
         </div>
-  </div>
+    </div>
 </div>
 
-
+<!--***************************************** Alertas *************************************************-->
 
 
 
@@ -354,8 +373,8 @@ if(!isset($_SESSION['Usuario'])) {
 <div class="modal fade" id="modal_Efectivo">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-            <h4 class="modal-title">Efectivo</h4>
+            <div class="modal-header">      
+            <!--center><h4 class="modal-title">Pago:</h4></center-->
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
             </div>
@@ -389,7 +408,7 @@ if(!isset($_SESSION['Usuario'])) {
                 <input type="hidden" name="idv" id="idv" value="<?php echo $_GET["v"]?>">
                     <div class="form-group">
                         <label>Tarjeta</label>
-                        <input type="number" name="tarjetD" id="tarjetD" required minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" class="form-control" placeholder="Ingresa la tarjeta a devolver">
+                        <input type="number" name="tarjetD" id="tarjetD" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" class="form-control" placeholder="Ingresa la tarjeta a devolver">
                     </div>
                     <div class="form-group">
                         <label>Descripción</label>
@@ -422,11 +441,11 @@ if(!isset($_SESSION['Usuario'])) {
             <input type="hidden" name="e" id="e" value="<?php echo $_GET["e"]?>">
             <div class="form-group">
                 <label>Folio Inicial</label>
-                <input type="text" class="form-control" name="folioI" id="folioI" required minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                <input type="number" class="form-control" name="folioI" id="folioI" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
             </div>
             <div class="form-group">
                 <label>Folio Final</label>
-                <input type="text" class="form-control" name="folioF" id="folioF" required minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                <input type="number" class="form-control" name="folioF" id="folioF" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregarFajilla" id="agregarFajilla" value="">Agregar</button>

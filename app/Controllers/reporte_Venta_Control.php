@@ -66,8 +66,13 @@ class Reporte_Venta_Control extends BaseController{
 
 	public function cerrarTurn(){
 		$model = new reporte_Ventas_Model;
+		$dtI = $_POST['dtI'];
+		$dtF = $_POST['dtF'];
+		$efectivo = $_POST['efectivo'];
+		$vou = $_POST['vou'];
 		$idv = $_POST['idv'];//idFajilla
-		$data = $model->cerrarTurno($idv);
+		$fecha = $_POST['fecha'];
+		$data = $model->cerrarTurno($dtI, $dtF, $efectivo, $vou, $idv, $fecha);
 		echo json_encode(array('respuesta'=>true, 'msj'=>$data));
 	}
 }	

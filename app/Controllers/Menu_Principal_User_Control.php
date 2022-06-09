@@ -142,6 +142,7 @@ class Menu_Principal_User_Control extends BaseController {
                     break;
                 
                 case '2';
+                    
                     $data = $model->agregarRecarga($idtarjeta, $recarga, $gtran, $precioTa, $evento);
                     break;
 
@@ -231,7 +232,8 @@ class Menu_Principal_User_Control extends BaseController {
     public function tipo_Pago(){
         $model = new mcobro_model;
         $tipo = $_POST['tipo'];
-        $data = $model->tipoPagos($tipo);
+        $data =['Tipo' => $model->tipoPagos($tipo),
+                'Bancos' => $model->consultaBancos()];
         echo json_encode(array('respuesta'=>true,'msj'=>$data));
     }
 

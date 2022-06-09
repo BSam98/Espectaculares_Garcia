@@ -72,6 +72,7 @@ $(document).ready(function () {
 
     /************************************* Boton Iniciar Sesion *******************************************/
     $("#botonenviar").click( function(){
+        
         var evento = $("#eventoId").val();
         var zona =$('#zona').val();  
         var taquilla = $('#taquilla').val();
@@ -90,13 +91,14 @@ $(document).ready(function () {
                 alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
             },
         }).done(function(data){
-            console.log(data.msj);
             var idV=data.msj;
             if(data.msj == false){
                 alert('No puede ingresar tarjetas ya registradas');
-                location.href='turno';
+                location.reload();
+                //location.href='turno';
                 cierra_carg();
             }else{
+                //console.log(data.msj);
                 location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&v="+idV+"&u="+usuario+"&idv="+ventanilla;
                 
                 /*$.ajax({

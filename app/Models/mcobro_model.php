@@ -445,99 +445,55 @@ class mcobro_model extends Model{
         $builder = $db->table('Tarjetas');
         $builder-> select(
             'idTarjeta,
-            idStatus
-            '
+            idStatus'
         );
-        //$builder->join('Eventos', 'Eventos.idEvento = Tarjetas.idEvento');
         $builder->where('Folio', $folio);
         $query = $builder->get();
         $datost = $query->getResultArray();
-        //$tarjet = implode($datost[0]);//obtengo el id
-        foreach($datost as $row1){
-            $tarjet = $row1['idTarjeta'];//saco el valor de id inicial
-            $status = $row1['idStatus'];//saco el valor de id final
-        }
-        /**************************** Aqui saco el id de la tarjeta por medio del folio que me esta ingresando *************************/
+        if($datost){
+            foreach($datost as $row1){
+                $tarjet = $row1['idTarjeta'];//saco el valor de id inicial
+                $status = $row1['idStatus'];//saco el valor de id final
+            }
+            /**************************** Aqui saco el id de la tarjeta por medio del folio que me esta ingresando *************************/
 
-        /**************************** Verifico de que idTarjeta a que idTarjeta me ingreso en el turno *************************/
-        $builder = $db->table('Fajillas');
-        $builder-> select(
-            'folioInicial,
-            folioFinal
-            '
-        );
-        //$builder->where('idAperturaVentanilla', $v);
-        $builder->where('idFajilla', $v);
-        $query = $builder->get();
-        $datos2 = $query->getResultArray();
-        
-        foreach($datos2 as $row2){
+            /**************************** Verifico de que idTarjeta a que idTarjeta me ingreso en el turno *************************/
+            $builder = $db->table('Fajillas');
+            $builder-> select(
+                'folioInicial,
+                folioFinal'
+            );
+            //$builder->where('idAperturaVentanilla', $v);
+            $builder->where('idFajilla', $v);
+            $query = $builder->get();
+            $datos2 = $query->getResultArray();
+            
+            foreach($datos2 as $row2){
                 $ini = $row2['folioInicial'];//saco el valor de id inicial
                 $fin = $row2['folioFinal'];//saco el valor de id final
-        }
+            }
 
-        /**************** Verifico si el id ingresado de la tarjeta existe entre los rangos ingresados en el turno ***************/
-        $query2 = $db->query("SELECT idTarjeta, idStatus, e.PrecioTarjeta from Tarjetas t, Eventos e  WHERE t.idEvento = e.idEvento and t.idTarjeta BETWEEN " . $ini . " and " . $fin.  " and t.idStatus != '5' and t.idTarjeta = " . $tarjet);
-        $datos = $query2->getResultObject();
-
-        /*$builder = $db->table('Tarjetas');
-        $builder-> select(
-            'idTarjeta,
-             idStatus,
-             Eventos.PrecioTarjeta
-            '
-        );
-        $builder->join('Eventos', 'Eventos.idEvento = Tarjetas.idEvento');
-        $builder ->where("idTarjeta BETWEEN " . $ini . " and ". $fin);
-        $builder ->where('idStatus !=', 5);
-        $builder ->where('idTarjeta', $tarjet);
-        $query = $builder->get();
-        $datos = $query->getResultObject();*/
-        if($datos){
-           // echo var_dump($datos);
-            return $datos;
+            /**************** Verifico si el id ingresado de la tarjeta existe entre los rangos ingresados en el turno ***************/
+            $query2 = $db->query("SELECT idTarjeta, idStatus, e.PrecioTarjeta from Tarjetas t, Eventos e  WHERE t.idEvento = e.idEvento and t.idTarjeta BETWEEN " . $ini . " and " . $fin.  " and t.idStatus != '5' and t.idTarjeta = " . $tarjet);
+            $datos = $query2->getResultObject();
+            if($datos){
+                return $datos;
+            }else{
+                //la tarjeta no pertenece a la tablilla
+                $query3 = $db->query("SELECT idTarjeta, idStatus from Tarjetas t WHERE idStatus != '5' and idTarjeta =".$tarjet);
+                $datosS = $query3->getResultArray();
+                foreach($datosS as $row){
+                        $estado = $row['idStatus'];
+                    if($estado != '1'){
+                        return $datosS;
+                    }else{
+                        return false; 
+                    }
+                }  
+            }
         }else{
-            //la tarjeta no pertenece a la tablilla
-            $query3 = $db->query("SELECT idTarjeta,idStatus from Tarjetas t WHERE idStatus != '5' and idTarjeta =".$tarjet);
-            $datosS = $query3->getResultArray();
-            /*$builder = $db->table('Tarjetas');
-            $builder-> select(
-                'idTarjeta,
-                idStatus'
-            );
-            $builder->where('idStatus !=', 5);
-            $builder->where('idTarjeta', $tarjet);
-            $query = $builder->get();
-            $datosS = $query->getResultArray();*/
-            //return $datosS;
-            foreach($datosS as $row){
-                    $estado = $row['idStatus'];
-                if($estado != '1'){
-                    return $datosS;
-                }else{
-                    return false; 
-                }
-            }  
+            return false;        
         }
-        /**************************** Verifico de que idTarjeta a que idTarjeta me ingreso en el turno *************************/
-        
-        /**************** Verifico si el id ingresado de la tarjeta existe entre los rangos ingresados en el turno ***************/
-        
-
-
-        /*$builder = $db->table('Tarjetas');
-        $builder-> select(
-            'idTarjeta,
-             idStatus,
-             Eventos.PrecioTarjeta
-            '
-        );
-        $builder->join('Eventos', 'Eventos.idEvento = Tarjetas.idEvento');
-        $builder ->where("idTarjeta BETWEEN " . $ini . " and ". $fin);
-        $builder ->where('idTarjeta', $tarjet);
-        $query = $builder->get();
-        $datos = $query->getResultArray();*/
-        //return $query;
     }
 
     function tipoPagos($tipo){
@@ -547,15 +503,13 @@ class mcobro_model extends Model{
             ' idFormasPago,
               Nombre,
               PorcentajeCosto,
-              CostoFijo
-            '
+              CostoFijo '
         );
         $builder->where('idFormasPago', $tipo);
         $query = $builder->get();
         $datos = $query->getResultObject();
         return $datos;
     }
-
 
     function guardarVenta2($usuario, $fecha, $idtarjeta, $recarga, $gtran, $precioTa, $evento){//venta sin promociones
         /**************************************** obtengo el precio y los creditos de eventos *****************************/
@@ -964,7 +918,7 @@ class mcobro_model extends Model{
                         $builder->insert($data);*/
                     //}
             }
-            echo var_dump($array);
+           // echo var_dump($array);
     }
 
     /*********************************************** AGREGAR PROMOCIONES CREDITOS ************************************/
@@ -1030,7 +984,7 @@ class mcobro_model extends Model{
                                 
                             }
                             if(empty($nCreditos) && empty($cCreditos)){
-                                echo 'Estoy vacio'.$nCreditos . '' . $cCreditos;
+                               // echo 'Estoy vacio'.$nCreditos . '' . $cCreditos;
                                 $builder = $db->table('Tarjetas');
                                 $data = [
                                     'CreditoN' => $creditosNormales,//cambio el estado a tarjeta vendida
@@ -1043,7 +997,7 @@ class mcobro_model extends Model{
                                     return FALSE;
                                 }
                             }else{
-                                echo 'no estoy vacio'.$nCreditos . 'ccred' . $cCreditos;
+                                //echo 'no estoy vacio'.$nCreditos . 'ccred' . $cCreditos;
                                 $TotalCreditos = $nCreditos + $creditosNormales;
                                 $TotalCreditosC = $cCreditos + $creditosReg;
                                 $builder = $db->table('Tarjetas');
@@ -1364,6 +1318,14 @@ class mcobro_model extends Model{
         }else{
             return false;
         }
+    }
+
+    /*********************************************** CONSULTAR BANCOS ************************************/
+    function consultaBancos(){
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM Bancos");
+        $query = $query->getResultObject();
+        return $query;
     }
 
 }

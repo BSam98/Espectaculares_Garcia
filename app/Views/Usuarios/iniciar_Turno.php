@@ -83,9 +83,9 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                         <div class="form-group">
                             <label for="">Tarjetas</label><br>
                             <div class="input-group">
-                                <input type="text" name="folioi" id="folioi" class="form-control" required minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" placeholder="Folio Inicial">
+                                <input type="text" name="folioi" id="folioi" class="form-control" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" placeholder="Folio Inicial">
                                     <span class="input-group-addon">-</span>
-                                <input type="text" name="foliof" id="foliof" class="form-control"  required minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" placeholder="Folio Final">
+                                <input type="text" name="foliof" id="foliof" class="form-control"  required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" placeholder="Folio Final">
                             </div>
                         </div>
                         <div class="form-group">

@@ -123,9 +123,7 @@ $('#cincuentac').change(function () {
     $('#mcincuenta').val(r);
 });
 
-function suma(){
-    
-}
+function suma(){}
 
 $(document).on('click', '#registrar', function(){
     var mil=quin=dosc=cien=cinc=veint=total=md=mc=mdos=mu=mcc=0;
@@ -247,17 +245,17 @@ $(document).on('click', '#registrar', function(){
         $('#cincuentac').prop('disabled', true);
         $('#voucher').prop('disabled', true);
     }*/
-
     ajaxCaja();
-    
 });
 
 function ajaxCaja(){
+
     var dtI = $('#dtI').val();
     var dtF = $('#dtF').val();
     var efect = $('#money').val();
     var vou = $('#vouch').val();
     var idv = $('#idv').val();
+
     $.ajax({
         type:"POST",
         url:"cerrarC",
@@ -274,12 +272,13 @@ function ajaxCaja(){
                 //if((efect >= data.msj[i]['totalEfectivo']) && (vou >= data.msj[i]['totalTarjeta'])){
                 if(efect < data.msj[i]['totalEfectivo'] || vou < data.msj[i]['totalTarjeta']){
                     //alert("Verifica la cantidad ingresada"+data.msj[i]["totalEfectivo"]+'*'+efect+'/'+data.msj[i]["totalTarjeta"]+'*'+vou);
-                    $('#alertaDan').show();
+                    //$('#alertaDan').show();
                     //location.reload();
+                    MENSAJE = "Verifíca tu corte de caja";
+                    $("#mensaje").html(MENSAJE);
+                    $('#staticBackdrop').modal('show');
                     setTimeout('document.location.reload()',3000);
                 }else{
-                    //console.log(efect);
-                    //console.log(data.msj[i]['totalEfectivo']);
                     html +='<tr>'+
                                 '<td>'+
                                     '<div class="form-group">'+
@@ -304,22 +303,57 @@ function ajaxCaja(){
                                     '</div>'+
                                 '</td>'+
                             '</tr>'; */
-                        $('#alertaSucc').show();
-                        $('#registrar').prop('disabled', true);
+                        MENSAJE2 ="Los datos se han registrado correctamente, puedes cerrar sesión";
+                        $("#mensaje2").html(MENSAJE2);
+                        $('#alertaCorrecta').modal('show');
+                        $('#registrar').prop('disabled', true);//deshabilita el boton
+
+                        if(vou == ''){
+                            vou = 0;
+                        }
+                        //console.log(dtI + ", " + dtF + ", " + efect + ", " + vou + ", " + idv + ", " + fecha);
+                        //setTimeout("cerrarTur(" + dtI + ", " + dtF + ", " + efect + ", " + vou + ", " + idv + ", " + fecha + ")", 2000);
                         setTimeout("cerrarTur()", 2000);
                 }
                 $("#informacion").html(html);
             }
         }else{
-            alert('Los datos ingresados son incorrectos');
+            MENSAJE = "Los datos ingresados son incorrectos";
+            $("#mensaje").html(MENSAJE);
+            $('#staticBackdrop').modal('show');
         }
         
     });
 }
 
 function cerrarTur(){
+    var dtI = $('#dtI').val();
+    var dtF = $('#dtF').val();
+    var efect = $('#money').val();
+    var vou = $('#vouch').val();
     var idv = $('#idv').val();
+    var fecha = $('#fecha').val();
+
     $.ajax({
+        type:"POST",
+        url:"cerrarTurno",
+        data:{'dtI':dtI, 'dtF':dtF,'efectivo':efect,'vou':vou, 'idv':idv, 'fecha':fecha},
+        dataType: 'JSON',
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+        },
+    }).done(function(data){
+        console.log('Soy data '+ data.msj);
+        if(data.msj == false){
+            MENSAJE = "Error al cerrar el turno";
+            $("#mensaje").html(MENSAJE);
+            $('#staticBackdrop').modal('show');
+        }else{
+            console.log('Soy data msj ' + data.msj);
+            window.location.href = "CerrarSesion";
+        }
+    });
+    /*$.ajax({
         type:"POST",
         url:"cerrarTurno",
         data:{'idv':idv},
@@ -332,9 +366,11 @@ function cerrarTur(){
         if(data.msj == true){
             window.location.href = "CerrarSesion";
         }else{
-            alert('Error al cerrar el turno');
+            MENSAJE = "Error al cerrar el turno";
+            $("#mensaje").html(MENSAJE);
+            $('#staticBackdrop').modal('show');
         }
-    });
+    });*/
 
    
 }

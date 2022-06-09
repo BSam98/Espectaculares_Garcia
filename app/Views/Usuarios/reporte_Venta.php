@@ -92,7 +92,8 @@ if(!isset($_SESSION['Usuario'])) {
                                     <!-- Card Body -->
                                     <div class="card-body"> 
                                         <form action="">
-                                        <input type="hidden" class="form-control" name="idv" id="idv" value="<?php echo $_GET['idv']?>">
+                                            <input type="hidden" name="fecha" id="fecha" value="">
+                                            <input type="hidden" class="form-control" name="idv" id="idv" value="<?php echo $_GET['idv']?>">
                                             <div class="chart-area table table-responsive table-wrapper">
                                                 <table class="table table-responsive" style=" color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
                                                     <tbody style="color: black;">
@@ -103,42 +104,42 @@ if(!isset($_SESSION['Usuario'])) {
                                                             <td>
                                                                 <div class="form-group">
                                                                     <label>$1,000</label>
-                                                                    <input type="number" class="form-control tabulador" name="mil" id="mil" style="width : 100px; height:30px;" min="0">
+                                                                    <input type="number" class="form-control tabulador" min="0" name="mil" id="mil" style="width : 100px; height:30px;" min="0">
                                                                     <input type="text" id="bmil" style="display:none;">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-group"> 
                                                                     <label>$500</label>
-                                                                    <input type="number" class="form-control tabulador" name="quinientos" id="quinientos" style="width : 100px; height:30px;" min="0">
+                                                                    <input type="number" class="form-control tabulador" min="0" name="quinientos" id="quinientos" style="width : 100px; height:30px;" min="0">
                                                                     <input type="text" id="bquin" style="display:none;">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-group">
                                                                     <label>$200</label>
-                                                                    <input type="number" class="form-control tabulador" name="dosc" id="dosc" style="width : 100px; height:30px;" min="0">
+                                                                    <input type="number" class="form-control tabulador" min="0" name="dosc" id="dosc" style="width : 100px; height:30px;" min="0">
                                                                     <input type="text" id="bdos" style="display:none;">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-group">
                                                                     <label>$100</label>
-                                                                    <input type="number" class="form-control tabulador" name="cien" id="cien" style="width : 100px; height:30px;" min="0">
+                                                                    <input type="number" class="form-control tabulador" min="0" name="cien" id="cien" style="width : 100px; height:30px;" min="0">
                                                                     <input type="text" id="bcien" style="display:none;">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-group">
                                                                     <label>$50</label>
-                                                                    <input type="number" class="form-control tabulador" name="cincuenta" id="cincuenta" style="width : 100px; height:30px;" min="0">
+                                                                    <input type="number" class="form-control tabulador" min="0" name="cincuenta" id="cincuenta" style="width : 100px; height:30px;" min="0">
                                                                     <input type="text" id="bcin" style="display:none;">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-group">
                                                                     <label>$20</label>
-                                                                    <input type="number" class="form-control tabulador" name="veinte" id="veinte" style="width : 100px; height:30px;" min="0">
+                                                                    <input type="number" class="form-control tabulador" min="0" name="veinte" id="veinte" style="width : 100px; height:30px;" min="0">
                                                                     <input type="text" id="bvei" style="display:none;">
                                                                 </div>
                                                             </td>
@@ -150,42 +151,42 @@ if(!isset($_SESSION['Usuario'])) {
                                                             <td>
                                                                 <div class="form-group">
                                                                     <label>$10</label>
-                                                                    <input type="number" class="form-control tabulador" name="diez" id="diez" style="width : 100px; height:30px;">
+                                                                    <input type="number" class="form-control tabulador" min="0" name="diez" id="diez" style="width : 100px; height:30px;">
                                                                     <input type="text" id="mdiez" style="display:none;">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-group">
                                                                     <label>$5</label>
-                                                                    <input type="number" class="form-control tabulador" name="cinco" id="cinco" style="width : 100px; height:30px;">
+                                                                    <input type="number" class="form-control tabulador" min="0" name="cinco" id="cinco" style="width : 100px; height:30px;">
                                                                     <input type="text" id="mcinco" style="display:none;">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-group">
                                                                     <label>$2</label>
-                                                                    <input type="number" class="form-control tabulador" name="dos" id="dos" style="width : 100px; height:30px;">
+                                                                    <input type="number" class="form-control tabulador" min="0" name="dos" id="dos" style="width : 100px; height:30px;">
                                                                     <input type="text" id="mdos" style="display:none;">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-group">
                                                                     <label>$1</label>
-                                                                    <input type="number" class="form-control tabulador" name="uno" id="uno" style="width : 100px; height:30px;">
+                                                                    <input type="number" class="form-control tabulador" min="0" name="uno" id="uno" style="width : 100px; height:30px;">
                                                                     <input type="text" id="muno" style="display:none;">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-group">
                                                                     <label>$0.50</label>
-                                                                    <input type="number" class="form-control tabulador" name="cincuentac" id="cincuentac" style="width : 100px; height:30px;">
+                                                                    <input type="number" class="form-control tabulador" min="0" name="cincuentac" id="cincuentac" style="width : 100px; height:30px;">
                                                                     <input type="text" id="mcincuenta" style="display:none;">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-group">
-                                                                    <label>Voucher</label>
-                                                                    <input type="number" class="form-control tabulador" name="voucher" id="voucher" value="" style="width : 100px; height:30px;">
+                                                                    <label># de Voucher's</label>
+                                                                    <input type="number" class="form-control tabulador" min="0" name="voucher" id="voucher" value="" style="width : 100px; height:30px;">
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -210,12 +211,6 @@ if(!isset($_SESSION['Usuario'])) {
                                                 
                                             </tbody>
                                         </table>
-                                        <div class="alert alert-success" id="alertaSucc" style="display:none;">
-                                            <strong>Los datos se han registrado correctamente</strong> Ya puedes cerrar sesión 
-                                        </div>
-                                        <div class="alert alert-danger" id="alertaDan" style="display:none;">
-                                            <strong>Verifíca</strong> tu corte de caja
-                                        </div>
                                     </div>
                                 </div>      
                             </div>
@@ -259,8 +254,40 @@ if(!isset($_SESSION['Usuario'])) {
                             </div>
                         </div>
                     </div> 
+
                 </div>
             </div>
+
+            <!--***************************************** Alertas *************************************************-->
+<div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
+  <div class="modal-dialog modal-dialog-centered">
+        <div class="row no-gutters fixed-center">
+            <div class="alert alert-danger fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="True">&times;</span>
+                </button>
+                <p id="mensaje"></p>
+                <center><span class="badge badge-danger" type="button" data-dismiss="modal">Aceptar</span></center>
+            </div>
+        </div>
+  </div>
+</div>
+
+<div class="modal fade" id="alertaCorrecta" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
+  <div class="modal-dialog modal-dialog-centered">
+        <div class="row no-gutters fixed-center">
+            <div class="alert alert-success fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="True">&times;</span>
+                </button>
+                <p id="mensaje2"></p>
+                <center><span class="badge badge-success" type="button" data-dismiss="modal">Aceptar</span></center>
+            </div>
+        </div>
+  </div>
+</div>
+
+<!--***************************************** Alertas *************************************************-->
         </div>
         
         <script src="../vendor/jquery/jquery.min.js"></script>
