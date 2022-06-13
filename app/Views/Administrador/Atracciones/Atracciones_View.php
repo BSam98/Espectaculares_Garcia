@@ -86,7 +86,7 @@ if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
                             </table>
                         </div>
                         <button id="adi" name="adicional" type="button" class="btn btn-warning"> + </button>
-                        <button name="adicional" type="submit" class="btn btn-success" id ="agregarPropietario">Agregar </button>
+                        <button name="adicional" type="button" class="btn btn-success" id ="agregarPropietario">Agregar </button>
                     </form>   
                         
                     <div class="table table-striped table-responsive ">

@@ -19,6 +19,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                     <th scope="col" style="text-align: center; vertical-align: middle;">Direccion</th>
                     <th scope="col" style="text-align: center; vertical-align: middle;">Ciudad</th>
                     <th scope="col" style="text-align: center; vertical-align: middle;">Estado</th>
+                    <th scope="col" style="text-align: center; vertical-align: middle;">Costo por tarjeta</th>
                     <th scope="col" style="text-align: center; vertical-align: middle;">Fecha de inicio</th>
                     <th scope="col" style="text-align: center; vertical-align: middle;">Fecha de termino</th>
                     <th scope="col" style="text-align: center; vertical-align: middle;">Opciones</th>
@@ -36,6 +37,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                             <td style="text-align: center; vertical-align: middle;"><?= $dE->Direccion?></td>
                             <td style="text-align: center; vertical-align: middle;"><?= $dE->Ciudad?></td>
                             <td style="text-align: center; vertical-align: middle;"><?= $dE->Estado?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dE->PrecioTarjeta?></td>
                             <td style="text-align: center; vertical-align: middle;"><?= $dE->FechaInicio?></td>
                             <td style="text-align: center; vertical-align: middle;"><?= $dE->FechaFinal?></td>
                             <td style="vertical-align: middle;">

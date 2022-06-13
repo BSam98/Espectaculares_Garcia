@@ -155,7 +155,10 @@ class Super_Atracciones_Model extends Model{
                     SUM(Cortesias) AS Cantidad_Cortesias,
                     SUM(Descuentos) AS Cantidad_Descuentos,
                     SUM(PulserasMagicas) AS Cantidad_Pulseras,
-                    SUM(Gratis) AS Cantidad_Gratis
+                    SUM(Gratis) AS Cantidad_Gratis,
+                    SUM(entradaNormal) AS Entrada_Normal,
+                    SUM(entradaCortesia) AS Entrada_Cortesia,
+                    SUM(entradaMixta) AS Entrada_Mixta
                 FROM
                     Ciclo
                 WHERE
@@ -181,6 +184,9 @@ class Super_Atracciones_Model extends Model{
             Personas,
             Creditos,
             Cortesias,
+            entradaNormal,
+            entradaCortesia,
+            entradaMixta,
             Descuentos,
             PulserasMagicas,
             Gratis,
