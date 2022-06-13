@@ -35,6 +35,7 @@ class Reporte_Ventas_Model extends Model{
 
             $query7 = $db->query("SELECT idAperturaVentanilla from Fajillas f WHERE idFajilla =" . $idv);
             $res = $query7->getResultArray();
+
             foreach($res as $re){
                 $idApVen = $re['idAperturaVentanilla'];
             }
@@ -61,7 +62,7 @@ class Reporte_Ventas_Model extends Model{
                         $array =[];
                         $query4 = $db->query("SELECT t.idStatus, idTarjeta, (SELECT TOP 1  idTarjeta FROM Fajillas f, Tarjetas t WHERE f.idFajilla =".$idv." and idTarjeta BETWEEN folioInicial and folioFinal and t.idStatus != '0') as primero,
                                             (SELECT TOP 1 idTarjeta FROM Fajillas f, Tarjetas t WHERE f.idFajilla =".$idv." and idTarjeta BETWEEN folioInicial and folioFinal and t.idStatus != '0' ORDER BY idTarjeta  DESC) as ultimo
-                                            FROM Fajillas f, Tarjetas t WHERE f.idFajilla = ".$idv." and idTarjeta BETWEEN folioInicial and folioFinal and t.idStatus != '0'");
+                                            FROM Fajillas f, Tarjetas t WHERE f.idFajilla = ".$idv." and t.idFajilla = f.idFajilla and idTarjeta BETWEEN folioInicial and folioFinal and t.idStatus != '0'");
                         $result2 = $query4->getResultArray();
 
                         for ($i = 0; $i < count($result2) ; $i++){
@@ -75,9 +76,11 @@ class Reporte_Ventas_Model extends Model{
                                 array_push($array,$result2[$i]['ultimo']);
                             }
                         }
+
                         $query5 = $db->query("SELECT (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio = ".$fI.") as ingresadoI,
                                             (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio = ".$fF.") as ingresadoF
                                             FROM Fajillas f WHERE idFajilla =".$idv);
+
                         $result3 = $query5->getResultArray();
 
                         foreach($result3 as $rr){
@@ -159,6 +162,8 @@ class Reporte_Ventas_Model extends Model{
             echo var_dump($tarjetasTotales);
         }*/
 
+        /************************** Libero las tarjetas sobrantes **********************/
+        
         /************************** Hago el registro de cierre de Turno en la tabla Cierre_Ventanilla **********************/
         $builder = $db->table('Cierre_Ventanilla');
             $data = [
@@ -210,7 +215,17 @@ class Reporte_Ventas_Model extends Model{
                                     'idCierreVentanilla' => $idCierreVentanilla
                                 ];
                                 if($builder->insert($data)){
-                                    return true;
+
+                                   // $idCob = $db->insertID();
+
+                                    /*********** Aqui libero las tarjetas que quedaron para que las puedan ingresar a otra ventanilla ************/
+                                    
+                                    $query = $db->query("UPDATE Tarjetas set idFajilla = null WHERE idTarjeta BETWEEN ".$folioInic." and ".$folioFin);
+                                    if($query){
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
                                 }else{
                                     return false;
                                 }

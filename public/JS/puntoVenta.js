@@ -38,6 +38,10 @@ let indices = [];
             });
     
     });
+
+    $(document).on('click','#cancelarDev', function(){
+        cache_clear();
+    });
 /***********************************DEVOLUCION DE TARJETAS ********************************************/
 
 /*********************************** AGREGAR FAJILLA ********************************************/
@@ -89,6 +93,7 @@ let indices = [];
 
 /********************************** Tipo Pago*********************************/
     $(document).on('click', '.pagoEfectivo', function(){
+        $("#modal_Efectivo .modal-body #efect").html('');
         var total = $('#total').val();
         var tipo = $(this).val();
         $("#cobrarTransaccion").val(tipo);
@@ -111,10 +116,10 @@ let indices = [];
                 for(var i = 0;i <data.msj.Tipo.length; i++){
                     if(data.msj.Tipo[i]["idFormasPago"] == 1){
                         html +=' <tr>'+
-                                    '<td colspan="5">'+
+                                    '<td colspan="5" style="border: none;">'+
                                         '<div class="input-group">'+
                                             '<div class="col-xs-2 col-sm-4">'+
-                                            '<label>Total: $</label>'+
+                                            '<h6><b>TOTAL: $</b></h6>'+
                                             '</div>'+
                                             '<div class="col-xs-2 col-sm-6">'+
                                                 '<input class="form-control" type="number" min="0" name="total2" id="total2" value="'+total+'">'+
@@ -123,71 +128,81 @@ let indices = [];
                                     '</td>'+
                                 '</tr>'+
                                 '<tr>'+
-                                    '<td><button class="btn btn-warning val" name="centavos" id="centavos" value=".50" style="width:70px; height:70px; margin:5px;">$ .50</button></td>'+
-                                    '<td><button class="btn btn-warning val" name="uno" id="uno" value="1" style="width:70px; height:70px; margin:5px;">$ 1</button></td>'+
-                                    '<td><button class="btn btn-warning val" name="dos" id="dos" value="2" style="width:70px; height:70px; margin:5px;">$ 2</button></td>'+
-                                    '<td><button class="btn btn-warning val" name="cinco" id="cinco" value="5" style="width:70px; height:70px; margin:5px;">$ 5</button></td>'+
-                                    '<td><button class="btn btn-warning val" name="diez" id="diez" value="10" style="width:70px; height:70px; margin:5px;">$ 10</button></td>'+
+                                    '<td style="border: none;"><button class="btn btn-warning val" name="centavos" id="centavos" value=".50" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ .50</b></button></td>'+
+                                    '<td style="border: none;"><button class="btn btn-warning val" name="uno" id="uno" value="1" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 1</b></button></td>'+
+                                    '<td style="border: none;"><button class="btn btn-warning val" name="dos" id="dos" value="2" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 2</b></button></td>'+
+                                    '<td style="border: none;"><button class="btn btn-warning val" name="cinco" id="cinco" value="5" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 5</b></button></td>'+
+                                    '<td style="border: none;"><button class="btn btn-warning val" name="diez" id="diez" value="10" style="width:70px; height:70px; margin:5px;background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);" ><b>$ 10</b></button></td>'+
                                 '</tr>'+
                                 '<tr>'+
-                                    '<td><button class="btn btn-success val" name="veinte" id="veinte" value="20" style="width:70px; height:70px; margin:5px;">$ 20</button></td>'+
-                                    '<td><button class="btn btn-success val" name="cincuenta" id="cincuenta" value="50" style="width:70px; height:70px; margin:5px;">$ 50</button></td>'+
-                                    '<td><button class="btn btn-success val" name="cien" id="cien" value="100" style="width:70px; height:70px; margin:5px;">$ 100</button></td>'+
-                                    '<td><button class="btn btn-success val" name="dosc" id="dosc" value="200" style="width:70px; height:70px; margin:5px;">$ 200</button></td>'+
-                                    '<td><button class="btn btn-success val" name="quin" id="quin" value="500" style="width:70px; height:70px; margin:5px;">$ 500</button></td>'+
+                                    '<td><button class="btn btn-success val" name="veinte" id="veinte" value="20" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 20</b></button></td>'+
+                                    '<td><button class="btn btn-success val" name="cincuenta" id="cincuenta" value="50" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 50</b></button></td>'+
+                                    '<td><button class="btn btn-success val" name="cien" id="cien" value="100" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 100</b></button></td>'+
+                                    '<td><button class="btn btn-success val" name="dosc" id="dosc" value="200" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 200</b></button></td>'+
+                                    '<td><button class="btn btn-success val" name="quin" id="quin" value="500" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 500</b></button></td>'+
                                 '</tr>'+
                                 '<tr>'+
-                                    '<td><button class="btn btn-success" name="mil" id="mil" value="1000" style="width:70px; height:70px; margin:5px;">$ 1000</button></td>'+
-                                    '<td colspan="3">'+
-                                        '<center><label>Efectivo:</label></center>'+
+                                    '<td><button class="btn btn-success" name="mil" id="mil" value="1000" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 1000</b></button></td>'+
+                                    '<td colspan="3" style="border: none;">'+
+                                        '<center><h6><b>EFECTIVO:</b></h6></center>'+
                                         '<input type="number" class="form-control" min="0" id="efectivo" name="efectivo" value="">'+
-                                    '</td>'+'<td><button class="btn btn-danger borrar" name="borrar" id="borrar" value="" style="width:70px; height:70px; margin:5px;">Borrar</button></td>'+
+                                    '</td>'+'<td><button class="btn btn-danger borrar" name="borrar" id="borrar" value="" style="width:70px; height:70px; margin:5px;"><i class="fa fa-eraser" aria-hidden="true"></i></button></td>'+
                                 '</tr>';
                     }
                     if(data.msj.Tipo[i]["idFormasPago"] == 2){
+
+                        var comision = (total * data.msj.Tipo[i]["PorcentajeCosto"]);
+                        var TotalConPorcentaje = (parseFloat(comision) + parseFloat(total));
 
                         for(var i= 0; i < data.msj.Bancos.length; i ++){
                             optionSelectBanco += '<option value="'+data.msj.Bancos[i]['idBanco']+'">'+data.msj.Bancos[i]['Banco']+'</option>';
                         }
 
                         html +='<tr>'+
-                                    '<td>'+
+                                    '<td style="border: none;">'+
                                         '<div class="form-group">'+
-                                            '<center><h6>Tipo de Tarjeta</h6></center>'+
-                                            '<input type="radio" name="ttarjeta" id="ttarjeta" value="Tarjeta de Crédito">Tarjeta de Crédito'+'<br>'+
-                                            '<input type="radio" name="ttarjeta" id="ttarjeta" value="Tarjeta de Débito">Tarjeta de Débitos'+
+                                            '<center><h6><b>TARJETA</b></h6></center><hr>'+
+                                            '<div class="input-group">'+
+                                                '<input type="radio" name="ttarjeta" id="ttarjeta" value="Tarjeta de Crédito" style="height: 20px; width: 20px;">Tarjeta de Crédito &nbsp;&nbsp;'+
+                                                '<input type="radio" name="ttarjeta" id="ttarjeta" value="Tarjeta de Débito" style="height: 20px; width: 20px;">Tarjeta de Débitos'+
+                                            '</div>'+
                                         '</div>'+
                                     '</td>'+
                                 '</tr>'+
                                 '<tr>'+
                                     '<td>'+
                                         '<div class="form-group">'+
-                                            '<center><h6>Banco</h6></center>'+
+                                            '<center><h6><b>BANCO</b></h6></center>'+
                                                 '<select class="form-control bancoSelec" name="bancoSelec" id="bancoSelec">'+optionSelectBanco+'</select>'+
                                         '</div>'+
                                     '</td>'+
                                 '</tr>'+
                                 '<tr>'+
                                     '<td>'+
-                                        '<div class="form-group">'+
-                                            '<center><h6>Ingrese el monto</h6></center>'+
-                                            '<input type="number" min="0" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="mtarjeta" id="mtarjeta" value="" required>'+
+                                        '<div class="input-group">'+
+                                            '<div class="form-group">'+
+                                                '<center><h6><b>MONTO TOTAL</b></h6></center>'+
+                                                '<input type="number" min="0" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" value="'+total+'" required>'+
+                                            '</div>'+
+                                            '<div class="form-group">'+
+                                                '<center><h6><b>TOTAL CON COMISION</b></h6></center>'+
+                                                '<input type="number" min="0" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="mtarjeta" id="mtarjeta" value="'+TotalConPorcentaje+'" required>'+
+                                            '</div>'+
                                         '</div>'+
                                     '</td>'+
                                 '</tr>'+
                                 '<tr>'+
                                     '<td>'+
-                                        '<div class="form-group">'+
-                                            '<center><h6>Ingresa los 4 ultimos digitos de la tarjeta</h6></center>'+
-                                            '<input type="number" min="4" max="4" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="dtarjeta" id="dtarjeta" value="" required>'+
-                                        '</div>'+
-                                    '</td>'+
-                                '</tr>'+
-                                '<tr>'+
-                                    '<td>'+
-                                        '<div class="form-group">'+
-                                            '<center><h6>Ingresa los digitos de aprovación</h6></center>'+
-                                            '<input type="number" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="naprov" id="naprov" value="" required>'+
+                                        '<div class="input-group">'+
+                                            '<div class="form-group">'+
+                                                '<center><h6><b>INGRESA LOS 4 ÚLTIMOS <br> DIGITOS DE LA TARJETA</b></h6></center>'+
+                                                '<input type="number" min="4" max="4" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="dtarjeta" id="dtarjeta" value="" required>'+
+                                            '</div>'+
+                                            //'<span class="input-group-addon">&nbsp;&nbsp;  &nbsp;&nbsp;</span>'+
+                                            '<div class="form-group">'+
+                                                '<center><h6><b>INGRESA LOS DIGITOS <br> DE APROVACIÓN </b></h6></center>'+
+                                                '<input type="number" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="naprov" id="naprov" value="" required>'+
+                                            '</div>'+   
                                         '</div>'+   
                                     '</td>'+
                                 '</tr>';
@@ -234,10 +249,9 @@ let indices = [];
                     MENSAJE2 = 'Su cambio es de:' + cambio;
                     $("#mensaje2").html(MENSAJE2);
                     $('#alertaCorrecta').modal('show');
-                    //alert('Su cambio es de:' + cambio);
                     cobrarCompra();
                     setInterval(function() {cache_clear()}, 2000);
-                   // location.reload();
+                    //location.reload();
                 }else if(totalIngresado == totalCobrar){
                     MENSAJE2 = "Gracias por su compra";
                     $("#mensaje2").html(MENSAJE2);
@@ -252,21 +266,29 @@ let indices = [];
                     $('#efectivo').val('');
                     //(function() {cache_clear()}, 2000);
                 }
-            }
-            if(tipo == 2){
-                
+            }else {//if(tipo == 2){
+                console.log('soy tipo'+tipo);
+
                 var totalCobrar = $('#total').val();
                 var totalIngresado = $('#mtarjeta').val();
+                
+                console.log('soy totalCobrar'+totalCobrar);
+                console.log('soy totalIngresado'+totalIngresado);
+
                 if(totalIngresado < totalCobrar){
+
                     MENSAJE = "Verifica el monto";
                     $("#mensaje").html(MENSAJE);
                     $('#staticBackdrop').modal('show');
-                    //setInterval(function() {cache_clear()}, 2000);
+                    setInterval(function() {cache_clear()}, 2000);
                     //location.reload();
-                }else if(totalIngresado == totalCobrar){
+                    
+                }else{ //if(totalIngresado == totalCobrar){
+
                     MENSAJE2 = "Gracias por su compra";
                     $("#mensaje2").html(MENSAJE2);
                     $('#alertaCorrecta').modal('show');
+
                     cobrarCompra();
                     setInterval(function() {cache_clear()}, 2000);
                     //location.reload();
@@ -579,16 +601,15 @@ $(document).on('click', '.eliminarPromoC', function(event){
 /********************************** Datos Formulario para Cobrar*********************************/
     //datos formulario para cobrar
     function cobrarCompra(){
-        
         var tipoT = $('#ttarjeta').val();
         var select = $('select').val();
         var mtarjeta = $('#mtarjeta').val();
         var dtarjeta = $('#dtarjeta').val();
         var naprov = $('#naprov').val();
 
-        alert(tipoT + ' ' + select + ' ' + mtarjeta + ' ' + dtarjeta + ' ' + naprov);
+       // alert(tipoT + ' ' + select + ' ' + mtarjeta + ' ' + dtarjeta + ' ' + naprov + ' ' + $('#formPuntoVenta').serialize());
 
-        /*var tarjeta = $('#tarjetaAdd').val();
+        var tarjeta = $('#tarjetaAdd').val();
         if(tarjeta == ''){
             MENSAJE = "Ingresa la tarjeta por favor";
             $("#mensaje").html(MENSAJE);
@@ -601,7 +622,7 @@ $(document).on('click', '.eliminarPromoC', function(event){
                 },
                 type: "POST",
                 url: "guardarVentas",
-                data: $('#formPuntoVenta').serialize() + '&tipo=' + tipo,
+                data: $('#formPuntoVenta').serialize() + '&tipo=' + tipo + '&tipoT=' + tipoT + '&select=' + select + '&mtarjeta=' + mtarjeta + '&dtarjeta=' + dtarjeta + '&naprov=' + naprov ,
                 dataType: "JSON",
                 error(jqXHR, textStatus, errorThrown){
                     alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
@@ -612,7 +633,7 @@ $(document).on('click', '.eliminarPromoC', function(event){
                 console.log(data.msj);
                 modalCerrar();
             });
-        }*/
+        }
     }
 /********************************** Datos Formulario para Cobrar *********************************/
 

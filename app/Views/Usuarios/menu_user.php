@@ -7,6 +7,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['Usuario']))) {
     <div class="container">
         <?php if($_SESSION['idRango'] == '5' ){ ?><script>location.href="turno?t="+<?php echo $_SESSION['idUsuario']?>;</script><?php }?>
         <?php if($_SESSION['idRango'] == '8' ){ ?><script>location.href="turnoValidador?t="+<?php echo $_SESSION['idUsuario']?>;</script><?php } ?>
+        <?php if($_SESSION['idRango'] == '9' ){ ?><script>location.href="sAtracciones?t="+<?php echo $_SESSION['idUsuario']?>;</script><?php }?>
         <nav class="navbar navbar-fixed-top tm_navbar negro" role="navigation">
             <a href="Menu_Principal_User"><img src = "Img/logo.png" style="width: 70px; height:7   0px;"/></a>
             <ul class="nav navbar-nav sf-menu">

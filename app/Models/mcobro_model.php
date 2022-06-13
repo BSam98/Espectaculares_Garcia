@@ -188,21 +188,6 @@ class mcobro_model extends Model{
             }
     }
 
-    function tipoVenta($totalPago, $gtran, $tipoP){
-        $db = \Config\Database::connect();
-        $builder = $db->table('Cobro');
-        $data = [
-            'Monto' => $totalPago,
-            'idFormasPago' => $tipoP,
-            'idTransaccion' => $gtran
-        ];
-        if($builder->insert($data)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     function guardarVenta($usuario, $fecha, $idtarjeta, $recarga, $gtran, $precioTa, $promoP, $idPromo, $evento){// venta con promo
         $db = \Config\Database::connect();
         $builder = $db->table('Eventos');
@@ -1328,4 +1313,37 @@ class mcobro_model extends Model{
         return $query;
     }
 
+    /*********************************************** AGREGAR TIPO DE VENTA (EFECTIVO / TARJETA) ************************************/
+    function tipoVenta($totalPago, $gtran, $tipoP){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Cobro');
+        $data = [
+            'Monto' => $totalPago,
+            'idFormasPago' => $tipoP,
+            'idTransaccion' => $gtran
+        ];
+        if($builder->insert($data)){
+            return $db->insertID();
+        }else{
+            return false;
+        }
+    }
+
+    /*********************************************** AGREGAR TIPO DE VENTA (EFECTIVO / TARJETA) ************************************/
+    function guardarTransaccionVouch($tipoT, $select, $mtarjeta, $dtarjeta, $naprov, $idCob){
+        $db = \Config\Database::connect();
+        $builder = $db->table('transaccion_Voucher');
+        $data = [
+            'idCobro' => $idCob,
+            'idBanco' => $select,
+            'Monto' => $mtarjeta,//este va a cambiar dependiendo del porcentaje a cobrar
+            'numTarjeta' => $dtarjeta,
+            'numAprovacion' => $naprov
+        ];
+        if($builder->insert($data)){
+            return $db->insertID();
+        }else{
+            return false;
+        }
+    }
 }

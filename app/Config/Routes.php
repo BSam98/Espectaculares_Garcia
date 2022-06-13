@@ -41,6 +41,7 @@ $routes->post('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
 $routes->get('/TipoT','Iniciar_Sesion_User_Control::inicioP');
 //$routes->post('/turno','Iniciar_Sesion_User_Control::inicio');
 $routes->get('/turno','Iniciar_Sesion_User_Control::Turno');
+$routes->get('/sAtracciones','Supervisor_Atracciones_Control::new');
 
 
 $routes->get('/Menu_Principal_User','Menu_Principal_User_Control::new');

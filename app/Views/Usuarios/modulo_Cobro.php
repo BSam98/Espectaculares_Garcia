@@ -156,8 +156,8 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                             <!-- Optional: clear the XS cols if their content doesn't match in height -->
                                             <div class="col-xs-4 col-sm-4">
                                                 <!--a href="#" id="celular" class="btn btn-success">Tarjeta Electónica</a-->  
-                                                <button type="button" style="margin: 1px;" class="btn btn-danger" data-toggle="modal" data-target="#modal_Devolucion" value=""><i class="fa fa-reply-all" aria-hidden="true"></i>&nbsp;Devolucion de Tarjeta</button>
-                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_Fajilla" value=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar Fajilla</button>
+                                                <button type="button" style="margin: 1px;" class="btn btn-danger" data-toggle="modal" data-target="#modal_Devolucion" value=""><i class="fa fa-reply-all" aria-hidden="true"></i>&nbsp;<b>DEVOLUCIÓN DE TARJETA</b></button>
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_Fajilla" value=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<b>AGREGAR FAJILLA</b></button>
                                             </div>
                                         </div>
                                     </div>
@@ -173,8 +173,8 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                     <div class="card shadow mb-5">
                                         <!-- Card Header - Dropdown -->
                                         <div class="card-header py-4 d-flex flex-row align-items-center justify-content-between">
-                                            <h6><center><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Descripcion</center></h6>
-                                            <h6><center><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="30px" height="30px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                                            <h6 style="color:blue;"><center><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;<b>DESCRIPCIÓN</b></center></h6>
+                                            <h6 style="color:blue;"><center><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="30px" height="30px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                                                         <g><path d="M256,0C114.625,0,0,114.625,0,256s114.625,256,256,256s256-114.625,256-256S397.375,0,256,0z M256,480
                                                         C132.5,480,32,379.5,32,256S132.5,32,256,32s224,100.5,224,224S379.5,480,256,480z M335.562,265.844
                                                         c6.095,10.313,9.156,22.344,9.156,36.125c0,21.156-6.312,38.781-18.906,52.875c-12.594,14.125-30.78,22.438-54.562,24.938V416
@@ -185,9 +185,9 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                                         h30.313v27.969c33.875,4.063,55.813,23.219,65.781,57.5l-41.75,17.125c-8.156-23.5-20.72-35.25-37.781-35.25
                                                         c-8.563,0-15.438,2.625-20.594,7.875c-5.188,5.25-7.781,11.625-7.781,19.094c0,7.625,2.5,13.469,7.5,17.563
                                                         c4.969,4.063,15.688,9.094,32.063,15.125c18,6.563,32.125,12.781,42.344,18.625C321.281,247.469,329.438,255.563,335.562,265.844z"
-                                                        /></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>&nbsp;Precio</center></h6>
-                                            <h6><center><svg id="Layer_1" style="width:30px; height:30px;" version="1.1" viewBox="0 0 30 30" xml:space="preserve"><style type="text/css"> .st0{fill:#FD6A7E;} .st1{fill:#17B978;} .st2{fill:#8797EE;} .st3{fill:#41A6F9;} .st4{fill:#37E0FF;}
-                                                        .st5{fill:#2FD9B9;}.st6{fill:#F498BD;}.st7{fill:#FFDF1D;} .st8{fill:#C6C9CC;}</style><path class="st4" d="M24.9,24.1l-0.4-5c-0.4-4.5-2.8-7.5-6.5-10l1-6h-5l-0.8,1H11l0.6,3.2l4.4,0.6c0.4,0.1,0.6,0.4,0.6,0.7  c0,0.3-0.3,0.6-0.7,0.6l-4-0.1c-3.7,2.5-6.1,5.5-6.4,10l-0.4,5C4.5,24.3,4,24.8,4,25.5C4,26.3,4.7,27,5.5,27h19  c0.8,0,1.5-0.7,1.5-1.5C26,24.8,25.5,24.3,24.9,24.1z M11.4,17.6l2.2-0.3l1-2c0.2-0.3,0.6-0.3,0.8,0l1,2l2.2,0.3  c0.4,0.1,0.5,0.5,0.3,0.8L17.3,20l0.4,2.2c0.1,0.4-0.3,0.7-0.7,0.5l-2-1l-2,1c-0.3,0.2-0.7-0.1-0.7-0.5l0.4-2.2l-1.6-1.6  C10.9,18.1,11,17.7,11.4,17.6z"/></svg>Créditos</center></h6>
+                                                        /></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>&nbsp;<b>PRECIO</b></center></h6>
+                                            <h6 style="color:blue;"><center><svg id="Layer_1" style="width:30px; height:30px;" version="1.1" viewBox="0 0 30 30" xml:space="preserve"><style type="text/css"> .st0{fill:#FD6A7E;} .st1{fill:#17B978;} .st2{fill:#8797EE;} .st3{fill:#41A6F9;} .st4{fill:#37E0FF;}
+                                                        .st5{fill:#2FD9B9;}.st6{fill:#F498BD;}.st7{fill:#FFDF1D;} .st8{fill:#C6C9CC;}</style><path class="st4" d="M24.9,24.1l-0.4-5c-0.4-4.5-2.8-7.5-6.5-10l1-6h-5l-0.8,1H11l0.6,3.2l4.4,0.6c0.4,0.1,0.6,0.4,0.6,0.7  c0,0.3-0.3,0.6-0.7,0.6l-4-0.1c-3.7,2.5-6.1,5.5-6.4,10l-0.4,5C4.5,24.3,4,24.8,4,25.5C4,26.3,4.7,27,5.5,27h19  c0.8,0,1.5-0.7,1.5-1.5C26,24.8,25.5,24.3,24.9,24.1z M11.4,17.6l2.2-0.3l1-2c0.2-0.3,0.6-0.3,0.8,0l1,2l2.2,0.3  c0.4,0.1,0.5,0.5,0.3,0.8L17.3,20l0.4,2.2c0.1,0.4-0.3,0.7-0.7,0.5l-2-1l-2,1c-0.3,0.2-0.7-0.1-0.7-0.5l0.4-2.2l-1.6-1.6  C10.9,18.1,11,17.7,11.4,17.6z"/></svg><b>CRÉDITOS</b></center></h6>
                                             <h6 class="m-0 font-weight-bold text-primary"></h6>
                                         </div>
                                         <!-- Card Body -->
@@ -231,8 +231,8 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                         <!-- Card Header - Dropdown -->
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                             <div class="input-group">
-                                                <div class="col-xs-2 col-sm-4">
-                                                    <label>Total: $</label>
+                                                <div class="col-xs-4 col-sm-4">
+                                                    <h6 style="color:blue;"><b>TOTAL: </b></h6>
                                                 </div>
                                                 <div class="col-xs-2 col-sm-6">
                                                     <input class="form-control" type="number" name="total" id="total" min="0" value="">
@@ -241,9 +241,9 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                         </div>
                                         <!-- Card Body -->
                                         <div class="card-body">
-                                            <center><h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">TIPO PAGO</h6><br></center>
+                                            <center><h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">TIPO PAGO</h6><br>
                                             <?php foreach($tipoPago as $tipo):?>
-                                                <button type="button" class="btn btn-warning pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="<?php echo $tipo->idFormasPago?>"><?php echo $tipo->Nombre?></button>
+                                                <button type="button" class="btn btn-info pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="<?php echo $tipo->idFormasPago?>"><b><?php echo $tipo->Nombre?></b></button>
                                             <?php endforeach ?>
                                             <!--div id="container">
                                                 <ul class="donate-now">
@@ -285,6 +285,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                                     </tr>
                                                 </tbody>
                                             </table-->
+                                            </center>
                                         </div>
                                     </div>
                                 </div>
@@ -373,7 +374,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
 <div class="modal fade" id="modal_Efectivo">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">      
+            <div class="modal-header" style="background-image: radial-gradient(circle at 84.09% 90.63%, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);">      
             <!--center><h4 class="modal-title">Pago:</h4></center-->
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
@@ -387,6 +388,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                 </table>
             </div>
             <div class="modal-footer">
+            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cancelarDev" id="cancelarDev" value=""><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar Compra</button>
                 <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="cobrarTransaccion" id="cobrarTransaccion" value="<?php ?>">Cobrar</button>
             </div>
         </div>
@@ -396,10 +398,10 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
 
 <!--**********************************Modal Devolver Tarjeta*********************************-->
 <div class="modal fade" id="modal_Devolucion">
-    <div class="modal-dialog">
+    <div class="modal-dialog" >
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Devolución de Tarjeta</h4>
+            <div class="modal-header" style="background-image: radial-gradient(circle at 84.09% 90.63%, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);">
+                <center><h6 class="modal-title" style="color:white;">Devolución de Tarjeta</h6></center>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
             </div>
@@ -407,15 +409,16 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                 <form id="formDevolucion" action="">
                 <input type="hidden" name="idv" id="idv" value="<?php echo $_GET["v"]?>">
                     <div class="form-group">
-                        <label>Tarjeta</label>
+                        <h7><b>TARJETA:</b></h7>&nbsp;
                         <input type="number" name="tarjetD" id="tarjetD" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" class="form-control" placeholder="Ingresa la tarjeta a devolver">
                     </div>
                     <div class="form-group">
-                        <label>Descripción</label>
+                        <h7><b>DESCRIPCIÓN:</b></h7>
                         <input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="Motivo de devolución">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="devolucion" id="devolucion" value="">Devolver</button>
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cancelarDev" id="cancelarDev" value=""><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar</button>
+                        <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="devolucion" id="devolucion" value="">Devolver</button>
                     </div>
                 </form>
             </div>
@@ -428,8 +431,8 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
 <div class="modal fade" id="modal_Fajilla">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-      <h4 class="modal-title">Agregar Fajilla Nueva</h4>
+      <div class="modal-header" style="background-image: radial-gradient(circle at 84.09% 90.63%, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);">
+      <center><h6 class="modal-title" style="color: white;">Agregar Fajilla Nueva</h6></center>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
       </div>
@@ -440,14 +443,15 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
             <input type="hidden" name="idv" id="id" value="<?php echo $_GET["idv"]?>">
             <input type="hidden" name="e" id="e" value="<?php echo $_GET["e"]?>">
             <div class="form-group">
-                <label>Folio Inicial</label>
+                <label><b>Folio Inicial</b></label>
                 <input type="number" class="form-control" name="folioI" id="folioI" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
             </div>
             <div class="form-group">
-                <label>Folio Final</label>
+                <label><b>Folio Final</b></label>
                 <input type="number" class="form-control" name="folioF" id="folioF" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
             </div>
             <div class="modal-footer">
+            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cancelarDev" id="cancelarDev" value=""><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar</button>
                 <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregarFajilla" id="agregarFajilla" value="">Agregar</button>
             </div>
         </form>
