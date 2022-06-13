@@ -25,6 +25,7 @@ class Eventos_Model extends Model{
             Estado,
             FechaInicio,
             FechaFinal,
+            PrecioTarjeta
             '
         );
 

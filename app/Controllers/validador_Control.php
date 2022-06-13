@@ -116,10 +116,14 @@ class validador_Control extends BaseController {
             'PulserasMagicas' => $ciclo[0]['PulserasMagicas'],
             'Hora' => $ciclo[0]['Hora'],
             'idAperturaValidador' => $ciclo[0]['idAperturaValidador'],
-            'Gratis' => $ciclo[0]['Gratis']
+            'Gratis' => $ciclo[0]['Gratis'],
+            'entradaNormal' => $ciclo[0]['entradaNormal'],
+            'entradaCortesia' => $ciclo[0]['entradaCortesia'],
+            'entradaMixta' => $ciclo[0]['entradaMixta']
         ];
 
         $idCiclo = $model->Insertar_Ciclo($datos);
+
         if($cantidad === 1){
             switch($datosCiclo[$num_elementos]['indice']){
                 case '1':

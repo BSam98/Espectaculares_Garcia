@@ -27,6 +27,11 @@ $('#fechaesperada').change(function () {
                 '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Cantidad_Ciclos']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Cantidad_Creditos']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Cantidad_Cortesias']+'</td>'+
+
+                '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Entrada_Normal']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Entrada_Cortesia']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Entrada_Mixta']+'</td>'+
+
                 '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Cantidad_Descuentos']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Cantidad_Pulseras']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.datos[i][0]['Cantidad_Gratis']+'</td>'+
@@ -78,6 +83,9 @@ $(document).on('click','.detalles_Ciclo', function(){
                 '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['Personas']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['Creditos']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['Cortesias']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['entradaNormal']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['entradaCortesia']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['entradaMixta']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['Descuentos']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['PulserasMagicas']+'</td>'+
                 '<td style="text-align: center; vertical-align: middle;">'+data.msj[i]['Gratis']+'</td>'+
