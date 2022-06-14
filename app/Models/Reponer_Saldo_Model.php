@@ -215,6 +215,7 @@ class Reponer_Saldo_Model extends Model{
 
         $query = $db->query(
             "SELECT 
+                Movimiento.idMovimiento,
                 Atracciones.Nombre AS Atraccion,
                 Usuarios.Nombre,
                 Usuarios.Apellidos,
@@ -298,6 +299,230 @@ class Reponer_Saldo_Model extends Model{
             WHERE
                 Registro_Atraccion_Dos_x_Uno.idRADU = $id;
         "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function pulsera_Atraccion($id){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Registro_Atracciones_Pulsera_Magica.idRAPM,
+                Atracciones.Nombre AS Atraccion,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Ciclo.Hora,
+                Promocion_Pulsera_Magica.Nombre AS Promocion
+            FROM
+                Registro_Atracciones_Pulsera_Magica
+            INNER JOIN
+                Ciclo
+            ON
+                Registro_Atracciones_Pulsera_Magica.idCiclo = Ciclo.idCiclo
+            INNER JOIN
+                Apertura_Validador
+            ON
+                Ciclo.idAperturaValidador = Apertura_Validador.idAperturaValidador
+            INNER JOIN
+                Usuarios
+            ON 
+                Apertura_Validador.idUsuario = Usuarios.idUsuario
+            INNER JOIN
+                Calendario_Pulsera_Magica
+            ON
+                Registro_Atracciones_Pulsera_Magica.idFechaPulseraMagica = Calendario_Pulsera_Magica.idFechaPulseraMagica
+            INNER JOIN
+                Promocion_Pulsera_Magica
+            ON
+                Calendario_Pulsera_Magica.idPulseraMagica = Promocion_Pulsera_Magica.idPulseraMagica
+            INNER JOIN
+                Atraccion_Evento
+            ON
+                Registro_Atracciones_Pulsera_Magica.idAtraccionEvento = Atraccion_Evento.idAtraccionEvento
+            INNER JOIN
+                Atracciones
+            ON
+                Atraccion_Evento.idAtraccion = Atracciones.idAtraccion
+            WHERE
+                Registro_Atracciones_Pulsera_Magica.idRAPM = $id;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function gratis_Atraccion($id){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Registro_Atraccion_Juegos_Gratis.idRAJG,
+                Atracciones.Nombre AS Atraccion,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Ciclo.Hora,
+                Promocion_Juegos_Gratis.Nombre AS Promocion
+            FROM
+                Registro_Atraccion_Juegos_Gratis
+            INNER JOIN
+                Ciclo
+            ON
+                Registro_Atraccion_Juegos_Gratis.idCiclo = Ciclo.idCiclo
+            INNER JOIN
+                Apertura_Validador
+            ON
+                Ciclo.idAperturaValidador = Apertura_Validador.idAperturaValidador
+            INNER JOIN
+                Usuarios
+            ON
+                Apertura_Validador.idUsuario = Usuarios.idUsuario
+            INNER JOIN
+                Calendario_Juegos_Gratis
+            ON
+                Registro_Atraccion_Juegos_Gratis.idFechaJuegosGratis = Calendario_Juegos_Gratis.idFechaJuegosGratis
+            INNER JOIN
+                Promocion_Juegos_Gratis
+            ON
+                Calendario_Juegos_Gratis.idJuegosGratis = Promocion_Juegos_Gratis.idJuegosGratis
+            INNER JOIN
+                Atraccion_Evento
+            ON
+                Registro_Atraccion_Juegos_Gratis.idAtraccionEvento = Atraccion_Evento.idAtraccionEvento
+            INNER JOIN
+                Atracciones
+            ON
+                Atraccion_Evento.idAtraccion = Atracciones.idAtraccion
+            WHERE
+                Registro_Atraccion_Juegos_Gratis.idRAJG = $id;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function saldo_Taquilla($id){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+            Saldo.idSaldo,
+            Saldo.CreditoN,
+            Pago.Monto,
+            Transaccion.Fecha,
+            Usuarios.Nombre,
+            Usuarios.Apellidos,
+            Ventanilla.Nombre AS Ventanilla,
+            Formas_Pago.Nombre AS Tipo
+        FROM
+            Saldo
+        INNER JOIN
+            Pago
+        ON
+            Saldo.idPago = Pago.idPago
+        INNER JOIN
+            Transaccion
+        ON
+            Pago.idTransaccion = Transaccion.idTransaccion
+        INNER JOIN
+            Cobro
+        ON
+            Transaccion.idTransaccion = Cobro.idTransaccion
+        INNER JOIN
+            Formas_Pago
+        ON
+            Cobro.idFormasPago = Formas_Pago.idFormasPago
+        INNER JOIN
+            Fajillas
+        ON
+            Transaccion.idFajilla = Fajillas.idFajilla
+        INNER JOIN
+            Apertura_Ventanilla
+        ON
+            Fajillas.idAperturaVentanilla = Apertura_Ventanilla.idAperturaVentanilla
+        INNER JOIN
+            Ventanilla
+        ON
+            Apertura_Ventanilla.idVentanilla = Ventanilla.idVentanilla
+        INNER JOIN
+            Usuarios
+        ON
+            Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
+        WHERE
+            Saldo.idSaldo = $id;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function pulsera_Taquilla($id){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Promo_Ventas.idPromoV,
+                Pago.Monto,
+                Transaccion.Fecha,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Ventanilla.Nombre AS Ventanilla,
+                Promocion_Pulsera_Magica.Nombre AS Promocion,
+                Formas_Pago.Nombre AS Tipo
+            FROM
+                Promo_Ventas
+            INNER JOIN
+                Pago
+            ON
+                Promo_Ventas.pago_Id = Pago.idPago
+            INNER JOIN
+                Transaccion
+            ON
+                Pago.idTransaccion = Transaccion.idTransaccion
+            INNER JOIN
+                Fajillas
+            ON
+                Transaccion.idFajilla = Fajillas.idFajilla
+            INNER JOIN
+                Cobro
+            ON
+                Transaccion.idTransaccion = Cobro.idTransaccion
+            INNER JOIN
+                Formas_Pago
+            ON
+                Cobro.idFormasPago = Formas_Pago.idFormasPago
+            INNER JOIN
+                Apertura_Ventanilla
+            ON
+                Fajillas.idAperturaVentanilla = Apertura_Ventanilla.idAperturaVentanilla
+            INNER JOIN
+                Ventanilla
+            ON
+                Apertura_Ventanilla.idVentanilla = Ventanilla.idVentanilla
+            INNER JOIN
+                Usuarios
+            ON
+                Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
+            INNER JOIN
+                Calendario_Pulsera_Magica
+            ON
+                Promo_Ventas.promo_Id = Calendario_Pulsera_Magica.idFechaPulseraMagica
+            INNER JOIN
+                Promocion_Pulsera_Magica
+            ON
+                Calendario_Pulsera_Magica.idPulseraMagica = Promocion_Pulsera_Magica.idPulseraMagica
+            WHERE
+                Promo_Ventas.idPromoV = $id;
+            "
         );
 
         $datos = $query->getResultObject();

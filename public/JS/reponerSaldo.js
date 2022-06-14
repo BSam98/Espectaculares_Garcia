@@ -243,3 +243,260 @@ $(document).on('click','.atraccion_Descuento',function(){
         cerrarCarga();
     });
 });
+
+$(document).on('click','.atraccion_Pulsera', function(){
+    iniciarCarga();
+    var id = $(this).val();
+
+    var html_Pulsera = '';
+
+    $.ajax({
+        type:'POST',
+        url: 'Reponer Saldo/Pulsera_Atraccion',
+        data: {'id':id},
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.pulsera.length){
+
+            html_Pulsera +=
+            '<tr>'+
+                '<td>'+
+                    '<label>Atraccion: '+data.pulsera[0]['Atraccion']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Promocion Detectada: </label>'+
+                    '<br>'+
+                    '<label>'+data.pulsera[0]['Promocion']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Validador: </label>'+
+                    '<br>'+
+                    '<label>'+data.pulsera[0]['Nombre']+ " "+ data.pulsera[0]['Apellidos'] +'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Fecha: </label>'+
+                    '<br>'+
+                    '<label>'+data.pulsera[0]['Hora']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '&nbsp<td><button class="btn btn-danger">Deshacer</button>&nbsp'+
+                '<button class="btn btn-warning">Modificar</button>&nbsp'+
+                '<button class="btn btn-success">Cerrar</button></td>'+
+            '</tr>';
+        }
+
+        $("#detalles").html(html_Pulsera);
+        cerrarCarga();
+    });
+});
+
+$(document).on('click','.atraccion_Gratis', function(){
+    iniciarCarga();
+    var id = $(this).val();
+
+    var html_Gratis = '';
+
+    $.ajax({
+        type: 'POST',
+        url: 'Reponer Saldo/Gratis_Atraccion',
+        data: {'id':id},
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.gratis.length){
+            html_Gratis +=
+            '<tr>'+
+                '<td>'+
+                    '<label>Atraccion: '+data.gratis[0]['Atraccion']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Promocion Detectada: </label>'+
+                    '<br>'+
+                    '<label>'+data.gratis[0]['Promocion']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Validador: </label>'+
+                    '<br>'+
+                    '<label>'+data.gratis[0]['Nombre']+ " "+ data.gratis[0]['Apellidos'] +'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Fecha: </label>'+
+                    '<br>'+
+                    '<label>'+data.gratis[0]['Hora']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '&nbsp<td><button class="btn btn-danger">Deshacer</button>&nbsp'+
+                '<button class="btn btn-warning">Modificar</button>&nbsp'+
+                '<button class="btn btn-success">Cerrar</button></td>'+
+            '</tr>';
+        }
+
+        $("#detalles").html(html_Gratis);
+        cerrarCarga();
+    });
+});
+
+$(document).on('click','.taquilla_Saldo',function(){
+    iniciarCarga();
+
+    var id = $(this).val();
+    var html_Saldo = '';
+
+    $.ajax({
+        type:'POST',
+        url: 'Reponer Saldo/Saldo_Taquilla',
+        data: {'id':id},
+        dataType:'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.taquilla.length){
+            html_Saldo +=
+            '<tr>'+
+                '<td>'+
+                    '<label>Ventanilla: </label>'+
+                    '<br>'+
+                    '<label>'+data.taquilla[0]['Ventanilla']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Creditos Otorgados: </label>'+
+                    '<br>'+
+                    '<label>'+data.taquilla[0]['CreditoN']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Dinero: </label>'+
+                    '<br>'+
+                    '<label>$'+data.taquilla[0]['Monto']+' MXN</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Forma de Pago: </label>'+
+                    '<br>'+
+                    '<label>'+data.taquilla[0]['Tipo']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Taquillero: </label>'+
+                    '<br>'+
+                    '<label>'+data.taquilla[0]['Nombre']+ " "+data.taquilla[0]['Apellidos'] +'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Fecha: </label>'+
+                    '<br>'+
+                    '<label>'+data.taquilla[0]['Fecha']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '&nbsp<td><button class="btn btn-danger">Deshacer</button>&nbsp'+
+                '<button class="btn btn-warning">Modificar</button>&nbsp'+
+                '<button class="btn btn-success">Cerrar</button></td>'+
+            '</tr>'
+            ;
+        }
+        $("#detalles").html(html_Saldo);
+        cerrarCarga();
+    });
+});
+
+$(document).on('click','.taquilla_Pulsera',function(){
+    iniciarCarga();
+    var id = $(this).val();
+
+    var html_P = '';
+
+    $.ajax({
+        type:'POST',
+        url: 'Reponer Saldo/Pulsera_Taquilla',
+        data: {'id':id},
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.pulsera.length){
+            html_P +=
+            '<tr>'+
+                '<td>'+
+                    '<label>Ventanilla: </label>'+
+                    '<br>'+
+                    '<label>'+data.pulsera[0]['Ventanilla']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Promoción Adquirida: </label>'+
+                    '<br>'+
+                    '<label>'+data.pulsera[0]['Promocion']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Precio: </label>'+
+                    '<br>'+
+                    '<label>$'+data.pulsera[0]['Monto']+' MXN</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Forma de Pago: </label>'+
+                    '<br>'+
+                    '<label>'+data.pulsera[0]['Tipo']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Taquillero: </label>'+
+                    '<br>'+
+                    '<label>'+data.pulsera[0]['Nombre']+ " "+data.pulsera[0]['Apellidos'] +'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Fecha: </label>'+
+                    '<br>'+
+                    '<label>'+data.pulsera[0]['Fecha']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '&nbsp<td><button class="btn btn-danger">Deshacer</button>&nbsp'+
+                '<button class="btn btn-warning">Modificar</button>&nbsp'+
+                '<button class="btn btn-success">Cerrar</button></td>'+
+            '</tr>'
+            ;
+        }
+        $("#detalles").html(html_P);
+        cerrarCarga();
+    });
+});

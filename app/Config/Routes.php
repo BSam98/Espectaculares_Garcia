@@ -263,6 +263,18 @@ $routes->post('/Reponer Saldo/Detalle_Movimiento','Reponer_Saldo_Control::detall
 $routes->get('/Reponer Saldo/Descuento_Atraccion','Reponer_Saldo_Control::descuento_Atraccion');
 $routes->post('/Reponer Saldo/Descuento_Atraccion','Reponer_Saldo_Control::descuento_Atraccion');
 
+$routes->get('/Reponer Saldo/Pulsera_Atraccion','Reponer_Saldo_Control::pulsera_Atraccion');
+$routes->post('/Reponer Saldo/Pulsera_Atraccion','Reponer_Saldo_Control::pulsera_Atraccion');
+
+$routes->get('/Reponer Saldo/Gratis_Atraccion','Reponer_Saldo_Control::gratis_Atraccion');
+$routes->post('/Reponer Saldo/Gratis_Atraccion','Reponer_Saldo_Control::gratis_Atraccion');
+
+$routes->get('/Reponer Saldo/Saldo_Taquilla','Reponer_Saldo_Control::saldo_Taquilla');
+$routes->post('/Reponer Saldo/Saldo_Taquilla','Reponer_Saldo_Control::saldo_Taquilla');
+
+$routes->get('/Reponer Saldo/Pulsera_Taquilla','Reponer_Saldo_Control::pulsera_Taquilla');
+$routes->post('/Reponer Saldo/Pulsera_Taquilla','Reponer_Saldo_Control::pulsera_Taquilla');
+
 $routes->post('/Cobro','Menu_Principal_User_Control::cobrar');
 $routes->get('/Cobro','Menu_Principal_User_Control::cobrar');
 

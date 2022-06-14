@@ -65,4 +65,44 @@ class Reponer_Saldo_Control extends BaseController{
         echo json_encode(array("respuesta"=>true,"descuento"=>$respuesta));
 
     }
+
+    public function pulsera_Atraccion(){
+        $model = new Reponer_Saldo_Model();
+
+        $id = $_POST['id'];
+
+        $respuesta  = $model->pulsera_Atraccion($id);
+
+        echo json_encode(array('respuesta' =>true,'pulsera'=>$respuesta));
+    }
+
+    public function gratis_Atraccion(){
+        $model = new Reponer_Saldo_Model();
+
+        $id = $_POST['id'];
+
+        $respuesta = $model->gratis_Atraccion($id);
+
+        echo json_encode(array('respuesta'=>true,'gratis'=>$respuesta));
+    }
+
+    public function saldo_Taquilla(){
+        $model = new Reponer_Saldo_Model();
+
+        $id = $_POST['id'];
+
+        $respuesta = $model->saldo_Taquilla($id);
+
+        echo json_encode(array("respuesta"=> true,"taquilla"=>$respuesta));
+    }
+
+    public function pulsera_Taquilla(){
+        $model = new Reponer_Saldo_Model();
+
+        $id = $_POST['id'];
+
+        $respuesta = $model->pulsera_Taquilla($id);
+
+        echo json_encode(array('respuesta'=>true,'pulsera'=>$respuesta));
+    }
 }
