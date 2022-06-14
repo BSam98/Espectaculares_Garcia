@@ -275,6 +275,9 @@ $routes->post('/Reponer Saldo/Saldo_Taquilla','Reponer_Saldo_Control::saldo_Taqu
 $routes->get('/Reponer Saldo/Pulsera_Taquilla','Reponer_Saldo_Control::pulsera_Taquilla');
 $routes->post('/Reponer Saldo/Pulsera_Taquilla','Reponer_Saldo_Control::pulsera_Taquilla');
 
+$routes->get('/Reponer Saldo/Cortesia_Taquilla','Reponer_Saldo_Control::cortesia_Taquilla');
+$routes->post('/Reponer Saldo/Cortesia_Taquilla','Reponer_Saldo_Control::cortesia_Taquilla');
+
 $routes->post('/Cobro','Menu_Principal_User_Control::cobrar');
 $routes->get('/Cobro','Menu_Principal_User_Control::cobrar');
 

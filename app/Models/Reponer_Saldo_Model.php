@@ -465,6 +465,72 @@ class Reponer_Saldo_Model extends Model{
         return $datos;
     }
 
+    public function cortesia_Taquilla($id){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Registro_Saldo_Pago_Promocion.idSPP,
+                Calendario_Creditos_Cortesia.Creditos,
+                Pago.Monto,
+                Transaccion.Fecha,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Ventanilla.Nombre AS Ventanilla,
+                Promocion_Creditos_Cortesia.Nombre AS Promocion,
+                Formas_Pago.Nombre AS Tipo
+            FROM
+                Registro_Saldo_Pago_Promocion
+            INNER JOIN
+                Calendario_Creditos_Cortesia
+            ON
+                Registro_Saldo_Pago_Promocion.idFechaCreditosCortesia = Calendario_Creditos_Cortesia.idFechaCreditosCortesia
+            INNER JOIN
+                Promocion_Creditos_Cortesia
+            ON
+                Calendario_Creditos_Cortesia.idCC = Promocion_Creditos_Cortesia.idCC
+            INNER JOIN
+                Pago
+            ON
+                Registro_Saldo_Pago_Promocion.idPago = Pago.idPago
+            INNER JOIN
+                Transaccion
+            ON
+                Pago.idTransaccion = Transaccion.idTransaccion
+            INNER JOIN
+                Cobro
+            ON
+                Transaccion.idTransaccion = Cobro.idTransaccion
+            INNER JOIN
+                Formas_Pago
+            ON
+                Cobro.idFormasPago = Formas_Pago.idFormasPago
+            INNER JOIN
+                Fajillas
+            ON
+                Transaccion.idFajilla = Fajillas.idFajilla
+            INNER JOIN
+                Apertura_Ventanilla
+            ON
+                Fajillas.idAperturaVentanilla = Apertura_Ventanilla.idAperturaVentanilla
+            INNER JOIN
+                Usuarios
+            ON
+                Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
+            INNER JOIN
+                Ventanilla
+            ON
+                Apertura_Ventanilla.idVentanilla = Ventanilla.idVentanilla
+            WHERE
+                Registro_Saldo_Pago_Promocion.idSPP = $id;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
     public function pulsera_Taquilla($id){
         $db = \Config\Database::connect();
 

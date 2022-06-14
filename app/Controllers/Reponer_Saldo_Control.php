@@ -96,6 +96,16 @@ class Reponer_Saldo_Control extends BaseController{
         echo json_encode(array("respuesta"=> true,"taquilla"=>$respuesta));
     }
 
+    public function cortesia_Taquilla(){
+        $model = new Reponer_Saldo_Model();
+
+        $id = $_POST['id'];
+
+        $respuesta = $model->cortesia_Taquilla($id);
+
+        echo json_encode(array('respuesta'=>true,'cortesia'=>$respuesta));
+    }
+
     public function pulsera_Taquilla(){
         $model = new Reponer_Saldo_Model();
 

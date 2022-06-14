@@ -2,6 +2,7 @@
 
 $("#buscarTarjeta").on('click',function(){
     iniciarCarga();
+    $("#detalles").html('');
     var folio = $("#inputTarjeta").val();
     var html = '';
 
@@ -425,6 +426,85 @@ $(document).on('click','.taquilla_Saldo',function(){
             ;
         }
         $("#detalles").html(html_Saldo);
+        cerrarCarga();
+    });
+});
+
+$(document).on('click','.taquilla_Cortesia', function(){
+    iniciarCarga();
+    var id = $(this).val();
+    var html_Cortesia='';
+
+    $.ajax({
+        type: 'POST',
+        url: 'Reponer Saldo/Cortesia_Taquilla',
+        data: {'id': id},
+        dataType:'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.cortesia.length){
+            html_Cortesia +=
+            '<tr>'+
+                '<td>'+
+                    '<label>Ventanilla: </label>'+
+                    '<br>'+
+                    '<label>'+data.cortesia[0]['Ventanilla']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Promoción Adquirida: </label>'+
+                    '<br>'+
+                    '<label>'+data.cortesia[0]['Promocion']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Creditos Otorgados: </label>'+
+                    '<br>'+
+                    '<label>'+data.cortesia[0]['Creditos']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Precio: </label>'+
+                    '<br>'+
+                    '<label>$'+data.cortesia[0]['Monto']+' MXN</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Forma de Pago: </label>'+
+                    '<br>'+
+                    '<label>'+data.cortesia[0]['Tipo']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Taquillero: </label>'+
+                    '<br>'+
+                    '<label>'+data.cortesia[0]['Nombre']+ " "+data.cortesia[0]['Apellidos'] +'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>'+
+                    '<label>Fecha: </label>'+
+                    '<br>'+
+                    '<label>'+data.cortesia[0]['Fecha']+'</label>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '&nbsp<td><button class="btn btn-danger">Deshacer</button>&nbsp'+
+                '<button class="btn btn-warning">Modificar</button>&nbsp'+
+                '<button class="btn btn-success">Cerrar</button></td>'+
+            '</tr>'
+            ;
+        }
+
+        $("#detalles").html(html_Cortesia);
         cerrarCarga();
     });
 });
