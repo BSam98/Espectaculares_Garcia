@@ -69,28 +69,61 @@ $(document).on('click','.ventanillas_Inactivas', function(){
         },
     }).done(function(data){
         if(data.respuesta){
-            for(var i=0; i<data.ventanillas.length;i++){
-                //alert(data.ventanillas[i]['idUsuario']);
-                console.log('id ' +  data.ventanillas[i]['idUsuario']);
-                if(data.ventanillas[i]['idUsuario'] === null){
-                    html_Color = "background-color: red;";
-                }
-                else{
-                    html_Color ="background-color: green;";
-                }
 
-                html_Ventanillas += 
-                '<tr>'+
-                    '<td style="'+html_Color+'"></td>'+
-                    '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Ventanilla']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Nombre']+' '+data.ventanillas[i]['Apellidos'] +'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Efectivo']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Boucher']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Cantidad']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaApertura']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaCierre']+'</td>'
-                '</tr>'
-                ;
+
+            if(data.resultado){
+                alert('Si hay datos');
+                console.log(data.resultado);
+                for(var i=0; i<data.ventanillas.length;i++){
+                    //alert(data.ventanillas[i]['idUsuario']);
+                    console.log('id ' +  data.ventanillas[i]['idUsuario']);
+                    if(data.ventanillas[i]['idUsuario'] === null){
+                        html_Color = "background-color: red;";
+                    }
+                    else{
+                        html_Color ="background-color: green;";
+                    }
+    
+                    html_Ventanillas += 
+                    '<tr>'+
+                        '<td style="'+html_Color+'"></td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Ventanilla']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Nombre']+' '+data.ventanillas[i]['Apellidos'] +'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Efectivo']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Boucher']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Cantidad']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaApertura']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaCierre']+'</td>'
+                    '</tr>'
+                    ;
+                }
+            }
+            else{
+                alert('No hay datos');
+                console.log(data.resultado);
+                for(var i=0; i<data.ventanillas.length;i++){
+                    //alert(data.ventanillas[i]['idUsuario']);
+                    console.log('id ' +  data.ventanillas[i]['idUsuario']);
+                    if(data.ventanillas[i]['idUsuario'] === null){
+                        html_Color = "background-color: red;";
+                    }
+                    else{
+                        html_Color ="background-color: green;";
+                    }
+    
+                    html_Ventanillas += 
+                    '<tr>'+
+                        '<td style="'+html_Color+'"></td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Ventanilla']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Nombre']+' '+data.ventanillas[i]['Apellidos'] +'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Efectivo']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Boucher']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">0</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaApertura']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaCierre']+'</td>'
+                    '</tr>'
+                    ;
+                }
             }
         }
 

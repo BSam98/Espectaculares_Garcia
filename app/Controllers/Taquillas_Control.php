@@ -59,8 +59,18 @@ class Taquillas_Control extends BaseController {
         $fecha = $_POST['fecha'];
 
         $respuesta = $model->ventanillas_Inactivas($idTaquilla,$idEvento,$fecha);
+        $valor = false;
+        if(count($respuesta)){
 
-        echo json_encode(array('respuesta'=>true,'ventanillas'=>$respuesta));
+            $valor= true;
+            echo json_encode(array('respuesta'=>true,'ventanillas'=>$respuesta,'resultado'=>$valor));
+        }
+        else{
+            $valor= false;
+
+            $respuesta = $model->ventanillas_Inactivas_2($idTaquilla, $idEvento, $fecha);
+            echo json_encode(array('respuesta'=>true,'ventanillas'=>$respuesta,'resultado'=>$valor));
+        }
     }
 
 }

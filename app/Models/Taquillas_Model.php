@@ -97,6 +97,7 @@ class Taquillas_Model extends Model{
         return $datos;
     }
 
+    //Cuando el taquillero vendio tarjetas
     public function ventanillas_Inactivas($idTaquilla,$idEvento,$fecha){
         $db  = \Config\Database::connect();
 
@@ -130,6 +131,69 @@ class Taquillas_Model extends Model{
                 Tarjetas
             ON
                 Fajillas.idFajilla = Tarjetas.idFajilla
+            INNER JOIN
+                Usuarios
+            ON
+                Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
+            INNER JOIN
+                Taquilla
+            ON
+                Ventanilla.idTaquilla = Taquilla.idTaquilla
+            INNER JOIN
+                Zona
+            ON
+                Taquilla.idZona = Zona.idZona
+            WHERE
+                Zona.idEvento = $idEvento
+            AND
+                Taquilla.idTaquilla = $idTaquilla
+            AND
+                Apertura_Ventanilla.horaApertura >= '$fecha 00:00:00.000'
+            AND
+                Apertura_Ventanilla.horaApertura <= '$fecha 23:59:00.000'
+            GROUP BY 	Cierre_Ventanilla.idUsuario,
+                Apertura_Ventanilla.idAperturaVentanilla,
+                Ventanilla.Nombre,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Cierre_Ventanilla.Efectivo,
+                Cierre_Ventanilla.Boucher,
+                Apertura_Ventanilla.horaApertura,
+                Cierre_Ventanilla.horaCierre
+                ;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    //cuando el taquillero no vendio tarjetas
+    public function ventanillas_Inactivas_2($idTaquilla,$idEvento,$fecha){
+        $db  =\Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Cierre_Ventanilla.idUsuario,
+                Apertura_Ventanilla.idAperturaVentanilla,
+                Ventanilla.Nombre AS Ventanilla,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Cierre_Ventanilla.Efectivo,
+                Cierre_Ventanilla.Boucher,
+                Apertura_Ventanilla.horaApertura,
+                Cierre_Ventanilla.horaCierre
+            FROM
+                Ventanilla
+            INNER JOIN
+                Apertura_Ventanilla
+            ON
+                Ventanilla.idVentanilla = Apertura_Ventanilla.idVentanilla
+            INNER JOIN
+                Cierre_Ventanilla
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Cierre_Ventanilla.idAperturaVentanilla
             INNER JOIN
                 Usuarios
             ON
