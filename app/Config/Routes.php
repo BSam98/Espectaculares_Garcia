@@ -100,6 +100,13 @@ $routes->get('/Ver Atracciones/Mostrar_Detalles','super_Atracciones_Control::det
 $routes->post('/Ver Atracciones/Mostrar_Detalles','super_Atracciones_Control::detalles');
 
 $routes->get('/Ver Taquillas','Taquillas_Control::new');
+
+$routes->get('Ver Taquillas/Taquillas_Inactivas','Taquillas_Control::taquillas_Inactivas');
+$routes->post('Ver Taquillas/Taquillas_Inactivas','Taquillas_Control::taquillas_Inactivas');
+
+$routes->get('Ver Taquillas/Ventanillas_Inactivas','Taquillas_Control::ventanillas_Inactivas');
+$routes->post('Ver Taquillas/Ventanillas_Inactivas','Taquillas_Control::ventanillas_Inactivas');
+
 $routes->get('/Ver Supervisores','supervisores_control::new');
 //$routes->post('/modulosRol','Rol_Control::MRol');
 

@@ -40,6 +40,27 @@ class Taquillas_Control extends BaseController {
         echo json_encode($data);
     }
 
+    public function taquillas_Inactivas(){
+        $model = new Taquillas_Model();
 
+        $idEvento = $_POST['idEvento'];
+        $fecha = $_POST['fecha'];
+
+        $respuesta = $model->taquillas_Inactivas($idEvento,$fecha);
+
+        echo json_encode(array('respuesta'=>true, 'taquillas'=>$respuesta));
+    }
+
+    public function ventanillas_Inactivas(){
+        $model = new Taquillas_Model();
+
+        $idTaquilla = $_POST['idTaquilla'];
+        $idEvento = $_POST['idEvento'];
+        $fecha = $_POST['fecha'];
+
+        $respuesta = $model->ventanillas_Inactivas($idTaquilla,$idEvento,$fecha);
+
+        echo json_encode(array('respuesta'=>true,'ventanillas'=>$respuesta));
+    }
 
 }
