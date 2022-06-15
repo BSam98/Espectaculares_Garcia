@@ -42,15 +42,15 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Ventanillas Activas</h4>
+                <h4 class="modal-title">Ventanillas Inactivas</h4>
                 <button type="button" class="close" data-dismiss="modal" onclick="cerrar">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="table table-striped table-responsive">
-                    <table id="" class="table table-bordered">
+                    <table id="tabla_Ventanillas_Inactivas" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th colspan="8"><center>Ventanillas Activas</center></th>
+                                <th colspan="8"><center>Ventanillas Inactivas</center></th>
                             </tr>
                             <tr>
                                 <th scope="col" style="text-align: center; vertical-align:middle;">Status</th>
@@ -64,14 +64,6 @@
                             </tr>
                         </thead>
                         <tbody id="body_Ventanillas_Inactivas">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
                         </tbody>
                     </table>
                 </div>

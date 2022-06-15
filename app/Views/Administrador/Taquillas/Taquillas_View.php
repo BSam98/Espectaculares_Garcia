@@ -71,7 +71,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
             <br>
             <hr>
             <div class="table table-striped table-responsive">
-                <table class="table table-bordered">
+                <table id="tabla_Taquillas_Inactivas" class="table table-bordered">
                     <thead>
                         <tr>
                             <!--th colspan="3"><center>Datos del evento</center></th-->
@@ -89,17 +89,6 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                         </tr>
                     </thead>
                     <tbody id="body_Taquillas_Inactivas">
-                            <tr>
-                                <!--<td style="vertical-align: middle;"></td>
-                                <td style="vertical-align: middle;"></td>
-                                <td style="vertical-align: middle;"></td>-->
-                                <td style="text-align: center; vertical-align: middle;"></td>
-                                <td style="text-align: center; vertical-align: middle;"></td>
-                                <td style="text-align: center; vertical-align: middle;"></td>
-                                <td style="text-align: center; vertical-align: middle;"></td>
-                                <td style="text-align: center; vertical-align: middle;"></td>
-                                <td style="text-align: center; vertical-align: middle;"><a data-toggle="modal" data-target="#modal_Ventanilla_Inactiva" style="transition-duration: 3s, 5s;" class ="btn btn-warning">Ver</a></td>
-                            </tr>
                     </tbody>
                 </table>
             </div>

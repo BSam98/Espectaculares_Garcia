@@ -1,5 +1,6 @@
 $("#fechaesperada").change(function(){
     iniciarCarga();
+    $("#tabla_Taquillas_Inactivas").DataTable().destroy();
 
     var idEvento = $("#evento option:selected").val();
     var fecha = $("#fechaesperada").val();
@@ -45,6 +46,20 @@ $("#fechaesperada").change(function(){
             }
 
             $("#body_Taquillas_Inactivas").html(html_Taquilla);
+            $('#tabla_Taquillas_Inactivas').DataTable( {
+                "aProcessing": true,//Activamos el procesamiento del datatables
+                "aServerSide": true,//Paginación y filtrado realizados por el servidor
+                dom: 'Bfrtip',//Definimos los elementos del control de tabla
+                buttons: [		          
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdf'
+                ],
+                "bDestroy": true,
+                "iDisplayLength": 15,//Paginación
+                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+            });
             cerrarCarga();
         });
     }
@@ -52,6 +67,8 @@ $("#fechaesperada").change(function(){
 
 $(document).on('click','.ventanillas_Inactivas', function(){
     iniciarCarga();
+    $("#tabla_Ventanillas_Inactivas").DataTable().destroy();
+    
     var idTaquilla = $(this).data('book-id');
     var idEvento = $("#evento option:selected").val();
     var fecha = $("#fechaesperada").val();
@@ -128,6 +145,20 @@ $(document).on('click','.ventanillas_Inactivas', function(){
         }
 
         $("#body_Ventanillas_Inactivas").html(html_Ventanillas);
+        $('#tabla_Ventanillas_Inactivas').DataTable( {
+            "aProcessing": true,//Activamos el procesamiento del datatables
+            "aServerSide": true,//Paginación y filtrado realizados por el servidor
+            dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [		          
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+            "bDestroy": true,
+            "iDisplayLength": 15,//Paginación
+            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+        });
         cerrarCarga();
     });
 });
