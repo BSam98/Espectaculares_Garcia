@@ -73,8 +73,17 @@ $routes->post('/PuntoVenta','Menu_Principal_User_Control::ConsultaTurno');
 $routes->get('/ModuloCobro','Menu_Principal_User_Control::Cobro');
 $routes->post('/valida','Iniciar_Sesion_User_Control::valida');
 $routes->get('/valida','Iniciar_Sesion_User_Control::valida');
-$routes->post('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
-$routes->get('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
+
+
+$routes->post('/Supervisar_Taquillas','Iniciar_Sesion_User_Control::superTaquillas');
+$routes->get('/Supervisar_Taquillas','Iniciar_Sesion_User_Control::superTaquillas');
+
+$routes->get('/Supervisar_Taquillas/Ventanillas_Activas','Supervisar_Taquillas_Control::ventanillas_Activas');
+$routes->post('/Supervisar_Taquillas/Ventanillas_Activas','Supervisar_Taquillas_Control::ventanillas_Activas');
+
+$routes->get('/Supervisar_Taquillas/Ventanillas_Inactivas','Supervisar_Taquillas_Control::ventanillas_Inactivas');
+$routes->post('/Supervisar_Taquillas/Ventanillas_Inactivas','Supervisar_Taquillas_Control::ventanillas_Inactivas');
+
 
 $routes->get('/Ingresos x Evento','Menu_Principal_Control::rEvento');
 
