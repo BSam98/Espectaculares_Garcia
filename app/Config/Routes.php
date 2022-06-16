@@ -62,6 +62,10 @@ $routes->post('/subMenus','Iniciar_Sesion_Administrador_Control::bsubMenu');
 $routes->post('/privUser','Rol_Control::ModulRol');
 $routes->post('/editarPrivilegiosUser','Rol_Control::editarPrivilegios');
 $routes->post('/agregarRol','Rol_Control::nuevoRol');
+//$routes->post('/agregarAttSupervisar','Supervisor_Atracciones_Control::agregarAtracciones');
+$routes->post('/consultarAtracc','Supervisor_Atracciones_Control::consultarAt');
+$routes->post('/guardarDat','Supervisor_Atracciones_Control::guardarDatos');
+
 
 
 
@@ -86,10 +90,12 @@ $routes->post('/Utilizacion por Evento/Reporte','Reporte_Personas_Evento_Control
 
 $routes->get('/Utilizacion por Atracción','Reporte_Atraccion_Evento_Control::uAtraccion');
 
-$routes->get('/Utilizacion por Atracción/Reporte','Reporte_Atraccion_Evento_Control::mostrar_Atracciones');
-$routes->post('/Utilizacion por Atracción/Reporte','Reporte_Atraccion_Evento_Control::mostrar_Atracciones');
+//$routes->get('/Ticket','reporte_Venta_Control::ticket');
+$routes->get('/Ticket','ticket_Control::ticket');
 
-$routes->get('/Ticket','reporte_Venta_Control::ticket');
+
+
+
 $routes->get('/Rol','Rol_Control::rol');
 //$routes->get('/Roles','Rol_Control::rol');
 
@@ -252,16 +258,7 @@ $routes->post('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociada
 
 $routes->get('/Contratos','Contratos_Control::new');
 
-$routes->get('/Reponer Saldo','Reponer_Saldo_Control::new');
 
-$routes->get('/Reponer Saldo/Historial_Tarjeta','Reponer_Saldo_Control::historial_Tarjeta');
-$routes->post('/Reponer Saldo/Historial_Tarjeta','Reponer_Saldo_Control::historial_Tarjeta');
-
-$routes->get('/Reponer Saldo/Detalle_Movimiento','Reponer_Saldo_Control::detalle_Movimiento');
-$routes->post('/Reponer Saldo/Detalle_Movimiento','Reponer_Saldo_Control::detalle_Movimiento');
-
-$routes->get('/Reponer Saldo/Descuento_Atraccion','Reponer_Saldo_Control::descuento_Atraccion');
-$routes->post('/Reponer Saldo/Descuento_Atraccion','Reponer_Saldo_Control::descuento_Atraccion');
 
 $routes->post('/Cobro','Menu_Principal_User_Control::cobrar');
 $routes->get('/Cobro','Menu_Principal_User_Control::cobrar');
@@ -300,8 +297,6 @@ $routes->post('/Validacion_Interfaz/Promociones','validador_Control::Promociones
 
 $routes->get('/Validacion_Interfaz/Ciclo','validador_Control::Insertar_Ciclo');
 $routes->post('/Validacion_Interfaz/Ciclo','validador_Control::Insertar_Ciclo');
-
-
 
 /*
  * --------------------------------------------------------------------

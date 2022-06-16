@@ -1,4 +1,4 @@
-    var prev;
+//var prev;
 var previous=[];
 let creditosC = [];
 let metros = [];
@@ -567,36 +567,35 @@ let indices = [];
     });
 /********************************** Agregar Promociones de Creditos de Cortesia *********************************/
 /********************************** Eliminar Promociones de Creditos de Cortesia ********************************/
-$(document).on('click', '.eliminarPromoC', function(event){
-    var array = $('#arregloC').val();//trae el valor del array de promociones pulsera;
-    let arr = array.split(',');
-    var toRemove = $(this).val();//trae el valor a eliminar
-    let pos = arr.indexOf(toRemove.toString()) // (pos) es la posición para abreviar
-    let elementoEliminado = arr.splice(pos, 1)
-    /*console.log(elementoEliminado);
-    console.log(pos);
-    console.log(arr);*/
-    $(this).parent().parent().remove();
-    $('#arregloC').val(arr);//actualizamos el valor del input
+    $(document).on('click', '.eliminarPromoC', function(event){
+        var array = $('#arregloC').val();//trae el valor del array de promociones pulsera;
+        let arr = array.split(',');
+        var toRemove = $(this).val();//trae el valor a eliminar
+        let pos = arr.indexOf(toRemove.toString()) // (pos) es la posición para abreviar
+        let elementoEliminado = arr.splice(pos, 1)
+        /*console.log(elementoEliminado);
+        console.log(pos);
+        console.log(arr);*/
+        $(this).parent().parent().remove();
+        $('#arregloC').val(arr);//actualizamos el valor del input
 
-    /*var data = $('#arregloC').val();//trae el valor del array de promociones pulsera
-    var toRemove = $(this).val();//trae el valor a eliminar
-    let arr = data.split(',');//divide la cadena de texto para regresarla como array
-    arr = arr.filter(function(item){
-        return item !== toRemove;//quita el valor a eliminar si existe en el array
+        /*var data = $('#arregloC').val();//trae el valor del array de promociones pulsera
+        var toRemove = $(this).val();//trae el valor a eliminar
+        let arr = data.split(',');//divide la cadena de texto para regresarla como array
+        arr = arr.filter(function(item){
+            return item !== toRemove;//quita el valor a eliminar si existe en el array
+        });
+        $(this).parent().parent().remove();//eliminar las promos registradas como compra en caso de cancelar
+        $('#arregloC').val(arr);//actualizamos el valor del input*/
+
+        /***************** Elimina el indice que especifica que es promoC en el array principal(indice) ****************/
+        var arreglo1 = $('#indice').val();//trae el valor del array de promociones pulsera;
+        let arr1 = arreglo1.split(',');
+        let pos1 = arr1.indexOf('4'); // (pos) es la posición para abreviar
+        let elementoEliminado1 = arr1.splice(pos1, 1);
+        $('#indice').val(arr1);
     });
-    $(this).parent().parent().remove();//eliminar las promos registradas como compra en caso de cancelar
-    $('#arregloC').val(arr);//actualizamos el valor del input*/
-
-    /***************** Elimina el indice que especifica que es promoC en el array principal(indice) ****************/
-    var arreglo1 = $('#indice').val();//trae el valor del array de promociones pulsera;
-    let arr1 = arreglo1.split(',');
-    let pos1 = arr1.indexOf('4'); // (pos) es la posición para abreviar
-    let elementoEliminado1 = arr1.splice(pos1, 1);
-    $('#indice').val(arr1);
-});
 /********************************** Eliminar Promociones de Creditos de Cortesia ********************************/
-
 
 /********************************** Datos Formulario para Cobrar*********************************/
     //datos formulario para cobrar
@@ -727,3 +726,15 @@ $(document).on('click', '.eliminarPromoC', function(event){
     // window.location.reload(); use this if you do not remove cache
   }
 /********************************** Cambio de Pagina ******************************************/
+
+/***************************** Actualizar la lista de promociones *****************************/
+    
+       /* var refreshId =  setInterval( function(){
+            console.log('si actualizo');
+        $('#accordionSidebar').load('ModuloCobro?e=1&z=1&t=1&v=104&u=2&idv=1');//actualizas el div
+        }, 1000 );*/
+
+        //$(document).ready(function(){
+            //setInterval(loadClima,5000);
+          //  });
+            

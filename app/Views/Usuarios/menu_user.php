@@ -1,5 +1,5 @@
 <?php 
-if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['Usuario']))) {
+if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
     header('Location: http://localhost/Espectaculares_Garcia/public/');
     exit();
 }else{
@@ -9,7 +9,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['Usuario']))) {
         <?php if($_SESSION['idRango'] == '8' ){ ?><script>location.href="turnoValidador?t="+<?php echo $_SESSION['idUsuario']?>;</script><?php } ?>
         <?php if($_SESSION['idRango'] == '9' ){ ?><script>location.href="sAtracciones?t="+<?php echo $_SESSION['idUsuario']?>;</script><?php }?>
         <nav class="navbar navbar-fixed-top tm_navbar negro" role="navigation">
-            <a href="Menu_Principal_User"><img src = "Img/logo.png" style="width: 70px; height:7   0px;"/></a>
+            <a href="Menu_Principal_User"><img src = "Img/logo.png" style="width: 70px; height:70px;"/></a>
             <ul class="nav navbar-nav sf-menu">
             
                 <!--li class="dropdown">
