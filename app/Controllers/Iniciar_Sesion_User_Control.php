@@ -92,13 +92,6 @@ class Iniciar_Sesion_User_Control extends BaseController {
 
 
 
-
-
-
-
-
-
-
     public function valida(){
         session_start([
             'use_only_cookies' => 1,
@@ -113,10 +106,18 @@ class Iniciar_Sesion_User_Control extends BaseController {
     }
 
     public function superTaquillas(){
-        echo view('../Views/header.php');
-        echo view('Usuarios/menu_user');
-        echo view('Usuarios/supervisor_atracciones');
-        echo view('../Views/piePagina.php');
+        session_start([
+            'use_only_cookies' => 1,
+            'cookie_lifetime' => 0,
+            'cookie_secure' => 1,
+            'cookie_httponly' => 1
+        ]);
+        //echo view('../Views/header.php');
+        //echo view('Usuarios/menu_user');
+        //echo view('Usuarios/supervisor_atracciones');
+        echo view('Usuarios/Supervisor_Taquillas/Supervisor_Taquillas_View');
+        echo view('../Views/piePagina');
+        //echo view('../Views/piePagina.php');
         /*echo view('../Views/header');
         echo view('Usuarios/Iniciar_Sesion_User/Menu_Principal_User');
         //echo view('Usuarios/menu_user');
