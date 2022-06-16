@@ -101,6 +101,12 @@ $routes->post('/Ver Atracciones/Mostrar_Detalles','super_Atracciones_Control::de
 
 $routes->get('/Ver Taquillas','Taquillas_Control::new');
 
+$routes->get('/Ver Taquillas/Taquillas_Activas','Taquillas_Control::taquillas_Activas');
+$routes->post('/Ver Taquillas/Taquillas_Activas','Taquillas_Control::taquillas_Activas');
+
+$routes->get('/Ver Taquillas/Ventanillas_Activas','Taquillas_Control::ventanillas_Activas');
+$routes->post('/Ver Taquillas/Ventanillas_Activas','Taquillas_Control::ventanillas_Activas');
+
 $routes->get('Ver Taquillas/Taquillas_Inactivas','Taquillas_Control::taquillas_Inactivas');
 $routes->post('Ver Taquillas/Taquillas_Inactivas','Taquillas_Control::taquillas_Inactivas');
 

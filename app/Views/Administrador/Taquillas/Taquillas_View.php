@@ -29,7 +29,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <br>
         <div class="table table-striped table-responsive">
-            <table class="table table-bordered">
+            <table id="tabla_Taquillas_Activas" class="table table-border">
                 <thead>
                     <tr>
                         <!--th colspan="3"><center>Datos del evento</center></th-->
@@ -40,24 +40,12 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                         <!--th>Ciudad</th-->
                         <!--th>Estado</th-->
                         <th scope="col" style="text-align: center; vertical-align: middle;">Taquilla</th>
-                        <th scope="col" style="text-align: center; vertical-align: middle;">Supervisor</th>
                         <th scope="col" style="text-align: center; vertical-align: middle;">Efectivo</th>
                         <th scope="col" style="text-align: center; vertical-align: middle;">Tarjeta</th>
                         <th scope="col" style="text-align: center; vertical-align: middle;">Ventanillas</th>
                     </tr>
                 </thead>
-                <tbody>
-                        <tr>
-                            <!--<td style="vertical-align: middle;"></td>
-                            <td style="vertical-align: middle;"></td>
-                            <td style="vertical-align: middle;"></td>
-                            <td style="text-align: center; vertical-align: middle;"></td>-->
-                            <td style="text-align: center; vertical-align: middle;"></td>
-                            <td style="text-align: center; vertical-align: middle;"></td>
-                            <td style="text-align: center; vertical-align: middle;"></td>
-                            <td style="text-align: center; vertical-align: middle;"></td>
-                            <td style="text-align: center; vertical-align: middle;"><a data-toggle="modal" data-target="#modal_Ventanilla_Activa" style="transition-duration: 3s, 5s;" class ="btn btn-warning">Ver</a></td>
-                        </tr>
+                <tbody id="body_Taquillas_Activas">
                 </tbody>
             </table>
         </div>
@@ -71,7 +59,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
             <br>
             <hr>
             <div class="table table-striped table-responsive">
-                <table id="tabla_Taquillas_Inactivas" class="table table-bordered">
+                <table id="tabla_Taquillas_Inactivas" class="table table-border">
                     <thead>
                         <tr>
                             <!--th colspan="3"><center>Datos del evento</center></th-->

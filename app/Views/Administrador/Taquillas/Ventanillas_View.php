@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                     <div class="table table-striped table-responsive">
-                        <table id="" class="table table-bordered">
+                        <table id="tabla_Ventanillas_Activas" class="table table-border">
                             <thead>
                                 <tr>
                                     <th colspan="6"><center>Ventanillas Activas</center></th>
@@ -16,19 +16,12 @@
                                 <tr>
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Ventanilla</th>
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Taquillero</th>
-                                    <th scope="col" style="text-align: center; vertical-align:middle;">Efectivo Ingresado</th>
-                                    <th scope="col" style="text-align: center; vertical-align:middle;">Terminal Ingresada</th>
-                                    <th scope="col" style="text-align: center; vertical-align:middle;">Tarjetas Restantes</th>
+                                    <th scope="col" style="text-align: center; vertical-align:middle;">Efectivo</th>
+                                    <th scope="col" style="text-align: center; vertical-align:middle;">Tarjeta</th>
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Hora de Apertura</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tbody id="body_Ventanillas_Activas">
                             </tbody>
                         </table>
                     </div>
@@ -47,7 +40,7 @@
             </div>
             <div class="modal-body">
                 <div class="table table-striped table-responsive">
-                    <table id="tabla_Ventanillas_Inactivas" class="table table-bordered">
+                    <table id="tabla_Ventanillas_Inactivas" class="table table-border">
                         <thead>
                             <tr>
                                 <th colspan="8"><center>Ventanillas Inactivas</center></th>

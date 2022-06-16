@@ -51,6 +51,183 @@ class Taquillas_Model extends Model{
         //return $query;
     }
 
+    public function taquillas_Activas($idEvento){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Taquilla.idTaquilla,
+                Taquilla.Nombre,
+                SUM(CASE WHEN Cobro.idFormasPago = 1 THEN Cobro.Monto ELSE 0 END) AS Efectivo,
+                SUM(CASE WHEN Cobro.idFormasPago = 2 THEN Cobro.Monto ELSE 0 END) AS Tarjeta
+            FROM
+                Taquilla
+            INNER JOIN
+                Zona
+            ON
+                Taquilla.idZona = Zona.idZona
+            INNER JOIN
+                Ventanilla
+            ON
+                Taquilla.idTaquilla = Ventanilla.idTaquilla
+            INNER JOIN
+                Apertura_Ventanilla
+            ON
+                Ventanilla.idVentanilla = Apertura_Ventanilla.idVentanilla
+            INNER JOIN
+                Fajillas
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+            INNER JOIN
+                Transaccion
+            ON
+                Fajillas.idFajilla = Transaccion.idFajilla
+            INNER JOIN
+                Cobro
+            ON
+                Transaccion.idTransaccion = Cobro.idTransaccion
+            LEFT JOIN
+                Cierre_Ventanilla
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Cierre_Ventanilla.idAperturaVentanilla
+            WHERE
+                Cierre_Ventanilla.idAperturaVentanilla IS NULL
+            AND
+                Zona.idEvento = $idEvento
+            GROUP BY
+                Taquilla.idTaquilla,
+                Taquilla.Nombre;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    //Ventanilla activa con alguna transaccion
+    public function ventanillas_Activas($idEvento,$idTaquilla){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Apertura_Ventanilla.idAperturaVentanilla,
+                Ventanilla.Nombre AS Ventanilla,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Apertura_Ventanilla.horaApertura,
+                SUM(CASE WHEN Cobro.idFormasPago = 1 THEN Cobro.Monto ELSE 0 END) AS Efectivo,
+                SUM(CASE WHEN Cobro.idFormasPago = 2 THEN Cobro.Monto ELSE 0 END) AS Tarjeta
+            FROM
+                Ventanilla
+            INNER JOIN
+                Taquilla
+            ON
+                Ventanilla.idTaquilla = Taquilla.idTaquilla
+            INNER JOIN
+                Zona
+            ON
+                Taquilla.idZona = Zona.idZona
+            INNER JOIN
+                Apertura_Ventanilla
+            ON
+                Ventanilla.idVentanilla = Apertura_Ventanilla.idVentanilla
+            INNER JOIN
+                Usuarios
+            ON
+                Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
+            INNER JOIN
+                Fajillas
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+            INNER JOIN
+                Transaccion
+            ON
+                Fajillas.idFajilla = Transaccion.idFajilla
+            INNER JOIN
+                Cobro
+            ON
+                Transaccion.idTransaccion = Cobro.idTransaccion
+            LEFT JOIN
+                Cierre_Ventanilla
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Cierre_Ventanilla.idAperturaVentanilla
+            WHERE
+                Cierre_Ventanilla.idAperturaVentanilla IS NULL
+            AND
+                Zona.idEvento = $idEvento
+            AND
+                Taquilla.idTaquilla= $idTaquilla
+            GROUP BY
+                    Apertura_Ventanilla.idAperturaVentanilla,
+                Ventanilla.Nombre,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Apertura_Ventanilla.horaApertura;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function ventanillas_Activas_2($idEvento,$idTaquilla){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Apertura_Ventanilla.idAperturaVentanilla,
+                Ventanilla.Nombre AS Ventanilla,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Apertura_Ventanilla.horaApertura
+            FROM
+                Ventanilla
+            INNER JOIN
+                Taquilla
+            ON
+                Ventanilla.idTaquilla = Taquilla.idTaquilla
+            INNER JOIN
+                Zona
+            ON
+                Taquilla.idZona = Zona.idZona
+            INNER JOIN
+                Apertura_Ventanilla
+            ON
+                Ventanilla.idVentanilla = Apertura_Ventanilla.idVentanilla
+            INNER JOIN
+                Usuarios
+            ON
+                Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
+            INNER JOIN
+                Fajillas
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+            LEFT JOIN
+                Transaccion
+            ON
+                Fajillas.idFajilla = Transaccion.idFajilla
+            LEFT JOIN
+                Cierre_Ventanilla
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Cierre_Ventanilla.idAperturaVentanilla
+            WHERE
+                Cierre_Ventanilla.idAperturaVentanilla IS NULL
+            AND
+                Transaccion.idFajilla IS NULL
+            AND
+                Zona.idEvento = $idEvento
+            AND
+                Taquilla.idTaquilla= $idTaquilla;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
     public function taquillas_Inactivas($idEvento, $fecha){
         $db = \Config\Database::connect();
 
