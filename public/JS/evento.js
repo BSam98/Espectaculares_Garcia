@@ -216,13 +216,17 @@ $(document).on('click','.remover_Fecha_Evento', function(){
 /**--------------------------------------------------------------------------- */
 
 $("#asociarTarjetas").click(function(){
+    var idEvento = $("#idEventoLote").val();
+    var idLote = $("#idLote option:selected").val();
+    var folioInicial = $("#folioInicial").val();
+    var folioFinal = $("#folioFinal").val();
     $.ajax({
         beforeSend: function(){
             iniciarCarga();
         },
         type: "POST",
         url: 'Eventos/Agregar_Tarjetas_Evento',
-        data: $("#formularioAgregarTarjetasEvento").serialize(),
+        data: {'idEventoLote':idEvento,'idLote':idLote,'folioInicial':folioInicial,'folioFinal':folioFinal},
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
@@ -230,6 +234,7 @@ $("#asociarTarjetas").click(function(){
         },
     }).done(function(data){
         if(data.respuesta){
+            //alert('function');
             cerrarCarga();
             location.reload();
         }
