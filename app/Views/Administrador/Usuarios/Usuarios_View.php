@@ -51,7 +51,6 @@
     <?php 
         include 'editarUsuarios.php';
         include 'agregarUsuario.php';
-        
     ?>
     
 <script src="JS/usuarios.js"></script>

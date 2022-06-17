@@ -12,7 +12,7 @@ class Supervisar_Taquillas_Model extends Model{
 
         $query = $db->query(
             "SELECT
-                Apertura_Ventanilla.Status,
+                Apertura_Ventanilla.idStatus,
                 Apertura_Ventanilla.idAperturaVentanilla,
                 Ventanilla.Nombre AS Ventanillas,
                 Usuarios.Nombre,
@@ -59,7 +59,7 @@ class Supervisar_Taquillas_Model extends Model{
             AND
                 Zona.idEvento = $idEvento
             GROUP BY
-                Apertura_Ventanilla.Status,
+                Apertura_Ventanilla.idStatus,
                 Apertura_Ventanilla.idAperturaVentanilla,
                 Ventanilla.Nombre,
                 Usuarios.Nombre,
@@ -72,13 +72,16 @@ class Supervisar_Taquillas_Model extends Model{
 
         return $datos;
     }
+
+
+
     //Ventanillas Activas cuando no tienen ninguna transaccion
     public function ventanillas_Activas_2($idEvento){
         $db = \Config\Database::connect();
 
         $query = $db->query(
             "SELECT
-            Apertura_Ventanilla.Status,
+            Apertura_Ventanilla.idStatus,
             Apertura_Ventanilla.idAperturaVentanilla,
             Ventanilla.Nombre AS Ventanillas,
             Usuarios.Nombre,
@@ -135,6 +138,7 @@ class Supervisar_Taquillas_Model extends Model{
             "SELECT
                 Cierre_Ventanilla.idUsuario,
                 Apertura_Ventanilla.idAperturaVentanilla,
+                Apertura_Ventanilla.idStatus,
                 Ventanilla.Nombre AS Ventanilla,
                 Usuarios.Nombre,
                 Usuarios.Apellidos,
@@ -172,6 +176,7 @@ class Supervisar_Taquillas_Model extends Model{
                 Apertura_Ventanilla.horaApertura <= '$fecha 23:59:00.000'
             GROUP BY 	Cierre_Ventanilla.idUsuario,
                 Apertura_Ventanilla.idAperturaVentanilla,
+                Apertura_Ventanilla.idStatus,
                 Ventanilla.Nombre,
                 Usuarios.Nombre,
                 Usuarios.Apellidos,
@@ -181,6 +186,71 @@ class Supervisar_Taquillas_Model extends Model{
                 Cierre_Ventanilla.horaCierre
                 ;
         
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    //Ventanillas Inactivas que no tuvieron ninguna transaccion
+    public function ventanillas_Inactivas_2($idEvento,$fecha){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Cierre_Ventanilla.idUsuario,
+                Apertura_Ventanilla.idAperturaVentanilla,
+                Apertura_Ventanilla.idStatus,
+                Ventanilla.Nombre AS Ventanilla,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Cierre_Ventanilla.Efectivo,
+                Cierre_Ventanilla.Boucher,
+                Apertura_Ventanilla.horaApertura,
+                Cierre_Ventanilla.horaCierre
+            FROM
+                Ventanilla
+            INNER JOIN
+                Apertura_Ventanilla
+            ON
+                Ventanilla.idVentanilla = Apertura_Ventanilla.idVentanilla
+            INNER JOIN
+                Cierre_Ventanilla
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Cierre_Ventanilla.idAperturaVentanilla
+            INNER JOIN
+                Usuarios
+            ON
+                Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
+            INNER JOIN
+                Taquilla
+            ON
+                Ventanilla.idTaquilla = Taquilla.idTaquilla
+            INNER JOIN
+                Zona
+            ON
+                Taquilla.idZona = Zona.idZona
+            WHERE
+                Zona.idEvento = $idEvento
+            AND
+                Transaccion.idFajilla IS NULL
+            AND
+                Apertura_Ventanilla.horaApertura >= '$fecha 00:00:00.000'
+            AND
+                Apertura_Ventanilla.horaApertura <= '$fecha 23:59:00.000'
+            GROUP BY 	Cierre_Ventanilla.idUsuario,
+                Apertura_Ventanilla.idAperturaVentanilla,
+                Apertura_Ventanill.idStatus,
+                Ventanilla.Nombre,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Cierre_Ventanilla.Efectivo,
+                Cierre_Ventanilla.Boucher,
+                Apertura_Ventanilla.horaApertura,
+                Cierre_Ventanilla.horaCierre
+                ;
             "
         );
 

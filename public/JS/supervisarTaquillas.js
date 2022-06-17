@@ -17,8 +17,8 @@ $(document).ready(function(){
     }).done(function(data){
         if(data.respuesta){
             for(var i=0; i<data.ventanillas2.length; i++){
-                if(data.ventanillas2[i]['Status'] === null ){
-                    html_Color = "background-color: green;";
+                if(data.ventanillas2[i]['idStatus'] == 8 ){
+                    html_Color = "background-color: orange;";
                 }
                 else{
                     html_Color = "background-color: red;";
@@ -37,8 +37,8 @@ $(document).ready(function(){
             }
 
             for(var i=0; i<data.ventanillas.length; i++){
-                if(data.ventanillas[i]['Status'] === null ){
-                    html_Color = "background-color: green;";
+                if(data.ventanillas[i]['idStatus'] == 8 ){
+                    html_Color = "background-color: orange;";
                 }
                 else{
                     html_Color = "background-color: red;";
@@ -96,11 +96,13 @@ $("#fechaesperada").on('change',function(){
     }).done(function(data){
         if(data.respuesta){
             for(var i=0; i<data.ventanillas.length; i++){
-                if(data.ventanillas[i]['idUsuario'] === null){
+                if(data.ventanillas[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                 }
                 else{
-                    html_Color ="background-color: green;";
+                    if(data.ventanillas[i]['idUsuario'] ==11){
+                        html_Color ="background-color: green;";
+                    }
                 }
     
                 html_Ventanillas += 

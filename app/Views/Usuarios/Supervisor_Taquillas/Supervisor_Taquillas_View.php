@@ -69,6 +69,10 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <br>
+                    <div class="container-fluid">
+                        <label><h5><i class="fa fa-search" aria-hidden="true"></i>Seleccione una fecha: </h5></label><br>
+                        <input type="date" name="fechaesperada" id="fechaesperada">
+                    </div>
                     <div class="table table-striped table-responsive">
                         <table id="tabla_Ventanillas_Activas" class="table table-border">
                             <br>
@@ -83,7 +87,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Efectivo</th>
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Tarjeta</th>
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Hora de Apertura</th>
-                                    <th scope="col" style="text-align: center; vertical-align:middle;">Forzar Cierre</th>
+                                    <th scope="col" style="text-align: center; vertical-align:middle;">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody id="body_Ventanillas_Activas">
@@ -109,8 +113,8 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Status</th>
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Ventanilla</th>
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Taquillero</th>
-                                    <th scope="col" style="text-align: center; vertical-align:middle;">Efectivo Total</th>
-                                    <th scope="col" style="text-align: center; vertical-align:middle;">Tarjeta Total</th>
+                                    <th scope="col" style="text-align: center; vertical-align:middle;">Efectivo</th>
+                                    <th scope="col" style="text-align: center; vertical-align:middle;">Tarjeta</th>
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Tarjetas Vendidas</th>
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Hora de Apertura</th>
                                     <th scope="col" style="text-align: center; vertical-align:middle;">Hora de Cierre</th>
