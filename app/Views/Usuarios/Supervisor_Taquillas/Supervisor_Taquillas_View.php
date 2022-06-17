@@ -71,6 +71,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                     <br>
                     <div class="table table-striped table-responsive">
                         <table id="tabla_Ventanillas_Activas" class="table table-border">
+                            <br>
                             <thead>
                                 <tr>
                                     <th colspan="7"><center>Ventanillas Activas</center></th>

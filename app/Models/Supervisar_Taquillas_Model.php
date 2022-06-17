@@ -6,6 +6,7 @@ use CodeIgniter\Model;
 class Supervisar_Taquillas_Model extends Model{
     protected $builder;
 
+    //Ventanillas Activas cuando tienen alguna transaccion
     public function ventanillas_Activas($idEvento){
         $db = \Config\Database::connect();
 
@@ -69,6 +70,61 @@ class Supervisar_Taquillas_Model extends Model{
 
         $datos = $query->getResultObject();
 
+        return $datos;
+    }
+    //Ventanillas Activas cuando no tienen ninguna transaccion
+    public function ventanillas_Activas_2($idEvento){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+            Apertura_Ventanilla.Status,
+            Apertura_Ventanilla.idAperturaVentanilla,
+            Ventanilla.Nombre AS Ventanillas,
+            Usuarios.Nombre,
+            Usuarios.Apellidos,
+            Apertura_Ventanilla.horaApertura
+        FROM
+            Ventanilla
+        INNER JOIN
+            Taquilla
+        ON
+            Ventanilla.idTaquilla = Taquilla.idTaquilla
+        INNER JOIN
+            Zona
+        ON
+            Taquilla.idZona = Zona.idZona
+        INNER JOIN
+            Apertura_Ventanilla
+        ON
+            Ventanilla.idVentanilla = Apertura_Ventanilla.idVentanilla
+        INNER JOIN
+            Usuarios
+        ON
+            Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
+        INNER JOIN
+            Fajillas
+        ON
+            Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+        LEFT JOIN
+            Transaccion
+        ON
+            Fajillas.idFajilla = Transaccion.idFajilla
+        LEFT JOIN
+            Cierre_Ventanilla
+        ON
+            Apertura_Ventanilla.idAperturaVentanilla = Cierre_Ventanilla.idAperturaVentanilla
+        WHERE
+            Cierre_Ventanilla.idAperturaVentanilla IS NULL
+        AND
+            Transaccion.idFajilla IS NULL
+        AND
+            Zona.idEvento = $idEvento;
+            "
+        );
+
+        $datos = $query->getResultObject();
+        
         return $datos;
     }
 

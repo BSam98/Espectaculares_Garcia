@@ -19,8 +19,9 @@ class Supervisar_Taquillas_Control extends BaseController{
         $idEvento = $_POST['idEvento'];
 
         $respuesta = $model->ventanillas_Activas($idEvento);
+        $respuesta2 = $model->ventanillas_Activas_2($idEvento);
 
-        echo json_encode(array('respuesta'=>true, 'ventanillas'=>$respuesta));
+        echo json_encode(array('respuesta'=>true, 'ventanillas'=>$respuesta,'ventanillas2'=>$respuesta2));
     }
 
     public function ventanillas_Inactivas(){

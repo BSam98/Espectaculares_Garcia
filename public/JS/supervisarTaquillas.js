@@ -16,6 +16,26 @@ $(document).ready(function(){
         },
     }).done(function(data){
         if(data.respuesta){
+            for(var i=0; i<data.ventanillas2.length; i++){
+                if(data.ventanillas2[i]['Status'] === null ){
+                    html_Color = "background-color: green;";
+                }
+                else{
+                    html_Color = "background-color: red;";
+                }
+
+                html_Ventanillas +=
+                '<tr>'+
+                    '<td style="'+html_Color+'"></td>'+
+                    '<td style="text-align: center; vertical-align:middle;">'+data.ventanillas2[i]['Ventanillas']+'</td>'+
+                    '<td style="text-align: center; vertical-align:middle;">'+data.ventanillas2[i]['Nombre']+ ' '+ data.ventanillas2[i]['Apellidos']+'</td>'+
+                    '<td style="text-align: center; vertical-align:middle;">0</td>'+
+                    '<td style="text-align: center; vertical-align:middle;">0</td>'+
+                    '<td style="text-align: center; vertical-align:middle;">'+data.ventanillas2[i]['horaApertura']+'</td>'+
+                    '<td style="text-align: center; vertical-align:middle;"><a  class="ventanillas_Activas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas2[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '</tr>';
+            }
+
             for(var i=0; i<data.ventanillas.length; i++){
                 if(data.ventanillas[i]['Status'] === null ){
                     html_Color = "background-color: green;";
@@ -32,7 +52,7 @@ $(document).ready(function(){
                     '<td style="text-align: center; vertical-align:middle;">'+data.ventanillas[i]['Efectivo']+'</td>'+
                     '<td style="text-align: center; vertical-align:middle;">'+data.ventanillas[i]['Tarjeta']+'</td>'+
                     '<td style="text-align: center; vertical-align:middle;">'+data.ventanillas[i]['horaApertura']+'</td>'+
-                    '<td style="text-align: center; vertical-align:middle;"><a href="" class=""><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                    '<td style="text-align: center; vertical-align:middle;"><a  class="ventanillas_Activas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '</tr>';
             }
         }
@@ -93,7 +113,7 @@ $("#fechaesperada").on('change',function(){
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Cantidad']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaApertura']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaCierre']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;"><a class ="btn btn-outline-success ventanillas_Activas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'
+                    '<td style="text-align: center; vertical-align: middle;"><a class ="btn btn-outline-success ventanillas_Inactivas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'
                 '</tr>'
                 ;
             }
@@ -115,4 +135,13 @@ $("#fechaesperada").on('change',function(){
         });
         cerrarCarga();
     });
+});
+
+$(document).on('click','.ventanillas_Activas', function(){
+    var id = $(this).data('book-id');
+    
+    alert('idAperturaVentanilla: ' + id['idAperturaVentanilla']);
+});
+
+$(document).on('click','.ventanillas_Inactivas',function(){
 });

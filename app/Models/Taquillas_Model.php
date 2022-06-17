@@ -172,6 +172,7 @@ class Taquillas_Model extends Model{
         return $datos;
     }
 
+    //Ventanilla Activa con ninguna transaccion
     public function ventanillas_Activas_2($idEvento,$idTaquilla){
         $db = \Config\Database::connect();
 
