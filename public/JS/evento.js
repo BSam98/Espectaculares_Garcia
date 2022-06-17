@@ -709,7 +709,7 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
             }
             else{
                 for(var i = 0; i<data.descuentos.length; i++){
-                    descuentos_Html +='<input type="checkbox" class="descuentos_1" name="descuentos[]" id="descuentos" value="'+data.descuentos[i]['idDosxUno']+'" />'+data.descuentos[i]['Nombre']+'<br>';
+                    descuentos_Html +='<input type="checkbox" class="3" name="descuentos[]" id="descuentos" value="'+data.descuentos[i]['idDosxUno']+'" />'+data.descuentos[i]['Nombre']+'<br>';
                 }
             }
 

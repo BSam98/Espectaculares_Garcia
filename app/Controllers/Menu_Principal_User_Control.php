@@ -130,11 +130,6 @@ class Menu_Principal_User_Control extends BaseController {
         $gtran = $model->guardarTransaccion($totalPago,$fecha,$v);
         $idCob = $model->tipoVenta($totalPago, $gtran, $tipoP);
 
-        
-            /************************************* GUARDA LA TRANSACCION DE LOS VOUCHERS *************************************/
-            //if($tipoP == 2){
-                //$transaccion = $model->guardarTransaccionVouch($tipoT, $select, $mtarjeta, $dtarjeta, $naprov, $idCob);
-            //}
 
         /******************************* Arreglos de Promociones Pulsera Magica ******************/
         $promo = explode(",", $promocionesPrecio);

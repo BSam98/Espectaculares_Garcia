@@ -18,7 +18,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
    <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
-        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"><br>
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;"><br>
             <form name="form_reloj">
                 <input type="text" name="reloj" size="25" style="color:white;background : inherit; border:none; font-family : Arial; font-size : 14px; text-align:right;" onload="window.document.form_reloj.reloj.blur()">
             </form>
@@ -95,34 +95,11 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                     &nbsp;Cerrar Caja&nbsp;<i class="fa fa-times btn btn-danger" aria-hidden="true"></i>
                                 </a>
                             </div>
-                            <!--a class="nav-link navbar-brand" href="Ticket" target="_blank">Imprimir Ticket</a-->
+                            <a class="nav-link navbar-brand" href="Ticket" target="_blank">Imprimir Ticket</a>
                         </li>
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
-               
-                <!--***************** MODAL DE CARGA ****************-->
-                    <div class="modal fade bd-example-modal-lg" id="modalCarga" data-backdrop="static" data-keyboard="false" tabindex="-1">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content" style="width: 48px">
-                                <span class="fa fa-spinner fa-spin fa-3x"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <style>
-                        .bd-example-modal-lg .modal-dialog{
-                            display: table;
-                            position: relative;
-                            margin: 0 auto;
-                            top: calc(50% - 24px);
-                        }
-                        
-                        .bd-example-modal-lg .modal-dialog .modal-content{
-                            background-color: transparent;
-                            border: none;
-                        }
-                    </style>
-                <!--***************** MODAL DE CARGA ****************-->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid" id="puntoVenta">
@@ -242,49 +219,9 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                         <!-- Card Body -->
                                         <div class="card-body">
                                             <center><h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">TIPO PAGO</h6><br>
-                                            <?php foreach($tipoPago as $tipo):?>
-                                                <button type="button" class="btn btn-info pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="<?php echo $tipo->idFormasPago?>"><b><?php echo $tipo->Nombre?></b></button>
-                                            <?php endforeach ?>
-                                            <!--div id="container">
-                                                <ul class="donate-now">
-                                                    <li>
-                                                        <input type="radio" id="rad1" value="1" class="pagoEfectivo" name="rad" />
-                                                        <label for="rad1">Efectivo</label>
-                                                    </li>
-                                                    <li>
-                                                        <input type="radio" id="rad2" value="2" class="pagoTarjeta" name="rad" />
-                                                        <label for="rad2">Tarjeta de Crédito</label>
-                                                    </li>
-                                                    <li>
-                                                        <input type="radio" id="rad3" value="3" name="rad"/>
-                                                        <label for="rad3">Tarjeta de Débito</label>
-                                                    </li>
-                                                </ul>
-                                            </div-->
-                                            <!--table class="table table-responsive">
-                                                <thead>
-                                                    <th colspan="3"><h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">Tipo Pago</h6></th>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <button type="button" class="btn btn-warning pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="1">Efectivo</button>
-                                                        </td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-warning pagoTerjeta" data-toggle="modal" data-target="#modal_Tarjeta" value="2">Tarjeta</button>
-                                                        </td>
-                                                        <td>
-                                                            
-                                                            <div class="form-group" style="display: none;" id="efectivo" >
-                                                                
-                                                                <label>Efectivo:</label>
-                                                                <input type="number" class="form-control" name="efectivo" placeholder="Ingresa la cantidad">
-                                                            </div>
-                                                            <button class="btn btn-success float-right" onclick="myFunction()" >Cobrar</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table-->
+                                                <?php foreach($tipoPago as $tipo):?>
+                                                    <button type="button" class="btn btn-info pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="<?php echo $tipo->idFormasPago?>"><b><?php echo $tipo->Nombre?></b></button>
+                                                <?php endforeach ?>
                                             </center>
                                         </div>
                                     </div>
@@ -297,169 +234,144 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
             <!-- End of Main Content -->
         </div>
         <!-- End of Content Wrapper -->
-    </div>
-
-
-
-<!-- Button trigger modal -->
-<!--button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-  Launch static backdrop modal
-</button-->
-                                            
+    </div>                                
 
 
 <!--***************************************** Alertas *************************************************-->
-<div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="row no-gutters fixed-center">
-            <div class="alert alert-danger fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="True">&times;</span>
-                </button>
-                <p id="mensaje"></p>
-                <center><span class="badge badge-danger" type="button" data-dismiss="modal">Aceptar</span></center>
+    <div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="row no-gutters fixed-center">
+                <div class="alert alert-danger fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="True">&times;</span>
+                    </button>
+                    <p id="mensaje"></p>
+                    <center><span class="badge badge-danger" type="button" data-dismiss="modal">Aceptar</span></center>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="alertaCorrecta" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="row no-gutters fixed-center">
-            <div class="alert alert-success fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="True">&times;</span>
-                </button>
-                <p id="mensaje2"></p>
-                <center><span class="badge badge-success" type="button" data-dismiss="modal">Aceptar</span></center>
+    <div class="modal fade" id="alertaCorrecta" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="row no-gutters fixed-center">
+                <div class="alert alert-success fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="True">&times;</span>
+                    </button>
+                    <p id="mensaje2"></p>
+                    <center><span class="badge badge-success" type="button" data-dismiss="modal">Aceptar</span></center>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 <!--***************************************** Alertas *************************************************-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!--**********************************Modal Efectivo*********************************-->
-<div class="modal fade" id="modal_Efectivo">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="background-image: radial-gradient(circle at 84.09% 90.63%, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);">      
-            <!--center><h4 class="modal-title">Pago:</h4></center-->
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-responsive" style="margin: 0 auto;">
-                    <tbody id="efect">
-                    
-                    
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cancelarDev" id="cancelarDev" value=""><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar Compra</button>
-                <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="cobrarTransaccion" id="cobrarTransaccion" value="<?php ?>">Cobrar</button>
+    <div class="modal fade" id="modal_Efectivo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-image: radial-gradient(circle at 84.09% 90.63%, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);">      
+                <!--center><h4 class="modal-title">Pago:</h4></center-->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-responsive" style="margin: 0 auto;">
+                        <tbody id="efect">
+                        
+                        
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cancelarDev" id="cancelarDev" value=""><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar Compra</button>
+                    <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="cobrarTransaccion" id="cobrarTransaccion" value="<?php ?>">Cobrar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 <!--**********************************Modal Efectivo*********************************-->
 
 <!--**********************************Modal Devolver Tarjeta*********************************-->
-<div class="modal fade" id="modal_Devolucion">
-    <div class="modal-dialog" >
-        <div class="modal-content">
+    <div class="modal fade" id="modal_Devolucion">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div class="modal-header" style="background-image: radial-gradient(circle at 84.09% 90.63%, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);">
+                    <center><h6 class="modal-title" style="color:white;">Devolución de Tarjeta</h6></center>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formDevolucion" action="">
+                    <input type="hidden" name="idv" id="idv" value="<?php echo $_GET["v"]?>">
+                        <div class="form-group">
+                            <h7><b>TARJETA:</b></h7>&nbsp;
+                            <input type="number" name="tarjetD" id="tarjetD" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" class="form-control" placeholder="Ingresa la tarjeta a devolver">
+                        </div>
+                        <div class="form-group">
+                            <h7><b>DESCRIPCIÓN:</b></h7>
+                            <input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="Motivo de devolución">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cancelarDev" id="cancelarDev" value=""><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar</button>
+                            <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="devolucion" id="devolucion" value="">Devolver</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--**********************************Modal Devolver Tarjeta*********************************-->
+
+<!--**********************************Modal Fajilla*********************************-->
+    <div class="modal fade" id="modal_Fajilla">
+        <div class="modal-dialog">
+            <div class="modal-content">
             <div class="modal-header" style="background-image: radial-gradient(circle at 84.09% 90.63%, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);">
-                <center><h6 class="modal-title" style="color:white;">Devolución de Tarjeta</h6></center>
+            <center><h6 class="modal-title" style="color: white;">Agregar Fajilla Nueva</h6></center>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form id="formDevolucion" action="">
-                <input type="hidden" name="idv" id="idv" value="<?php echo $_GET["v"]?>">
+                <form id="fajillaNueva">
+                    <input type="hidden" name="fecha" id="fecha" value="">
+                    <input type="hidden" name="v" id="v" value="<?php echo $_GET["v"]?>">
+                    <input type="hidden" name="idv" id="id" value="<?php echo $_GET["idv"]?>">
+                    <input type="hidden" name="e" id="e" value="<?php echo $_GET["e"]?>">
                     <div class="form-group">
-                        <h7><b>TARJETA:</b></h7>&nbsp;
-                        <input type="number" name="tarjetD" id="tarjetD" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" class="form-control" placeholder="Ingresa la tarjeta a devolver">
+                        <label><b>Folio Inicial</b></label>
+                        <input type="number" class="form-control" name="folioI" id="folioI" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                     </div>
                     <div class="form-group">
-                        <h7><b>DESCRIPCIÓN:</b></h7>
-                        <input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="Motivo de devolución">
+                        <label><b>Folio Final</b></label>
+                        <input type="number" class="form-control" name="folioF" id="folioF" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cancelarDev" id="cancelarDev" value=""><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar</button>
-                        <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="devolucion" id="devolucion" value="">Devolver</button>
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cancelarDev" id="cancelarDev" value=""><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar</button>
+                        <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregarFajilla" id="agregarFajilla" value="">Agregar</button>
                     </div>
                 </form>
             </div>
+            </div>
         </div>
     </div>
-</div>
-<!--**********************************Modal Devolver Tarjeta*********************************-->
+<!--**********************************Modal Fajilla*********************************-->
 
-<!--**********************************Modal Fajilla*********************************-->
-<div class="modal fade" id="modal_Fajilla">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" style="background-image: radial-gradient(circle at 84.09% 90.63%, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);">
-      <center><h6 class="modal-title" style="color: white;">Agregar Fajilla Nueva</h6></center>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <form id="fajillaNueva">
-            <input type="hidden" name="fecha" id="fecha" value="">
-            <input type="hidden" name="v" id="v" value="<?php echo $_GET["v"]?>">
-            <input type="hidden" name="idv" id="id" value="<?php echo $_GET["idv"]?>">
-            <input type="hidden" name="e" id="e" value="<?php echo $_GET["e"]?>">
-            <div class="form-group">
-                <label><b>Folio Inicial</b></label>
-                <input type="number" class="form-control" name="folioI" id="folioI" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+ <!--***************** MODAL DE CARGA ****************-->
+    <div class="modal fade bd-example-modal-lg" id="modalCarga" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="width: 48px">
+                <span class="fa fa-spinner fa-spin fa-3x"></span>
             </div>
-            <div class="form-group">
-                <label><b>Folio Final</b></label>
-                <input type="number" class="form-control" name="folioF" id="folioF" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cancelarDev" id="cancelarDev" value=""><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar</button>
-                <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregarFajilla" id="agregarFajilla" value="">Agregar</button>
-            </div>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
-</div>
-<!--**********************************Modal Fajilla*********************************-->
+    <style>
+        .bd-example-modal-lg .modal-dialog{ display: table;position: relative;margin: 0 auto;top: calc(50% - 24px);}
+        .bd-example-modal-lg .modal-dialog .modal-content{background-color: transparent;border: none;}
+    </style>
+<!--***************** MODAL DE CARGA ****************-->
 
     <!-- End of Page Wrapper -->
     <!-- Bootstrap core JavaScript-->
