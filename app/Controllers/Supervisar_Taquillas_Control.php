@@ -22,7 +22,7 @@ class Supervisar_Taquillas_Control extends BaseController{
         $respuesta = $model->ventanillas_Activas($idEvento);
         $respuesta2 = $model->ventanillas_Activas_2($idEvento);
         $respuesta3 = $model->ventanillas_Inactivas($idEvento,$fecha);
-        $respuesta4 = $model->ventanillas_Inactivas($idEvento, $fecha);
+        $respuesta4 = $model->ventanillas_Inactivas_2($idEvento, $fecha);
 
         echo json_encode(
             array(

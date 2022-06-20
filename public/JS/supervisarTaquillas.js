@@ -1,8 +1,27 @@
+function mostrar_Contenedor_Realizar_Cierre() {
+    div = document.getElementById('contenedor_Realizar_Cierre');
+    div.style.display = '';
+    prin = document.getElementById('contenedor_Ventanillas');
+    prin.style.display = 'none';
+}
+
+function cerra_Contenedor_Realizar_Cierre() {
+    div = document.getElementById('contenedor_Ventanillas');
+    div.style.display = '';
+    prin = document.getElementById('contenedor_Realizar_Cierre');
+    prin.style.display = 'none';
+
+}
+
+
+
+
 $(document).ready(function(){
     iniciarCarga();
     $("#tabla_Ventanillas").DataTable().destroy();
     var idEvento = $("#idEvento").val();
     html_Ventanillas ='';
+    var html_Opciones = '';
     html_Color = '';
     var f = new Date();
 
@@ -42,7 +61,7 @@ $(document).ready(function(){
                                 '<tr>'+
                                     '<td>'+
                                         '<ul class="circulo">'+
-                                            '<li><a href="" type="button" class="" data-toggle="" data-book-id="">Realizar Cierre</a></li>'+
+                                            '<li><a href="javascript:mostrar_Contenedor_Realizar_Cierre()" type="button" class="ventanilla_Activa_Sin_Transacciones" data-toggle="" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Activas_2[i]['idAperturaVentanilla']+"}'"+'>Realizar Cierre</a></li>'+
                                         '</ul>'+
                                     '</td>'+
                                 '</tr>'+
@@ -76,7 +95,7 @@ $(document).ready(function(){
                                 '<tr>'+
                                     '<td>'+
                                         '<ul class="circulo">'+
-                                            '<li><a href="" type="button" class="" data-toggle="" data-book-id="">Realizar Cierre</a></li>'+
+                                            '<li><a href="javascript:mostrar_Contenedor_Realizar_Cierre()" type="button" class="ventanilla_Activa_Con_Transacciones" data-toggle="" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Activas_1[i]['idAperturaVentanilla']+"}'"+'>Realizar Cierre</a></li>'+
                                         '</ul>'+
                                     '</td>'+
                                 '</tr>'+
@@ -89,10 +108,14 @@ $(document).ready(function(){
             for(var i=0; i<data.ventanillas_Inactivas_1.length; i++){
                 if(data.ventanillas_Inactivas_1[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
+                    html_Opciones=
+                    '<li><a href="" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
                 }
                 else{
                     if(data.ventanillas_Inactivas_1[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
+                        html_Opciones=
+                        '<li><a href="" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -106,7 +129,19 @@ $(document).ready(function(){
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_1[i]['Cantidad']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_1[i]['horaApertura']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_1[i]['horaCierre']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;"><a class ="btn btn-outline-success ventanillas_Inactivas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'
+                    '<td style="text-align: center; vertical-align: middle;">'+
+                        '<table>'+
+                            '<tbody style="vertical-aligrn: middel;">'+
+                                '<tr>'+
+                                    '<td>'+
+                                        '<ul class="circulo">'+
+                                            html_Opciones+
+                                        '</ul>'+
+                                    '</td>'+
+                                '</tr>'+
+                            '</tbody>'+
+                        '</table>'+
+                    '</td>'+
                 '</tr>'
                 ;
             }
@@ -114,10 +149,15 @@ $(document).ready(function(){
             for(var i=0; i<data.ventanillas_Inactivas_2.length; i++){
                 if(data.ventanillas_Inactivas_2[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
+                    html_Opciones=
+                    '<li><a href="" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
+
                 }
                 else{
                     if(data.ventanillas_Inactivas_2[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
+                        html_Opciones=
+                        '<li><a href="" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -131,7 +171,19 @@ $(document).ready(function(){
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_2[i]['Cantidad']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_2[i]['horaApertura']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_2[i]['horaCierre']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;"><a class ="btn btn-outline-success ventanillas_Inactivas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'
+                    '<td style="text-align: center; vertical-align: middle;">'+
+                        '<table>'+
+                            '<tbody style="vertical-aligrn: middel;">'+
+                                '<tr>'+
+                                    '<td>'+
+                                        '<ul class="circulo">'+
+                                            html_Opciones+
+                                        '</ul>'+
+                                    '</td>'+
+                                '</tr>'+
+                            '</tbody>'+
+                        '</table>'+
+                    '</td>'+
                 '</tr>'
                 ;
             }
@@ -201,7 +253,7 @@ $("#fechaesperada").on('change',function(){
                                 '<tr>'+
                                     '<td>'+
                                         '<ul class="circulo">'+
-                                            '<li><a href="" type="button" class="" data-toggle="" data-book-id="">Realizar Cierre</a></li>'+
+                                            '<li><a href="" type="button" class="" data-toggle="ventanilla_Activa_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Activas_2[i]['idAperturaVentanilla']+"}'"+'>Realizar Cierre</a></li>'+
                                         '</ul>'+
                                     '</td>'+
                                 '</tr>'+
@@ -235,7 +287,7 @@ $("#fechaesperada").on('change',function(){
                                 '<tr>'+
                                     '<td>'+
                                         '<ul class="circulo">'+
-                                            '<li><a href="" type="button" class="" data-toggle="" data-book-id="">Realizar Cierre</a></li>'+
+                                            '<li><a href="" type="button" class="ventanilla_Activa_Con_Transacciones" data-toggle="" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Activas_1[i]['idAperturaVentanilla']+"}'"+'>Realizar Cierre</a></li>'+
                                         '</ul>'+
                                     '</td>'+
                                 '</tr>'+
@@ -249,13 +301,13 @@ $("#fechaesperada").on('change',function(){
                 if(data.ventanillas_Inactivas_1[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                     html_Opciones=
-                    '<li><a href="" type="button">Validar Cierre</a></li>';
+                    '<li><a  type="button" class="ventanilla_Inactiva_Con_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
                 }
                 else{
                     if(data.ventanillas_Inactivas_1[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
                         html_Opciones=
-                        '<li><a href="" type="button">Mostrar Cierre</a></li>';
+                        '<li><a  type="button" class="ventanilla_Inactiva_Con_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -288,13 +340,13 @@ $("#fechaesperada").on('change',function(){
                 if(data.ventanillas_Inactivas_2[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                     html_Opciones=
-                    '<li><a href="" type="button">Validar Cierre</a></li>';
+                    '<li><a type="button" class="ventanilla_Inactiva_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
                 }
                 else{
                     if(data.ventanillas_Inactivas_2[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
                         html_Opciones=
-                        '<li><a href="" type="button">Mostrar Cierre</a></li>';
+                        '<li><a href="" type="button" class="ventanilla_Inactiva_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -342,11 +394,87 @@ $("#fechaesperada").on('change',function(){
     });
 });
 
-$(document).on('click','.ventanillas_Activas', function(){
-    var id = $(this).data('book-id');
-    
-    alert('idAperturaVentanilla: ' + id['idAperturaVentanilla']);
+$(document).on('click','.ventanilla_Activa_Sin_Transacciones', function(){
+    iniciarCarga();
+    var idAperturaVentanilla = $(this).data('book-id');
+
+    alert(idAperturaVentanilla['idAperturaVentanilla']);
+
+    $.ajax({
+        type:'POST',
+        url:'',
+        data:{'idAperturaVentanilla':idAperturaVentanilla['idAperturaVentanilla']},
+        dataType:'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+        }
+        cerrarCarga();
+    });
 });
 
-$(document).on('click','.ventanillas_Inactivas',function(){
+$(document).on('click', '.ventanilla_Activa_Con_Transacciones', function(){
+    iniciarCarga();
+    var idAperturaVentanilla =$(this).data('book-id');
+
+    alert('id: ' + idAperturaVentanilla['idAperturaVentanilla']);
+
+    $.ajax({
+        type:'POST',
+        url:'',
+        data:{'idAperturaVentanilla':idAperturaVentanilla['idAperturaVentanilla']},
+        dataType:'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+        }
+        cerrarCarga();
+    });
+});
+
+$(document).on('click','.ventanilla_Inactiva_Con_Transacciones', function(){
+    iniciarCarga();
+    var idAperturaVentanilla = $(this).data('book-id');
+
+    alert('id: ' + idAperturaVentanilla['idAperturaVentanilla']);
+
+    $.ajax({
+        type:'POST',
+        url:'',
+        data:{'idAperturaVentanilla':idAperturaVentanilla['idAperturaVentanilla']},
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+        }
+        cerrarCarga();
+    });
+});
+
+$(document).on('click','.ventanilla_Inactiva_Sin_Transacciones', function(){
+    var idAperturaVentanilla =$(this).data('book-id');
+
+    alert('id: ' + idAperturaVentanilla['idAperturaVentanilla']);
+
+    $.ajax({
+        type:'POST',
+        url:'',
+        data:{'idAperturaVentanilla':idAperturaVentanilla['idAperturaVentanilla']},
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+        }
+        cerrarCarga();
+    });
 });

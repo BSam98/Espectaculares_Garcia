@@ -225,6 +225,14 @@ class Supervisar_Taquillas_Model extends Model{
             ON
                 Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
             INNER JOIN
+                Fajillas
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+            LEFT JOIN
+                Transaccion
+            ON
+                Fajillas.idFajilla = Transaccion.idFajilla
+            INNER JOIN
                 Taquilla
             ON
                 Ventanilla.idTaquilla = Taquilla.idTaquilla
@@ -242,7 +250,7 @@ class Supervisar_Taquillas_Model extends Model{
                 Apertura_Ventanilla.horaApertura <= '$fecha 23:59:00.000'
             GROUP BY 	Cierre_Ventanilla.idUsuario,
                 Apertura_Ventanilla.idAperturaVentanilla,
-                Apertura_Ventanill.idStatus,
+                Apertura_Ventanilla.idStatus,
                 Ventanilla.Nombre,
                 Usuarios.Nombre,
                 Usuarios.Apellidos,
