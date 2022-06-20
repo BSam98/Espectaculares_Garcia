@@ -282,6 +282,7 @@ class Taquillas_Model extends Model{
         $query = $db->query(
             "SELECT
                 Cierre_Ventanilla.idUsuario,
+                Aperutra_Ventanilla.idStatus,
                 Apertura_Ventanilla.idAperturaVentanilla,
                 Ventanilla.Nombre AS Ventanilla,
                 Usuarios.Nombre,
@@ -330,6 +331,7 @@ class Taquillas_Model extends Model{
             AND
                 Apertura_Ventanilla.horaApertura <= '$fecha 23:59:00.000'
             GROUP BY 	Cierre_Ventanilla.idUsuario,
+                Apertura_Ventanilla.idStatus,
                 Apertura_Ventanilla.idAperturaVentanilla,
                 Ventanilla.Nombre,
                 Usuarios.Nombre,
@@ -354,6 +356,7 @@ class Taquillas_Model extends Model{
         $query = $db->query(
             "SELECT
                 Cierre_Ventanilla.idUsuario,
+                Apertura_Ventanilla.idStatus,
                 Apertura_Ventanilla.idAperturaVentanilla,
                 Ventanilla.Nombre AS Ventanilla,
                 Usuarios.Nombre,
@@ -393,6 +396,7 @@ class Taquillas_Model extends Model{
             AND
                 Apertura_Ventanilla.horaApertura <= '$fecha 23:59:00.000'
             GROUP BY 	Cierre_Ventanilla.idUsuario,
+                Apertura_Ventanilla.idStatus,
                 Apertura_Ventanilla.idAperturaVentanilla,
                 Ventanilla.Nombre,
                 Usuarios.Nombre,

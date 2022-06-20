@@ -82,8 +82,8 @@ $routes->get('/valida','Iniciar_Sesion_User_Control::valida');
 $routes->post('/Supervisar_Taquillas','Iniciar_Sesion_User_Control::superTaquillas');
 $routes->get('/Supervisar_Taquillas','Iniciar_Sesion_User_Control::superTaquillas');
 
-$routes->get('/Supervisar_Taquillas/Ventanillas_Activas','Supervisar_Taquillas_Control::ventanillas_Activas');
-$routes->post('/Supervisar_Taquillas/Ventanillas_Activas','Supervisar_Taquillas_Control::ventanillas_Activas');
+$routes->get('/Supervisar_Taquillas/Ventanillas','Supervisar_Taquillas_Control::ventanillas');
+$routes->post('/Supervisar_Taquillas/Ventanillas','Supervisar_Taquillas_Control::ventanillas');
 
 $routes->get('/Supervisar_Taquillas/Ventanillas_Inactivas','Supervisar_Taquillas_Control::ventanillas_Inactivas');
 $routes->post('/Supervisar_Taquillas/Ventanillas_Inactivas','Supervisar_Taquillas_Control::ventanillas_Inactivas');
@@ -280,6 +280,7 @@ $routes->post('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociada
 
 $routes->get('/Contratos','Contratos_Control::new');
 
+$routes->get('/Reponer Saldo','Reponer_Saldo_Control::new');
 
 
 $routes->get('/Reponer Saldo/Pulsera_Atraccion','Reponer_Saldo_Control::pulsera_Atraccion');
