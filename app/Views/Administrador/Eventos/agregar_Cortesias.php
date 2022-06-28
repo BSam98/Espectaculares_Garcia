@@ -7,7 +7,6 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form enctype="multipart/form-data">
                     <fieldset id="primer_Fieldset_Cortesia">
                         <nav>
                             <div class="nav nav-tabs" id="nav-cortesia-1" role="tablist">
@@ -86,7 +85,6 @@
                             </div>
                         </div>
                     </fieldset>
-                </form>
             </div>                 
         </div>
     </div>

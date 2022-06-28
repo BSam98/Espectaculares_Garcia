@@ -145,7 +145,7 @@ class validador_Control extends BaseController {
                         'idCiclo' => $idCiclo
                     ];
 
-                    $respuesta = $model->Registro_PulseraMagica($datos);
+                    $respuesta = $model->Registro_Pulsera_Magica($datos);
                 break;
                 case '3':
                     //$resultados += ' Desucentos';

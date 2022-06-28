@@ -35,17 +35,7 @@
                                                                     <option value="">Seleccionar Atraccion</option>
                                                                 </select>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="creditos">Creditos</label>
-                                                                <input type="text" class="form-control" name="credito[]" id="credito" placeholder="Créditos">
-                                                            </div>
-                                                            <div>
-                                                                <div class="form-group" id="promocion_Descuentos">
-                                                                </div>
-                                                                <div class="form-group" id="promocion_Pulsera">
-                                                                </div>
-                                                                <div class="form-group" id="promocion_Juegos_Gratis">
-                                                                </div>
+                                                            <div class="form-group" id="nueva_Zona">
                                                             </div>
                                                             <div class="form-group" id="nuevos_Contratos">
                                                                 <label for="contrato">Agregar Contrato</label>
@@ -59,7 +49,17 @@
                                                                     <option value="">Seleccionar Poliza</option>
                                                                 </select>
                                                             </div>
-                                                            <div class="form-group" id="nueva_Zona">
+                                                            <div class="form-group">
+                                                                <label for="creditos">Creditos</label>
+                                                                <input type="text" class="form-control" name="credito[]" id="credito" placeholder="Créditos">
+                                                            </div>
+                                                            <div>
+                                                                <div class="form-group" id="promocion_Descuentos">
+                                                                </div>
+                                                                <div class="form-group" id="promocion_Pulsera">
+                                                                </div>
+                                                                <div class="form-group" id="promocion_Juegos_Gratis">
+                                                                </div>
                                                             </div>
                                                         </td>
                                                         <td class="eliminarAt"><input type="button" value="-"/></td>

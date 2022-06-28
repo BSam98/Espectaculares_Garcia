@@ -8,45 +8,45 @@ if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
 ?>
 <fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000" style="color:black;">
     <div id="principal">
-    <center><h2 style="color:black;">ATRACCIONES</h2></center>
-    <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarPropi"><i class="bi bi-plus-circle"></i>&nbsp;Nueva Atracción</a-->
-    <div class="container">
-        <a href="" id="abrir_Modal_Atracciones" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" style="transition-duration: 3s, 5s;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nueva Atracción</a>
-        <a href="javascript:mostrar();" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nuevo Propietario</a><br>
-    </div> 
+        <center><h2 style="color:black;">ATRACCIONES</h2></center>
+        <!--a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarPropi"><i class="bi bi-plus-circle"></i>&nbsp;Nueva Atracción</a-->
+        <div class="container">
+            <a href="" id="abrir_Modal_Atracciones" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" style="transition-duration: 3s, 5s;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nueva Atracción</a>
+            <a href="javascript:mostrar();" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nuevo Propietario</a><br>
+        </div> 
 
-    <div class="contenedorTabla" style="color:black;"><br>
-        <table id="example" class="table table-striped table-responsive table-bordered" style="color:black;">
-            <thead>
-                <th style="text-align: center; vertical-align: middle;"></th>
-                <th style="text-align: center; vertical-align: middle;">Nombre</th>
-                <th style="text-align: center; vertical-align: middle;">Renta</th>
-                <th style="text-align: center; vertical-align: middle;">Propietario</th>
-                <th style="text-align: center; vertical-align: middle;">Capacidad maxima</th>
-                <th style="text-align: center; vertical-align: middle;">Capacidad minima</th>
-                <th style="text-align: center; vertical-align: middle;">Largo(m)</th>
-                <th style="text-align: center; vertical-align: middle;">Ancho(m)</th>
-                <th style="text-align: center; vertical-align: middle;">Duración por ciclo</th>
-                <th style="text-align: center; vertical-align: middle;">Tiempo de espera</th>   
-            </thead>
-            <tbody>
-                <?php foreach ($Atraccion as $key => $dA) : ?>
-                    <tr>
-                        <td style="text-align: center; vertical-align: middle;"><a href="#eAtraccion" class ="btn btn-outline-warning editarAtraccion" data-toggle="modal" data-book-id='{"idAtraccion":<?= $dA->idAtraccion?>,"Atraccion":"<?= $dA->Atraccion?>","Renta":<?= $dA->Renta?>,"Nombre":"<?= $dA->Nombre?>","CapacidadMAX":<?= $dA->CapacidadMAX?>,"CapacidadMIN":<?= $dA->CapacidadMIN?>,"Tiempo":"<?= $dA->Tiempo?>","TiempoMAX":"<?= $dA->TiempoMAX?>"}'><i class="fa fa-paint-brush" aria-hidden="true"></i></a></td>
-                        <td style="text-align: center; vertical-align: middle;"><?= $dA->Atraccion?></td>
-                        <td style="text-align: center; vertical-align: middle;"><?= $dA->Renta?></td>
-                        <td style="text-align: center; vertical-align: middle;"><?= $dA->Nombre?></td>
-                        <td style="text-align: center; vertical-align: middle;"><?= $dA->CapacidadMAX?></td>
-                        <td style="text-align: center; vertical-align: middle;"><?= $dA->CapacidadMIN?></td>
-                        <td style="text-align: center; vertical-align: middle;"><?=$dA->Largo?></td>
-                        <td style="text-align: center; vertical-align: middle;"><?=$dA->Ancho?></td>
-                        <td style="text-align: center; vertical-align: middle;"><?= $dA->Tiempo?></td>
-                        <td style="text-align: center; vertical-align: middle;"><?= $dA->TiempoMAX?></td>
-                    </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
-    </div>
+        <div class="contenedorTabla" style="color:black;"><br>
+            <table id="example" class="table table-striped table-responsive table-bordered" style="color:black;">
+                <thead>
+                    <th style="text-align: center; vertical-align: middle;"></th>
+                    <th style="text-align: center; vertical-align: middle;">Nombre</th>
+                    <th style="text-align: center; vertical-align: middle;">Renta</th>
+                    <th style="text-align: center; vertical-align: middle;">Propietario</th>
+                    <th style="text-align: center; vertical-align: middle;">Capacidad maxima</th>
+                    <th style="text-align: center; vertical-align: middle;">Capacidad minima</th>
+                    <th style="text-align: center; vertical-align: middle;">Largo(m)</th>
+                    <th style="text-align: center; vertical-align: middle;">Ancho(m)</th>
+                    <th style="text-align: center; vertical-align: middle;">Duración por ciclo</th>
+                    <th style="text-align: center; vertical-align: middle;">Tiempo de espera</th>   
+                </thead>
+                <tbody>
+                    <?php foreach ($Atraccion as $key => $dA) : ?>
+                        <tr>
+                            <td style="text-align: center; vertical-align: middle;"><a href="#eAtraccion" class ="btn btn-outline-warning editarAtraccion" data-toggle="modal" data-book-id='{"idAtraccion":<?= $dA->idAtraccion?>,"Atraccion":"<?= $dA->Atraccion?>","Renta":<?= $dA->Renta?>,"Nombre":"<?= $dA->Nombre?>","CapacidadMAX":<?= $dA->CapacidadMAX?>,"CapacidadMIN":<?= $dA->CapacidadMIN?>,"Tiempo":"<?= $dA->Tiempo?>","TiempoMAX":"<?= $dA->TiempoMAX?>"}'><i class="fa fa-paint-brush" aria-hidden="true"></i></a></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dA->Atraccion?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dA->Renta?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dA->Nombre?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dA->CapacidadMAX?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dA->CapacidadMIN?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?=$dA->Largo?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?=$dA->Ancho?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dA->Tiempo?></td>
+                            <td style="text-align: center; vertical-align: middle;"><?= $dA->TiempoMAX?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!--Contenedor del propietario-->

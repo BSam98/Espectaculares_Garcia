@@ -855,20 +855,24 @@ class Eventos_Model extends Model{
 
     public function agregar_Tarjetas_Evento($datos){
         $db = \Config\Database::connect();
-
-        for($i=$datos['folioInicial'];$i<=$datos['folioFinal'];$i++){
-
-            $db->query(
-                "UPDATE 
-                    Tarjetas 
-                SET
-                    idEvento = '$datos[idEvento]'
-                WHERE 
-                    Folio = $i
-                AND
-                    idLote = '$datos[idLote]'
-                ");
-        }
+        $db->query(
+            "UPDATE 
+                Tarjetas 
+            SET
+                idEvento = $datos[idEvento]
+            WHERE
+                idLote = $datos[idLote]
+            AND
+                idEvento IS NULL
+            AND
+                idFajilla IS NULL
+            AND
+                Folio
+            BETWEEN
+                $datos[folioInicial]
+            AND
+                $datos[folioFinal];
+            ");
 
         return 'Funciono';
     }
@@ -1114,6 +1118,7 @@ class Eventos_Model extends Model{
 
         return $datos;
     }
+    
     public function evaluar_Folios($datos){
 
         $db = \Config\Database::connect();
