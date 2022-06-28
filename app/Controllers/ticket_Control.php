@@ -3,14 +3,6 @@ use App\Models\ticket_Model;
 
 class ticket_Control extends BaseController{
 
-	/*public function index(){
-        $mpdf = new \Mpdf\Mpdf();
-        $html = view('Usuarios/reporte_Venta',[]);
-		$mpdf->WriteHTML($html);
-        $this->response->setHeader('Content-Type', 'application/pdf');
-		$mpdf->Output('arjun.pdf','I');
-	}*/
-
 	public function ticket(){
         $model =new ticket_Model();
 
@@ -19,31 +11,40 @@ class ticket_Control extends BaseController{
 
 		//$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [90, 236]]);
         $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8',
-            'format' => [90, 236], 'margin_left' => 5, 'margin_right' => 5, 'margin_top' => 0, 
+            'format' => [80, 236], 'margin_left' => 5, 'margin_right' => 5, 'margin_top' => 0, 
             'margin_bottom' => 0, 'margin_header' => 0, 'margin_footer' => 0,]);
-
-        $html='<div style="background-image: url("../../../Espectaculares_Garcia/public/Img/logog.png"); background-repeat:no-repeat; background-position: center;">
+                                                                    /* Arriba | Derecha | Abajo | Izquierda */
+        $html='<div class="table table-responsive">
+                <img src="Img/logon.png" width="150" height="150" style="margin: 0px 20px 15px 60px;">
                 <table width="350px">
                     <tbody>';
+
+                        $html.='<tr>c
+                                    <th>Descripción</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                </tr>';
                     foreach($data as $d){   
                         $html.='<tr>
-                            <td colspan="2"><center><label><b>Tarjeta:</b>'.$d->Nombre.'</label></center></td>
-                            <td><label><b>Fecha: </b>'.$d->fecha.'</label></td>
-                        </tr>
-                        <tr>
-                            <th>Descripción</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                        </tr>
-                        <tr>
-                            <td>'.$d->venta.'</td>
-                            <td>'.$d->tarjetas_Nuevas.'</td>
-                            <td>'.$d->Monto.'</td>
-                        </tr>';
-                        $html.='<tr>
-                            <td><label><b>Total: '.$d->total.'</b></label></td>
-                        </tr>';
+                                    <td><labe>'.$d->venta.'</labe></td>
+                                    <td><label>'.$d->tarjetas_Nuevas.'</label></td>
+                                    <td><label>'.$d->Monto.'</label></td>
+                                </tr>';
+                                $tarjeta = $d->Nombre;
+                                $fecha = $d->fecha;
+                                $total = $d->total;
                     }
+                    $html.='<tr>
+                                <td colspan="3"><br>
+                                    <label><b>Tarjeta:</b>&nbsp;'.$tarjeta.'</label>
+                                </td>
+                            </tr>';
+                    $html.='<tr>
+                                <td colspan="3"><label><b>Fecha:</b>&nbsp;'.$fecha.'</label></td>
+                            </tr>';
+                    $html.='<tr>
+                                <td colspan="3"><hr><div class="container"><center><label><b>Total:$ '.$total.'</b></label></center></div></td>
+                            </tr>';
                     $html.='</tbody>
                 </table>
                 </div>';
@@ -52,7 +53,7 @@ class ticket_Control extends BaseController{
 		//$html = view('ticket_Vista',[]);
 		$mpdf->WriteHTML($html);
 		$this->response->setHeader('Content-Type', 'application/pdf');
-		$mpdf->Output('arjun.pdf','I'); // opens in browser
+		$mpdf->Output('EspectacularesGarcia.pdf','I'); // opens in browser
         }
 
 }

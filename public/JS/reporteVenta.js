@@ -1,21 +1,8 @@
-/********************************** Iniciar y Cerrar Carga de Pagina *********************************/
-function inicia_carg(){
-    $('body').loadingModal({
-      position: 'auto',
-      text: 'Espere un momento',
-      color: '#B0AEC6',
-      opacity: '0.7',
-      backgroundColor: 'rgb(1,61,125)', 
-      animation: 'doubleBounce'
-    }); 
-}
-
-function cierra_carg(){
-    $('body').loadingModal('hide');
-    $('body').loadingModal('destroy');
-    console.log('adios perros');
-}
-/********************************** Iniciar y Cerrar Carga de Pagina *********************************/
+var contador = 0;
+var apertV ='';
+var horaImprimible;
+var vouch ='';
+var dinero ='';
 /*************************************** FECHA Y HORA************************** */
 function mueveReloj(){
     
@@ -248,6 +235,8 @@ $(document).on('click', '#registrar', function(){
     ajaxCaja();
 });
 
+
+
 function ajaxCaja(){
 
     var dtI = $('#dtI').val();
@@ -255,6 +244,7 @@ function ajaxCaja(){
     var efect = $('#money').val();
     var vou = $('#vouch').val();
     var idv = $('#idv').val();
+    var apertV ='';
 
     $.ajax({
         type:"POST",
@@ -265,68 +255,117 @@ function ajaxCaja(){
             alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
         },
     }).done(function(data){
-        console.log(data.msj);
+        $("#mensaje").html('');
+        $("#mensaje2").html('');
+        $('#alertaCorrecta').hide();
+        $('#modalCerr').hide();
         if(data.msj != ''){
-            var html ='';
-            for(var i = 0;i<data.msj.length; i++){
-                //if((efect >= data.msj[i]['totalEfectivo']) && (vou >= data.msj[i]['totalTarjeta'])){
-                if(efect < data.msj[i]['totalEfectivo'] || vou < data.msj[i]['totalTarjeta']){
-                    //alert("Verifica la cantidad ingresada"+data.msj[i]["totalEfectivo"]+'*'+efect+'/'+data.msj[i]["totalTarjeta"]+'*'+vou);
-                    //$('#alertaDan').show();
-                    //location.reload();
-                    MENSAJE = "Verifíca tu corte de caja";
-                    $("#mensaje").html(MENSAJE);
-                    $('#staticBackdrop').modal('show');
-                    setTimeout('document.location.reload()',3000);
-                }else{
-                    html +='<tr>'+
-                                '<td>'+
-                                    '<div class="form-group">'+
-                                        '<h5><i class="fa fa-fax" aria-hidden="true"></i>&nbsp;Fondo Inicial:</h5>'+
-                                        '<input type="text" class="form-control" name="cierre" id="cierre" value="'+data.msj[i]["fondoCaja"]+'" style="background : inherit; border:none;" disabled>'+
-                                    '</div>'+
-                                '</td>'+
-                            '</tr>';
-                            /*'<tr>'+
-                                '<td>'+
-                                    '<div class="form-group">'+
-                                        '<h5><i class="fa fa-calculator" aria-hidden="true"></i>&nbsp;Total de Efectivo:</h5>'+
-                                        '<input type="text" class="form-control" name="dinEf" id="dinEf" value="'+data.msj[i]["totalEfectivo"]+'" disabled style="background : inherit; border:none;">'+
-                                    '</div>'+
-                                '</td>'+
-                            '</tr>'+
-                            '<tr>'+
-                                '<td>'+
-                                    '<div class="form-group">'+
-                                        '<h5><i class="fa fa-braille" aria-hidden="true"></i>&nbsp;Total Voucher:</h5>'+
-                                        '<input type="text" class="form-control" name="dinVouch" id="dinVouch" value="'+data.msj[i]["totalTarjeta"]+'" style="background : inherit; border:none;" disabled>'+
-                                    '</div>'+
-                                '</td>'+
-                            '</tr>'; */
-                        MENSAJE2 ="Los datos se han registrado correctamente, puedes cerrar sesión";
-                        $("#mensaje2").html(MENSAJE2);
-                        $('#alertaCorrecta').modal('show');
-                        $('#registrar').prop('disabled', true);//deshabilita el boton
+            for(var i = 0;i < data.msj.length; i++){
+                dinero = data.msj[i]['totalEfectivo'];
+                vouch = data.msj[i]['totalTarjeta']
+                apertV = data.msj[i]['idAperturaVentanilla'];
+                console.log(apertV);
+                //if((data.msj[i]['intentosCierre'] != null) && (data.msj[i]['intentosCierre'] < 2)){
+                if(data.msj[i]['intentosCierre'] >= 2){
 
-                        if(vou == ''){
-                            vou = 0;
+                    $('#registrar').prop('disabled', true);
+                    MENSAJE = "Ya no puedes entrar aqui";
+                    $("#mensaje").html(MENSAJE);
+                    $('#modalCerr').show();
+
+                    var html ='';
+                    html +='<td class="align-middle"><div class="form-group"><button class="btn btn-danger forzarCierre" id="forzarCierre" name ="forzarCierre" data-toggle="modal" data-target="#forzar_Cierre" value="'+apertV+'" style="margin-left:50px;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Forzar Cierre</button></div></td>';
+                    $('#paraBoton').append(html);
+
+                    /*********** ***************************/
+                    $.ajax({
+                        type:"POST",
+                        url:"actualizarStatus",
+                        data:{'aperturaV':apertV},
+                        dataType: 'JSON',
+                        error: function(jqXHR, textStatus, errorThrown){
+                            alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+                        },
+                    }).done(function(data){
+                        if(data.msj){
+                            console.log('Si actualizo');
+                        }else{
+                            console.log('No quiero actualizar');
                         }
-                        //console.log(dtI + ", " + dtF + ", " + efect + ", " + vou + ", " + idv + ", " + fecha);
-                        //setTimeout("cerrarTur(" + dtI + ", " + dtF + ", " + efect + ", " + vou + ", " + idv + ", " + fecha + ")", 2000);
-                        setTimeout("cerrarTur()", 2000);
-                }
-                $("#informacion").html(html);
+                    });
+
+                }else{
+                    cerrarTur(dinero, vouch);
+                    /*if(data.msj !=''){
+                        console.log('Si soy diferente de vacio');
+                    }else{
+                        console.log('Estoy vacio');
+                    }*/
+                    contador +=1;
+                    console.log('Aun te quedan intentos');
+                    console.log(contador);
+
+                    /****************** Esto solo es para actualizar el contador *************/
+                    $.ajax({
+                        type:"POST",
+                        url:"contadorIntentos",
+                        data:{'aperturaV':apertV, 'contador':contador},
+                        dataType: 'JSON',
+                        error: function(jqXHR, textStatus, errorThrown){
+                            alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+                        },
+                    }).done(function(data){
+                        if(data.msj){
+                            console.log('Si actualizo');
+                        }else{
+                            console.log('No quiero actualizar');
+                        }
+                    });
+                }   
             }
         }else{
-            MENSAJE = "Los datos ingresados son incorrectos";
+            MENSAJE = "Usted NO puede cerrar caja, los datos no coinciden, verifique su corte";
             $("#mensaje").html(MENSAJE);
-            $('#staticBackdrop').modal('show');
-        }
+            $('#modalCerr').show();
+            console.log(apertV);
+        }           
         
     });
 }
 
-function cerrarTur(){
+$(document).on('click','#FC' ,function(e) {
+    console.log($('.forzarCierre').val());
+    console.log('Si entro aqui');
+    alert($('#forzarC').serialize());
+    var fc = $('.forzarCierre').val();
+
+    $.ajax({
+        type:"POST",
+        url:"ForzarCierreC",
+        data: $('#forzarC').serialize() + '&idAper=' + fc + '&fecha=' + horaImprimible,
+        dataType: 'JSON',
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+        },
+    }).done(function(data){
+        $("#mensaje").html('');
+        $("#mensaje2").html('');
+        $('#alertaCorrecta').hide();
+        $('#modalCerr').hide();
+        if(data.msj == true){
+            MENSAJE2 = "La sesion se ha cerrado correctamente";
+            $("#mensaje2").html(MENSAJE2);
+            $('#alertaCorrecta').show();
+            window.location.href = "CerrarSesion";
+        }else{
+            MENSAJE = "Usted no puede forzar el cierre ya que no es un SUPERVISOR";
+            $("#mensaje").html(MENSAJE);
+            $('#modalCerr').show();
+        }
+    });
+});
+
+function cerrarTur(dinero, vouch){
     var dtI = $('#dtI').val();
     var dtF = $('#dtF').val();
     var efect = $('#money').val();
@@ -334,25 +373,36 @@ function cerrarTur(){
     var idv = $('#idv').val();
     var fecha = $('#fecha').val();
 
-    $.ajax({
-        type:"POST",
-        url:"cerrarTurno",
-        data:{'dtI':dtI, 'dtF':dtF,'efectivo':efect,'vou':vou, 'idv':idv, 'fecha':fecha},
-        dataType: 'JSON',
-        error: function(jqXHR, textStatus, errorThrown){
-            alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
-        },
-    }).done(function(data){
-        console.log('Soy data '+ data.msj);
-        if(data.msj == false){
-            MENSAJE = "Error al cerrar el turno";
-            $("#mensaje").html(MENSAJE);
-            $('#staticBackdrop').modal('show');
-        }else{
-            console.log('Soy data msj ' + data.msj);
-            window.location.href = "CerrarSesion";
-        }
-    });
+    if((efect >= dinero) && (vou == vouch)){
+        console.log(efect);
+        console.log(dinero);
+        console.log(vou);
+        console.log(vouch);
+
+        $.ajax({
+            type:"POST",
+            url:"cerrarTurno",
+            data:{'dtI':dtI, 'dtF':dtF,'efectivo':efect,'vou':vou, 'idv':idv, 'fecha':fecha, 'dinero':dinero, 'vouchers':vouch},
+            dataType: 'JSON',
+            error: function(jqXHR, textStatus, errorThrown){
+                alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+            },
+        }).done(function(data){
+            console.log('Soy data '+ data.msj);
+            if(data.msj == false){
+                MENSAJE = "Error al cerrar el turno";
+                $("#mensaje").html(MENSAJE);
+                $('#modalCerr').show();
+            }else{
+                console.log('Soy data msj ' + data.msj);
+                window.location.href = "CerrarSesion";
+            }
+        });
+    }else{
+        console.log('Error al cerrar Turno');
+    }
+
+
     /*$.ajax({
         type:"POST",
         url:"cerrarTurno",

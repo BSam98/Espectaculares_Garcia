@@ -458,14 +458,8 @@ class mcobro_model extends Model{
                 $fin = $row2['folioFinal'];//saco el valor de id final
             }
 
-            /**************** Verifico si el id ingresado de la tarjeta existe entre los rangos ingresados en el turno ***************/
-            $query2 = $db->query("SELECT idTarjeta, idStatus, e.PrecioTarjeta from Tarjetas t, Eventos e  WHERE t.idEvento = e.idEvento and t.idTarjeta BETWEEN " . $ini . " and " . $fin.  " and t.idStatus != '5' and t.idTarjeta = " . $tarjet);
-            $datos = $query2->getResultObject();
-            if($datos){
-                return $datos;
-            }else{
-                //la tarjeta no pertenece a la tablilla
-                $query3 = $db->query("SELECT idTarjeta, idStatus from Tarjetas t WHERE idStatus != '5' and idTarjeta =".$tarjet);
+            if((!isset($ini)) && (!isset($fin))){
+                $query3 = $db->query("SELECT idTarjeta, idStatus from Tarjetas t WHERE idStatus != '5' and idStatus !='1' and idStatus !='13' and idTarjeta =".$tarjet);
                 $datosS = $query3->getResultArray();
                 foreach($datosS as $row){
                         $estado = $row['idStatus'];
@@ -475,6 +469,25 @@ class mcobro_model extends Model{
                         return false; 
                     }
                 }  
+            }else{
+                /**************** Verifico si el id ingresado de la tarjeta existe entre los rangos ingresados en el turno ***************/
+                $query2 = $db->query("SELECT idTarjeta, idStatus, e.PrecioTarjeta from Tarjetas t, Eventos e  WHERE t.idEvento = e.idEvento and t.idTarjeta BETWEEN " . $ini . " and " . $fin.  " and t.idStatus != '5' and t.idTarjeta = " . $tarjet);
+                $datos = $query2->getResultObject();
+                if($datos){
+                    return $datos;
+                }else{
+                    //la tarjeta no pertenece a la tablilla
+                    $query3 = $db->query("SELECT idTarjeta, idStatus from Tarjetas t WHERE idStatus != '5' and idTarjeta =".$tarjet);
+                    $datosS = $query3->getResultArray();
+                    foreach($datosS as $row){
+                            $estado = $row['idStatus'];
+                        if($estado != '1'){
+                            return $datosS;
+                        }else{
+                            return false; 
+                        }
+                    }  
+                }
             }
         }else{
             return false;        
@@ -1184,7 +1197,8 @@ class mcobro_model extends Model{
         /*********************************** Consultar el estado de la fajilla ************************/
         $builder = $db->table('Fajillas');
         $builder-> select(
-            'folioInicial,
+            'idStatus,
+            folioInicial,
             folioFinal,
             idAperturaVentanilla,
             idFajilla'
@@ -1193,29 +1207,14 @@ class mcobro_model extends Model{
         $query = $builder->get();
         $datos = $query->getResultArray();
         foreach($datos as $d){
+            $estado = $d['idStatus'];
             $folioi = $d['folioInicial'];
             $foliof = $d['folioFinal'];
             $idApVentanilla = $d['idAperturaVentanilla'];
         }
 
-        $query = $db->query("SELECT count(*) as vendidas, (SELECT COUNT(*) from Tarjetas WHERE idStatus ='1' and idTarjeta BETWEEN ".$folioi." and ".$foliof.") as sobrantes, 
-                            (SELECT COUNT(*) from Tarjetas WHERE idStatus ='5' and idTarjeta BETWEEN  ".$folioi." and ".$foliof.") as defectuosas, 
-                            (SELECT COUNT(*) from Tarjetas WHERE idTarjeta BETWEEN ".$folioi." and ".$foliof.") as totalTarjetas FROM Tarjetas WHERE idStatus ='0' and idTarjeta BETWEEN ".$folioi." and ".$foliof);
-        $result = $query->getResultArray();
-        foreach($result as $t){
-            $noVendidas = $t['sobrantes'];
-            $defectuosas = $t['defectuosas'];
-        }
-        if($noVendidas == 0){
-        /*********************************** Insertar la nueva fajilla ************************/
+        if($estado == '3'){
             $builder = $db->table('Fajillas');
-            $data = [
-                'idStatus' => '3'
-            ];
-            $builder->where('idFajilla', $v);
-            if($builder->update($data)){
-
-                $builder = $db->table('Fajillas');
                 $data = [
                     'fecha' => $fecha,
                     'idStatus' => '6',
@@ -1224,13 +1223,63 @@ class mcobro_model extends Model{
                     'idAperturaVentanilla' => $idApVentanilla
                 ];
                 if($builder->insert($data)){
-                    return true;
+
+                    $idFajillaN = $db->insertID();
+                    
+                    $query = $db->query("UPDATE Tarjetas set idFajilla = ".$idFajillaN." WHERE Folio BETWEEN ".$folii." and ".$folff);                       
+                        if($query){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    //return true;
                 }else{
                     return false;
                 }
-            }
         }else{
-            return false;
+
+            $query = $db->query("SELECT count(*) as vendidas, (SELECT COUNT(*) from Tarjetas WHERE idStatus ='1' and idTarjeta BETWEEN ".$folioi." and ".$foliof.") as sobrantes, 
+                                (SELECT COUNT(*) from Tarjetas WHERE idStatus ='5' and idTarjeta BETWEEN  ".$folioi." and ".$foliof.") as defectuosas, 
+                                (SELECT COUNT(*) from Tarjetas WHERE idTarjeta BETWEEN ".$folioi." and ".$foliof.") as totalTarjetas FROM Tarjetas WHERE idStatus ='0' and idTarjeta BETWEEN ".$folioi." and ".$foliof);
+            $result = $query->getResultArray();
+            foreach($result as $t){
+                $noVendidas = $t['sobrantes'];
+                $defectuosas = $t['defectuosas'];
+            }
+            if($noVendidas == 0){
+            /*********************************** Insertar la nueva fajilla ************************/
+                $builder = $db->table('Fajillas');
+                $data = [
+                    'idStatus' => '3'
+                ];
+                $builder->where('idFajilla', $v);
+                if($builder->update($data)){
+
+                    $builder = $db->table('Fajillas');
+                    $data = [
+                        'fecha' => $fecha,
+                        'idStatus' => '6',
+                        'folioInicial' => $folii,
+                        'folioFinal'=>$folff,
+                        'idAperturaVentanilla' => $idApVentanilla
+                    ];
+                    if($builder->insert($data)){
+                        $idFajillaN = $db->insertID();
+                    
+                        $query = $db->query("UPDATE Tarjetas set idFajilla = ".$idFajillaN." WHERE Folio BETWEEN ".$folii." and ".$folff);                       
+                            if($query){
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        //return true;
+                    }else{
+                        return false;
+                    }
+                }
+            }else{
+                return false;
+            }
         }
     }
 
@@ -1330,7 +1379,7 @@ class mcobro_model extends Model{
     }
 
     /*********************************************** AGREGAR TIPO DE VENTA (EFECTIVO / TARJETA) ************************************/
-    function guardarTransaccionVouch($tipoT, $select, $mtarjeta, $dtarjeta, $naprov, $idCob){
+    function guardarTransaccionVouch($idCob, $select, $mtarjeta, $dtarjeta, $naprov, $tipo){
         $db = \Config\Database::connect();
         $builder = $db->table('transaccion_Voucher');
         $data = [
@@ -1338,7 +1387,8 @@ class mcobro_model extends Model{
             'idBanco' => $select,
             'Monto' => $mtarjeta,//este va a cambiar dependiendo del porcentaje a cobrar
             'numTarjeta' => $dtarjeta,
-            'numAprovacion' => $naprov
+            'numAprovacion' => $naprov, 
+            'tipoTarjeta' => $tipo
         ];
         if($builder->insert($data)){
             return $db->insertID();

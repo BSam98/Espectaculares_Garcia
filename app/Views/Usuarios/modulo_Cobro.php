@@ -114,7 +114,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                             <input type="hidden" name="arregloPrecioC" id="arregloPrecioC" value="">
                             <input type="hidden" name="idTarjeta" id="idTarjeta" value="">
                             <input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_SESSION['idUsuario']?>">
-                            <input type="hidden" name="precioTa" id="precioTa" value="">
+                            <input type="hidden" name="precioTa" id="precioTa" class="monto" value="">
                             <input type="hidden" name="indice" id="indice" value="">
                             <input type="hidden" name="fecha" id="fecha" value="">
                             <div class="row">
@@ -131,10 +131,12 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                                 <input class="form-control" type="number" name="recargaAdd" id="recargaAdd" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="0" onblur="ingresarRecarga()">&nbsp;
                                             </div>
                                             <!-- Optional: clear the XS cols if their content doesn't match in height -->
-                                            <div class="col-xs-4 col-sm-4">
+                                            <div class="col-xs-2 col-sm-2">
+                                            </div>
+                                            <div class="col-xs-2 col-sm-2">
                                                 <!--a href="#" id="celular" class="btn btn-success">Tarjeta Electónica</a-->  
-                                                <button type="button" style="margin: 1px;" class="btn btn-danger" data-toggle="modal" data-target="#modal_Devolucion" value=""><i class="fa fa-reply-all" aria-hidden="true"></i>&nbsp;<b>DEVOLUCIÓN DE TARJETA</b></button>
-                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_Fajilla" value=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<b>AGREGAR FAJILLA</b></button>
+                                                <button type="button" style="margin: 1px;" class="btn btn-danger" data-toggle="modal" data-target="#modal_Devolucion" value=""><i class="fa fa-reply-all" aria-hidden="true"></i>&nbsp;<b>Devolver</b></button><br>
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_Fajilla" value=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<b>Agregar</b></button>
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +148,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                             <div class="row">
 
                                 <!-- Area Chart -->
-                                <div class="col-xl-8 col-lg-7">
+                                <div class="col-xl-7 col-lg-7">
                                     <div class="card shadow mb-5">
                                         <!-- Card Header - Dropdown -->
                                         <div class="card-header py-4 d-flex flex-row align-items-center justify-content-between">
@@ -175,10 +177,11 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                                     <th style="width: 15%;"></th>
                                                     </thead-->
                                                     <tbody id="productos">
-                                                        <tr>
-                                                            <td><div id="result"><!--label for="">Tarjeta: &nbsp;</label--><input type="number" id="tarjeta" name="tarjeta" value="" style="background : inherit; border:none; text-align:center;" disabled></td></div>
+                                                        <!--tr>
+                                                            <td><div id="result"><input type="number" id="tarjeta" name="tarjeta" value="" style="background : inherit; border:none; text-align:center;" disabled></td></div>
                                                             <td><input type="number" class="monto" id="precioT" name="precioT" value="" style="background : inherit; border:none; text-align:center;" disabled></td>
-                                                        </tr>
+                                                            <td>estoy aqui</td>
+                                                        </tr-->
                                                         <tr id="recargaTr" style="display: none;">
                                                             <td>
                                                                 <label name="tituloRec" id="tituloRec">Recarga</label>
@@ -203,7 +206,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                 </div>
 
                                 <!-- Pie Chart -->
-                                <div class="col-xl-4 col-lg-5">
+                                <div class="col-xl-5 col-lg-5">
                                     <div class="card shadow mb-4">
                                         <!-- Card Header - Dropdown -->
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -218,16 +221,61 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                         </div>
                                         <!-- Card Body -->
                                         <div class="card-body">
-                                            <center><h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">TIPO PAGO</h6><br>
-                                                <?php foreach($tipoPago as $tipo):?>
-                                                    <button type="button" class="btn btn-info pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="<?php echo $tipo->idFormasPago?>"><b><?php echo $tipo->Nombre?></b></button>
-                                                <?php endforeach ?>
-                                            </center>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-info"><center><h6 class="m-0 font-weight-bold" style="vertical-align: middle ;">TIPO PAGO</h6></center></button>
+                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                        <span class="caret"></span>
+                                                        <span class="sr-only"></span>
+                                                    </button>
+                                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <!--a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"></a-->
+                                                        <?php foreach($tipoPago as $tipo):?>
+                                                            <li><a class="nav-link btn btn-info pagoEfectivo" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" style="margin:2px;" data-id="<?php echo $tipo->idFormasPago?>"><?php echo $tipo->Nombre?></a></li>
+                                                            <!--button type="button" class="btn btn-info pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="<?php echo $tipo->idFormasPago?>" style="margin:2px;"><b><?php echo $tipo->Nombre?></b></button-->
+                                                        <?php endforeach ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="tab-content" id="v-pills-tabContent">
+                                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                                    <!--label>Si entro aqui</label-->
+                                                </div>
+                                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                                    <div class="modal-dialog" id="modalCob">
+                                                        <div class="modal-content">
+                                                            <!--div class="modal-header" style="background-image: radial-gradient(circle at 84.09% 90.63%, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"-->      
+                                                            <!--center><h4 class="modal-title">Pago:</h4></center-->
+                                                                <!--button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span></button-->
+                                                            <!--/div-->
+                                                            <div class="modal-body">
+                                                                <table class="table table-responsive" style="margin: 0 auto;">
+                                                                    <tbody id="efect">
+                                                                    
+                                                                    
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cancelarDev" id="cancelarDev" value=""><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar Compra</button>
+                                                                <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="cobrarTransaccion" id="cobrarTransaccion" value="<?php ?>">Cobrar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                     </form>
+
+                    
+
+
+
+
                 </div>
                 <!-- /.container-fluid -->
             </div>
@@ -336,10 +384,13 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
             </div>
             <div class="modal-body">
                 <form id="fajillaNueva">
-                    <input type="hidden" name="fecha" id="fecha" value="">
-                    <input type="hidden" name="v" id="v" value="<?php echo $_GET["v"]?>">
-                    <input type="hidden" name="idv" id="id" value="<?php echo $_GET["idv"]?>">
+                    <input type="hidden" name="fechas" id="fechas" value="">
                     <input type="hidden" name="e" id="e" value="<?php echo $_GET["e"]?>">
+                    <input type="hidden" name="z" id="z" value="<?php echo $_GET["z"]?>">
+                    <input type="hidden" name="t" id="t" value="<?php echo $_GET["t"]?>">
+                    <input type="hidden" name="v" id="v" value="<?php echo $_GET["v"]?>">
+                    <input type="hidden" name="u" id="u" value="<?php echo $_GET["u"]?>">
+                    <input type="hidden" name="idv" id="idv" value="<?php echo $_GET["idv"]?>">
                     <div class="form-group">
                         <label><b>Folio Inicial</b></label>
                         <input type="number" class="form-control" name="folioI" id="folioI" required min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">

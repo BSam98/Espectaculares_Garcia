@@ -141,7 +141,7 @@ class Iniciar_Sesion_User_Model extends Model{
         return $datos; 
     }
 
-   /* function insertarTurno($fecha,$fondo,$ventanilla,$usuario){
+    /* function insertarTurno($fecha,$fondo,$ventanilla,$usuario){
         $db = \Config\Database::connect();
         $builder = $db->table('Apertura_Ventanilla');
         $data = [
@@ -155,8 +155,8 @@ class Iniciar_Sesion_User_Model extends Model{
         }else{
             return false;
         }
-    }
-    */
+    }*/
+
     function agregarFajilla($fondo,$ventanilla,$usuario,$fecha,$folioI,$folioF){
         $db = \Config\Database::connect();
         /**************************************** Consulto tabla tarjetas *****************/
@@ -179,118 +179,160 @@ class Iniciar_Sesion_User_Model extends Model{
             if($vent['Status'] == '1'){
                 return false;
             }else{
-                /***** Obtengo el id de las tarjetas con los folios que me ingreso y los comparo con los que ya estan registrados en Fajillas ******/
-                $query1= $db->query(
-                                "SELECT DISTINCT(folioInicial), Folio, folioFinal  from Tarjetas t, Fajillas av
-                                WHERE folioInicial = (SELECT DISTINCT(idTarjeta) from Tarjetas t,Fajillas WHERE Folio = ".$folioI." and idTarjeta=folioInicial)
-                                and folioFinal = (SELECT DISTINCT(idTarjeta) from Tarjetas t, Fajillas WHERE Folio  = ".$folioF." and idTarjeta=folioFinal)
-                                and idTarjeta = folioInicial"
-                            );
-                $result = $query1->getResultArray(); 
-                if($result){
-                    /********************************************** Ya existen datos Registrados **********************************************/
-                    return false;
-                }else{
-                    /********************************************** NO existen datos Registrados **********************************************/
-                    /********************************** Obtener el idTarjeta folio inicial ***************************/
-                    $query = $db->query("SELECT DISTINCT(idTarjeta), idStatus, idFajilla from Tarjetas t WHERE Folio = " . $folioI);
-                    $idTFolioI = $query->getResultArray(); 
-                    foreach($idTFolioI as $c){
-                        $idTar = $c['idTarjeta'];
-                        $idStati = $c['idStatus'];
-                        $idfaj = $c['idFajilla'];
-                    }
+                if(($folioI == "") && ($folioF == "")){
+                    /******************** Ingresa la apertura de la ventanilla ******************************/
+                    $builder = $db->table('Apertura_Ventanilla');
+                    $data = [
+                        'fondoCaja' => $fondo,
+                        'horaApertura' => $fecha,
+                        'idUsuario' => $usuario,
+                        'idVentanilla' => $ventanilla,
+                        'idStatus' => 8
+                    ];
+                    if($builder->insert($data)){// si me lo inserta
+                        $idAperturaVent =  $db->insertID();//id apertura ventanilla
+                        /****************** Me inserta la fajilla con la que "empezo" **************************/
+                        $query= $db->query(
+                            "INSERT INTO Fajillas (fecha,idStatus,folioInicial,folioFinal,idAperturaVentanilla)
+                                    VALUES('$fecha','3',null,null,$idAperturaVent)"
+                        );
+                        if($query){//si me inserta la fajilla
 
-                    /********************************** Obtener el idTarjeta folio final ***************************/
-                    $query = $db->query("SELECT DISTINCT(idTarjeta),idStatus, idFajilla from Tarjetas t WHERE Folio = " . $folioF);
-                    $idTFolioF = $query->getResultArray(); 
-                    foreach($idTFolioF as $c2){
-                        $idTar2 = $c2['idTarjeta'];
-                        $idStatf = $c2['idStatus'];
-                        $idfaj2 = $c2['idFajilla'];
-                    }
-                   /* echo var_dump($idtarjet);
-                    echo var_dump($idTar);
-                    echo var_dump($idTar2);
-                    echo var_dump($idTar2 >= $idTar && $idTar2 <= $idtarjet);
-                    echo var_dump($idfaj);
-                    echo var_dump($idfaj2);*/
-                    
-                    //if(($idtarjet >= $idTar && $idtarjet <= $idTar2) && (!isset($idfaj)) && ($idStati == 1) && (!isset($idfaj2)) && ($idStatf == 1)){
-                        //ACOMODAR LA RESTRICCION PARA QUE NO INGRESE TARJETAS QUE YA ESTAR REGISTRADAS
-                    if((!isset($idfaj)) && ($idStati == 1) && (!isset($idfaj2)) && ($idStatf == 1)){
-                        //echo 'Estoy en la comparacion de todo';
+                            $idFajillaN = $db->insertID();
 
-                        $builder = $db->table('Apertura_Ventanilla');
-                        $data = [
-                            'fondoCaja' => $fondo,
-                            'horaApertura' => $fecha,
-                            'idUsuario' => $usuario,
-                            'idVentanilla' => $ventanilla,
-                        ];
-                                
-                        if($builder->insert($data)){
-                            //echo 'Estoy en insertar Apertura';
-                            $idAperturaVent =  $db->insertID();//id apertura ventanilla
+                            /************* Actualiza el Status de la ventanilla ***********/
+                            $builder = $db->table('Ventanilla');
+                            $data = [
+                                'Status' => '1',
+                            ];
 
-                            // insertar las tarjetas a fajillas
-                            $query= $db->query(
-                                "INSERT INTO Fajillas (fecha,idStatus,folioInicial,folioFinal,idAperturaVentanilla)
-                                        VALUES('$fecha','6',(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),$idAperturaVent)"
-                            );
-                            if($query){
+                            $builder->where('idVentanilla', $ventanilla);
 
-                                //echo 'Estoy en ejecutar query';
-
-                                $idFajillaN = $db->insertID();
-
-                                //echo var_dump($idFajillaN);
-                                
-                                /************* Actualiza el Status de la ventanilla ***********/
-                                $builder = $db->table('Ventanilla');
-                                $data = [
-                                    'Status' => '1',
-                                ];
-                                $builder->where('idVentanilla', $ventanilla);
-
-                                if($builder->update($data)){
-                                    //echo 'Estoy en actualizar';
-                                    $query = $db->query("UPDATE Tarjetas set idFajilla = ".$idFajillaN." WHERE Folio BETWEEN ".$folioI." and ".$folioF);
-                                                
-                                    if($query){
-                                    //echo var_dump($idFajillaN);
-                                        return $idFajillaN;
-                                    }else{
-                                        return false;
-                                    }
-                                    
-                                    /*$query = $db->query("SELECT DISTINCT(idTarjeta), idStatus, idFajilla from Tarjetas t
-                                                    WHERE idTarjeta BETWEEN (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio = ".$folioI.") and 
-                                                    (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio  = ".$folioF.")");*/
-                                                    
-                                // $consulta = $query->getResultArray(); 
-
-                                // if($consulta){
-
-                                        /*foreach($consulta as $c){
-                                            $idFaj = $c['idFajilla'];
-                                            $idStat = $c['idStatus'];
-                                            $i = $c['i'];
-                                            $f = $c['f'];
-                                        }*/
-                                // }
-                                }
-                                //}
-                                //return $db->insertID();
-                            
+                            if($builder->update($data)){
+                                return $idFajillaN;
                             }else{
-                                return FALSE;
+                                return false;
                             }
-                        }//if insert
-                    }else{
+                        }
+                    }
+                //termina si estan los folios vacios
+                }else{
+
+                    /***** Obtengo el id de las tarjetas con los folios que me ingreso y los comparo con los que ya estan registrados en Fajillas ******/
+                    $query1= $db->query(
+                                    "SELECT DISTINCT(folioInicial), Folio, folioFinal  from Tarjetas t, Fajillas av
+                                    WHERE folioInicial = (SELECT DISTINCT(idTarjeta) from Tarjetas t,Fajillas WHERE Folio = ".$folioI." and idTarjeta=folioInicial)
+                                    and folioFinal = (SELECT DISTINCT(idTarjeta) from Tarjetas t, Fajillas WHERE Folio  = ".$folioF." and idTarjeta=folioFinal)
+                                    and idTarjeta = folioInicial"
+                                );
+                    $result = $query1->getResultArray(); 
+                    if($result){
+                        /********************************************** Ya existen datos Registrados **********************************************/
                         return false;
-                    }        
-                }//if result
+                    }else{
+                        /************************************** NO existen datos Registrados **********************************************/
+                        /********************************** Obtener el idTarjeta folio inicial ***************************/
+                        $query = $db->query("SELECT DISTINCT(idTarjeta), idStatus, idFajilla from Tarjetas t WHERE Folio = " . $folioI);
+                        $idTFolioI = $query->getResultArray(); 
+                        foreach($idTFolioI as $c){
+                            $idTar = $c['idTarjeta'];
+                            $idStati = $c['idStatus'];
+                            $idfaj = $c['idFajilla'];
+                        }
+
+                        /********************************** Obtener el idTarjeta folio final ***************************/
+                        $query = $db->query("SELECT DISTINCT(idTarjeta),idStatus, idFajilla from Tarjetas t WHERE Folio = " . $folioF);
+                        $idTFolioF = $query->getResultArray(); 
+                        foreach($idTFolioF as $c2){
+                            $idTar2 = $c2['idTarjeta'];
+                            $idStatf = $c2['idStatus'];
+                            $idfaj2 = $c2['idFajilla'];
+                        }
+                    /* echo var_dump($idtarjet);
+                        echo var_dump($idTar);
+                        echo var_dump($idTar2);
+                        echo var_dump($idTar2 >= $idTar && $idTar2 <= $idtarjet);
+                        echo var_dump($idfaj);
+                        echo var_dump($idfaj2);*/
+                        
+                        //if(($idtarjet >= $idTar && $idtarjet <= $idTar2) && (!isset($idfaj)) && ($idStati == 1) && (!isset($idfaj2)) && ($idStatf == 1)){
+                            //ACOMODAR LA RESTRICCION PARA QUE NO INGRESE TARJETAS QUE YA ESTAR REGISTRADAS
+                        if((!isset($idfaj)) && ($idStati == 1) && (!isset($idfaj2)) && ($idStatf == 1)){
+                            //echo 'Estoy en la comparacion de todo';
+
+                            $builder = $db->table('Apertura_Ventanilla');
+                            $data = [
+                                'fondoCaja' => $fondo,
+                                'horaApertura' => $fecha,
+                                'idUsuario' => $usuario,
+                                'idVentanilla' => $ventanilla,
+                                'idStatus' => 8
+                            ];
+                                    
+                            if($builder->insert($data)){
+                                //echo 'Estoy en insertar Apertura';
+                                $idAperturaVent =  $db->insertID();//id apertura ventanilla
+
+                                // insertar las tarjetas a fajillas
+                                $query= $db->query(
+                                    "INSERT INTO Fajillas (fecha,idStatus,folioInicial,folioFinal,idAperturaVentanilla)
+                                            VALUES('$fecha','6',(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),$idAperturaVent)"
+                                );
+                                if($query){
+
+                                    //echo 'Estoy en ejecutar query';
+
+                                    $idFajillaN = $db->insertID();
+
+                                    //echo var_dump($idFajillaN);
+                                    
+                                    /************* Actualiza el Status de la ventanilla ***********/
+                                    $builder = $db->table('Ventanilla');
+                                    $data = [
+                                        'Status' => '1',
+                                    ];
+                                    $builder->where('idVentanilla', $ventanilla);
+
+                                    if($builder->update($data)){
+                                        //echo 'Estoy en actualizar';
+                                        $query = $db->query("UPDATE Tarjetas set idFajilla = ".$idFajillaN." WHERE Folio BETWEEN ".$folioI." and ".$folioF);
+                                                    
+                                        if($query){
+                                        //echo var_dump($idFajillaN);
+                                            return $idFajillaN;
+                                        }else{
+                                            return false;
+                                        }
+                                        
+                                        /*$query = $db->query("SELECT DISTINCT(idTarjeta), idStatus, idFajilla from Tarjetas t
+                                                        WHERE idTarjeta BETWEEN (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio = ".$folioI.") and 
+                                                        (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio  = ".$folioF.")");*/
+                                                        
+                                    // $consulta = $query->getResultArray(); 
+
+                                    // if($consulta){
+
+                                            /*foreach($consulta as $c){
+                                                $idFaj = $c['idFajilla'];
+                                                $idStat = $c['idStatus'];
+                                                $i = $c['i'];
+                                                $f = $c['f'];
+                                            }*/
+                                    // }
+                                    }
+                                    //}
+                                    //return $db->insertID();
+                                
+                                }else{
+                                    return FALSE;
+                                }
+                            }//if insert
+                        }else{
+                            return false;
+                        }        
+                    }//if result
+                    
+                }
             }//primer if
         }//foreach 1
     }

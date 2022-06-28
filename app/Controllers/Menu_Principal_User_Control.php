@@ -1,5 +1,7 @@
-<?php namespace App\Controllers;
+<?php 
+namespace App\Controllers;
 use App\Models\mcobro_model;
+//error_reporting(0);
 
 class Menu_Principal_User_Control extends BaseController {
     /*public function new (){
@@ -80,14 +82,13 @@ class Menu_Principal_User_Control extends BaseController {
         ]);
         $model = new mcobro_model;
 
-        $tipoT = $_POST['tipoT'];
         $select = $_POST['select'];
         $mtarjeta = $_POST['mtarjeta'];
         $dtarjeta = $_POST['dtarjeta'];
         $naprov = $_POST['naprov'];
 
-
         $tipoP = $_POST['tipo'];
+
         $fecha = $_POST['fecha'];
         $evento = $_POST['evento'];
         $v = $_POST["ventanillaa"];//este es el idaperturaventanilla
@@ -139,40 +140,45 @@ class Menu_Principal_User_Control extends BaseController {
         $promoC = explode(",", $promocionesPrecioC);
         $idPromoC = explode(",", $promocionesC);
 
-        for($i = 0 ; $i < $ids ; $i++){
-//poner if que evalue el tipo de cobro(tarjeta/efectivo)
-
+        for($i = 0 ; $i < count($ids) ; $i++){
+            
+            //poner if que evalue el tipo de cobro(tarjeta/efectivo)
             switch($ids[$i]){
                 case '0';
+                echo "estoy en caso 0";
                     $data = $model->agregarTarjeta($idtarjeta, $gtran, $precioTa);
 
-                    if($tipoP == 2){
-                        $transaccion = $model->guardarTransaccionVouch($tipoT, $select, $mtarjeta, $dtarjeta, $naprov, $idCob);
+                    if(($tipoP == 2) || ($tipoP == 3)){
+                        $transaccion = $model->guardarTransaccionVouch($idCob, $select, $mtarjeta, $dtarjeta, $naprov, $tipoP);
                     }
-
-                    break;
+                break;
                 
                 case '1';
-                    if($tipoP == 2){
-                        $transaccion = $model->guardarTransaccionVouch($tipoT, $select, $mtarjeta, $dtarjeta, $naprov, $idCob);
+                echo "estoy en caso 1";
+                    if(($tipoP == 2) || ($tipoP == 3)){
+                        $transaccion = $model->guardarTransaccionVouch($idCob, $select, $mtarjeta, $dtarjeta, $naprov, $tipoP);
                     }
-                    break;
+                break;
                 
-                case '2';                    
+                case '2';  
+                echo "estoy en caso 2";                  
                     $data = $model->agregarRecarga($idtarjeta, $recarga, $gtran, $precioTa, $evento);
-                    break;
+                 break;
 
                 case '3';
+                echo "estoy en caso 3";
                     $data2 = $model->agregarPromocionesP($idtarjeta, $gtran, $promo);
                     $arrayp = implode(",", $data2);
                     $idpay = explode(",", $arrayp);
                     $data = $model->agregarPromoV($idpay,$idPromo, $gtran);
-                    break;
+                break;
                 
                 case '4';
+                echo "estoy en caso 4";
                     $data = $model->agregarPromocionesC($idtarjeta, $gtran, $promoC, $idPromoC, $evento);
-                    break;
-                
+                break;
+                default:
+                    echo "No se declaro";
             }
         }
         
@@ -227,7 +233,7 @@ class Menu_Principal_User_Control extends BaseController {
         $e = $_POST['e'];
         $v = $_POST['v'];
         $idv = $_POST['idv'];
-        $fecha = $_POST['fecha'];
+        $fecha = $_POST['fechas'];
         $data = $model->agregarF($e, $v, $idv, $folioI, $folioF, $fecha);
         echo json_encode(array('respuesta'=>true,'msj'=>$data));
     }
