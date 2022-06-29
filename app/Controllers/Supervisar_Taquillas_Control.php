@@ -52,7 +52,9 @@ class Supervisar_Taquillas_Control extends BaseController{
 
         $respuesta = $model->descripcion_Transaccion($idTransaccion);
 
-        echo json_encode(array('respuesta'=>true,'pagos'=>$respuesta));
+        $respuesta1 = $model->descripcion_Transaccion_Voucher($idTransaccion);
+
+        echo json_encode(array('respuesta'=>true,'pagos'=>$respuesta,'voucher'=>$respuesta1));
     }
 
     public function ventanillas_Inactivas(){

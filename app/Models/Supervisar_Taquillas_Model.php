@@ -334,4 +334,43 @@ class Supervisar_Taquillas_Model extends Model{
 
         return $datos;
     }
+
+    public function descripcion_Transaccion_Voucher($idTransaccion){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                transaccion_Voucher.numTarjeta,
+                transaccion_Voucher.numAprovacion,
+                transaccion_Voucher.Monto,
+                Bancos.Banco,
+                Formas_Pago.Nombre,
+                Transaccion.idTransaccion
+            FROM
+                Transaccion
+            INNER JOIN
+                Cobro
+            ON
+                Transaccion.idTransaccion = Cobro.idTransaccion
+            INNER JOIN
+                Formas_Pago
+            ON
+                Cobro.idFormasPago = Formas_Pago.idFormasPago
+            INNER JOIN
+                transaccion_Voucher
+            ON
+                Cobro.idCobro = transaccion_Voucher.idCobro
+            INNER JOIN
+                Bancos
+            ON
+                transaccion_Voucher.idBanco = Bancos.idBanco
+            WHERE
+                Transaccion.idTransaccion = $idTransaccion;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
 }

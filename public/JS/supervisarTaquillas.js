@@ -108,13 +108,13 @@ $(document).ready(function(){
                 if(data.ventanillas_Inactivas_1[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                     html_Opciones=
-                    '<li><a href="" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
+                    '<li><a href="#modal_Validar_Cierre_Taquilla" type="button" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
                 }
                 else{
                     if(data.ventanillas_Inactivas_1[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
                         html_Opciones=
-                        '<li><a href="" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
+                        '<li><a  type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -147,14 +147,14 @@ $(document).ready(function(){
                 if(data.ventanillas_Inactivas_2[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                     html_Opciones=
-                    '<li><a href="" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
+                    '<li><a  type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
 
                 }
                 else{
                     if(data.ventanillas_Inactivas_2[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
                         html_Opciones=
-                        '<li><a href="" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
+                        '<li><a type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -249,7 +249,7 @@ $("#fechaesperada").on('change',function(){
                                 '<tr>'+
                                     '<td>'+
                                         '<ul class="circulo">'+
-                                            '<li><a href="" type="button" class="" data-toggle="ventanilla_Activa_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Activas_2[i]['idAperturaVentanilla']+"}'"+'>Realizar Cierre</a></li>'+
+                                            '<li><a type="button" class="" data-toggle="ventanilla_Activa_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Activas_2[i]['idAperturaVentanilla']+"}'"+'>Realizar Cierre</a></li>'+
                                         '</ul>'+
                                     '</td>'+
                                 '</tr>'+
@@ -283,7 +283,7 @@ $("#fechaesperada").on('change',function(){
                                 '<tr>'+
                                     '<td>'+
                                         '<ul class="circulo">'+
-                                            '<li><a href="" type="button" class="ventanilla_Activa_Con_Transacciones" data-toggle="" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Activas_1[i]['idAperturaVentanilla']+"}'"+'>Realizar Cierre</a></li>'+
+                                            '<li><a type="button" class="ventanilla_Activa_Con_Transacciones" data-toggle="" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Activas_1[i]['idAperturaVentanilla']+"}'"+'>Realizar Cierre</a></li>'+
                                         '</ul>'+
                                     '</td>'+
                                 '</tr>'+
@@ -297,13 +297,13 @@ $("#fechaesperada").on('change',function(){
                 if(data.ventanillas_Inactivas_1[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                     html_Opciones=
-                    '<li><a  type="button" class="ventanilla_Inactiva_Con_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
+                    '<li><a href="#modal_Validar_Cierre_Taquilla" type="button" class="ventanilla_Inactiva_Con_Transacciones" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
                 }
                 else{
                     if(data.ventanillas_Inactivas_1[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
                         html_Opciones=
-                        '<li><a  type="button" class="ventanilla_Inactiva_Con_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
+                        '<li><a type="button" class="ventanilla_Inactiva_Con_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -336,13 +336,13 @@ $("#fechaesperada").on('change',function(){
                 if(data.ventanillas_Inactivas_2[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                     html_Opciones=
-                    '<li><a type="button" class="ventanilla_Inactiva_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
+                    '<li><a href="#modal_Validar_Cierre_Taquilla"type="button" class="ventanilla_Inactiva_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
                 }
                 else{
                     if(data.ventanillas_Inactivas_2[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
                         html_Opciones=
-                        '<li><a href="" type="button" class="ventanilla_Inactiva_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
+                        '<li><a type="button" class="ventanilla_Inactiva_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -442,6 +442,7 @@ $(document).on('click', '.ventanilla_Activa_Con_Transacciones', function(){
                 total_Tarjeta += data.transacciones[i]['Tarjeta'];
             }
         }
+        $("#detalles").html('');
         $("#pie_Informacion").html('<tr><td>Efectivo : '+total_Efectivo+'   Tarjeta: '+total_Tarjeta+'</td></tr>');
         $("#informacion").html(html);
 
@@ -452,10 +453,10 @@ $(document).on('click', '.ventanilla_Activa_Con_Transacciones', function(){
 $(document).on('click','.ventanilla_Inactiva_Con_Transacciones', function(){
     iniciarCarga();
     var idAperturaVentanilla = $(this).data('book-id');
-
+/*
     $.ajax({
         type:'POST',
-        url:'',
+        url:'Supervisar_Taquillas/Validacion_Taquilla',
         data:{'idAperturaVentanilla':idAperturaVentanilla['idAperturaVentanilla']},
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
@@ -467,6 +468,8 @@ $(document).on('click','.ventanilla_Inactiva_Con_Transacciones', function(){
         }
         cerrarCarga();
     });
+*/
+    cerrarCarga();
 });
 
 $(document).on('click','.ventanilla_Inactiva_Sin_Transacciones', function(){
@@ -493,7 +496,6 @@ $(document).on('click','.descripcion_Transaccion', function(){
     var idTransaccion = $(this).data('book-id');
     var html = '';
 
-    alert(idTransaccion['idTransaccion']);
     $.ajax({
         type:'POST',
         url:'Supervisar_Taquillas/Descripcion_Transaccion',
@@ -504,7 +506,6 @@ $(document).on('click','.descripcion_Transaccion', function(){
             cerrarCarga();
         },
     }).done(function(data){
-        console.log(JSON.stringify(data));
         if(data.respuesta){
             for(var i=0;i<data.pagos.length;i++){
                 html +=
@@ -514,10 +515,25 @@ $(document).on('click','.descripcion_Transaccion', function(){
                         '<br>'+
                         '<label>'+data.pagos[i]['Nombre']+'</label>'+
                         '<br>'+
+                        '<label>Monto: '+data.pagos[i]['Monto']+' </label>'+
                         '<br>'+
-                        '<label>Monto: </label>'+
+                    '</td>'+
+                '</tr>';
+            }
+            for(var i=0;i<data.voucher.length;i++){
+                html +=
+                '<tr>'+
+                    '<td>'+
+                        '<label>Tarjeta: </label>'+
                         '<br>'+
-                        '<label>'+data.pagos[i]['Monto']+'</label>'+
+                        '<label> xxxx-xxxx-xxxx-'+data.voucher[i]['numTarjeta']+'</label>'+
+                        '<br>'+
+                        '<label>Numero de Aprobación: '+data.voucher[i]['numAprovacion']+'</label>'+ 
+                        '<br>'+
+                        '<label>Monto: '+data.voucher[i]['Monto']+'</label>'+
+                        '<br>'+
+                        '<label>Banco: '+data.voucher[i]['Banco']+'</label>'+
+                        '<br>'+
                     '</td>'+
                 '</tr>';
             }

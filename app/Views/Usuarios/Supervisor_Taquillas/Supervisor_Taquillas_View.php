@@ -165,6 +165,9 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
             </div>
 
         </fieldset>
+        <?php
+            include 'Validar_Cierre_View.php';
+        ?>
     </body>
 </html>
 <script src="JS/carga.js"></script>
