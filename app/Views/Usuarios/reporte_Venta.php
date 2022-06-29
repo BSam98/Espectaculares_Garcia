@@ -71,12 +71,12 @@ if(!isset($_SESSION['Usuario'])) {
                                         &nbsp;&nbsp;<center><h5 class="m-0 font-weight-bold" style="color:blue;"><i class="fa fa-share" aria-hidden="true"></i>&nbsp;Devolver Tarjetas:&nbsp;&nbsp;&nbsp;</h5></center>
                                         <div class="input-group-append">
                                             <h6 style="color:black;"><b>Folio Inicial:</b>&nbsp;</h6>
-                                            <input type="text" class="form-control" name="dtI" id="dtI" minlength="8" maxlength="8" style="width:150px;">
+                                            <input type="text" class="form-control" name="dtI" id="dtI" style="width:150px;">
                                         </div>
                                             <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                         <div class="input-group-append">
                                             <h6 style="color:black;"><b>Folio Final:</b>&nbsp;</h6>
-                                            <input type="text" class="form-control" name="dtF" id="dtF" minlength="8" maxlength="8" style="width:150px;">
+                                            <input type="text" class="form-control" name="dtF" id="dtF" style="width:150px;">
                                         </div>
                                     </div>
                                 </div>
@@ -98,6 +98,9 @@ if(!isset($_SESSION['Usuario'])) {
                                             <div class="chart-area table table-responsive table-wrapper">
                                                 <table class="table table-responsive" style=" color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
                                                     <tbody style="color: black;">
+                                                        <tr>
+                                                            <td colspan="6"><h6 style="color:red;"><b>Nota:</b> Favor de separar el Fondo de Caja</h6></td>
+                                                        </tr>
                                                         <tr>
                                                             <td colspan="6" style="border: none;"><center><b>&nbsp;BILLETES&nbsp;</b></center></td>
                                                         </tr>
@@ -193,7 +196,7 @@ if(!isset($_SESSION['Usuario'])) {
                                                         </tr>
                                                     </tbody>
                                                 </table>   
-                                                <center><input type="button" class="btn btn-success" id="registrar" name="registrar" value="Registrar"></center>
+                                                <center><button type="button" class="btn btn-success" id="registrar" name="registrar" value=""><i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;Registrar</button></center>
                                             </div>
                                         </form>
                                     </div>
@@ -202,14 +205,35 @@ if(!isset($_SESSION['Usuario'])) {
                             <div class="col-xl-6 col-lg-6">
                                 <div class="card shadow mb-5"  style="background-color: LightGray;">
                                     <div class="card-header">
-                                        <center><h5 style="color:blue;"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;<b>INFORMACIÓN</b>&nbsp;<!--a href="#detalles" type="button" data-toggle="modal">Detalles</a></h5></center-->
+                                        <center><h5 style="color:blue;"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;<b>INFORMACIÓN</b>&nbsp;</h5></center><!--a href="#detalles" type="button" data-toggle="modal">Detalles</a></h5></center-->
                                     </div>
                                     <div class="card-body" style=" color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
                                         <input type="hidden" name="money" id="money" value="">
                                         <input type="hidden" name="vouch" id="vouch" value="">
-                                        <table class="table table-responsive" style="color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
+                                        <table class="table table-responsive" style="color:black;">
                                             <tbody id="informacion">
-                                                
+                                            <tr>
+                                                <td>
+                                                    
+                                                    <div class="form-group">
+                                                        <h5><i class="fa fa-fax" aria-hidden="true"></i>&nbsp;Fondo de Caja:</h5>
+                                                        <?php foreach($Turno as $t):?>
+                                                            <input type="text" class="form-control" name="cierre" id="cierre" value="<?php echo '$'.$t->fondoCaja?>" style="background : inherit; border:none; color:black;" disabled>
+                                                        <?php endforeach?>
+                                                    </div>
+                                                   
+                                                </td>
+                                            </tr>
+                                            <tr id="paraBoton">
+                                                <td>
+                                                    <div class="alert alert-danger" role="alert" id="modalCerr" style="display:none;">
+                                                        <p id="mensaje"></p>
+                                                    </div>
+                                                    <div class="alert alert-success" role="alert" id="alertaCorrecta" style="display:none;">
+                                                        <p id="mensaje2"></p>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -217,6 +241,7 @@ if(!isset($_SESSION['Usuario'])) {
                             </div>
                         </div>
                     </div>
+
     <!----------------------------------------------------------------- MODAL DETALLES ------------------------------------------------------>
                     <div class="modal fade" id="detalles" style="color:black;">
                         <div class="modal-dialog modal-xl">
@@ -258,8 +283,38 @@ if(!isset($_SESSION['Usuario'])) {
                 </div>
             </div>
 
+            <!--**********************************Modal forzar Cierre *********************************-->
+            <div class="modal fade" id="forzar_Cierre">
+                        <div class="modal-dialog" >
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-image: radial-gradient(circle at 84.09% 90.63%, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);">
+                                    <center><h6 class="modal-title" style="color:white;">Forzar Cierre de Caja</h6></center>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="forzarC">
+                                    <!--input type="hidden" name="idv" id="idv" value="<?php echo $_GET["idv"]?>"-->
+                                        <div class="form-group">
+                                            <h7><b>Usuario:</b></h7>&nbsp;
+                                            <input type="text" name="usuarioFC" id="usuarioFC" required class="form-control" placeholder="Ingresa el Usuario">
+                                        </div>
+                                        <div class="form-group">
+                                            <h7><b>Contraseña:</b></h7>
+                                            <input type="password" name="contraseñaFC" id="contraseñaFC" class="form-control" placeholder="Ingresa tu contraseña">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cancelarDev" id="cancelarDev" value=""><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar</button>
+                                            <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="FC" id="FC" value="">Cerrar Caja</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--**********************************Modal Forzar Cierre*********************************-->
             <!--***************************************** Alertas *************************************************-->
-            <div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
+            <!--div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="row no-gutters fixed-center">
                         <div class="alert alert-danger fade show" role="alert">
@@ -271,9 +326,9 @@ if(!isset($_SESSION['Usuario'])) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div-->
 
-            <div class="modal fade" id="alertaCorrecta" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
+            <!--div class="modal fade" id="alertaCorrecta" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="row no-gutters fixed-center">
                         <div class="alert alert-success fade show" role="alert">
@@ -285,7 +340,7 @@ if(!isset($_SESSION['Usuario'])) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div-->
 
 <!--***************************************** Alertas *************************************************-->
         </div>

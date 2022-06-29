@@ -5,6 +5,7 @@ let metros = [];
 let prec = [];
 let precios = [];
 let preciosC = [];
+let promocionesCreditos=[];
 var acumulador = 0;
 var total;
 let indices = [];
@@ -48,6 +49,12 @@ let indices = [];
     $(document).on('click', '#agregarFajilla', function(){
         var fI = $('#folioI').val();
         var fF = $('#folioF').val();
+        var evento = $('#e').val();
+        var zona = $('#z').val();
+        var taquilla = $('#t').val();
+        var ventanilla = $('#v').val();
+        var usuario = $('#u').val();
+        var idventanilla = $('#idv').val();
 
         if(fI < fF){
             $.ajax({
@@ -76,9 +83,16 @@ let indices = [];
                         $("#mensaje").html(MENSAJE);
                         $('#staticBackdrop').modal('show');
                     }else{
-                        MENSAJE = "Agregado correctamente";
-                        $("#mensaje").html(MENSAJE);
+                        MENSAJE2 = "Agregado correctamente";
+                        $("#mensaje2").html(MENSAJE2);
                         $('#alertaCorrecta').modal('show');
+                        var idvn = parseFloat(ventanilla) + 1;
+                        console.log(idvn);
+                        // ventanilla +1;
+                        location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&v="+idvn+"&u="+usuario+"&idv="+idventanilla;
+
+                        //http://localhost/Espectaculares_Garcia/public/ModuloCobro?e=1&z=1&t=1&v=122&u=2&idv=1
+
                         //alert('Si puede agregar');
                     }
                 // cierra_carg();
@@ -93,9 +107,10 @@ let indices = [];
 
 /********************************** Tipo Pago*********************************/
     $(document).on('click', '.pagoEfectivo', function(){
-        $("#modal_Efectivo .modal-body #efect").html('');
+        //$("#modal_Efectivo .modal-body #efect").html('');
         var total = $('#total').val();
-        var tipo = $(this).val();
+        var tipo = $(this).attr("data-id");
+        //var tipo = $(this).val();
         $("#cobrarTransaccion").val(tipo);
         //alert(tipo);
         $.ajax({
@@ -115,7 +130,7 @@ let indices = [];
                 var optionSelectBanco='';
                 for(var i = 0;i <data.msj.Tipo.length; i++){
                     if(data.msj.Tipo[i]["idFormasPago"] == 1){
-                        html +=' <tr>'+
+                        html +=/*'<tr>'+
                                     '<td colspan="5" style="border: none;">'+
                                         '<div class="input-group">'+
                                             '<div class="col-xs-2 col-sm-4">'+
@@ -126,30 +141,37 @@ let indices = [];
                                             '</div>'+
                                         '</div><br>'+
                                     '</td>'+
+                                '</tr>'+*/
+                                //'<tr>'+ '<td colspan="5" style="background-image: radial-gradient(circle at 84.09% 90.63%, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b><h5>EFECTIVO</h5></b></td>'+'</tr>'+
+                                '<tr>'+
+                                    '<td colspan="5" style="border: none;">'+
+                                        '<div class="form-group">'+
+                                            '<center><h6><b>EFECTIVO</b></h6></center><hr>'+
+                                        '</div>'+
+                                    '</td>'+
                                 '</tr>'+
                                 '<tr>'+
-                                    '<td style="border: none;"><button class="btn btn-warning val" name="centavos" id="centavos" value=".50" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ .50</b></button></td>'+
-                                    '<td style="border: none;"><button class="btn btn-warning val" name="uno" id="uno" value="1" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 1</b></button></td>'+
-                                    '<td style="border: none;"><button class="btn btn-warning val" name="dos" id="dos" value="2" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 2</b></button></td>'+
-                                    '<td style="border: none;"><button class="btn btn-warning val" name="cinco" id="cinco" value="5" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 5</b></button></td>'+
-                                    '<td style="border: none;"><button class="btn btn-warning val" name="diez" id="diez" value="10" style="width:70px; height:70px; margin:5px;background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);" ><b>$ 10</b></button></td>'+
+                                    '<td style="border: none;"><button type="button" class="btn btn-warning val" name="centavos" id="centavos" value=".50" style="width:70px; height:50px; margin:2px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$.50</b></button></td>'+
+                                    '<td style="border: none;"><button type="button" class="btn btn-warning val" name="uno" id="uno" value="1" style="width:70px; height:50px; margin:2px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$1</b></button></td>'+
+                                    '<td style="border: none;"><button type="button" class="btn btn-warning val" name="dos" id="dos" value="2" style="width:70px; height:50px; margin:2px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$2</b></button></td>'+
+                                    '<td style="border: none;"><button type="button" class="btn btn-warning val" name="cinco" id="cinco" value="5" style="width:70px; height:50px; margin:2px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$5</b></button></td>'+
+                                    '<td style="border: none;"><button type="button" class="btn btn-warning val" name="diez" id="diez" value="10" style="width:70px; height:50px; margin:2px;background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);" ><b>$10</b></button></td>'+
                                 '</tr>'+
                                 '<tr>'+
-                                    '<td><button class="btn btn-success val" name="veinte" id="veinte" value="20" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 20</b></button></td>'+
-                                    '<td><button class="btn btn-success val" name="cincuenta" id="cincuenta" value="50" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 50</b></button></td>'+
-                                    '<td><button class="btn btn-success val" name="cien" id="cien" value="100" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 100</b></button></td>'+
-                                    '<td><button class="btn btn-success val" name="dosc" id="dosc" value="200" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 200</b></button></td>'+
-                                    '<td><button class="btn btn-success val" name="quin" id="quin" value="500" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 500</b></button></td>'+
+                                    '<td><button type="button" class="btn btn-success val" name="veinte" id="veinte" value="20" style="width:70px; height:50px; margin:2px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$20</b></button></td>'+
+                                    '<td><button type="button" class="btn btn-success val" name="cincuenta" id="cincuenta" value="50" style="width:70px; height:50px; margin:2px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$50</b></button></td>'+
+                                    '<td><button type="button" class="btn btn-success val" name="cien" id="cien" value="100" style="width:70px; height:50px; margin:2px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$100</b></button></td>'+
+                                    '<td><button type="button" class="btn btn-success val" name="dosc" id="dosc" value="200" style="width:70px; height:50px; margin:2px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$200</b></button></td>'+
+                                    '<td><button type="button" class="btn btn-success val" name="quin" id="quin" value="500" style="width:70px; height:50px; margin:2px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$500</b></button></td>'+
                                 '</tr>'+
                                 '<tr>'+
-                                    '<td><button class="btn btn-success" name="mil" id="mil" value="1000" style="width:70px; height:70px; margin:5px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$ 1000</b></button></td>'+
+                                    '<td><button type="button" class="btn btn-success" name="mil" id="mil" value="1000" style="width:80px; height:50px; margin:2px; background-image: linear-gradient(15deg, #b38af8 0, #8b6ee3 25%, #5b50cc 50%, #0435b5 75%, #0021a1 100%);"><b>$1000</b></button></td>'+
                                     '<td colspan="3" style="border: none;">'+
                                         '<center><h6><b>EFECTIVO:</b></h6></center>'+
                                         '<input type="number" class="form-control" min="0" id="efectivo" name="efectivo" value="">'+
-                                    '</td>'+'<td><button class="btn btn-danger borrar" name="borrar" id="borrar" value="" style="width:70px; height:70px; margin:5px;"><i class="fa fa-eraser" aria-hidden="true"></i></button></td>'+
+                                    '</td>'+'<td><button type="button" class="btn btn-danger borrar" name="borrar" id="borrar" value="" style="width:70px; height:50px; margin:2px;"><i class="fa fa-eraser" aria-hidden="true"></i></button></td>'+
                                 '</tr>';
-                    }
-                    if(data.msj.Tipo[i]["idFormasPago"] == 2){
+                    }else if(data.msj.Tipo[i]["idFormasPago"] == 2){
 
                         var comision = (total * data.msj.Tipo[i]["PorcentajeCosto"]);
                         var TotalConPorcentaje = (parseFloat(comision) + parseFloat(total));
@@ -161,11 +183,11 @@ let indices = [];
                         html +='<tr>'+
                                     '<td style="border: none;">'+
                                         '<div class="form-group">'+
-                                            '<center><h6><b>TARJETA</b></h6></center><hr>'+
-                                            '<div class="input-group">'+
+                                            '<center><h6><b>TARJETA DE DÉBITO</b></h6></center>'+
+                                            /*'<div class="input-group">'+
                                                 '<input type="radio" name="ttarjeta" id="ttarjeta" value="Tarjeta de Crédito" style="height: 20px; width: 20px;">Tarjeta de Crédito &nbsp;&nbsp;'+
                                                 '<input type="radio" name="ttarjeta" id="ttarjeta" value="Tarjeta de Débito" style="height: 20px; width: 20px;">Tarjeta de Débitos'+
-                                            '</div>'+
+                                            '</div>'+*/
                                         '</div>'+
                                     '</td>'+
                                 '</tr>'+
@@ -179,37 +201,93 @@ let indices = [];
                                 '</tr>'+
                                 '<tr>'+
                                     '<td>'+
-                                        '<div class="input-group">'+
+                                        //'<div class="input-group">'+
                                             '<div class="form-group">'+
-                                                '<center><h6><b>MONTO TOTAL</b></h6></center>'+
+                                                '<center><h6><b>Monto Total:</b></h6></center>'+
                                                 '<input type="number" min="0" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" value="'+total+'" required>'+
                                             '</div>'+
                                             '<div class="form-group">'+
-                                                '<center><h6><b>TOTAL CON COMISION</b></h6></center>'+
+                                                '<center><h6><b>Total con Comisión</b></h6></center>'+
                                                 '<input type="number" min="0" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="mtarjeta" id="mtarjeta" value="'+TotalConPorcentaje+'" required>'+
                                             '</div>'+
+                                        //'</div>'+
+                                    '</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td>'+
+                                        //'<div class="input-group">'+
+                                            '<div class="form-group">'+
+                                                '<center><h7><b>Ingresa los 4 últimos digitos de la tarjeta</b></h7></center>'+
+                                                '<input type="number" min="4" max="4" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="dtarjeta" id="dtarjeta" value="" required>'+
+                                            '</div>'+
+                                            //'<span class="input-group-addon">&nbsp;&nbsp;  &nbsp;&nbsp;</span>'+
+                                            '<div class="form-group">'+
+                                                '<center><h6><b>Ingresa los digitos de aprovación</b></h6></center>'+
+                                                '<input type="number" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="naprov" id="naprov" value="" required>'+
+                                            '</div>'+   
+                                        //'</div>'+   
+                                    '</td>'+
+                                '</tr>';
+                    }else{
+                        var comision = (total * data.msj.Tipo[i]["PorcentajeCosto"]);
+                        var TotalConPorcentaje = (parseFloat(comision) + parseFloat(total));
+
+                        for(var i= 0; i < data.msj.Bancos.length; i ++){
+                            optionSelectBanco += '<option value="'+data.msj.Bancos[i]['idBanco']+'">'+data.msj.Bancos[i]['Banco']+'</option>';
+                        }
+
+                        html +='<tr>'+
+                                    '<td style="border: none;">'+
+                                        '<div class="form-group">'+
+                                            '<center><h6><b>TARJETA DE CRÉDITO</b></h6></center>'+
+                                            /*'<div class="input-group">'+
+                                                '<input type="radio" name="ttarjeta" id="ttarjeta" value="Tarjeta de Crédito" style="height: 20px; width: 20px;">Tarjeta de Crédito &nbsp;&nbsp;'+
+                                                '<input type="radio" name="ttarjeta" id="ttarjeta" value="Tarjeta de Débito" style="height: 20px; width: 20px;">Tarjeta de Débitos'+
+                                            '</div>'+*/
                                         '</div>'+
                                     '</td>'+
                                 '</tr>'+
                                 '<tr>'+
                                     '<td>'+
-                                        '<div class="input-group">'+
+                                        '<div class="form-group">'+
+                                            '<center><h6><b>BANCO</b></h6></center>'+
+                                                '<select class="form-control bancoSelec" name="bancoSelec" id="bancoSelec">'+optionSelectBanco+'</select>'+
+                                        '</div>'+
+                                    '</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td>'+
+                                        //'<div class="input-group">'+
                                             '<div class="form-group">'+
-                                                '<center><h6><b>INGRESA LOS 4 ÚLTIMOS <br> DIGITOS DE LA TARJETA</b></h6></center>'+
+                                                '<center><h6><b>Monto Total:</b></h6></center>'+
+                                                '<input type="number" min="0" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" value="'+total+'" required>'+
+                                            '</div>'+
+                                            '<div class="form-group">'+
+                                                '<center><h6><b>Total con Comisión</b></h6></center>'+
+                                                '<input type="number" min="0" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="mtarjeta" id="mtarjeta" value="'+TotalConPorcentaje+'" required>'+
+                                            '</div>'+
+                                        //'</div>'+
+                                    '</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td>'+
+                                        //'<div class="input-group">'+
+                                            '<div class="form-group">'+
+                                                '<center><h7><b>Ingresa los 4 últimos digitos de la tarjeta</b></h7></center>'+
                                                 '<input type="number" min="4" max="4" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="dtarjeta" id="dtarjeta" value="" required>'+
                                             '</div>'+
                                             //'<span class="input-group-addon">&nbsp;&nbsp;  &nbsp;&nbsp;</span>'+
                                             '<div class="form-group">'+
-                                                '<center><h6><b>INGRESA LOS DIGITOS <br> DE APROVACIÓN </b></h6></center>'+
+                                                '<center><h6><b>Ingresa los digitos de aprovación</b></h6></center>'+
                                                 '<input type="number" onkeypress="return(event.charCode >= 48 && event.charCode <= 57)" class="form-control" name="naprov" id="naprov" value="" required>'+
                                             '</div>'+   
-                                        '</div>'+   
+                                        //'</div>'+   
                                     '</td>'+
                                 '</tr>';
                     }
                 }
                 modalCerrar();
-                $("#modal_Efectivo .modal-body #efect").html(html);
+                $("#modalCob .modal-body #efect").html(html);
             });
     });
 /********************************** Tipo Pago*********************************/
@@ -251,14 +329,12 @@ let indices = [];
                     $('#alertaCorrecta').modal('show');
                     cobrarCompra();
                     setInterval(function() {cache_clear()}, 2000);
-                    //location.reload();
                 }else if(totalIngresado == totalCobrar){
                     MENSAJE2 = "Gracias por su compra";
                     $("#mensaje2").html(MENSAJE2);
                     $('#alertaCorrecta').modal('show');
                     cobrarCompra();
                     setInterval(function() {cache_clear()}, 2000);
-                    //location.reload();
                 }else if(totalIngresado < totalCobrar){
                     MENSAJE = "DINERO INSUFICIENTE";
                     $("#mensaje").html(MENSAJE);
@@ -266,7 +342,35 @@ let indices = [];
                     $('#efectivo').val('');
                     //(function() {cache_clear()}, 2000);
                 }
-            }else {//if(tipo == 2){
+            }else if(tipo == 2){//tarjeta de debito
+                console.log('soy tipo'+tipo);
+
+                var totalCobrar = $('#total').val();
+                var totalIngresado = $('#mtarjeta').val();
+                
+                console.log('soy totalCobrar'+totalCobrar);
+                console.log('soy totalIngresado'+totalIngresado);
+
+                if(totalIngresado < totalCobrar){
+
+                    MENSAJE = "Verifica el monto";
+                    $("#mensaje").html(MENSAJE);
+                    $('#staticBackdrop').modal('show');
+                    setInterval(function() {cache_clear()}, 2000);
+                    //location.reload();
+                    
+                }else{ //if(totalIngresado == totalCobrar){
+
+                    MENSAJE2 = "Gracias por su compra";
+                    $("#mensaje2").html(MENSAJE2);
+                    $('#alertaCorrecta').modal('show');
+
+                    cobrarCompra();
+                    setInterval(function() {cache_clear()}, 2000);
+                    //location.reload();
+                }
+            }else{
+                //tipo 3: tarjeta de crédito
                 console.log('soy tipo'+tipo);
 
                 var totalCobrar = $('#total').val();
@@ -316,6 +420,7 @@ let indices = [];
         var folioTarjeta = $(this).val();//folio de tarjeta
         var v = $('#ventanillaa').val();
         var e = $('#evento').val();
+        var html='';
 
         $.ajax({
             beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
@@ -345,7 +450,13 @@ let indices = [];
                             //alert('Indices' + indices);
                             $('#indice').val(indices);
                             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
-                            $('#precioT').val(data.msj[i]['PrecioTarjeta']);
+
+                            html +='<tr>'+
+                                        '<td style="padding:0px;"><input type="number" id="tarjeta" name="tarjeta" value="" style="background: inherit; border:none; text-align:center;" disabled>'+folioTarjeta+'</td>'+
+                                        '<td style="padding:0px;"><input type="number" class="precioT monto" id="precioT" class="monto" name="precioT" value="" style="background : inherit; border:none; text-align:center;" disabled>'+data.msj[i]['PrecioTarjeta']+'</td>'+
+                                        '<td style="padding:0px;"><button type="button" id="eliminarTarjeta" class="btn btn-danger eliminarTarjeta" value="'+data.msj[i]["idTarjeta"]+'"><i class="fa fa-trash" aria-hidden="true"></i></button></td>'+
+                                    '</tr>';
+                            //$('#precioT').val(data.msj[i]['PrecioTarjeta']);
                             $('#precioTa').val(data.msj[i]['PrecioTarjeta']);
                             sumar();
                         }else{
@@ -354,8 +465,16 @@ let indices = [];
                             //alert('Indices' + indices);
                             $('#indice').val(indices);
                             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
+                            
+                            html +='<tr>'+
+                                        '<td style="padding:0px;"><input type="number" id="tarjeta" name="tarjeta" value="" style="background: inherit; border:none; text-align:center;" disabled>'+folioTarjeta+'</td>'+
+                                        '<td><label></label></td>'+
+                                        '<td style="padding:0px;"><button type="button" id="eliminarTarjeta" class="btn btn-danger eliminarTarjeta" value="'+data.msj[i]["idTarjeta"]+'"><i class="fa fa-trash" aria-hidden="true"></i></button></td>'+
+                                    '</tr>';
+
                             $('#idTarjeta').val(data.msj[i]['idTarjeta']);
                         }
+                        $('#productos').append(html);
                     }
                     modalCerrar();
                 }else{
@@ -371,6 +490,42 @@ let indices = [];
             });
     });
 /********************************** Detectar Tarjeta *********************************/
+
+/********************************** Eliminar Tarjeta *********************************/
+    $(document).on('click', '#eliminarTarjeta', function(){
+
+        var ind = $('#indice').val();
+
+        if(ind == 1){
+            /***************** Elimina el indice que especifica que es promoP en el array principal(indice) ****************/
+            var arreglo = $('#indice').val();//trae el valor del array de promociones pulsera;
+            let arr3 = arreglo.split(',');
+            let pos3 = arr3.indexOf('1') // (pos) es la posición para abreviar
+            let elementoEliminado3 = arr3.splice(pos3, 1);
+            $('#indice').val(arr3);
+            console.log($('#idTarjeta').val());
+            $('#idTarjeta').val('');
+            $('#precioTa').val('');
+            $(this).parent().parent().remove();
+            $('#tarjetaAdd').val('');
+            //location.reload();
+        }else{
+            /***************** Elimina el indice que especifica que es promoP en el array principal(indice) ****************/
+            var arreglo = $('#indice').val();//trae el valor del array de promociones pulsera;
+            let arr3 = arreglo.split(',');
+            let pos3 = arr3.indexOf('0') // (pos) es la posición para abreviar
+            let elementoEliminado3 = arr3.splice(pos3, 1);
+            $('#indice').val(arr3);
+            console.log($('#idTarjeta').val());
+            $('#idTarjeta').val('');
+            $('#precioTa').val('');
+            $(this).parent().parent().remove();
+            $('#tarjetaAdd').val('');
+            //location.reload();
+        }
+       // setInterval(function() {cache_clear()}, 1000);*/
+    });
+/********************************** Eliminar Tarjeta *********************************/
 
 /********************************** Detectar Recarga *********************************/
     $('#recargaAdd').change(function () {
@@ -435,6 +590,7 @@ let indices = [];
             $('#indice').val(indices);
             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
 
+            var idp = $(this).attr('value');
             metros.push($(this).attr('value'));
 
             $('#arregloP').val(metros);
@@ -459,14 +615,12 @@ let indices = [];
                                     '<td style="padding:0px;" id="'+data.msj[i]['Precio']+'"><input type="number" class="precioP monto" name="precioP" id="precioP" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value="'+data.msj[i]['Precio']+'"></td>'+
                                     '<td style="padding:0px;"></td>'+
                                     '<td style="padding:0px;"><button type="button" id="eliminarPromoP" class="btn btn-danger eliminarPromoP" value="'+data.msj[i]["idFechaPulseraMagica"]+'"><i class="fa fa-trash" aria-hidden="true"></i></button></td>'+
-                                    //'<td style="padding:0px;"><input type="button" id="eliminarPromoP" class="eliminarPromoP" value="'+data.msj[i]["idFechaPulseraMagica"]+'"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></td>'+
-                                    //'<td style="padding:0px;"><a href="#eliminarPromoP'+data.msj[i]['idFechaPulseraMagica']+'" class="eliminar" data-toggle="modal"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></a></td>'+
                                 '</tr>';
                     $("#productos").append(html);
-                    prec.push(data.msj[i]['Precio']);
+                    prec.push({'promo':idp, 'precio':data.msj[i]['Precio']});
                 }    
                 sumar();
-                $('#arregloPrecioP').val(prec);
+                $('#arregloPrecioP').val(JSON.stringify(prec));
                 modalCerrar();
             });
         }
@@ -475,50 +629,38 @@ let indices = [];
 
 /********************************** Eliminar Promociones de Pulsera Magica ********************************/
     $(document).on('click', '.eliminarPromoP', function(event){
-        var array = $('#arregloP').val();//trae el valor del array de promociones pulsera;
+        $(this).parent().parent().remove();
+        var valoraBorrar = $(this).val();//trae el valor a eliminar
+        console.log(valoraBorrar);
+        var idBloque = $(this).parents('tr').attr('id');
+        console.log(idBloque);
+        prec.forEach(function(data,index){
+            if(valoraBorrar === data.promo && idBloque === data.promo){
+                prec.splice(index,1);
+                console.log(prec);
+                $('#arregloPrecioP').val(JSON.stringify(prec));
+            }
+        });
+
+        /*var array = $('#arregloP').val();//trae el valor del array de promociones pulsera;
         let arr = array.split(',');
         var toRemove = $(this).val();//trae el valor a eliminar
         let pos = arr.indexOf(toRemove.toString()) // (pos) es la posición para abreviar
         let elementoEliminado = arr.splice(pos, 1)
-        /*console.log(elementoEliminado);
-        console.log(pos);
-        console.log(arr);*/
         $(this).parent().parent().remove();
         $('#arregloP').val(arr);//actualizamos el valor del input
-
-
-        /*let pos2 = arr2.indexOf(toRemove2.toString()) // (pos) es la posición para abreviar
-        let elementoEliminado2 = arr2.splice(pos2, 1)
-        console.log(elementoEliminado2);
-        console.log(pos2);
-        console.log(arr2);
-        $(this).parent().parent().remove();
-        $('#arregloPrecioP').val(arr2);*/
-
-        /*var data = $('#arregloP').val();//trae el valor del array de promociones pulsera
-        var toRemove = $(this).val();//trae el valor a eliminar
-        let arr = data.split(',');//divide la cadena de texto para regresarla como array
-        arr = arr.filter(function(item){
-            return item !== toRemove;//quita el valor a eliminar si existe en el array
-        });
-        $(this).parent().parent().remove();//eliminar las promos registradas como compra en caso de cancelar
-        $('#arregloP').val(arr);//actualizamos el valor del input*/
-
+*/
         /***************** Elimina el indice que especifica que es promoP en el array principal(indice) ****************/
         var arreglo = $('#indice').val();//trae el valor del array de promociones pulsera;
         let arr3 = arreglo.split(',');
         let pos3 = arr3.indexOf('3') // (pos) es la posición para abreviar
-        let elementoEliminado3 = arr3.splice(pos3, 1)
-        /*console.log(elementoEliminado3);
-        console.log(pos3);
-        console.log(arr3);*/
+        let elementoEliminado3 = arr3.splice(pos3, 1);
         $('#indice').val(arr3);
     });
 /********************************** Eliminar Promociones de Pulsera Magica ********************************/
 
 /********************************** Agregar Promociones de Creditos de Cortesia*********************************/
     $(document).on('click', '.creditosC', function(event){
-        var fecha = '<?php echo $fecha;?>';
         var tarjeta = $('#tarjetaAdd').val();
         if(tarjeta == ''){
             MENSAJE = "Ingresa la tarjeta por favor";
@@ -527,11 +669,11 @@ let indices = [];
         }else{
             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
             indices.push('4');//promo de creditos
-            //alert('Indices' + indices);
             $('#indice').val(indices);
             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
-            creditosC.push($(this).attr('value'));
-            $('#arregloC').val(creditosC);
+            var idpromoCredit = $(this).attr('value');
+            //creditosC.push($(this).attr('value'));
+            //$('#arregloC').val(creditosC);
             var promocionc = $(this).val();
             $.ajax({
                 beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
@@ -553,14 +695,13 @@ let indices = [];
                                     '<td style="padding:0px;"><input type="number" name="precioC" id="precioC" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value='+data.msj[i]['Precio']+'></td>'+
                                     '<td style="padding:0px;"></td>'+
                                     '<td style="padding:0px;"><button type="button" id="eliminarPromoC" class="btn btn-danger eliminarPromoC" value="'+data.msj[i]["idFechaCreditosCortesia"]+'"><i class="fa fa-trash" aria-hidden="true"></i></button>'+
-                                    //'<td style="padding:0px;"><a href="#eliminarPromo'+data.msj[i]['idFechaCreditosCortesia']+'" class="eliminar" data-toggle="modal"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></a></td>'+
                                 '</tr>';
+                    promocionesCreditos.push({'idpromo':idpromoCredit, 'precioC':data.msj[i]['Precio']});
+                    console.log(promocionesCreditos);
                 }
                 $("#productos").append(html);
                 sumar();
-                var prec = $('#precioC').val();
-                preciosC.push(prec);
-                $('#arregloPrecioC').val(preciosC);
+                $('#arregloPrecioC').val(JSON.stringify(promocionesCreditos));
                 modalCerrar();
             });
         }
@@ -600,7 +741,6 @@ let indices = [];
 /********************************** Datos Formulario para Cobrar*********************************/
     //datos formulario para cobrar
     function cobrarCompra(){
-        var tipoT = $('#ttarjeta').val();
         var select = $('select').val();
         var mtarjeta = $('#mtarjeta').val();
         var dtarjeta = $('#dtarjeta').val();
@@ -621,15 +761,38 @@ let indices = [];
                 },
                 type: "POST",
                 url: "guardarVentas",
-                data: $('#formPuntoVenta').serialize() + '&tipo=' + tipo + '&tipoT=' + tipoT + '&select=' + select + '&mtarjeta=' + mtarjeta + '&dtarjeta=' + dtarjeta + '&naprov=' + naprov ,
+                data: $('#formPuntoVenta').serialize() + '&tipo=' + tipo + '&select=' + select + '&mtarjeta=' + mtarjeta + '&dtarjeta=' + dtarjeta + '&naprov=' + naprov ,
                 dataType: "JSON",
                 error(jqXHR, textStatus, errorThrown){
                     alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
                     modalCerrar();
                 },
             }).done(function(data){
-                console.log('Si llego');
-                console.log(data.msj);
+                    if(data.msj){
+                        console.log('Si llego');
+                        var transaccion = data.valor;
+                        //<a class="nav-link navbar-brand" href="Ticket" target="_blank">Imprimir Ticket</a>
+                        url = "Ticket?transaccion="+transaccion;
+                        window.open(url, '_blank');
+                        //window.location.href = "Ticket?transaccion="+transaccion;
+
+                        /*$.ajax({
+                            beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                                modal();//funcion que abre la ventana de carga
+                            },
+                            type: "POST",
+                            url: "Ticket",
+                            data: {'transaccion': transaccion},
+                            dataType: "JSON",
+                            error(jqXHR, textStatus, errorThrown){
+                                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+                                modalCerrar();
+                            },
+                        }).done(function(data){
+                            console.log(data);
+                        });*/
+                        
+                    }
                 modalCerrar();
             });
         }
@@ -674,7 +837,7 @@ let indices = [];
             }
         });
         $('#total').val(total);
-        $('#total2').val(total);
+        //$('#total2').val(total);
     }
 
     //sumar creditos
@@ -714,6 +877,7 @@ let indices = [];
         document.form_reloj.reloj.value = horaImprimible
         setTimeout("mueveReloj()",1000);
         $('#fecha').val(horaImprimible);
+        $('#fechas').val(horaImprimible);
     }
 /*************************************** FECHA Y HORA************************** */
 

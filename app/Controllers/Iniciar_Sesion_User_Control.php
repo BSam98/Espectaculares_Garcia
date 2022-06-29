@@ -90,8 +90,6 @@ class Iniciar_Sesion_User_Control extends BaseController {
         //echo view('../Views/piePagina.php');
     }
 
-
-
     public function valida(){
         session_start([
             'use_only_cookies' => 1,
