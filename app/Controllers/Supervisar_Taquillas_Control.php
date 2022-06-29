@@ -35,6 +35,26 @@ class Supervisar_Taquillas_Control extends BaseController{
         );
     }
 
+    public function transacciones_Taquillero(){
+        $model = new Supervisar_Taquillas_Model();
+
+        $idAperturaVentanilla  = $_POST['idAperturaVentanilla'];
+
+        $respuesta = $model->transacciones_Taquillero($idAperturaVentanilla);
+
+        echo json_encode(array('respuesta'=>true,'transacciones'=>$respuesta));
+    }
+
+    public function descripcion_Transaccion(){
+        $model = new Supervisar_Taquillas_Model();
+
+        $idTransaccion = $_POST['idTransaccion'];
+
+        $respuesta = $model->descripcion_Transaccion($idTransaccion);
+
+        echo json_encode(array('respuesta'=>true,'pagos'=>$respuesta));
+    }
+
     public function ventanillas_Inactivas(){
         $model = new Supervisar_Taquillas_Model();
 

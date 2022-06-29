@@ -10,7 +10,6 @@ function cerra_Contenedor_Realizar_Cierre() {
     div.style.display = '';
     prin = document.getElementById('contenedor_Realizar_Cierre');
     prin.style.display = 'none';
-
 }
 
 
@@ -126,9 +125,7 @@ $(document).ready(function(){
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_1[i]['Nombre']+' '+data.ventanillas_Inactivas_1[i]['Apellidos'] +'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_1[i]['Efectivo']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_1[i]['Boucher']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_1[i]['Cantidad']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_1[i]['horaApertura']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_1[i]['horaCierre']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+
                         '<table>'+
                             '<tbody style="vertical-aligrn: middel;">'+
@@ -170,7 +167,6 @@ $(document).ready(function(){
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_2[i]['Boucher']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_2[i]['Cantidad']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_2[i]['horaApertura']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas_Inactivas_2[i]['horaCierre']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+
                         '<table>'+
                             '<tbody style="vertical-aligrn: middel;">'+
@@ -398,7 +394,6 @@ $(document).on('click','.ventanilla_Activa_Sin_Transacciones', function(){
     iniciarCarga();
     var idAperturaVentanilla = $(this).data('book-id');
 
-    alert(idAperturaVentanilla['idAperturaVentanilla']);
 
     $.ajax({
         type:'POST',
@@ -416,15 +411,16 @@ $(document).on('click','.ventanilla_Activa_Sin_Transacciones', function(){
     });
 });
 
+//
 $(document).on('click', '.ventanilla_Activa_Con_Transacciones', function(){
     iniciarCarga();
     var idAperturaVentanilla =$(this).data('book-id');
-
-    alert('id: ' + idAperturaVentanilla['idAperturaVentanilla']);
+    var total_Efectivo = '', total_Tarjeta = '';
+    var html = '', html_Pie='';
 
     $.ajax({
         type:'POST',
-        url:'',
+        url:'Supervisar_Taquillas/Transacciones',
         data:{'idAperturaVentanilla':idAperturaVentanilla['idAperturaVentanilla']},
         dataType:'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
@@ -433,7 +429,22 @@ $(document).on('click', '.ventanilla_Activa_Con_Transacciones', function(){
         },
     }).done(function(data){
         if(data.respuesta){
+            for(var i=0;i<data.transacciones.length;i++){
+                html +=
+                '<tr>'+
+                    '<td style="text-align: center; vertical-align: middle;">Transacción</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">'+data.transacciones[i]['Efectivo']+'</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">'+data.transacciones[i]['Tarjeta']+'</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">'+data.transacciones[i]['Fecha']+'</td>'+
+                    '<td style="text-align: center; vertical-align: middle;"><a  class="btn btn-outline-success descripcion_Transaccion" data-book-id='+"'{"+'"idTransaccion":'+data.transacciones[i]['idTransaccion']+"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
+                '</tr>';
+                total_Efectivo += data.transacciones[i]['Efectivo'];
+                total_Tarjeta += data.transacciones[i]['Tarjeta'];
+            }
         }
+        $("#pie_Informacion").html('<tr><td>Efectivo : '+total_Efectivo+'   Tarjeta: '+total_Tarjeta+'</td></tr>');
+        $("#informacion").html(html);
+
         cerrarCarga();
     });
 });
@@ -442,12 +453,11 @@ $(document).on('click','.ventanilla_Inactiva_Con_Transacciones', function(){
     iniciarCarga();
     var idAperturaVentanilla = $(this).data('book-id');
 
-    alert('id: ' + idAperturaVentanilla['idAperturaVentanilla']);
-
     $.ajax({
         type:'POST',
         url:'',
         data:{'idAperturaVentanilla':idAperturaVentanilla['idAperturaVentanilla']},
+        dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
             cerrarCarga();
@@ -462,12 +472,11 @@ $(document).on('click','.ventanilla_Inactiva_Con_Transacciones', function(){
 $(document).on('click','.ventanilla_Inactiva_Sin_Transacciones', function(){
     var idAperturaVentanilla =$(this).data('book-id');
 
-    alert('id: ' + idAperturaVentanilla['idAperturaVentanilla']);
-
     $.ajax({
         type:'POST',
         url:'',
         data:{'idAperturaVentanilla':idAperturaVentanilla['idAperturaVentanilla']},
+        dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
             cerrarCarga();
@@ -475,6 +484,45 @@ $(document).on('click','.ventanilla_Inactiva_Sin_Transacciones', function(){
     }).done(function(data){
         if(data.respuesta){
         }
+        cerrarCarga();
+    });
+});
+
+$(document).on('click','.descripcion_Transaccion', function(){
+    iniciarCarga();
+    var idTransaccion = $(this).data('book-id');
+    var html = '';
+
+    alert(idTransaccion['idTransaccion']);
+    $.ajax({
+        type:'POST',
+        url:'Supervisar_Taquillas/Descripcion_Transaccion',
+        data:{'idTransaccion':idTransaccion['idTransaccion']},
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        console.log(JSON.stringify(data));
+        if(data.respuesta){
+            for(var i=0;i<data.pagos.length;i++){
+                html +=
+                '<tr>'+
+                    '<td>'+
+                        '<label>Concepto: </label>'+
+                        '<br>'+
+                        '<label>'+data.pagos[i]['Nombre']+'</label>'+
+                        '<br>'+
+                        '<br>'+
+                        '<label>Monto: </label>'+
+                        '<br>'+
+                        '<label>'+data.pagos[i]['Monto']+'</label>'+
+                    '</td>'+
+                '</tr>';
+            }
+        }
+        $("#detalles").html(html);
         cerrarCarga();
     });
 });

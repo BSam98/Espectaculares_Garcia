@@ -19,7 +19,7 @@ class Supervisar_Taquillas_Model extends Model{
                 Usuarios.Apellidos,
                 Apertura_Ventanilla.horaApertura,
                 SUM(CASE WHEN Cobro.idFormasPago = 1 THEN Cobro.Monto ELSE 0 END) AS Efectivo,
-                SUM(CASE WHEN Cobro.idFormasPago = 2 THEN Cobro.Monto ELSE 0 END) AS Tarjeta
+                SUM(CASE WHEN Cobro.idFormasPago = 2 OR Cobro.idFormasPago = 3 THEN Cobro.Monto ELSE 0 END) AS Tarjeta
             FROM
                 Ventanilla
             INNER JOIN
@@ -259,6 +259,74 @@ class Supervisar_Taquillas_Model extends Model{
                 Apertura_Ventanilla.horaApertura,
                 Cierre_Ventanilla.horaCierre
                 ;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function transacciones_Taquillero($idAperturaVentanilla){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                SUM(CASE WHEN Cobro.idFormasPago = 1 THEN Cobro.Monto ELSE 0 END) AS Efectivo,
+                SUM(CASE WHEN Cobro.idFormasPago = 2  OR Cobro.idFormasPago = 3 THEN Cobro.Monto ELSE 0 END) AS Tarjeta,
+                Transaccion.Fecha,
+                Transaccion.idTransaccion
+            FROM 
+                Apertura_Ventanilla
+            INNER JOIN
+                Fajillas
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+            INNER JOIN
+                Transaccion
+            ON
+                Fajillas.idFajilla = Transaccion.idFajilla
+            INNER JOIN
+                Cobro
+            ON
+                Transaccion.idTransaccion = Cobro.idTransaccion
+            WHERE
+                Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+            GROUP BY
+                Transaccion.Fecha,
+                Transaccion.idTransaccion;"
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
+    public function descripcion_Transaccion($idTransaccion){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Pago.idPago,
+                Pago.Monto,
+                Tarjetas.Folio,
+                TipoVenta.Nombre
+            FROM
+                Transaccion
+            INNER JOIN
+                Pago
+            ON
+                Transaccion.idTransaccion = Pago.idTransaccion
+            INNER JOIN
+                TipoVenta
+            ON
+                Pago.idTipoVenta = TipoVenta.idTipoVenta
+            INNER JOIN 
+                Tarjetas
+            ON
+                Pago.idTarjeta = Tarjetas.idTarjeta
+            WHERE
+                Transaccion.idTransaccion = $idTransaccion;
             "
         );
 

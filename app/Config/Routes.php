@@ -88,6 +88,12 @@ $routes->post('/Supervisar_Taquillas/Ventanillas','Supervisar_Taquillas_Control:
 $routes->get('/Supervisar_Taquillas/Ventanillas_Inactivas','Supervisar_Taquillas_Control::ventanillas_Inactivas');
 $routes->post('/Supervisar_Taquillas/Ventanillas_Inactivas','Supervisar_Taquillas_Control::ventanillas_Inactivas');
 
+$routes->get('/Supervisar_Taquillas/Transacciones','Supervisar_Taquillas_Control::transacciones_Taquillero');
+$routes->post('/Supervisar_Taquillas/Transacciones','Supervisar_Taquillas_Control::transacciones_Taquillero');
+
+$routes->get('/Supervisar_Taquillas/Descripcion_Transaccion','Supervisar_Taquillas_Control::descripcion_Transaccion');
+$routes->post('/Supervisar_Taquillas/Descripcion_Transaccion','Supervisar_Taquillas_Control::descripcion_Transaccion');
+
 
 $routes->get('/Ingresos x Evento','Menu_Principal_Control::rEvento');
 

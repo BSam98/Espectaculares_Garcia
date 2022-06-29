@@ -59,7 +59,7 @@ class Taquillas_Model extends Model{
                 Taquilla.idTaquilla,
                 Taquilla.Nombre,
                 SUM(CASE WHEN Cobro.idFormasPago = 1 THEN Cobro.Monto ELSE 0 END) AS Efectivo,
-                SUM(CASE WHEN Cobro.idFormasPago = 2 THEN Cobro.Monto ELSE 0 END) AS Tarjeta
+                SUM(CASE WHEN Cobro.idFormasPago = 2 OR Cobro.idFormasPago = 3 THEN Cobro.Monto ELSE 0 END) AS Tarjeta
             FROM
                 Taquilla
             INNER JOIN
@@ -117,7 +117,7 @@ class Taquillas_Model extends Model{
                 Usuarios.Apellidos,
                 Apertura_Ventanilla.horaApertura,
                 SUM(CASE WHEN Cobro.idFormasPago = 1 THEN Cobro.Monto ELSE 0 END) AS Efectivo,
-                SUM(CASE WHEN Cobro.idFormasPago = 2 THEN Cobro.Monto ELSE 0 END) AS Tarjeta
+                SUM(CASE WHEN Cobro.idFormasPago = 2 OR Cobro.idFormasPago = 3 THEN Cobro.Monto ELSE 0 END) AS Tarjeta
             FROM
                 Ventanilla
             INNER JOIN

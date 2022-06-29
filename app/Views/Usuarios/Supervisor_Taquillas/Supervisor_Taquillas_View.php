@@ -115,10 +115,12 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                             h30.313v27.969c33.875,4.063,55.813,23.219,65.781,57.5l-41.75,17.125c-8.156-23.5-20.72-35.25-37.781-35.25
                                             c-8.563,0-15.438,2.625-20.594,7.875c-5.188,5.25-7.781,11.625-7.781,19.094c0,7.625,2.5,13.469,7.5,17.563
                                             c4.969,4.063,15.688,9.094,32.063,15.125c18,6.563,32.125,12.781,42.344,18.625C321.281,247.469,329.438,255.563,335.562,265.844z"
-                                            /></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>&nbsp;Precio</center></h6>
-                                <h6 scope="col" style="text-align: center; vertical-align: middle;"><svg id="Layer_1" style="width:30px; height:30px;" version="1.1" viewBox="0 0 30 30" xml:space="preserve"><style type="text/css"> .st0{fill:#FD6A7E;} .st1{fill:#17B978;} .st2{fill:#8797EE;} .st3{fill:#41A6F9;} .st4{fill:#37E0FF;}
-                                            .st5{fill:#2FD9B9;}.st6{fill:#F498BD;}.st7{fill:#FFDF1D;} .st8{fill:#C6C9CC;}</style><path class="st4" d="M24.9,24.1l-0.4-5c-0.4-4.5-2.8-7.5-6.5-10l1-6h-5l-0.8,1H11l0.6,3.2l4.4,0.6c0.4,0.1,0.6,0.4,0.6,0.7  c0,0.3-0.3,0.6-0.7,0.6l-4-0.1c-3.7,2.5-6.1,5.5-6.4,10l-0.4,5C4.5,24.3,4,24.8,4,25.5C4,26.3,4.7,27,5.5,27h19  c0.8,0,1.5-0.7,1.5-1.5C26,24.8,25.5,24.3,24.9,24.1z M11.4,17.6l2.2-0.3l1-2c0.2-0.3,0.6-0.3,0.8,0l1,2l2.2,0.3  c0.4,0.1,0.5,0.5,0.3,0.8L17.3,20l0.4,2.2c0.1,0.4-0.3,0.7-0.7,0.5l-2-1l-2,1c-0.3,0.2-0.7-0.1-0.7-0.5l0.4-2.2l-1.6-1.6  C10.9,18.1,11,17.7,11.4,17.6z"/></svg>Forma de pago</h6>
+                                            /></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>&nbsp;Efectivo</center></h6>
+                                <h6 scope="col" style="text-align: center; vertical-align: middle;"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;Tarjeta</h6>
                                 <h6 scope="col" style="text-align: center; vertical-align: middle;"><i class="fa fa-clock" aria-hidden="true"></i>&nbsp;Hora</h6>
+                                <h6 scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;</h6>
+                                <h6 scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;</h6>
+                                <!--<h6 scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;</h6>-->
                                 <h6 class="m-0 font-weight-bold text-primary"></h6>
                             </div>
                             <!-- Card Body -->
@@ -133,6 +135,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                     </table>
                                 </div>
                             </div>
+                            <div class="card-footer" id="pie_Informacion"></div>
                         </div>
                         <!--button type="button" id="cobrar" class="btn btn-success cobrar" data-toggle="modal" data-target="#modal_Cobrar">Cobrar</    button-->
                     </div>
