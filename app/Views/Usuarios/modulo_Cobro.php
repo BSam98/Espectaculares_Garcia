@@ -95,7 +95,6 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                                     &nbsp;Cerrar Caja&nbsp;<i class="fa fa-times btn btn-danger" aria-hidden="true"></i>
                                 </a>
                             </div>
-                            <a class="nav-link navbar-brand" href="Ticket" target="_blank">Imprimir Ticket</a>
                         </li>
                     </ul>
                 </nav>
@@ -108,9 +107,9 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                             <input type="hidden" name="ventanillaa" id="ventanillaa" value="<?php echo $_GET["v"]?>">
                             <input type="hidden" name="idventani" id="idventani" value="<?php echo $_GET["idv"]?>">
                             <input type="hidden" name="evento" id="evento" value="<?php echo $_GET["e"]?>">
-                            <input type="hidden" name="arregloP" id="arregloP" value="">
+                            <!--input type="text" name="arregloP" id="arregloP" value=""-->
                             <input type="hidden" name="arregloPrecioP" id="arregloPrecioP" value="">
-                            <input type="hidden" name="arregloC" id="arregloC" value="">
+                            <!--input type="text" name="arregloC" id="arregloC" value=""-->
                             <input type="hidden" name="arregloPrecioC" id="arregloPrecioC" value="">
                             <input type="hidden" name="idTarjeta" id="idTarjeta" value="">
                             <input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_SESSION['idUsuario']?>">

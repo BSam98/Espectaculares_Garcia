@@ -6,7 +6,8 @@ class ticket_Control extends BaseController{
 	public function ticket(){
         $model =new ticket_Model();
 
-        $idTransaccion = 372;
+        $idTransaccion = $_GET['transaccion'];
+
         $data = $model->buscarTransaccion($idTransaccion);
 
 		//$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [90, 236]]);
@@ -25,11 +26,36 @@ class ticket_Control extends BaseController{
                                     <th>Precio</th>
                                 </tr>';
                     foreach($data as $d){   
-                        $html.='<tr>
-                                    <td><labe>'.$d->venta.'</labe></td>
-                                    <td><label>'.$d->tarjetas_Nuevas.'</label></td>
-                                    <td><label>'.$d->Monto.'</label></td>
-                                </tr>';
+                        $html.='<tr>';
+                            $html.='<td><labe>'.$d->venta.'</labe></td>
+                                    <td><label>1</label></td>
+                                    <td><label>'.$d->Monto.'</label></td>';
+                        $html.='</tr>';
+                        /* $html.='<tr>';
+                            switch($d->venta){
+                                case 'Tarjeta Nueva':
+                                    $html.='<td><labe>'.$d->venta.'</labe></td>
+                                            <td><label>'.$d->tarjetas_Nuevas.'</label></td>
+                                            <td><label>'.$d->Monto.'</label></td>';
+                                break;
+                                case 'Recarga':
+                                    $html.='<td><labe>'.$d->venta.'</labe></td>
+                                            <td><label>'.$d->Recargas.'</label></td>
+                                            <td><label>'.$d->Monto.'</label></td>';
+                                break;
+                                case 'Pulsera Mágica':
+                                    $html.='<td><labe>'.$d->venta.'</labe></td>
+                                            <td><label>'.$d->Promocion_Pulsera_Magica.'</label></td>
+                                            <td><label>'.$d->Monto.'</label></td>';
+                                break;
+                                case 'Recarga Promoción':
+                                    $html.='<td><labe>'.$d->venta.'</labe></td>
+                                            <td><label>'.$d->Recarga_promo.'</label></td>
+                                            <td><label>'.$d->Monto.'</label></td>';
+                                break;
+                            }
+                        */
+                            $html .='</tr>';
                                 $tarjeta = $d->Nombre;
                                 $fecha = $d->fecha;
                                 $total = $d->total;

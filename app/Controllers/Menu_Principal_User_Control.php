@@ -1,7 +1,5 @@
-<?php 
-namespace App\Controllers;
+<?php namespace App\Controllers;
 use App\Models\mcobro_model;
-//error_reporting(0);
 
 class Menu_Principal_User_Control extends BaseController {
     /*public function new (){
@@ -93,10 +91,10 @@ class Menu_Principal_User_Control extends BaseController {
         $evento = $_POST['evento'];
         $v = $_POST["ventanillaa"];//este es el idaperturaventanilla
         $idventanilla = $_POST['idventani'];//este es el id de la ventanilla
-        $promociones = $_POST['arregloP'];
-        $promocionesPrecio = $_POST['arregloPrecioP'];
-        $promocionesC = $_POST['arregloC'];
-        $promocionesPrecioC = $_POST['arregloPrecioC'];
+        //$promociones = $_POST['arregloP'];
+        //$promocionesPrecio = $_POST['arregloPrecioP'];
+        //$promocionesC = $_POST['arregloC'];
+        $promocionesPrecioC = json_decode($_POST['arregloPrecioC']);
         $idtarjeta = $_POST['idTarjeta'];
         $usuario = $_POST['idUsuario'];
         $precioTa = $_POST['precioTa'];
@@ -104,6 +102,18 @@ class Menu_Principal_User_Control extends BaseController {
         $recarga = $_POST['recargaAdd'];
         $totalPago = $_POST['total'];
         $indices = $_POST['indice'];
+
+        //echo var_dump($promocionesPrecio);
+        $prueba = json_decode($_POST['arregloPrecioP']);
+        //echo var_dump($prueba);
+        //$contar = count($prueba);
+        //echo var_dump($contar);
+
+        //este es el que voy a usar
+        /*foreach($prueba as $fila) {
+            echo 'yo soy promo'.$fila->promo;
+            echo ' yo soy precio'.$fila->precio;
+        }*/
 
         $indicar = explode(",", $indices);
         $primer =0;
@@ -133,19 +143,21 @@ class Menu_Principal_User_Control extends BaseController {
 
 
         /******************************* Arreglos de Promociones Pulsera Magica ******************/
-        $promo = explode(",", $promocionesPrecio);
-        $idPromo = explode(",", $promociones);
+        //$promo = explode(",", $promocionesPrecio);
+        //$idPromo = explode(",", $promociones);
 
         /******************************* Arreglos de Creditos Cortesia ******************/
-        $promoC = explode(",", $promocionesPrecioC);
-        $idPromoC = explode(",", $promocionesC);
+        //$promoC = explode(",", $promocionesPrecioC);
+        //$idPromoC = explode(",", $promocionesC);
 
-        for($i = 0 ; $i < count($ids) ; $i++){
-            
+        //for($i = 0 ; $i < $ids ; $i++){
+        foreach ($ids as $data) {
+            //echo var_dump($data);
             //poner if que evalue el tipo de cobro(tarjeta/efectivo)
-            switch($ids[$i]){
-                case '0';
-                echo "estoy en caso 0";
+            //switch($ids[$i]){
+            switch($data){
+                case 0;
+                //echo "estoy en caso 0";
                     $data = $model->agregarTarjeta($idtarjeta, $gtran, $precioTa);
 
                     if(($tipoP == 2) || ($tipoP == 3)){
@@ -153,36 +165,39 @@ class Menu_Principal_User_Control extends BaseController {
                     }
                 break;
                 
-                case '1';
-                echo "estoy en caso 1";
+                case 1;
+                //echo "estoy en caso 1";
                     if(($tipoP == 2) || ($tipoP == 3)){
                         $transaccion = $model->guardarTransaccionVouch($idCob, $select, $mtarjeta, $dtarjeta, $naprov, $tipoP);
                     }
                 break;
                 
-                case '2';  
-                echo "estoy en caso 2";                  
+                case 2;  
+                //echo "estoy en caso 2";                  
                     $data = $model->agregarRecarga($idtarjeta, $recarga, $gtran, $precioTa, $evento);
                  break;
 
-                case '3';
-                echo "estoy en caso 3";
-                    $data2 = $model->agregarPromocionesP($idtarjeta, $gtran, $promo);
+                case 3;
+                //echo "estoy en caso 3";
+                    $data = $model->agregarPpulsera($idtarjeta, $gtran, $prueba);
+
+                    /*$data2 = $model->agregarPromocionesP($idtarjeta, $gtran, $promo);
                     $arrayp = implode(",", $data2);
                     $idpay = explode(",", $arrayp);
-                    $data = $model->agregarPromoV($idpay,$idPromo, $gtran);
+                    $data = $model->agregarPromoV($idpay,$idPromo, $gtran);*/
                 break;
                 
-                case '4';
-                echo "estoy en caso 4";
-                    $data = $model->agregarPromocionesC($idtarjeta, $gtran, $promoC, $idPromoC, $evento);
+                case 4;
+                //echo "estoy en caso 4";
+                   // $data = $model->agregarPromocionesC($idtarjeta, $gtran, $promoC, $idPromoC, $evento);
+                   $data = $model->agregarPromoCreditos($idtarjeta, $gtran, $evento, $promocionesPrecioC);
                 break;
                 default:
                     echo "No se declaro";
             }
         }
         
-        echo json_encode(array('respuesta'=>true,'msj'=>$data));
+        echo json_encode(array('respuesta'=>true,'msj'=>$data, 'valor'=>$gtran));
 	}
 
     /*public function fetch(){
