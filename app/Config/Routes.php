@@ -94,6 +94,12 @@ $routes->post('/Supervisar_Taquillas/Transacciones','Supervisar_Taquillas_Contro
 $routes->get('/Supervisar_Taquillas/Descripcion_Transaccion','Supervisar_Taquillas_Control::descripcion_Transaccion');
 $routes->post('/Supervisar_Taquillas/Descripcion_Transaccion','Supervisar_Taquillas_Control::descripcion_Transaccion');
 
+$routes->get('/Supervisar_Taquillas/Vouchers','Supervisar_Taquillas_Control::vouchers_Turno');
+$routes->post('/Supervisar_Taquillas/Vouchers','Supervisar_Taquillas_Control::vouchers_Turno');
+
+$routes->get('/Supervisar_Taquillas/Desglose_Fajilla','Supervisar_Taquillas_Control::desglose_Fajilla');
+$routes->post('/Supervisar_Taquillas/Desglose_Fajilla','Supervisar_Taquillas_Control::desglose_Fajilla');
+
 $routes->get('/Supervisar_Taquillas/Validacion_Taquilla','Supervisar_Taquillas_Control::validacion_Taquilla');
 $routes->post('/Supervisar_Taquillas/Validacion_Taquilla','Supervisar_Taquillas_Control::validacion_Taquilla');
 

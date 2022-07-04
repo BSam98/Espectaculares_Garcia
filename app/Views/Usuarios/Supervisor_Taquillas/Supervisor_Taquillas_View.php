@@ -147,7 +147,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <!--<div class="input-group">-->
                                     <!--<div class="col-xs-2 col-sm-4">-->
-                                        <center><h5>Total</h5></center>
+                                        <center><h5>Detalles</h5></center>
                                     <!--</div>-->
                                 <!--</div>-->
                             </div>

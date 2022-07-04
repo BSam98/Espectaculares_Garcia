@@ -42,7 +42,11 @@ class Supervisar_Taquillas_Control extends BaseController{
 
         $respuesta = $model->transacciones_Taquillero($idAperturaVentanilla);
 
-        echo json_encode(array('respuesta'=>true,'transacciones'=>$respuesta));
+        $respuesta1 = $model->total_Voucher($idAperturaVentanilla);
+
+        $respuesta2 = $model->fajillas_Turno($idAperturaVentanilla);
+
+        echo json_encode(array('respuesta'=>true,'transacciones'=>$respuesta,'voucher'=>$respuesta1, 'fajillas'=>$respuesta2));
     }
 
     public function descripcion_Transaccion(){
@@ -57,6 +61,27 @@ class Supervisar_Taquillas_Control extends BaseController{
         echo json_encode(array('respuesta'=>true,'pagos'=>$respuesta,'voucher'=>$respuesta1));
     }
 
+    //Metodo que obtiene los vouchers del todo el turno
+    public function vouchers_Turno(){
+        $model = new Supervisar_Taquillas_Model();
+
+        $idAperturaVentanilla = $_POST['idAperturaVentanilla'];
+
+        $respuesta = $model->vouchers_Turno($idAperturaVentanilla);
+
+        echo json_encode(array('respuesta'=>true,'voucher'=>$respuesta));
+    }
+
+    public function desglose_Fajilla(){
+        $model = new Supervisar_Taquillas_Model();
+
+        $idFajilla  = $_POST['idFajilla'];
+
+        $respuesta = $model->desglose_Fajilla($idFajilla);
+
+        echo json_encode(array('respuesta'=>true,'fajilla'=>$respuesta));
+    }
+
     public function ventanillas_Inactivas(){
         $model = new Supervisar_Taquillas_Model();
 
@@ -66,5 +91,15 @@ class Supervisar_Taquillas_Control extends BaseController{
         $respuesta = $model->ventanillas_Inactivas($idEvento,$fecha);
 
         echo json_encode(array('respuesta'=>true,'ventanillas'=>$respuesta));
+    }
+
+    public function validacion_Taquilla(){
+        $model = new Supervisar_Taquillas_Model();
+
+        $idAperturaVentanilla = $_POST['idAperturaVentanilla'];
+
+        $respuesta = $model->validacion_Taquilla($idAperturaVentanilla);
+
+        echo json_encode(array('respuesta'=>true, 'taquillero'=>$respuesta));
     }
 }
