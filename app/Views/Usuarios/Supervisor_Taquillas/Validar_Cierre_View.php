@@ -9,6 +9,10 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <form  enctype="multipart/form-data" name="formularioValidarCierreTaquilla" id="formularioValidarCierreTaquilla">
+                    <div>
+                        <input id="idAperturaVentanilla" value="" type="hidden">
+                        <input id="idUsuario" value="<?php echo $_SESSION['idUsuario'] ?>" type="hidden">
+                    </div>
 
                     <div class="accordion" id="acordeon_Validar">
 
@@ -21,9 +25,8 @@
                                 </h2>
                             </div>
 
-                            <div id="validarEfectivo" class="collapse show" aria-labelledby="cabezera_Efectivo" data-parent="#acordeon_Validar">
+                            <div id="validarEfectivo" class="collapse" aria-labelledby="cabezera_Efectivo" data-parent="#acordeon_Validar">
                                 <div class="card-body" id="cuerpoEfectivo">
-                                    Some placeholder content for the first accordion panel. This panel is shown by default, thanks to the <code>.show</code> class.
                                 </div>
                             </div>
                         </div>
@@ -38,7 +41,6 @@
                             </div>
                             <div id="validarVoucher" class="collapse" aria-labelledby="cabezera_Voucher" data-parent="#acordeon_Validar">
                                 <div class="card-body" id="cuerpoVoucher">
-                                    Some placeholder content for the second accordion panel. This panel is hidden by default.
                                 </div>
                             </div>
                         </div>
@@ -53,7 +55,6 @@
                             </div>
                             <div id="validarTarjeta" class="collapse" aria-labelledby="headingThree cabezera_Tarjeta" data-parent="#acordeon_Validar">
                                 <div class="card-body" id="cuerpoFajilla">
-                                    And lastly, the placeholder content for the third and final accordion panel. This panel is hidden by default.
                                 </div>
                             </div>
                         </div>
@@ -63,7 +64,7 @@
                     <br>
                     <hr>
 
-                    <button  name="z" type="button" class="btn btn-success" id = "z">Guardar</button>
+                    <button  name="z" type="button" class="btn btn-success" id = "validar_Turno_Taquillero">Guardar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </form>
             </div>

@@ -102,4 +102,15 @@ class Supervisar_Taquillas_Control extends BaseController{
 
         echo json_encode(array('respuesta'=>true, 'taquillero'=>$respuesta));
     }
+
+    public function actualizar_Taquilla(){
+        $model = new Supervisar_Taquillas_Model();
+
+        $idAperturaVentanilla = $_POST['idAperturaVentanilla'];
+        $idUsuario = $_POST['idUsuario'];
+
+        $respuesta = $model->actualizar_Taquilla($idAperturaVentanilla,$idUsuario);
+
+        echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta));
+    }
 }

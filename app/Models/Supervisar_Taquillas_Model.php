@@ -583,8 +583,6 @@ class Supervisar_Taquillas_Model extends Model{
             ON
                 transaccion_Voucher.idBanco = Bancos.idBanco
             WHERE
-                Formas_Pago.idFormasPago = 2 OR Formas_Pago.idFormasPago = 3
-            AND
                 Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla;
             "
         );
@@ -789,8 +787,6 @@ class Supervisar_Taquillas_Model extends Model{
             ON
                 transaccion_Voucher.idBanco = Bancos.idBanco
             WHERE
-                Formas_Pago.idFormasPago = 2 OR Formas_Pago.idFormasPago = 3
-            AND
                 Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla;        
             "
         );
@@ -831,5 +827,28 @@ class Supervisar_Taquillas_Model extends Model{
         ];
 
         return $datos;
+    }
+
+    public function actualizar_Taquilla($idAperturaVentanilla, $idUsuario){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            " UPDATE
+                Apertura_Ventanilla
+            SET
+                idStatus = 11
+            WHERE
+                idAperturaVentanilla = $idAperturaVentanilla
+                
+            UPDATE
+                Cierre_Ventanilla
+            SET
+                idUsuario =  $idUsuario
+            WHERE
+                idAperturaVentanilla = $idAperturaVentanilla;
+            "
+        );
+
+        return true;
     }
 }

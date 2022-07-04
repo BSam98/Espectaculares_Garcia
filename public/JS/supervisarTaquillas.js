@@ -12,7 +12,9 @@ function cerra_Contenedor_Realizar_Cierre() {
     prin.style.display = 'none';
 }
 
-
+var validar_Cierre = [];
+var contador1 = 0;
+var contador2 = 0;
 
 
 $(document).ready(function(){
@@ -108,13 +110,13 @@ $(document).ready(function(){
                 if(data.ventanillas_Inactivas_1[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                     html_Opciones=
-                    '<li><a href="#modal_Validar_Cierre_Taquilla" type="button" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
+                    '<li><a href="#modal_Validar_Cierre_Taquilla" type="button" class="ventanilla_Inactiva_Con_Transacciones" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
                 }
                 else{
                     if(data.ventanillas_Inactivas_1[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
                         html_Opciones=
-                        '<li><a  type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
+                        '<li><a href="javascript:mostrar_Contenedor_Realizar_Cierre()" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -154,7 +156,7 @@ $(document).ready(function(){
                     if(data.ventanillas_Inactivas_2[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
                         html_Opciones=
-                        '<li><a type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
+                        '<li><a href="javascript:mostrar_Contenedor_Realizar_Cierre()" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -282,7 +284,7 @@ $("#fechaesperada").on('change',function(){
                                 '<tr>'+
                                     '<td>'+
                                         '<ul class="circulo">'+
-                                            '<li><a type="button" class="ventanilla_Activa_Con_Transacciones" data-toggle="" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Activas_1[i]['idAperturaVentanilla']+"}'"+'>Realizar Cierre</a></li>'+
+                                            '<li><a href="javascript:mostrar_Contenedor_Realizar_Cierre()" type="button" class="ventanilla_Activa_Con_Transacciones" data-toggle="" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Activas_1[i]['idAperturaVentanilla']+"}'"+'>Realizar Cierre</a></li>'+
                                         '</ul>'+
                                     '</td>'+
                                 '</tr>'+
@@ -302,7 +304,7 @@ $("#fechaesperada").on('change',function(){
                     if(data.ventanillas_Inactivas_1[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
                         html_Opciones=
-                        '<li><a type="button" class="ventanilla_Inactiva_Con_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
+                        '<li><a href="javascript:mostrar_Contenedor_Realizar_Cierre()" type="button" class="ventanilla_Inactiva_Con_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -341,7 +343,7 @@ $("#fechaesperada").on('change',function(){
                     if(data.ventanillas_Inactivas_2[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
                         html_Opciones=
-                        '<li><a type="button" class="ventanilla_Inactiva_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
+                        '<li><a href="javascript:mostrar_Contenedor_Realizar_Cierre()" type="button" class="ventanilla_Inactiva_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -414,7 +416,7 @@ $(document).on('click','.ventanilla_Activa_Sin_Transacciones', function(){
 $(document).on('click', '.ventanilla_Activa_Con_Transacciones', function(){
     iniciarCarga();
     var idAperturaVentanilla =$(this).data('book-id');
-    var total_Efectivo = '', total_Tarjeta = '';
+    var total_Efectivo = 0, total_Tarjeta = 0;
     var html = '', html_Pie='';
 
     $.ajax({
@@ -451,14 +453,26 @@ $(document).on('click', '.ventanilla_Activa_Con_Transacciones', function(){
             }
 
             if(data.voucher.length){
-                html +=
-                '<tr>'+
-                    '<td style="text-align: center; vertical-align: middle;">Vouchers</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">---</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">'+data.voucher[0]['Tarjeta']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;">---</td>'+
-                    '<td style="text-align: center; vertical-align: middle;"><a  class="btn btn-outline-success mostrar_Vouchers" data-book-id='+"'{"+'"idAperturaVentanilla":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
-                '</tr>';
+                if(data.voucher[0]['Tarjeta'] === null ){
+                    html +=
+                    '<tr>'+
+                        '<td style="text-align: center; vertical-align: middle;">Vouchers</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                        '<td style="text-align: center; vertical-align: middle;"><a  class="btn btn-outline-success mostrar_Vouchers" data-book-id='+"'{"+'"idAperturaVentanilla":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
+                    '</tr>';
+                }
+                else{
+                    html +=
+                    '<tr>'+
+                        '<td style="text-align: center; vertical-align: middle;">Vouchers</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.voucher[0]['Tarjeta']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                        '<td style="text-align: center; vertical-align: middle;"><a  class="btn btn-outline-success mostrar_Vouchers" data-book-id='+"'{"+'"idAperturaVentanilla":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
+                    '</tr>';
+                }
             }
 
             for(var i=0;i<data.transacciones.length;i++){
@@ -470,12 +484,14 @@ $(document).on('click', '.ventanilla_Activa_Con_Transacciones', function(){
                     '<td style="text-align: center; vertical-align: middle;">'+data.transacciones[i]['Fecha']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;"><a  class="btn btn-outline-success descripcion_Transaccion" data-book-id='+"'{"+'"idTransaccion":'+data.transacciones[i]['idTransaccion']+"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
                 '</tr>';
-                total_Efectivo += data.transacciones[i]['Efectivo'];
-                total_Tarjeta += data.transacciones[i]['Tarjeta'];
+                //total_Efectivo += data.transacciones[i]['Efectivo'];
+                //total_Tarjeta += data.transacciones[i]['Tarjeta'];
+                total_Efectivo = total_Efectivo + Number(data.transacciones[i]['Efectivo']);
+                total_Tarjeta = total_Tarjeta + Number(data.transacciones[i]['Tarjeta']);
             }
         }
         $("#detalles").html('');
-        $("#pie_Informacion").html('<tr><td>Efectivo : '+total_Efectivo+'   Tarjeta: '+total_Tarjeta+'</td></tr>');
+        $("#pie_Informacion").html('<tr><td>Efectivo : '+total_Efectivo+'   Tarjeta: '+total_Tarjeta+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success">Validar Turno</button> </td></tr>');
         $("#informacion").html(html);
 
         cerrarCarga();
@@ -484,6 +500,8 @@ $(document).on('click', '.ventanilla_Activa_Con_Transacciones', function(){
 
 $(document).on('click','.ventanilla_Inactiva_Con_Transacciones', function(){
     iniciarCarga();
+    contador1 = 0;
+    contador2 = 0;
     var idAperturaVentanilla = $(this).data('book-id');
     var html_Efectivo = '', html_Voucher = '', html_Fajilla = '';
     $.ajax({
@@ -498,20 +516,22 @@ $(document).on('click','.ventanilla_Inactiva_Con_Transacciones', function(){
     }).done(function(data){
         if(data.respuesta){
             console.log('Vouchers: ' + JSON.stringify(data.taquillero.vouchers));
+            $("#idAperturaVentanilla").val(idAperturaVentanilla['idAperturaVentanilla']);
             if(data.taquillero.efectivo.length){
                 html_Efectivo =
                 '<tr>'+
                     '<td>'+
                         '<label>'+
-                            '<input type="checkbox" value="'+data.taquillero.efectivo[0]['idCierreVentanilla']+'"> Total de Efectivo: '+data.taquillero.efectivo[0]['Efectivo']+''+
+                            '<input class="seleccionar" name="efectivo" id="efectivo" type="checkbox" value="'+data.taquillero.efectivo[0]['idCierreVentanilla']+'"> Total de Efectivo: '+data.taquillero.efectivo[0]['Efectivo']+''+
                         '</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
                         '<label>'+
-                            '<input type="checkbox" value="'+data.taquillero.efectivo[0]['idCierreVentanilla']+'"> Fondo de Caja: '+data.taquillero.efectivo[0]['fondoCaja']+''+
+                            '<input class="seleccionar" name="fondo" id="fondo" type="checkbox" value="'+data.taquillero.efectivo[0]['idCierreVentanilla']+'"> Fondo de Caja: '+data.taquillero.efectivo[0]['fondoCaja']+''+
                         '</label>'+
                         '<hr>'+
                     '</td>'+
-                '</tr>';
+                '</tr>'+
                 '<br>';
+                contador1 = 2
             }
 
             if(data.taquillero.vouchers.length){
@@ -520,12 +540,13 @@ $(document).on('click','.ventanilla_Inactiva_Con_Transacciones', function(){
                     '<tr>'+
                         '<td>'+
                             '<label>'+
-                                '<input type="checkbox" value="'+data.taquillero.vouchers[i]['idTransaccionV']+'"> Numero de Aprobación:  '+data.taquillero.vouchers[i]['numAprovacion']+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Monto: '+data.taquillero.vouchers[i]['Monto']+''+
+                                '<input class="seleccionar" name="voucher'+i+'" id="voucher'+i+'" type="checkbox" value="'+data.taquillero.vouchers[i]['idTransaccionV']+'"> Numero de Aprobación:  '+data.taquillero.vouchers[i]['numAprovacion']+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Monto: '+data.taquillero.vouchers[i]['Monto']+''+
                             '</label>'+
                             '<hr>'+
                         '</td>'+
                     '</tr>';
                     '<br>';
+                    contador1 = contador1 + 1;
                 }
             }
             else{
@@ -544,12 +565,13 @@ $(document).on('click','.ventanilla_Inactiva_Con_Transacciones', function(){
                 '<tr>'+
                     '<td>'+
                         '<label>'+
-                            '<input type="checkbox" value="'+data.taquillero.fajilla[0]['idFajilla']+'"> Fajilla Sobrante,&nbsp;&nbsp;&nbsp; Folio Inicial :  '+data.taquillero.fajilla[0]['FolioInicial']+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Folio Final: '+data.taquillero.fajilla[0]['FolioFinal']+' &nbsp;&nbsp;&nbsp;&nbsp; Tarjetas Sobrantes: '+data.taquillero.fajilla[0]['cantidadTarjetas']+'   '+
+                            '<input class="seleccionar" name="fajilla" id="fajilla" type="checkbox" value="'+data.taquillero.fajilla[0]['idFajilla']+'"> Fajilla Sobrante,&nbsp;&nbsp;&nbsp; Folio Inicial :  '+data.taquillero.fajilla[0]['FolioInicial']+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Folio Final: '+data.taquillero.fajilla[0]['FolioFinal']+' &nbsp;&nbsp;&nbsp;&nbsp; Tarjetas Sobrantes: '+data.taquillero.fajilla[0]['cantidadTarjetas']+'   '+
                         '</label>'+
                         '<hr>'+
                     '</td>'+
                 '</tr>';
                 '<br>';
+                contador1 = contador1 + 1;
             }
             else{
                 html_Fajilla =
@@ -732,4 +754,43 @@ $(document).on('click','.descripcion_Fajilla', function(){
         $("#detalles").html(html);
         cerrarCarga()
     });
+});
+
+
+$(document).on('click', '.seleccionar', function(){
+    if($(this).is(':checked')){
+        contador2 += 1; 
+    }
+    else{
+        contador2 -=1; 
+    }
+});
+
+$("#validar_Turno_Taquillero").on('click', function(){
+    iniciarCarga();
+    if(contador1 == contador2 && contador1 !=0 && contador2 !=0){
+        var idAperturaVentanilla = $("#idAperturaVentanilla").val();
+        var idUsuario = $("#idUsuario").val();
+                
+        $.ajax({
+            type:'POST',
+            url: 'Supervisar_Taquillas/Actualizar_Taquilla',
+            data:{'idAperturaVentanilla':idAperturaVentanilla,'idUsuario':idUsuario},
+            dataType:'JSON',
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+                cerrarCarga();
+            },
+        }).done(function(data){
+            if(data.respuesta){
+                location.reload();
+            }
+            cerrarCarga();
+        });
+        
+    }
+    else{
+        alert('Favor de marcar los recuadros pendientes o reportar faltante');
+        cerrarCarga();
+    }
 });

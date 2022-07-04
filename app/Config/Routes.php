@@ -103,6 +103,9 @@ $routes->post('/Supervisar_Taquillas/Desglose_Fajilla','Supervisar_Taquillas_Con
 $routes->get('/Supervisar_Taquillas/Validacion_Taquilla','Supervisar_Taquillas_Control::validacion_Taquilla');
 $routes->post('/Supervisar_Taquillas/Validacion_Taquilla','Supervisar_Taquillas_Control::validacion_Taquilla');
 
+$routes->get('/Supervisar_Taquillas/Actualizar_Taquilla','Supervisar_Taquillas_Control::actualizar_Taquilla');
+$routes->post('/Supervisar_Taquillas/Actualizar_Taquilla','Supervisar_Taquillas_Control::actualizar_Taquilla');
+
 
 $routes->get('/Ingresos x Evento','Menu_Principal_Control::rEvento');
 
