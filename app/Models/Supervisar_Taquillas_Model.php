@@ -1029,7 +1029,7 @@ class Supervisar_Taquillas_Model extends Model{
             WHERE
                 idAperturaVentanilla = $idAperturaVentanilla
                 
-            IF(SELECT COUNT(Fajillas.idFajilla) FROM Apertura_Ventanilla INNER JOIN Fajillas ON Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla WHERE Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla AND Fajillas.idStatus = 6 AND Fajillas.folioInicial IS NOT NULL ) >= 1
+            IF(SELECT COUNT(Fajillas.idFajilla) FROM Apertura_Ventanilla INNER JOIN Fajillas ON Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla INNER JOIN Tarjetas ON Fajillas.idFajilla = Tarjetas.idFajilla WHERE Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla AND Fajillas.idStatus = 6 AND Fajillas.folioInicial IS NOT NULL AND Tarjetas.idStatus = 1 AND Tarjetas.idFajilla IS NOT NULL ) >= 1
 
                 INSERT INTO
                     Tarjetas_Restantes(
