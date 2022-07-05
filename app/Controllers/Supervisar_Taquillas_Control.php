@@ -113,4 +113,26 @@ class Supervisar_Taquillas_Control extends BaseController{
 
         echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta));
     }
+
+    public function informacion_Turno(){
+        $model = new Supervisar_Taquillas_Model();
+
+        $idAperturaVentanilla = $_POST['idAperturaVentanilla'];
+
+        $respuesta = $model->informacion_Turno($idAperturaVentanilla);
+
+        echo json_encode(array('respuesta'=>true,'taquillero'=>$respuesta));
+    }
+
+    public function cerrar_Turno_Taquilla(){
+        $model = new Supervisar_Taquillas_Model();
+
+        $idAperturaVentanilla = $_POST['idAperturaVentanilla'];
+        $idUsuario = $_POST['idUsuario'];
+        $fecha = $_POST['fecha'];
+
+        $respuesta = $model->cerrar_Turno_Taquilla($idAperturaVentanilla, $idUsuario,$fecha);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
 }

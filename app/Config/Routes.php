@@ -106,6 +106,12 @@ $routes->post('/Supervisar_Taquillas/Validacion_Taquilla','Supervisar_Taquillas_
 $routes->get('/Supervisar_Taquillas/Actualizar_Taquilla','Supervisar_Taquillas_Control::actualizar_Taquilla');
 $routes->post('/Supervisar_Taquillas/Actualizar_Taquilla','Supervisar_Taquillas_Control::actualizar_Taquilla');
 
+$routes->get('/Supervisar_Taquillas/Informacion_Turno','Supervisar_Taquillas_Control::informacion_Turno');
+$routes->post('/Supervisar_Taquillas/Informacion_Turno','Supervisar_Taquillas_Control::informacion_Turno');
+
+$routes->get('/Supervisar_Taquillas/Cerrar_Turno_Taquilla','Supervisar_Taquillas_Control::cerrar_Turno_Taquilla');
+$routes->post('/Supervisar_Taquillas/Cerrar_Turno_Taquilla','Supervisar_Taquillas_Control::cerrar_Turno_Taquilla');
+
 
 $routes->get('/Ingresos x Evento','Menu_Principal_Control::rEvento');
 

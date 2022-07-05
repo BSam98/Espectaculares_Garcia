@@ -1,4 +1,4 @@
-<!--MODAL NUEVA ATRACCION-->
+<!--MODAL VALIDAR CIERRE DE TURNO FINALIZADO-->
 <div class="modal fade" id="modal_Validar_Cierre_Taquilla" style="color:black;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -64,10 +64,14 @@
                     <br>
                     <hr>
 
-                    <button  name="z" type="button" class="btn btn-success" id = "validar_Turno_Taquillero">Guardar</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <div id="botones">
+                        <button  name="z" type="button" class="btn btn-success validar_Turno_Taquillero">Guardar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </form>
             </div>
         </div>
      </div>  
 </div>
+
+<!--Modal Validar Turno Activo-->

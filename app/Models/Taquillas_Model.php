@@ -282,7 +282,7 @@ class Taquillas_Model extends Model{
         $query = $db->query(
             "SELECT
                 Cierre_Ventanilla.idUsuario,
-                Aperutra_Ventanilla.idStatus,
+                Apertura_Ventanilla.idStatus,
                 Apertura_Ventanilla.idAperturaVentanilla,
                 Ventanilla.Nombre AS Ventanilla,
                 Usuarios.Nombre,
