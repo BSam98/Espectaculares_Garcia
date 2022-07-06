@@ -251,71 +251,7 @@ class Supervisar_Taquillas_Model extends Model{
     //Ventanillas Inactivas que no tuvieron ninguna transaccion
     public function ventanillas_Inactivas_2($idEvento,$fecha){
         $db = \Config\Database::connect();
-/*
-        $query = $db->query(
-            "SELECT
-                Cierre_Ventanilla.idUsuario,
-                Apertura_Ventanilla.idAperturaVentanilla,
-                Apertura_Ventanilla.idStatus,
-                Ventanilla.Nombre AS Ventanilla,
-                Usuarios.Nombre,
-                Usuarios.Apellidos,
-                Cierre_Ventanilla.Efectivo,
-                Cierre_Ventanilla.Boucher,
-                Apertura_Ventanilla.horaApertura,
-                Cierre_Ventanilla.horaCierre
-            FROM
-                Ventanilla
-            INNER JOIN
-                Apertura_Ventanilla
-            ON
-                Ventanilla.idVentanilla = Apertura_Ventanilla.idVentanilla
-            INNER JOIN
-                Cierre_Ventanilla
-            ON
-                Apertura_Ventanilla.idAperturaVentanilla = Cierre_Ventanilla.idAperturaVentanilla
-            INNER JOIN
-                Usuarios
-            ON
-                Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
-            INNER JOIN
-                Fajillas
-            ON
-                Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
-            LEFT JOIN
-                Transaccion
-            ON
-                Fajillas.idFajilla = Transaccion.idFajilla
-            INNER JOIN
-                Taquilla
-            ON
-                Ventanilla.idTaquilla = Taquilla.idTaquilla
-            INNER JOIN
-                Zona
-            ON
-                Taquilla.idZona = Zona.idZona
-            WHERE
-                Zona.idEvento = $idEvento
-            AND
-                Transaccion.idFajilla IS NULL
-            AND
-                Apertura_Ventanilla.horaApertura >= '$fecha 00:00:00.000'
-            AND
-                Apertura_Ventanilla.horaApertura <= '$fecha 23:59:00.000'
-            GROUP BY 	Cierre_Ventanilla.idUsuario,
-                Apertura_Ventanilla.idAperturaVentanilla,
-                Apertura_Ventanilla.idStatus,
-                Ventanilla.Nombre,
-                Usuarios.Nombre,
-                Usuarios.Apellidos,
-                Cierre_Ventanilla.Efectivo,
-                Cierre_Ventanilla.Boucher,
-                Apertura_Ventanilla.horaApertura,
-                Cierre_Ventanilla.horaCierre
-                ;
-            "
-        );
-*/
+
         $query = $db->query(
             "SELECT
                 Cierre_Ventanilla.idUsuario,
@@ -829,6 +765,7 @@ class Supervisar_Taquillas_Model extends Model{
         return $datos;
     }
 
+    //Actualiza el status del cierre de sesion del taquillero validando que la informacion que ingreso fue la correcta
     public function actualizar_Taquilla($idAperturaVentanilla, $idUsuario){
         $db = \Config\Database::connect();
 
@@ -852,6 +789,7 @@ class Supervisar_Taquillas_Model extends Model{
         return true;
     }
 
+    //Muestra la informacion necesaria para ser validada y lograr cerrar el turno del taquillero que cayo en status 12 (Intento de Cierre)
     public function informacion_Turno($idAperturaVentanilla){
         $db = \Config\Database::connect();
 
@@ -881,6 +819,18 @@ class Supervisar_Taquillas_Model extends Model{
         );
 
         $efectivo = $query->getResultObject();
+
+        $query = $db->query(
+            "SELECT
+                Apertura_Ventanilla.fondoCaja
+            FROM
+                Apertura_Ventanilla
+            WHERE
+                Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla;
+            "
+        );
+
+        $fondoCaja = $query->getResultObject();
 
         $query = $db->query(
             "SELECT
@@ -957,6 +907,7 @@ class Supervisar_Taquillas_Model extends Model{
 
         $datos = [
             'efectivo' => $efectivo,
+            'fondoCaja' => $fondoCaja,
             'voucher' => $voucher,
             'fajilla' => $fajilla
         ];
@@ -964,165 +915,325 @@ class Supervisar_Taquillas_Model extends Model{
         return $datos;
     }
 
+    //Cerrar turno de un taquillero que no logro por el mismo cerrrar turno 
     public function cerrar_Turno_Taquilla($idAperturaVentanilla,$idUsuario,$fecha){
         $db = \Config\Database::connect();
 
         $query = $db->query(
-            "INSERT INTO
-                Cierre_Ventanilla (
-                    Efectivo,
-                    Boucher,
-                    horaCierre,
-                    idAperturaVentanilla,
-                    idUsuario
-                )
-            VALUES(
-                (
-                    SELECT
-                        SUM(CASE WHEN Cobro.idFormasPago = 1 THEN Cobro.Monto ELSE 0 END) AS Efectivo
-                    FROM
-                        Apertura_Ventanilla
-                    INNER JOIN
-                        Fajillas
-                    ON
-                        Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
-                    INNER JOIN
-                        Transaccion
-                    ON
-                        Fajillas.idFajilla = Transaccion.idFajilla
-                    INNER JOIN 
-                        Cobro
-                    ON
-                        Transaccion.idTransaccion = Cobro.idTransaccion
-                    WHERE
-                        Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
-                ),
-                (
-                    SELECT
-                        SUM(CASE WHEN Cobro.idFormasPago = 2 OR Cobro.idFormasPago = 3 THEN Cobro.Monto ELSE 0 END) AS Boucher
-                    FROM
-                        Apertura_Ventanilla
-                    INNER JOIN
-                        Fajillas
-                    ON
-                        Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
-                    INNER JOIN
-                        Transaccion
-                    ON
-                        Fajillas.idFajilla = Transaccion.idFajilla
-                    INNER JOIN
-                        Cobro
-                    ON
-                        Transaccion.idTransaccion = Cobro.idTransaccion
-                    WHERE
-                        Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
-                ),
-                '$fecha',
-                $idAperturaVentanilla,
-                $idUsuario
-            )
-
-            UPDATE
-                Apertura_Ventanilla
-            SET
-                idStatus = 11
-            WHERE
-                idAperturaVentanilla = $idAperturaVentanilla
-                
-            IF(SELECT COUNT(Fajillas.idFajilla) FROM Apertura_Ventanilla INNER JOIN Fajillas ON Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla INNER JOIN Tarjetas ON Fajillas.idFajilla = Tarjetas.idFajilla WHERE Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla AND Fajillas.idStatus = 6 AND Fajillas.folioInicial IS NOT NULL AND Tarjetas.idStatus = 1 AND Tarjetas.idFajilla IS NOT NULL ) >= 1
-
-                INSERT INTO
-                    Tarjetas_Restantes(
-                        folioInicial,
-                        folioFinal,
-                        cantidadTarjetas,
-                        idStatus,
-                        idFajilla,
-                        idCierreVentanilla
-                    )
-                VALUES(
-                    (
-                        SELECT
-                            Fajillas.folioInicial
-                        FROM
-                            Apertura_Ventanilla
-                        INNER JOIN
-                            Fajillas
-                        ON
-                            Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
-                        WHERE
-                            Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
-                        AND
-                            Fajillas.idStatus = 6
-                    ),
-                    (
-                        SELECT
-                            Fajillas.folioFinal
-                        FROM
-                            Apertura_Ventanilla
-                        INNER JOIN
-                            Fajillas
-                        ON
-                            Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
-                        WHERE
-                            Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
-                        AND
-                            Fajillas.idStatus = 6
-                    ),
-                    (
-                        SELECT
-                            SUM(CASE WHEN Tarjetas.idStatus = 1 THEN 1 ELSE 0 END) AS Tarjetas
-                        FROM
-                            Apertura_Ventanilla
-                        INNER JOIN
-                            Fajillas
-                        ON
-                            Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
-                        INNER JOIN
-                            Tarjetas
-                        ON
-                            Fajillas.idFajilla = Tarjetas.idFajilla
-                        WHERE
-                            Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
-                        AND
-                            Fajillas.idStatus = 6
-                    ),
-                    4,
-                    (
-                        SELECT
-                            Fajillas.idFajilla
-                        FROM
-                            Apertura_Ventanilla
-                        INNER JOIN
-                            Fajillas
-                        ON
-                            Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
-                        WHERE
-                            Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
-                        AND
-                            Fajillas.idStatus = 6
-                    ),
-                    (
-                        SELECT
-                            Cierre_Ventanilla.idCierreVentanilla
-                        FROM
-                            Cierre_Ventanilla
-                        WHERE
-                            Cierre_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
-                    )
-                )
-
-                UPDATE
-                    Tarjetas
-                SET
-                    idFajilla = null
+            "IF(
+                SELECT
+                    SUM(CASE WHEN Cobro.idFormasPago = 1 THEN Cobro.Monto ELSE 0 END) AS Efectivo
+                FROM
+                    Apertura_Ventanilla
+                INNER JOIN
+                    Fajillas
+                ON
+                    Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+                INNER JOIN
+                    Transaccion
+                ON
+                    Fajillas.idFajilla = Transaccion.idFajilla
+                INNER JOIN 
+                    Cobro
+                ON
+                    Transaccion.idTransaccion = Cobro.idTransaccion
                 WHERE
-                    idStatus = 1
-                AND
-                    idFajilla = (SELECT Fajillas.idFajilla FROM Apertura_Ventanilla INNER JOIN Fajillas ON Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla WHERE Apertura_Ventanilla.idAperturaVentanilla =$idAperturaVentanilla AND Fajillas.idStatus = 6)
-            "
+                    Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+            ) IS NOT NULL
+                BEGIN
+                    INSERT INTO
+                        Cierre_Ventanilla (
+                            Efectivo,
+                            Boucher,
+                            horaCierre,
+                            idAperturaVentanilla,
+                            idUsuario
+                        )
+                    VALUES(
+                        (
+                            SELECT
+                                SUM(CASE WHEN Cobro.idFormasPago = 1 THEN Cobro.Monto ELSE 0 END) AS Efectivo
+                            FROM
+                                Apertura_Ventanilla
+                            INNER JOIN
+                                Fajillas
+                            ON
+                                Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+                            INNER JOIN
+                                Transaccion
+                            ON
+                                Fajillas.idFajilla = Transaccion.idFajilla
+                            INNER JOIN 
+                                Cobro
+                            ON
+                                Transaccion.idTransaccion = Cobro.idTransaccion
+                            WHERE
+                                Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                        ),
+                        (
+                            SELECT
+                                SUM(CASE WHEN Cobro.idFormasPago = 2 OR Cobro.idFormasPago = 3 THEN Cobro.Monto ELSE 0 END) AS Boucher
+                            FROM
+                                Apertura_Ventanilla
+                            INNER JOIN
+                                Fajillas
+                            ON
+                                Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+                            INNER JOIN
+                                Transaccion
+                            ON
+                                Fajillas.idFajilla = Transaccion.idFajilla
+                            INNER JOIN
+                                Cobro
+                            ON
+                                Transaccion.idTransaccion = Cobro.idTransaccion
+                            WHERE
+                                Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                        ),
+                        '$fecha',
+                        $idAperturaVentanilla,
+                        $idUsuario
+                    )
+
+                    UPDATE
+                        Apertura_Ventanilla
+                    SET
+                        idStatus = 11
+                    WHERE
+                        idAperturaVentanilla = $idAperturaVentanilla
+
+                    UPDATE
+                        Ventanilla
+                    SET
+                        Status = 0
+                    WHERE
+                        idVentanilla = (SELECT idVentanilla FROM Apertura_Ventanilla WHERE idAperturaVentanilla = $idAperturaVentanilla)
+                        
+                    IF(SELECT COUNT(Fajillas.idFajilla) FROM Apertura_Ventanilla INNER JOIN Fajillas ON Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla INNER JOIN Tarjetas ON Fajillas.idFajilla = Tarjetas.idFajilla WHERE Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla AND Fajillas.idStatus = 6 AND Fajillas.folioInicial IS NOT NULL AND Tarjetas.idStatus = 1 AND Tarjetas.idFajilla IS NOT NULL ) >= 1
+                        BEGIN
+                            INSERT INTO
+                                Tarjetas_Restantes(
+                                    folioInicial,
+                                    folioFinal,
+                                    cantidadTarjetas,
+                                    idStatus,
+                                    idFajilla,
+                                    idCierreVentanilla
+                                )
+                            VALUES(
+                                (
+                                    SELECT
+                                        Fajillas.folioInicial
+                                    FROM
+                                        Apertura_Ventanilla
+                                    INNER JOIN
+                                        Fajillas
+                                    ON
+                                        Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+                                    WHERE
+                                        Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                                    AND
+                                        Fajillas.idStatus = 6
+                                ),
+                                (
+                                    SELECT
+                                        Fajillas.folioFinal
+                                    FROM
+                                        Apertura_Ventanilla
+                                    INNER JOIN
+                                        Fajillas
+                                    ON
+                                        Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+                                    WHERE
+                                        Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                                    AND
+                                        Fajillas.idStatus = 6
+                                ),
+                                (
+                                    SELECT
+                                        SUM(CASE WHEN Tarjetas.idStatus = 1 THEN 1 ELSE 0 END) AS Tarjetas
+                                    FROM
+                                        Apertura_Ventanilla
+                                    INNER JOIN
+                                        Fajillas
+                                    ON
+                                        Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+                                    INNER JOIN
+                                        Tarjetas
+                                    ON
+                                        Fajillas.idFajilla = Tarjetas.idFajilla
+                                    WHERE
+                                        Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                                    AND
+                                        Fajillas.idStatus = 6
+                                ),
+                                4,
+                                (
+                                    SELECT
+                                        Fajillas.idFajilla
+                                    FROM
+                                        Apertura_Ventanilla
+                                    INNER JOIN
+                                        Fajillas
+                                    ON
+                                        Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+                                    WHERE
+                                        Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                                    AND
+                                        Fajillas.idStatus = 6
+                                ),
+                                (
+                                    SELECT
+                                        Cierre_Ventanilla.idCierreVentanilla
+                                    FROM
+                                        Cierre_Ventanilla
+                                    WHERE
+                                        Cierre_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                                )
+                            )
+
+                            UPDATE
+                                Tarjetas
+                            SET
+                                idFajilla = null
+                            WHERE
+                                idStatus = 1
+                            AND
+                                idFajilla = (SELECT Fajillas.idFajilla FROM Apertura_Ventanilla INNER JOIN Fajillas ON Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla WHERE Apertura_Ventanilla.idAperturaVentanilla =$idAperturaVentanilla AND Fajillas.idStatus = 6)
+                        END
+                END
+            ELSE
+                BEGIN
+ 
+                    INSERT INTO
+                        Cierre_Ventanilla (
+                            Efectivo,
+                            Boucher,
+                            horaCierre,
+                            idAperturaVentanilla,
+                            idUsuario
+                        )
+                    VALUES(
+                        0,
+                        0,
+                        '$fecha',
+                        $idAperturaVentanilla,
+                        $idUsuario
+                    )
+
+                    UPDATE
+                        Apertura_Ventanilla
+                    SET
+                        idStatus = 11
+                    WHERE
+                        idAperturaVentanilla = $idAperturaVentanilla
+
+                    UPDATE
+                        Ventanilla
+                    SET
+                        Status = 0
+                    WHERE
+                        idVentanilla = (SELECT idVentanilla FROM Apertura_Ventanilla WHERE idAperturaVentanilla = $idAperturaVentanilla)
+                        
+                    IF(SELECT COUNT(Fajillas.idFajilla) FROM Apertura_Ventanilla INNER JOIN Fajillas ON Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla INNER JOIN Tarjetas ON Fajillas.idFajilla = Tarjetas.idFajilla WHERE Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla AND Fajillas.idStatus = 6 AND Fajillas.folioInicial IS NOT NULL AND Tarjetas.idStatus = 1 AND Tarjetas.idFajilla IS NOT NULL ) >= 1
+                        BEGIN
+                            INSERT INTO
+                                Tarjetas_Restantes(
+                                    folioInicial,
+                                    folioFinal,
+                                    cantidadTarjetas,
+                                    idStatus,
+                                    idFajilla,
+                                    idCierreVentanilla
+                                )
+                            VALUES(
+                                (
+                                    SELECT
+                                        Fajillas.folioInicial
+                                    FROM
+                                        Apertura_Ventanilla
+                                    INNER JOIN
+                                        Fajillas
+                                    ON
+                                        Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+                                    WHERE
+                                        Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                                    AND
+                                        Fajillas.idStatus = 6
+                                ),
+                                (
+                                    SELECT
+                                        Fajillas.folioFinal
+                                    FROM
+                                        Apertura_Ventanilla
+                                    INNER JOIN
+                                        Fajillas
+                                    ON
+                                        Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+                                    WHERE
+                                        Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                                    AND
+                                        Fajillas.idStatus = 6
+                                ),
+                                (
+                                    SELECT
+                                        SUM(CASE WHEN Tarjetas.idStatus = 1 THEN 1 ELSE 0 END) AS Tarjetas
+                                    FROM
+                                        Apertura_Ventanilla
+                                    INNER JOIN
+                                        Fajillas
+                                    ON
+                                        Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+                                    INNER JOIN
+                                        Tarjetas
+                                    ON
+                                        Fajillas.idFajilla = Tarjetas.idFajilla
+                                    WHERE
+                                        Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                                    AND
+                                        Fajillas.idStatus = 6
+                                ),
+                                4,
+                                (
+                                    SELECT
+                                        Fajillas.idFajilla
+                                    FROM
+                                        Apertura_Ventanilla
+                                    INNER JOIN
+                                        Fajillas
+                                    ON
+                                        Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+                                    WHERE
+                                        Apertura_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                                    AND
+                                        Fajillas.idStatus = 6
+                                ),
+                                (
+                                    SELECT
+                                        Cierre_Ventanilla.idCierreVentanilla
+                                    FROM
+                                        Cierre_Ventanilla
+                                    WHERE
+                                        Cierre_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla
+                                )
+                            )
+
+                            UPDATE
+                                Tarjetas
+                            SET
+                                idFajilla = null
+                            WHERE
+                                idStatus = 1
+                            AND
+                                idFajilla = (SELECT Fajillas.idFajilla FROM Apertura_Ventanilla INNER JOIN Fajillas ON Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla WHERE Apertura_Ventanilla.idAperturaVentanilla =$idAperturaVentanilla AND Fajillas.idStatus = 6)
+                        END
+
+                END
+            "   
         );
 
-        return $query;
+        $datos = $query->getResultObject();
+
+        return $datos;
     }
 }
