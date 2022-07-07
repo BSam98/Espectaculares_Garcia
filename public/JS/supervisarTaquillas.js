@@ -18,6 +18,8 @@ var contador2 = 0;
 var dato1 = null;
 var dato2 = null;
 
+var voucher_Faltante = [];
+
 /**-------------------Pinta los status de las taquillas en la pantalla principal-------------------- */
 $(document).ready(function(){
     iniciarCarga();
@@ -858,6 +860,7 @@ $(document).on('click','.validar_Turno_Activo', function(){
 
 $(document).on('click', '.reportar_Turno_Activo', function(){
     iniciarCarga();
+    voucher_Faltante = [];
 
     contador1 = 0;
     contador2 = 0;
@@ -964,7 +967,7 @@ $(document).on('click', '.reportar_Turno_Activo', function(){
         $("#cuerpoEfectivoFaltante").html(html_Efectivo);
         $("#cuerpoVoucherFaltante").html(html_Voucher);
         $("#cuerpoFajillaFaltante").html(html_Fajilla);
-        $("#botonesFaltante").html('<button  name="z" type="button" class="btn btn-success validar_Turno_Activo">Guardar</button>   <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>');
+        $("#botonesFaltante").html('<button  name="z" type="button" class="btn btn-success validar_Faltante_Turno">Guardar</button>   <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>');
         cerrarCarga();
     });
 });
@@ -1017,13 +1020,76 @@ $(document).on('click','.seleccionarFaltante', function(){
         break;
 
         case 'cuerpoVoucherFaltante':
+
+            if($(this).is(':checked')){
+                alert($(this).val());
+                voucher_Faltante.push({'idTransaccionV':$(this).val()});
+                console.log('Arreglo de faltante: ' + JSON.stringify(voucher_Faltante));
+            }
+            else{
+                var indice = voucher_Faltante.findIndex((objecto)=>objecto.idTransaccionV == $(this).val());
+                
+                voucher_Faltante.splice(indice,1);
+                
+                console.log('Arreglo resultante: ' + JSON.stringify(voucher_Faltante));
+            }
         break;
 
         case 'cuerpoFajillaFaltante':
+            alert('fff');
         break;
     }
 });
 
+
+$(document).on('click', '.validar_Faltante_Turno', function(){
+    iniciarCarga();
+
+    var d = new Date();
+    
+    var idAperturaVentanilla = $("#idAperturaVentanillaFaltante").val();
+    var idUsuario = $("#idUsuarioSupervisor").val();
+
+    var fecha = d.toISOString().split('T')[0] +" "+d.toLocaleTimeString()+".000";
+
+    var faltanteEfectivo = $("#inputEfectivoFaltante").val();
+    var faltanteFondo = $("#inputFondoFaltante").val();
+
+    if(faltanteEfectivo == null){
+        faltanteEfectivo = 0;
+    }
+    if(faltanteFondo == null){
+        faltanteFondo = 0;
+    }
+    if(!voucher_Faltante.length){
+        voucher_Faltante = 0;
+    }
+
+    if(faltanteEfectivo == 0 && faltanteFondo == 0 && voucher_Faltante == 0){
+        voucher_Faltante = [];
+        alert('Favor de seleccionar alguna casilla para finalizar el registro del faltante');
+        cerrarCarga();
+    }
+    else{
+        
+        $.ajax({
+            type:'POST',
+            url: 'Supervisar_Taquillas/Validar_Faltante',
+            data:{'fecha':fecha,'idUsuario':idUsuario,'idAperturaVentanilla':idAperturaVentanilla,'faltanteEfectivo':faltanteEfectivo,'faltanteFondo':faltanteFondo,'faltanteVoucher':voucher_Faltante},
+            dataType: 'JSON',
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+                cerrarCarga();
+            },
+        }).done(function(data){
+            if(data.respuesta){
+                alert('Se ha registrado los faltantes del turno');
+                location.reload();
+            }
+            cerrarCarga();
+        });
+    }
+});
 /**----------------------------Validar Turnos Finalizados------------------------------ */
 
 $(document).on('click','.ventanilla_Inactiva_Con_Transacciones', function(){

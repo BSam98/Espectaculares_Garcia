@@ -135,4 +135,21 @@ class Supervisar_Taquillas_Control extends BaseController{
 
         echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
     }
+
+    public function validar_Faltante(){
+        $model = new Supervisar_Taquillas_Model();
+
+
+        $fecha = $_POST['fecha'];
+        $idUsuario = $_POST['idUsuario'];
+        $idAperturaVentanilla = $_POST['idAperturaVentanilla'];
+        $faltanteEfectivo = $_POST['faltanteEfectivo'];
+        $faltanteFondo = $_POST['faltanteFondo'];
+        $faltanteVoucher = $_POST['faltanteVoucher'];
+
+        $respuesta = $model->cerrar_Turno_Taquilla($idAperturaVentanilla,$idUsuario,$fecha);
+        $respuesta1 = $model->validar_Faltante($fecha,$idUsuario,$idAperturaVentanilla,$faltanteEfectivo,$faltanteFondo,$faltanteVoucher);
+
+        echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta1));
+    }
 }
