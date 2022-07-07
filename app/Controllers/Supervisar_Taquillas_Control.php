@@ -152,4 +152,37 @@ class Supervisar_Taquillas_Control extends BaseController{
 
         echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta1));
     }
+
+    public function validar_Faltante_Turno(){
+        $model = new Supervisar_Taquillas_Model();
+
+        $fecha = $_POST['fecha'];
+        $idUsuario = $_POST['idUsuario'];
+        $idAperturaVentanilla = $_POST['idAperturaVentanilla'];
+        $faltanteEfectivo = $_POST['faltanteEfectivo'];
+        $faltanteFondo = $_POST['faltanteFondo'];
+        $faltanteVoucher = $_POST['faltanteVoucher'];
+
+        $respuesta = $model->validar_Faltante_Turno($fecha,$idUsuario,$idAperturaVentanilla,$faltanteEfectivo,$faltanteFondo,$faltanteVoucher);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+
+    }
+
+    public function transacciones_Finalizadas(){
+        $model = new Supervisar_Taquillas_Model();
+
+        $idAperturaVentanilla = $_POST['idAperturaVentanilla'];
+
+        $datos  = [
+            'transacciones' => $model->transacciones_Taquillero($idAperturaVentanilla),
+            'voucher' => $model->total_Voucher($idAperturaVentanilla),
+            'fajillas' => $model->fajillas_Turno($idAperturaVentanilla),
+            'faltantes' => $model->faltantes_Turno($idAperturaVentanilla)
+        ];
+
+        $respuesta = $model->faltantes_Turno($idAperturaVentanilla);
+        
+        echo json_encode(array('respuesta'=>true, 'taquillero'=>$respuesta));
+    }
 }

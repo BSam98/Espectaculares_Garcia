@@ -115,6 +115,12 @@ $routes->post('/Supervisar_Taquillas/Cerrar_Turno_Taquilla','Supervisar_Taquilla
 $routes->get('/Supervisar_Taquillas/Validar_Faltante','Supervisar_Taquillas_Control::validar_Faltante');
 $routes->post('/Supervisar_Taquillas/Validar_Faltante','Supervisar_Taquillas_Control::validar_Faltante');
 
+$routes->get('/Supervisar_Taquillas/Validar_Faltante_Turno_Inactivo','Supervisar_Taquillas_Control::validar_Faltante_Turno');
+$routes->post('/Supervisar_Taquillas/Validar_Faltante_Turno_Inactivo','Supervisar_Taquillas_Control::validar_Faltante_Turno');
+
+$routes->get('/Supervisar_Taquillas/Transacciones_Finalizadas','Supervisar_Taquillas_Control::transacciones_Finalizadas');
+$routes->post('/Supervisar_Taquillas/Transacciones_Finalizadas','Supervisar_Taquillas_Control::transacciones_Finalizadas');
+
 $routes->get('/Ingresos x Evento','Menu_Principal_Control::rEvento');
 
 $routes->get('/Utilizacion por Evento','Reporte_Personas_Evento_Control::uEvento');

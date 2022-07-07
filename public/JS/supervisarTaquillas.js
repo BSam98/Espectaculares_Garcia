@@ -114,13 +114,14 @@ $(document).ready(function(){
                 if(data.ventanillas_Inactivas_1[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                     html_Opciones=
-                    '<li><a href="#modal_Validar_Cierre_Taquilla" type="button" class="ventanilla_Inactiva_Con_Transacciones" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
+                    '<li><a href="#modal_Validar_Cierre_Taquilla" type="button" class="ventanilla_Inactiva_Con_Transacciones" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>'+
+                    '<li><a href="#modal_Validar_Faltante_Taquilla" type="button" class="Reportar_Turno_Inactivo" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Reportar Faltante</a></li>';
                 }
                 else{
                     if(data.ventanillas_Inactivas_1[i]['idStatus'] ==11){
                         html_Color ="background-color: green;";
                         html_Opciones=
-                        '<li><a href="javascript:mostrar_Contenedor_Realizar_Cierre()" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
+                        '<li><a href="javascript:mostrar_Contenedor_Realizar_Cierre()" class="mostrar_Turno_Finalizado" type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Mostrar Cierre</a></li>';
                     }
                 }
     
@@ -153,7 +154,8 @@ $(document).ready(function(){
                 if(data.ventanillas_Inactivas_2[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                     html_Opciones=
-                    '<li><a  type="button" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
+                    '<li><a href="#modal_Validar_Cierre_Taquilla"type="button" class="ventanilla_Inactiva_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>'+
+                    '<li><a href="#modal_Validar_Faltante_Taquilla" type="button" class="Reportar_Turno_Inactivo" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Reportar Faltante</a></li>';
 
                 }
                 else{
@@ -302,7 +304,8 @@ $("#fechaesperada").on('change',function(){
                 if(data.ventanillas_Inactivas_1[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                     html_Opciones=
-                    '<li><a href="#modal_Validar_Cierre_Taquilla" type="button" class="ventanilla_Inactiva_Con_Transacciones" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
+                    '<li><a href="#modal_Validar_Cierre_Taquilla" type="button" class="ventanilla_Inactiva_Con_Transacciones" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>'+
+                    '<li><a href="#modal_Validar_Faltante_Taquilla" type="button" class="Reportar_Turno_Inactivo" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_1[i]['idAperturaVentanilla']+"}'"+'>Reportar Faltante</a></li>';
                 }
                 else{
                     if(data.ventanillas_Inactivas_1[i]['idStatus'] ==11){
@@ -341,7 +344,8 @@ $("#fechaesperada").on('change',function(){
                 if(data.ventanillas_Inactivas_2[i]['idStatus'] == 9){
                     html_Color = "background-color: red;";
                     html_Opciones=
-                    '<li><a href="#modal_Validar_Cierre_Taquilla"type="button" class="ventanilla_Inactiva_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>';
+                    '<li><a href="#modal_Validar_Cierre_Taquilla"type="button" class="ventanilla_Inactiva_Sin_Transacciones" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Validar Cierre</a></li>'+
+                    '<li><a href="#modal_Validar_Faltante_Taquilla" type="button" class="Reportar_Turno_Inactivo" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas_Inactivas_2[i]['idAperturaVentanilla']+"}'"+'>Reportar Faltante</a></li>';
                 }
                 else{
                     if(data.ventanillas_Inactivas_2[i]['idStatus'] ==11){
@@ -473,7 +477,7 @@ $(document).on('click','.ventanilla_Activa_Sin_Transacciones', function(){
             }
         }
         $("#detalles").html('');
-        $("#pie_Informacion").html('<tr><td>Efectivo : '+total_Efectivo+'   Tarjeta: '+total_Tarjeta+' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><a href="#modal_Validar_Cierre_Taquilla" type="button" class="btn btn-success  informacion_Turno_Activo" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+'>Validar Turno</a> <a href="#modal_Validar_Cierre_Taquilla" type="button" class="btn btn-warning  reportar_Turno_Activo" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+'>Reportar Faltante</a> </td></tr>');
+        $("#pie_Informacion").html('<tr><td>Efectivo : '+total_Efectivo+'   Tarjeta: '+total_Tarjeta+' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><a href="#modal_Validar_Cierre_Taquilla" type="button" class="btn btn-success  informacion_Turno_Activo" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+'>Validar Turno</a> <a href="#modal_Validar_Faltante_Taquilla" type="button" class="btn btn-warning  reportar_Turno_Activo" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+'>Reportar Faltante</a> </td></tr>');
         $("#informacion").html(html);
 
         cerrarCarga();
@@ -1242,4 +1246,256 @@ $(document).on('click','.validar_Turno_Taquillero', function(){
         alert('Favor de marcar los recuadros pendientes o reportar faltante');
         cerrarCarga();
     }
+});
+
+$(document).on('click','.Reportar_Turno_Inactivo', function(){
+    iniciarCarga();
+    voucher_Faltante = [];
+
+    contador1 = 0;
+    contador2 = 0;
+    
+    var idAperturaVentanilla = $(this).data('book-id');
+
+    var html_Efectivo = '', html_Voucher = '', html_Fajilla = '';
+
+    $.ajax({
+        type:'POST',
+        url:'Supervisar_Taquillas/Informacion_Turno',
+        data: idAperturaVentanilla,
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            $("#idAperturaVentanillaFaltante").val(idAperturaVentanilla['idAperturaVentanilla']);
+            if(data.taquillero.efectivo.length){
+                html_Efectivo =
+                '<tr>'+
+                    '<td>'+
+                        '<label>'+
+                            '<input class="seleccionarFaltante" name="efectivoFaltante" id="efectivoFaltante" type="checkbox" > Total de Efectivo: '+data.taquillero.efectivo[0]['Efectivo']+''+
+                        '</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+                        '<label>'+
+                            '<input class="seleccionarFaltante" name="fondoFaltante" id="fondoFaltante" type="checkbox"> Fondo de Caja: '+data.taquillero.efectivo[0]['fondoCaja']+''+
+                        '</label>'+
+                        '<hr>'+
+                    '</td>'+
+                '</tr>'+
+                '<br>';
+                contador1 = 2;
+            }else{
+                html_Efectivo =
+                '<tr>'+
+                    '<td>'+
+                        '<label>'+
+                            '<input class="seleccionarFaltante" name="efectivoFaltante" id="efectivoFaltante" type="checkbox" > Total de Efectivo: 0'+
+                        '</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+                        '<label>'+
+                            '<input class="seleccionarFaltante" name="fondoFaltante" id="fondoFaltante" type="checkbox"> Fondo de Caja: '+data.taquillero.fondoCaja[0]['fondoCaja']+''+
+                        '</label>'+
+                        '<hr>'+
+                    '</td>'+
+                '</tr>'+
+                '<br>';
+                contador1 = 2;
+            }
+
+            if(data.taquillero.voucher.length){
+                for(var i=0; i<data.taquillero.voucher.length;i++){
+                    html_Voucher +=
+                    '<tr>'+
+                        '<td>'+
+                            '<label>'+
+                                '<input class="seleccionarFaltante" name="voucherFaltante'+i+'" id="voucherFaltante'+i+'" type="checkbox" value="'+data.taquillero.voucher[i]['idTransaccionV']+'"> Numero de Aprobación:  '+data.taquillero.voucher[i]['numAprovacion']+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Monto: '+data.taquillero.voucher[i]['Monto']+''+
+                            '</label>'+
+                            '<hr>'+
+                        '</td>'+
+                    '</tr>'+
+                    '<br>';
+                    contador1 = contador1 + 1;
+                }
+            }
+            else{
+                html_Voucher =
+                '<tr>'+
+                    '<td>'+
+                        '<label>No se encontraron transacciones realizadas con tarjeta</label>'+
+                        '<hr>'+
+                    '</td>'+
+                '</tr>'+
+                '<br>';
+            }
+
+            if(data.taquillero.fajilla.length){
+                html_Fajilla =
+                '<tr>'+
+                    '<td>'+
+                        '<label>'+
+                            '<input class="seleccionarFaltante" name="fajillaFaltante" id="fajillaFaltante" type="checkbox" value="'+data.taquillero.fajilla[0]['idFajilla']+'"> Fajilla Sobrante,&nbsp;&nbsp;&nbsp; Folio Inicial :  '+data.taquillero.fajilla[0]['FolioInicial']+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Folio Final: '+data.taquillero.fajilla[0]['FolioFinal']+' &nbsp;&nbsp;&nbsp;&nbsp; Tarjetas Sobrantes: '+data.taquillero.fajilla[0]['Restantes']+'   '+
+                        '</label>'+
+                        '<hr>'+
+                    '</td>'+
+                '</tr>'+
+                '<br>';
+                contador1 = contador1 + 1;
+            }
+            else{
+                html_Fajilla =
+                '<tr>'+
+                    '<td style="text-align: center; vertical-align: middle;">'+
+                        '<label>No se encontraron fajillas sobrantes.</label>'+
+                        '<hr>'+
+                    '</td>'+
+                '</tr>'+
+                '<br>';
+            }
+        }
+
+        $("#cuerpoEfectivoFaltante").html(html_Efectivo);
+        $("#cuerpoVoucherFaltante").html(html_Voucher);
+        $("#cuerpoFajillaFaltante").html(html_Fajilla);
+        $("#botonesFaltante").html('<button  name="z" type="button" class="btn btn-success validar_Faltante_Turno_Inactivo">Guardar</button>   <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>');
+        cerrarCarga();
+    });
+});
+
+$(document).on('click','.validar_Faltante_Turno_Inactivo',function(){
+    iniciarCarga();
+
+    var d = new Date();
+    
+    var idAperturaVentanilla = $("#idAperturaVentanillaFaltante").val();
+    var idUsuario = $("#idUsuarioSupervisor").val();
+
+    var fecha = d.toISOString().split('T')[0] +" "+d.toLocaleTimeString()+".000";
+
+    var faltanteEfectivo = $("#inputEfectivoFaltante").val();
+    var faltanteFondo = $("#inputFondoFaltante").val();
+
+    if(faltanteEfectivo == null){
+        faltanteEfectivo = 0;
+    }
+    if(faltanteFondo == null){
+        faltanteFondo = 0;
+    }
+    if(!voucher_Faltante.length){
+        voucher_Faltante = 0;
+    }
+
+    if(faltanteEfectivo == 0 && faltanteFondo == 0 && voucher_Faltante == 0){
+        voucher_Faltante = [];
+        alert('Favor de seleccionar alguna casilla para validar el turno con faltante');
+        cerrarCarga();
+    }
+    else{
+        
+        $.ajax({
+            type:'POST',
+            url: 'Supervisar_Taquillas/Validar_Faltante_Turno_Inactivo',
+            data:{'fecha':fecha,'idUsuario':idUsuario,'idAperturaVentanilla':idAperturaVentanilla,'faltanteEfectivo':faltanteEfectivo,'faltanteFondo':faltanteFondo,'faltanteVoucher':voucher_Faltante},
+            dataType: 'JSON',
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+                cerrarCarga();
+            },
+        }).done(function(data){
+            if(data.respuesta){
+                alert('Se ha registrado los faltantes del turno');
+                location.reload();
+            }
+            cerrarCarga();
+        });
+    }
+});
+
+
+/**--------------------------Mostrar turno finalizado-------------------------------- */
+
+$(document).on('click', '.mostrar_Turno_Finalizado', function(){
+    alert('Funcionaaaaaa');
+
+    iniciarCarga();
+
+    var idAperturaVentanilla =$(this).data('book-id');
+    var total_Efectivo = 0, total_Tarjeta = 0;
+    var html = '', html_Pie='';
+
+    $.ajax({
+        type:'POST',
+        url:'Supervisar_Taquillas/Transacciones_Finalizadas',
+        data:{'idAperturaVentanilla':idAperturaVentanilla['idAperturaVentanilla']},
+        dataType:'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            for(var i=0; i<data.fajillas.vacias.length;i++){
+                html +=
+                '<tr>'+
+                    '<td style="text-align: center; vertical-align: middle;">Fajilla Agregada</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">'+data.fajillas.vacias[i]['fecha']+'</td>'+
+                    '<td style="text-align: center; vertical-align: middle;"><a  class="btn btn-outline-success descripcion_Fajilla" data-book-id='+"'{"+'"idFajilla":'+data.fajillas.vacias[i]['idFajilla']+"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
+                '</tr>';
+            }
+
+            for(var i=0; i<data.fajillas.enteras.length;i++){
+                html +=
+                '<tr>'+
+                    '<td style="text-align: center; vertical-align: middle;">Fajilla Agregada</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">'+data.fajillas.enteras[i]['fecha']+'</td>'+
+                    '<td style="text-align: center; vertical-align: middle;"><a  class="btn btn-outline-success descripcion_Fajilla" data-book-id='+"'{"+'"idFajilla":'+data.fajillas.enteras[i]['idFajilla']+','+'"Defectuosas":'+data.fajillas.enteras[i]['Defectuosas']+','+'"Sobrantes":'+data.fajillas.enteras[i]['Sobrantes']+','+'"Vendidas":'+data.fajillas.enteras[i]['Vendidas'] +"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
+                '</tr>';
+            }
+
+            if(data.voucher.length){
+                if(data.voucher[0]['Tarjeta'] === null ){
+                    html +=
+                    '<tr>'+
+                        '<td style="text-align: center; vertical-align: middle;">Vouchers</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                        '<td style="text-align: center; vertical-align: middle;"><a  class="btn btn-outline-success mostrar_Vouchers" data-book-id='+"'{"+'"idAperturaVentanilla":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
+                    '</tr>';
+                }
+                else{
+                    html +=
+                    '<tr>'+
+                        '<td style="text-align: center; vertical-align: middle;">Vouchers</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">'+data.voucher[0]['Tarjeta']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;">---</td>'+
+                        '<td style="text-align: center; vertical-align: middle;"><a  class="btn btn-outline-success mostrar_Vouchers" data-book-id='+"'{"+'"idAperturaVentanilla":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
+                    '</tr>';
+                }
+            }
+
+            for(var i=0;i<data.transacciones.length;i++){
+                html +=
+                '<tr>'+
+                    '<td style="text-align: center; vertical-align: middle;">Transacción</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">'+data.transacciones[i]['Efectivo']+'</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">'+data.transacciones[i]['Tarjeta']+'</td>'+
+                    '<td style="text-align: center; vertical-align: middle;">'+data.transacciones[i]['Fecha']+'</td>'+
+                    '<td style="text-align: center; vertical-align: middle;"><a  class="btn btn-outline-success descripcion_Transaccion" data-book-id='+"'{"+'"idTransaccion":'+data.transacciones[i]['idTransaccion']+"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
+                '</tr>';
+                total_Efectivo = total_Efectivo + Number(data.transacciones[i]['Efectivo']);
+                total_Tarjeta = total_Tarjeta + Number(data.transacciones[i]['Tarjeta']);
+            }
+        }
+        $("#detalles").html('');
+        $("#pie_Informacion").html('<tr><td>Efectivo : '+total_Efectivo+'   Tarjeta: '+total_Tarjeta+' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><a href="#modal_Validar_Cierre_Taquilla" type="button" class="btn btn-success  informacion_Turno_Activo" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+'>Validar Turno</a> <a href="#modal_Validar_Faltante_Taquilla" type="button" class="btn btn-warning  reportar_Turno_Activo" data-toggle="modal" data-book-id='+"'{"+'"idAperturaVentanilla":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+'>Reportar Faltante</a> </td></tr>');
+        $("#informacion").html(html);
+
+        cerrarCarga();
+    });
 });

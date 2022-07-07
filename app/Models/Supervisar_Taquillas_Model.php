@@ -1288,7 +1288,7 @@ class Supervisar_Taquillas_Model extends Model{
             $num_elementos = 0;
 
             while($cantidad>$num_elementos){
-                
+
                 $datos = [
                     'Monto'=> $faltanteVoucher[$num_elementos]['idTransaccionV'],
                     'idTransaccionV' => $faltanteVoucher[$num_elementos]['idTransaccionV']
@@ -1318,5 +1318,107 @@ class Supervisar_Taquillas_Model extends Model{
         $datos = true;
 
         return $datos;
+    }
+
+    public function validar_Faltante_Turno($fecha,$idUsuario,$idAperturaVentanilla,$faltanteEfectivo,$faltanteFondo,$faltanteVoucher){
+        $db = \Config\Database::connect();
+
+        if($faltanteEfectivo != 0){
+            $query = $db->query(
+                "INSERT INTO
+                    Faltante_Efectivo(
+                        Monto,
+                        Fecha,
+                        idStatus,
+                        idUsuario,
+                        idAperturaVentanilla
+                    )
+                VALUES(
+                    $faltanteEfectivo,
+                    '$fecha',
+                    14,
+                    $idUsuario,
+                    $idAperturaVentanilla
+                );
+                "
+            );
+        }
+
+        if($faltanteFondo != 0){
+            $query = $db->query(
+                "INSERT INTO
+                    Faltante_Efectivo(
+                        Monto,
+                        Fecha,
+                        idStatus,
+                        idUsuario,
+                        idAperturaVentanilla
+                    )
+                VALUES(
+                    $faltanteFondo,
+                    '$fecha',
+                    15,
+                    $idUsuario,
+                    $idAperturaVentanilla
+                );
+                "
+            );
+        }
+
+        if($faltanteVoucher != 0){
+            $cantidad = count($faltanteVoucher);
+            $num_elementos = 0;
+
+            while($cantidad>$num_elementos){
+
+                $datos = [
+                    'Monto'=> $faltanteVoucher[$num_elementos]['idTransaccionV'],
+                    'idTransaccionV' => $faltanteVoucher[$num_elementos]['idTransaccionV']
+                ];
+
+                $query = $db->query(
+                    "INSERT INTO
+                        Faltante_Voucher(
+                            Monto,
+                            idUsuario,
+                            idTransaccionV,
+                            Fecha
+                        )
+                    VALUES(
+                        (SELECT Monto FROM transaccion_Voucher WHERE idTransaccionV = $datos[Monto]),
+                        $idUsuario,
+                        $datos[idTransaccionV],
+                        '$fecha'
+                    );
+                    "
+                );
+
+                $num_elementos = $num_elementos + 1;
+            }
+        }
+
+        $query = $db->query(
+            "UPDATE
+                Apertura_Ventanilla
+            SET
+                idStatus = 11
+            WHERE
+                idAperturaVentanilla = $idAperturaVentanilla
+
+
+            UPDATE
+                Cierre_Ventanilla
+            SET
+                idUsuario = $idUsuario
+            WHERE
+                idAperturaVentanilla = $idAperturaVentanilla
+            "
+        );
+
+        return true;
+    }
+
+    public function faltantes_Turno($idAperturaVentanilla){
+        $db = \Config\Database::connect();
     }
 }
