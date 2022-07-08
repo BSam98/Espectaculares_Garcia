@@ -1298,15 +1298,17 @@ class Supervisar_Taquillas_Model extends Model{
                     "INSERT INTO
                         Faltante_Voucher(
                             Monto,
+                            Fecha,
                             idUsuario,
                             idTransaccionV,
-                            Fecha
+                            idAperturaVentanilla
                         )
                     VALUES(
                         (SELECT Monto FROM transaccion_Voucher WHERE idTransaccionV = $datos[Monto]),
+                        '$fecha'
                         $idUsuario,
                         $datos[idTransaccionV],
-                        '$fecha'
+                        $idAperturaVentanilla
                     );
                     "
                 );
@@ -1420,5 +1422,81 @@ class Supervisar_Taquillas_Model extends Model{
 
     public function faltantes_Turno($idAperturaVentanilla){
         $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Faltante_Efectivo.idFaltanteE,
+                Faltante_Efectivo.Monto,
+                Faltante_Efectivo.Fecha,
+                Status.Descripcion,
+                Usuarios.Nombre,
+                Usuarios.Apellidos
+            FROM
+                Faltante_Efectivo
+            INNER JOIN
+                Status
+            ON
+                Faltante_Efectivo.idStatus = Status.idStatus
+            INNER JOIN
+                Usuarios
+            ON
+                Faltante_Efectivo.idUsuario = Usuarios.idUsuario
+            WHERE
+                Faltante_Efectivo.idAperturaVentanilla = $idAperturaVentanilla;
+            "
+        );
+
+        $efectivo = $query->getResultObject();
+
+        $query = $db->query(
+            "SELECT
+                SUM(CASE WHEN Faltante_Voucher.idAperturaVentanilla = $idAperturaVentanilla THEN Faltante_Voucher.Monto ELSE 0 END) AS Faltante
+            FROM
+                Faltante_Voucher;
+            "
+        );
+
+        $voucher = $query->getResultObject();
+
+        $datos = [
+            'efectivo' => $efectivo,
+            'voucher' => $voucher
+        ];
+
+        return $datos;
+    }
+
+    public function vouchers_Faltantes($idAperturaVentanilla){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+            transaccion_Voucher.numTarjeta,
+            transaccion_Voucher.numAprovacion,
+            transaccion_Voucher.Monto,
+            Bancos.Banco,
+            Formas_Pago.Nombre
+        FROM
+            Faltante_Voucher
+        INNER JOIN
+            transaccion_Voucher
+        ON
+            Faltante_Voucher.idTransaccionV = transaccion_Voucher.idTransaccionV
+        INNER JOIN
+            Bancos
+        ON
+            transaccion_Voucher.idBanco = Bancos.idBanco
+        INNER JOIN
+            Formas_Pago
+        ON
+            transaccion_Voucher.tipoTarjeta = Formas_Pago.idFormasPago
+        WHERE
+            Faltante_Voucher.idAperturaVentanilla = $idAperturaVentanilla;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
     }
 }

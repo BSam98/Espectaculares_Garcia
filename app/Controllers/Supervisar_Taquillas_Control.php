@@ -180,9 +180,17 @@ class Supervisar_Taquillas_Control extends BaseController{
             'fajillas' => $model->fajillas_Turno($idAperturaVentanilla),
             'faltantes' => $model->faltantes_Turno($idAperturaVentanilla)
         ];
-
-        $respuesta = $model->faltantes_Turno($idAperturaVentanilla);
         
-        echo json_encode(array('respuesta'=>true, 'taquillero'=>$respuesta));
+        echo json_encode(array('respuesta'=>true, 'taquillero'=>$datos));
+    }
+
+    public function vouchers_Faltantes(){
+        $model = new Supervisar_Taquillas_Model();
+
+        $idAperturaVentanilla = $_POST['idAperturaVentanilla'];
+
+        $respuesta = $model->vouchers_Faltantes($idAperturaVentanilla);
+
+        echo json_encode(array('respuesta'=>true,'voucher'=>$respuesta));
     }
 }
