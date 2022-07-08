@@ -1453,7 +1453,7 @@ $(document).on('click', '.mostrar_Turno_Finalizado', function(){
                     '<td style="text-align: center; vertical-align: middle;">'+data.taquillero.faltantes.efectivo[i]['Monto']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">---</td>'+
                     '<td>'+data.taquillero.faltantes.efectivo[i]['Fecha']+'</td>'+
-                    '<td style="text-align: center; vertical-align: middle;"><a  class="btn btn-outline-success efectivo_Faltante" data-book-id='+"'{"+'"idTransaccion":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
+                    '<td style="text-align: center; vertical-align: middle;"><a type="hidden"  class="btn btn-outline-success efectivo_Faltante" data-book-id='+"'{"+'"idTransaccion":'+idAperturaVentanilla['idAperturaVentanilla']+"}'"+' ><i class="fa fa-eye" aria-hidden="true"></i></a></td>'+
                 '</tr>';
             }
 

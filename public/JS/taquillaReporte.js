@@ -1,3 +1,33 @@
+function mostrar_Contenedor_Realizar_Cierre() {
+    div = document.getElementById('contenedor_Realizar_Cierre');
+    div.style.display = '';
+    prin = document.getElementById('contenedor_Ventanillas');
+    prin.style.display = 'none';
+}
+
+function cerra_Contenedor_Realizar_Cierre() {
+    div = document.getElementById('contenedor_Ventanillas');
+    div.style.display = '';
+    prin = document.getElementById('contenedor_Realizar_Cierre');
+    prin.style.display = 'none';
+}
+
+
+function mostrar_Contenedor_Ventanillas_Inactivas() {
+    div = document.getElementById('contenedor_Mostrar_Ventanillas_Inactivas');
+    div.style.display = '';
+    prin = document.getElementById('contenedor_Ventanillas');
+    prin.style.display = 'none';
+}
+
+function cerra_Contenedor_Ventanillas_Inactivas() {
+    div = document.getElementById('contenedor_Ventanillas');
+    div.style.display = '';
+    prin = document.getElementById('contenedor_Mostrar_Ventanillas_Inactivas');
+    prin.style.display = 'none';
+}
+
+
 $("#evento").on('change', function(){
     iniciarCarga();
     $("#tabla_Taquillas_Activas").DataTable().destroy();
@@ -28,7 +58,7 @@ $("#evento").on('change', function(){
                         '<td style="text-align: center; vertical-align: middle;">'+data.taquillas[i]['Nombre']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.taquillas[i]['Efectivo']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.taquillas[i]['Tarjeta']+'</td>'+
-                        '<td style="text-align: center; vertical-align: middle;"><a data-toggle="modal" data-target="#modal_Ventanilla_Activa" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Activas" data-book-id='+"'{"+'"idTaquilla":'+data.taquillas[i]['idTaquilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
+                        '<td style="text-align: center; vertical-align: middle;"><a href="javascript:mostrar_Contenedor_Realizar_Cierre()" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Activas" data-book-id='+"'{"+'"idTaquilla":'+data.taquillas[i]['idTaquilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
                     '</tr>';
                 }
             }
@@ -94,7 +124,7 @@ $("#fechaesperada").change(function(){
                         '<td style="text-align: center; vertical-align: middle;">'+data.taquillas[i]['Nombre']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.taquillas[i]['Efectivo']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.taquillas[i]['Tarjeta']+'</td>'+
-                        '<td style="text-align: center; vertical-align: middle;"><a data-toggle="modal" data-target="#modal_Ventanilla_Inactiva" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Inactivas" data-book-id='+"'{"+'"idTaquilla":'+data.taquillas[i]['idTaquilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
+                        '<td style="text-align: center; vertical-align: middle;"><a href="javascript:mostrar_Contenedor_Ventanillas_Inactivas()" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Inactivas" data-book-id='+"'{"+'"idTaquilla":'+data.taquillas[i]['idTaquilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
                     '</tr>'
                     ;
                 }
@@ -122,7 +152,7 @@ $("#fechaesperada").change(function(){
 
 $(document).on('click','.ventanillas_Activas', function (){
     iniciarCarga();
-    $("#tabla_Ventanillas_Activas").DataTable().destroy();
+    //$("#tabla_Ventanillas_Activas").DataTable().destroy();
     var idTaquilla = $(this).data('book-id');
     var idEvento = $("#evento option:selected").val();
     var html_Ventanillas = '';
@@ -147,6 +177,7 @@ $(document).on('click','.ventanillas_Activas', function (){
                     '<td style="text-align: center; vertical-align: middle;">0</td>'+
                     '<td style="text-align: center; vertical-align: middle;">0</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanilla1[i]['horaApertura']+'</td>'+
+                    '<td style="text-align: center; vertical-align: middle;"><a href="" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Activas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanilla1[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
                 '</tr>';
             }
 
@@ -158,11 +189,13 @@ $(document).on('click','.ventanillas_Activas', function (){
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanilla2[i]['Efectivo']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanilla2[i]['Tarjeta']+'</td>'+
                     '<td style="text-align: center; vertical-align: middle;">'+data.ventanilla2[i]['horaApertura']+'</td>'+
+                    '<td style="text-align: center; vertical-align: middle;"><a href="" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Activas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanilla2[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
                 '</tr>';
             }
         }
 
         $("#body_Ventanillas_Activas").html(html_Ventanillas);
+        /*
         $('#tabla_Ventanillas_Activas').DataTable( {
             "aProcessing": true,//Activamos el procesamiento del datatables
             "aServerSide": true,//Paginación y filtrado realizados por el servidor
@@ -177,13 +210,14 @@ $(document).on('click','.ventanillas_Activas', function (){
             "iDisplayLength": 15,//Paginación
             "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
         });
+        */
         cerrarCarga();
     });
 });
 
 $(document).on('click','.ventanillas_Inactivas', function(){
     iniciarCarga();
-    $("#tabla_Ventanillas_Inactivas").DataTable().destroy();
+    //$("#tabla_Ventanillas_Inactivas").DataTable().destroy();
     
     var idTaquilla = $(this).data('book-id');
     var idEvento = $("#evento option:selected").val();
@@ -205,7 +239,6 @@ $(document).on('click','.ventanillas_Inactivas', function(){
 
 
             if(data.resultado){
-
                 for(var i=0; i<data.ventanillas.length;i++){
 
                     if(data.ventanillas[i]['idUsuario'] === null){
@@ -222,15 +255,15 @@ $(document).on('click','.ventanillas_Inactivas', function(){
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Nombre']+' '+data.ventanillas[i]['Apellidos'] +'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Efectivo']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Boucher']+'</td>'+
-                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Cantidad']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaApertura']+'</td>'+
-                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaCierre']+'</td>'
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaCierre']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;"><a href="" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Activas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
                     '</tr>'
                     ;
                 }
             }
             else{
-
+                console.log('Aqui entro primero: ' + JSON.stringify(data.ventanillas));
                 for(var i=0; i<data.ventanillas.length;i++){
 
                     if(data.ventanillas[i]['idUsuario'] === null){
@@ -247,9 +280,9 @@ $(document).on('click','.ventanillas_Inactivas', function(){
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Nombre']+' '+data.ventanillas[i]['Apellidos'] +'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Efectivo']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Boucher']+'</td>'+
-                        '<td style="text-align: center; vertical-align: middle;">0</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaApertura']+'</td>'+
-                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaCierre']+'</td>'
+                        '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaCierre']+'</td>'+
+                        '<td style="text-align: center; vertical-align: middle;"><a href="" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Activas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
                     '</tr>'
                     ;
                 }
@@ -257,6 +290,7 @@ $(document).on('click','.ventanillas_Inactivas', function(){
         }
 
         $("#body_Ventanillas_Inactivas").html(html_Ventanillas);
+        /*
         $('#tabla_Ventanillas_Inactivas').DataTable( {
             "aProcessing": true,//Activamos el procesamiento del datatables
             "aServerSide": true,//Paginación y filtrado realizados por el servidor
@@ -271,6 +305,7 @@ $(document).on('click','.ventanillas_Inactivas', function(){
             "iDisplayLength": 15,//Paginación
             "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
         });
+        */
         cerrarCarga();
     });
 });

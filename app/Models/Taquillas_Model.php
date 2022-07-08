@@ -220,6 +220,41 @@ class Taquillas_Model extends Model{
             AND
                 Zona.idEvento = $idEvento
             AND
+                Taquilla.idTaquilla= $idTaquilla
+            EXCEPT
+            SELECT
+                Apertura_Ventanilla.idAperturaVentanilla,
+                Ventanilla.Nombre AS Ventanilla,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Apertura_Ventanilla.horaApertura
+            FROM
+                Ventanilla
+            INNER JOIN
+                Taquilla
+            ON
+                Ventanilla.idTaquilla = Taquilla.idTaquilla
+            INNER JOIN
+                Zona
+            ON
+                Taquilla.idZona = Zona.idZona
+            INNER JOIN
+                Apertura_Ventanilla
+            ON
+                Ventanilla.idVentanilla = Apertura_Ventanilla.idVentanilla
+            INNER JOIN
+                Usuarios
+            ON
+                Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
+            LEFT JOIN
+                Cierre_Ventanilla
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Cierre_Ventanilla.idAperturaVentanilla
+            WHERE
+                Cierre_Ventanilla.idAperturaVentanilla IS NULL
+            AND
+                Zona.idEvento = $idEvento
+            AND
                 Taquilla.idTaquilla= $idTaquilla;
             "
         );
@@ -289,7 +324,6 @@ class Taquillas_Model extends Model{
                 Usuarios.Apellidos,
                 Cierre_Ventanilla.Efectivo,
                 Cierre_Ventanilla.Boucher,
-                COUNT(Tarjetas.idTarjeta) AS Cantidad,
                 Apertura_Ventanilla.horaApertura,
                 Cierre_Ventanilla.horaCierre
             FROM
@@ -306,10 +340,6 @@ class Taquillas_Model extends Model{
                 Fajillas
             ON
                 Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
-            INNER JOIN
-                Tarjetas
-            ON
-                Fajillas.idFajilla = Tarjetas.idFajilla
             INNER JOIN
                 Usuarios
             ON
@@ -339,8 +369,7 @@ class Taquillas_Model extends Model{
                 Cierre_Ventanilla.Efectivo,
                 Cierre_Ventanilla.Boucher,
                 Apertura_Ventanilla.horaApertura,
-                Cierre_Ventanilla.horaCierre
-                ;
+                Cierre_Ventanilla.horaCierre;
             "
         );
 
@@ -355,6 +384,68 @@ class Taquillas_Model extends Model{
 
         $query = $db->query(
             "SELECT
+                Cierre_Ventanilla.idUsuario,
+                Apertura_Ventanilla.idStatus,
+                Apertura_Ventanilla.idAperturaVentanilla,
+                Ventanilla.Nombre AS Ventanilla,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Cierre_Ventanilla.Efectivo,
+                Cierre_Ventanilla.Boucher,
+                Apertura_Ventanilla.horaApertura,
+                Cierre_Ventanilla.horaCierre
+            FROM
+                Ventanilla
+            INNER JOIN
+                Apertura_Ventanilla
+            ON
+                Ventanilla.idVentanilla = Apertura_Ventanilla.idVentanilla
+            INNER JOIN
+                Cierre_Ventanilla
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Cierre_Ventanilla.idAperturaVentanilla
+            INNER JOIN
+                Usuarios
+            ON
+                Apertura_Ventanilla.idUsuario = Usuarios.idUsuario
+            INNER JOIN
+                Taquilla
+            ON
+                Ventanilla.idTaquilla = Taquilla.idTaquilla
+            INNER JOIN
+                Zona
+            ON
+                Taquilla.idZona = Zona.idZona
+            INNER JOIN
+                Fajillas
+            ON
+                Apertura_Ventanilla.idAperturaVentanilla = Fajillas.idAperturaVentanilla
+            LEFT JOIN
+                Transaccion
+            ON
+                Fajillas.idFajilla = Transaccion.idFajilla
+            WHERE
+                Zona.idEvento = $idEvento
+            AND
+                Taquilla.idTaquilla = $idTaquilla
+            AND
+                Transaccion.idFajilla IS NULL
+            AND
+                Apertura_Ventanilla.horaApertura >= '$fecha 00:00:00.000'
+            AND
+                Apertura_Ventanilla.horaApertura <= '$fecha 23:59:00.000'
+            GROUP BY 	Cierre_Ventanilla.idUsuario,
+                Apertura_Ventanilla.idStatus,
+                Apertura_Ventanilla.idAperturaVentanilla,
+                Ventanilla.Nombre,
+                Usuarios.Nombre,
+                Usuarios.Apellidos,
+                Cierre_Ventanilla.Efectivo,
+                Cierre_Ventanilla.Boucher,
+                Apertura_Ventanilla.horaApertura,
+                Cierre_Ventanilla.horaCierre
+            EXCEPT
+            SELECT
                 Cierre_Ventanilla.idUsuario,
                 Apertura_Ventanilla.idStatus,
                 Apertura_Ventanilla.idAperturaVentanilla,
@@ -404,8 +495,7 @@ class Taquillas_Model extends Model{
                 Cierre_Ventanilla.Efectivo,
                 Cierre_Ventanilla.Boucher,
                 Apertura_Ventanilla.horaApertura,
-                Cierre_Ventanilla.horaCierre
-                ;
+                Cierre_Ventanilla.horaCierre;
             "
         );
 
