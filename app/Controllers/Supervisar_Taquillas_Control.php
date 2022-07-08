@@ -178,7 +178,8 @@ class Supervisar_Taquillas_Control extends BaseController{
             'transacciones' => $model->transacciones_Taquillero($idAperturaVentanilla),
             'voucher' => $model->total_Voucher($idAperturaVentanilla),
             'fajillas' => $model->fajillas_Turno($idAperturaVentanilla),
-            'faltantes' => $model->faltantes_Turno($idAperturaVentanilla)
+            'faltantes' => $model->faltantes_Turno($idAperturaVentanilla),
+            'supervisor' => $model->supervisor($idAperturaVentanilla)
         ];
         
         echo json_encode(array('respuesta'=>true, 'taquillero'=>$datos));

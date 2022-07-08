@@ -1466,6 +1466,31 @@ class Supervisar_Taquillas_Model extends Model{
         return $datos;
     }
 
+    //Muestra el supervisor que valido ese turno
+    public function supervisor($idAperturaVentanilla){
+        $db = \Config\Database::connect();
+
+        $query = $db->query(
+            "SELECT
+                Usuarios.idUsuario,
+                Usuarios.Nombre,
+                Usuarios.Apellidos
+            FROM
+                Cierre_Ventanilla
+            INNER JOIN
+                Usuarios
+            ON
+                Cierre_Ventanilla.idUsuario = Usuarios.idUsuario
+            WHERE
+                Cierre_Ventanilla.idAperturaVentanilla = $idAperturaVentanilla;
+            "
+        );
+
+        $datos = $query->getResultObject();
+
+        return $datos;
+    }
+
     public function vouchers_Faltantes($idAperturaVentanilla){
         $db = \Config\Database::connect();
 

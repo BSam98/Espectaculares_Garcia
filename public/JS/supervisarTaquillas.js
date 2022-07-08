@@ -1419,7 +1419,7 @@ $(document).on('click', '.mostrar_Turno_Finalizado', function(){
 
     var idAperturaVentanilla =$(this).data('book-id');
     var total_Efectivo = 0, total_Tarjeta = 0;
-    var html = '', html_Pie='';
+    var html = '', html_Pie='', supervisor = '';
 
     console.log(JSON.stringify(idAperturaVentanilla));
 
@@ -1514,9 +1514,11 @@ $(document).on('click', '.mostrar_Turno_Finalizado', function(){
                 total_Efectivo = total_Efectivo + Number(data.taquillero.transacciones[i]['Efectivo']);
                 total_Tarjeta = total_Tarjeta + Number(data.taquillero.transacciones[i]['Tarjeta']);
             }
+
+            supervisor = data.taquillero.supervisor[0]['Nombre'] + ' ' + data.taquillero.supervisor[0]['Apellidos'];
         }
         $("#detalles").html('');
-        $("#pie_Informacion").html('<tr><td>Efectivo : '+total_Efectivo+'   Tarjeta: '+total_Tarjeta+'</td></tr>');
+        $("#pie_Informacion").html('<tr><td>Efectivo : '+total_Efectivo+'   Tarjeta: '+total_Tarjeta+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Supervisor(a): '+supervisor+' </td></tr>');
         $("#informacion").html(html);
 
         cerrarCarga();
