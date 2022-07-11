@@ -257,7 +257,7 @@ $(document).on('click','.ventanillas_Inactivas', function(){
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Boucher']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaApertura']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaCierre']+'</td>'+
-                        '<td style="text-align: center; vertical-align: middle;"><a href="" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Activas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
+                        '<td style="text-align: center; vertical-align: middle;"><a href="" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Inactivas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
                     '</tr>'
                     ;
                 }
@@ -282,7 +282,7 @@ $(document).on('click','.ventanillas_Inactivas', function(){
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['Boucher']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaApertura']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.ventanillas[i]['horaCierre']+'</td>'+
-                        '<td style="text-align: center; vertical-align: middle;"><a href="" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Activas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
+                        '<td style="text-align: center; vertical-align: middle;"><a href="" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Inactivas" data-book-id='+"'{"+'"idAperturaVentanilla":'+data.ventanillas[i]['idAperturaVentanilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
                     '</tr>'
                     ;
                 }

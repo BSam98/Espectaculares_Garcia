@@ -78,10 +78,27 @@ $(document).on('change','#tarjetaVal',function(event){
     var date = new Date();
     var cantidad;
     var boletos;
+    var hora;
+    var min;
+    var sec;
 
     var fecha = date.toISOString().split('T')[0];
-    fecha += ' ' + date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
-    fecha += '.000';
+
+    hora = date.getHours();
+    min = date.getMinutes();
+    sec = '00.000';
+
+    if(hora <= 9){
+        hora = "0" + hora;
+    }
+    if(min<=9){
+        min = "0" + min;
+    }
+
+    fecha += ' '+ hora + ':' + min+ ':'+ sec;
+
+
+    alert('Fehca: ' + fecha);
     var folio = $("#tarjetaVal").val();
     var creditos = parseInt( $("#Creditos").val());
     var idAtraccionEvento = $("#idAtraccionEvento").val();
