@@ -1,3 +1,20 @@
+
+function mostrar_Ejemplo_Nuevo_Evento(){
+    div = document.getElementById('contenedor_Ejemplo_Nuevo_Evento');
+    div.style.display = '';
+
+    prin = document.getElementById('contenedor_Eventos');
+    prin.style.display = 'none';
+}
+
+function cerrar_Ejemplo_Nuevo_Evento(){
+    div = document.getElementById('contenedor_Eventos');
+    div.style.display = '';
+
+    prin = document.getElementById('contenedor_Ejemplo_Nuevo_Evento');
+    prin.style.display = 'none';
+}
+
 var contadorAtraccion=0;
 var contadorTaquilla=0;
 var contadorVentanilla=0;
@@ -66,10 +83,10 @@ $("#agregarEvento").click(function(){
         alert('Favor de completar los campos faltantes');
         cerrarCarga();
     }else{
+
         dt = $("#formularioAgregarEvento").serializeArray();
     
         $.each(dt, function(i,n){
-            console.log('entras ' + n.name);
             if("id_Arreglo[]"=== n.name){
                 id_Arreglo.push(n.value);
             }
@@ -95,6 +112,18 @@ $("#agregarEvento").click(function(){
                 creditos.push(n.value);
             }
         });
+
+        console.log('idArreglo: ' + JSON.stringify(id_Arreglo));
+        console.log('Nombre: ' + JSON.stringify(nombre));
+        console.log('Direcion: ' + JSON.stringify(direccion));
+        console.log('Ciudad: ' + JSON.stringify(ciudad));
+        console.log('Estado: ' + JSON.stringify(estado));
+        console.log('Costo Tarjeta: ' + JSON.stringify(costo));
+        console.log('Pesos: ' + JSON.stringify(pesos));
+        console.log('Creditos: ' + JSON.stringify(creditos));
+        
+
+        
     
         $.ajax({
             beforeSend: function(){
@@ -110,15 +139,19 @@ $("#agregarEvento").click(function(){
             },
         }).done(function(data){
             if(data.respuesta){
-                cerrarCarga();
                 location.reload();
             }
+            cerrarCarga();
         });
+
+    
     }
 });
 
 $("#duplicar_Registro").click(function(){
     contadorEvento++;
+
+    /*
     $(
         '<tr class="a-Eventos">'+
             '<td>'+
@@ -187,21 +220,212 @@ $("#duplicar_Registro").click(function(){
             '<td class="eliminarAt"><input type="button" value="-"/></td>'+
         '</tr>'
     ).clone().appendTo("#tabla_Evento");
+    */
+
+    
+    $(
+        '<div id="contenedor_Evento_'+contadorEvento+'">'+
+            '<button id="boton_Evento_'+contadorEvento+'" style="float: left;" class="btn btn-danger remover_Evento">Eliminar Registro</button> <center><label><h2>Nuevo Evento</h2></label></center>'+
+            '<table id="tabla_Evento_'+contadorEvento+'" class="table table-border" style='+"color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;"+'>'+
+
+                '<tbody id="body_Ventanillas_Activas">'+
+                    '<tr>'+
+                        '<td>'+
+                            '<div class="form-group">'+
+                                '<label for="nombre">Nombre</label>'+
+                                '<input class="form-control" type="text" name = "Nombre[]"  id="Nombre" required placeholder="Nombre"/>'+
+                            '</div>'+
+
+                            '<div class="form-group">'+
+                                '<label for="estado">Estado</label>'+
+                                '<input class="form-control" type="text" name="Estado[]"  id="Estado" required placeholder="Estado"/>'+
+                            '</div>'+
+
+                            '<div class="form-group">'+
+                                '<label for="costo_Tarjeta">Costo por tarjeta</label>'+
+                                '<input class="form-control" type="number" name="costo_Tarjeta[]" id="costo_Tarjeta" required placeholder="Costo">'+
+                            '</div>'+
+                        '</td>'+
+                        
+                        '<td>'+
+                            '<div class="form-group">'+
+                                '<label for="direccion">Dirección</label>'+
+                                '<input class="form-control" type="text" name="Direccion[]"  id="Direccion" required placeholder="Dirección"/>'+
+                            '</div>'+
+
+                            '<div class="form-group">'+
+                                '<label for="estado">Equivalencia de pesos a creditos</label>'+
+                                '<input class="form-control" type="number" name="pesos[]"  id="pesos" required placeholder="Pesos"/>'+
+                            '</div>'+
+
+                            '<div class="form-group">'+
+                                '<input type="hidden" id="id_Arreglo" name="id_Arreglo[]" value="'+contadorEvento+'">'+
+                            '</div>'+
+                        '</td>'+
+
+                        '<td>'+
+                            '<div class="form-group">'+
+                                '<label for="ciudad">Ciudad</label>'+
+                                '<input class="form-control" type="text" name="Ciudad[]"  id="Ciudad" required placeholder="Ciudad"/>'+
+                            '</div>'+
+
+                            '<div class="form-group">'+
+                                '<label><FONT COLOR="white">""</FONT></label>'+
+                                '<input class="form-control" type="number" name="creditos[]"  id="creditos" required placeholder="Creditos"/>'+
+                            '</div>'+
+                        '</td>'+
+                            
+                    '</tr>'+
+
+                    '<tr>'+
+                        '<td id="evento'+contadorEvento+'">'+
+                            '<div class="form-group" id="fechas_Evento">'+
+
+                                '<label for="inicioEvento'+contadorEvento+'">Hora de Inicio</label>'+
+                                '<input id="inicioEvento'+contadorEvento+'" class="form-control" type="datetime-local" value="">'+
+
+                                '<br>'+
+                                '<label for="finEvento'+contadorEvento+'">Hora de Finalizacion</label>'+
+                                '<input id="finEvento'+contadorEvento+'" class="form-control" type="datetime-local" value="">'+
+
+                                '<br>'+
+                                '<button  class="agregar_Fecha_Evento btn btn-success" type="button">Agregar Fechas</button>'+
+
+                            '</div>'+
+                        '</td>'+
+                        '<td>'+
+
+                        '</td>'+
+                        
+                        '<td>'+
+                            '<div class="table-wrapper">'+
+                                '<table id="tabla_Fechas_Evento'+contadorEvento+'" class="table table-border table-hover">'+
+                                    '<thead>'+
+                                        '<th style="text-align: center; vertical-align: middle;">Fecha</th>'+
+                                        '<th style="text-align: center; vertical-align: middle;">Hora Inicial</th>'+
+                                        '<th style="text-align: center; vertical-align: middle;">Hora Final</th>'+
+                                        '<th style="text-align: center; vertical-align: middle;">Eliminar</th>'+
+                                    '</thead>'+
+                                    '<tbody id="cuerpo_Fechas_Evento'+contadorEvento+'"></tbody>'+
+                                '</table>'+
+                            '</div>'+
+                        '</td>'+
+                    '</tr>'+
+                '</tbody>'+
+            '</table>'+
+            '<hr>'+
+        '</div>'
+    ).clone().appendTo("#contenedorEventos");
 });
 
 
 $(document).on('click','.agregar_Fecha_Evento', function(){
-    contadorRenglon++;
-    var contador=$(this).parents('td').attr('id').substr(-1); 
+
+    iniciarCarga();
+
+    var contador=$(this).parents('td').attr('id').substr(-1);
+
+    var fechaInicio = $('#inicioEvento'+contador).val()+":00";
+    var fechaFinal = $('#finEvento'+contador).val()+":00";
+
+    var horaInicial = fechaInicio.split('T')[1];
+    var horaFinal = fechaFinal.split('T')[1];
+
+    var inicioEvento = new Date(fechaInicio);
+
+    var finEvento = new Date(fechaFinal);
+    
+    var inicioDia, finDia, formato;
+
+    var formatoFecha;
+    var fecha;
+
+    const dia_Milisegundos = 1000*60*60*24;
+    const intervalo = dia_Milisegundos * 1;
+
+    const formateadorFecha = new Intl.DateTimeFormat('fr-ca',{year:"numeric", month:"2-digit", day:"2-digit"});
+
+    for(let i =inicioEvento; i<=finEvento; i = new Date(i.getTime() + intervalo)){
+        fecha = formateadorFecha.format(i);
+
+
+        inicioDia = fecha + ' '+ horaInicial;
+
+        finDia = fecha + ' ' + horaFinal;
+
+
+        contadorRenglon++;
+        
+        fechas_Evento.push({'idEvento':contador,'idRenglon':contadorRenglon,'fechaInicial':inicioDia,'fechaFinal':finDia});
+
+
+        $('<tr id="'+contadorRenglon+'"><td id="fecha_renglon_'+contadorRenglon+'" style="text-align: center; vertical-align: middle;">'+fecha+'</td><td href="#horas" data-toggle="modal" id="'+contadorRenglon+'_hora_1" class="modificar_Hora" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td href="#horas" data-toggle="modal" id="'+contadorRenglon+'_hora_2" class="modificar_Hora" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td style="text-align: center; vertical-align: middle;"><button type="button" name="remover_Cortesias" class="btn btn-danger remover_Fecha_Evento">Remover</button></td></tr>').clone().appendTo("#cuerpo_Fechas_Evento"+contador);
+    }
+
+    cerrarCarga();
+
+    /*
+    contadorRenglon++; 
 
     var fechaInicial = $('#inicioEvento'+contador).val() + ":00";
     var fechaFinal =$('#finEvento'+contador).val() + ":00";
+    alert(fechaInicial);
 
     fechas_Evento.push({'idEvento':contador,'idRenglon':contadorRenglon,'fechaInicial':fechaInicial,'fechaFinal':fechaFinal});
 
     $('<tr id="'+contadorRenglon+'"><td>'+fechaInicial+'</td><td>'+fechaFinal+'</td><td><button type="button" name="remover_Cortesias" class="btn btn-danger remover_Fecha_Evento">Remover</button></td></tr>').clone().appendTo("#cuerpo_Fechas_Evento"+contador);
+    */
 }
 );
+
+$(document).on('click','.modificar_Hora', function(){
+    var dato1 = $(this).html();
+
+    var idEventoArreglo =$(this).parents('table').attr('id').substr(-1);
+    var tr =$(this).parents('tr').attr('id').substr(-1);
+
+    var fecha  =$("#fecha_renglon_"+tr).html();
+
+    var posicion = $(this).attr('id').substr(-1);
+
+    $("#modificarHora").val(dato1);
+    $("#modificarEvento").val(idEventoArreglo);
+    $("#modificarTr").val(tr);
+    $("#posicion").val(posicion);
+    $("#modificarFecha").val(fecha);
+
+});
+
+$(document).on('click','.modificar_Horario', function(){
+    var idEventoArreglo = $("#modificarEvento").val();
+    var tr = $("#modificarTr").val();
+    var posicion =$("#posicion").val();
+    var fecha = $("#modificarFecha").val();
+    var hora = $("#modificarHora").val();
+
+    console.log('Arreglo sin modificar: ' + JSON.stringify(fechas_Evento));
+
+    if(posicion == 1){
+        var indiceRenglon = fechas_Evento.findIndex((objeto)=>objeto.idRenglon == tr);
+
+
+        fechas_Evento[indiceRenglon]['fechaInicial'] = fecha+' '+hora+':00';
+
+        $('#'+tr+'_hora_1').html(hora+':00');
+    }else{
+        if(posicion==2){
+            var indiceRenglon = fechas_Evento.findIndex((objeto)=>objeto.idRenglon == tr);
+
+            fechas_Evento[indiceRenglon]['fechaFinal'] = fecha+' '+hora+':00';
+    
+            $('#'+tr+'_hora_2').html(hora+':00');
+        }
+    }
+
+    console.log(' ');
+
+    console.log('Arreglo modificado: ' + JSON.stringify(fechas_Evento));
+});
 
 $(document).on('click','.remover_Fecha_Evento', function(){
     var parent=$(this).parents().get(1);
@@ -213,6 +437,27 @@ $(document).on('click','.remover_Fecha_Evento', function(){
     $(parent).remove();
 });
 
+
+$(document).on('click','.remover_Evento' , function(){
+
+    iniciarCarga();
+
+    var id= $(this).attr('id').substr(-1);
+
+    console.log('Arreglo Anterior: ' + JSON.stringify(fechas_Evento));
+
+    for(var i =0; i<fechas_Evento.length;i++){
+        indiceRenglon = fechas_Evento.findIndex((objeto)=>objeto.idEvento == id);
+
+        fechas_Evento.splice(indiceRenglon,1);
+    }
+
+    console.log('Arreglo Actual: ' + JSON.stringify(fechas_Evento));
+
+    $('#contenedor_Evento_'+id).remove();    
+
+    cerrarCarga();
+});
 /**--------------------------------------------------------------------------- */
 
 $("#asociarTarjetas").click(function(){
