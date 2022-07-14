@@ -59,13 +59,14 @@ var fecha_Editada_Credito = [];
 
 var idEvento;
 
-var nombre_Descuentos_Html= '';
+var option_Descuentos_Html ='';
 
 //Nuevas variables necesarias para los registros multiples, se necesitaran agregar a l mentodo de .mostrar_Promociones_Evento para que se formaten cada ves que se abre
 var contadorNuevoDescuento = 0;
 
-/**Primer nivel, para agregar una promoción a un evento */
+/****************************************** Primer nivel, para agregar una promoción a un evento ***********************************************************/
 
+//Muestra la interfaz principal de descuentos en evento
 $(document).on('click','.mostrar_Promociones_Evento',function(){
     iniciarCarga();
 
@@ -124,12 +125,12 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
     $("#tabla_Fechas_Cortesias").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Creditos</th><th>Eliminar</th></tr>');
 
 
-    nombre_Descuentos_Html= '';
+    var nombre_Descuentos_Html= '';
     var nombre_Pulsera_Html = '';
     var nombre_Juegos_Html = '';
     var nombre_Cortesias_Html = '';
     
-    var option_Descuentos_Html ='';
+    option_Descuentos_Html ='';
     var option_Pulsera_Html = '';
     var option_Juegos_Html = '';
     var option_Cortesias_Html = '';
@@ -318,7 +319,36 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
     });
 });
 
+//Se encarga de seleccionar la promocion del usuario y mostrar la informacion de esa promocion
 $(document).on('change','.promocionesDescuentos', function(event){
+    iniciarCarga();
+
+    console.log('Arreglo Inicio: ' + JSON.stringify(fechas_Descuentos));
+    //Limpia el registro de cambio 
+    var id= $(this).parents('tr').attr('id').split('_')[3];
+
+    $('#cantidadPersonas'+registro_Descuento).val('');
+    $('#cantidad_Boletos'+registro_Descuento).val('');
+
+    $("#inicioDescuento"+registro_Descuento).val('');
+    $("#finDescuento"+registro_Descuento).val('');
+    $("#cuerpo_Fechas_Descuentos_"+registro_Descuento).html('');
+    $("#modificar_Hora_Descuento_"+registro_Descuento).html('');
+
+    var indiceRenglon;
+    var longitud = fechas_Descuentos.length;
+    console.log('En medio la tr: ' + id);
+
+    for(var i=0; i<longitud;i++){
+        indiceRenglon = fechas_Descuentos.indexOf((objeto)=>objeto.descuento == id);
+        if(indiceRenglon != -1){
+
+            fechas_Descuentos.splice(indiceRenglon,1);
+        }
+    }
+
+
+
 
     var idDosxUno;
 
@@ -327,10 +357,10 @@ $(document).on('change','.promocionesDescuentos', function(event){
 
     idDosxUno = $(this).val();
 
-    registro_Descuento =  $(this).parents('tr').attr('id').substr(-1);
+    registro_Descuento =  $(this).parents('tr').attr('id').split('_')[3];
 
     if(idDosxUno){
-        const indice_Descuento = precio_Descuentos.findIndex((objeto)=>objeto.idDosxUno ==idDosxUno);
+        const indice_Descuento = precio_Descuentos.findIndex((objeto)=>objeto.idDosxUno === idDosxUno);
 
        $('#cantidadPersonas'+registro_Descuento).val((precio_Descuentos[indice_Descuento]['Cantidad']));
        $('#cantidad_Boletos'+registro_Descuento).val((precio_Descuentos[indice_Descuento]['Boletos']));
@@ -338,10 +368,10 @@ $(document).on('change','.promocionesDescuentos', function(event){
     else{
         //Aqui se tiene que implementar cuando regresa a la seleccionar = "Seleccione una promocion", los datos anteriormente guardados
         //Deben de ser eliminados
-        alert('No tiene datos');
-        $('#cantidadPersonas'+registro_Descuento).val('');
-        $('#cantidad_Boletos'+registro_Descuento).val('');
+        
     }
+
+    //console.log('Arreglo Despuesta: ' + JSON.stringify(fechas_Descuentos));
 
     /*
     contador_Fila_Descuentos = 0;
@@ -360,6 +390,7 @@ $(document).on('change','.promocionesDescuentos', function(event){
         $("#cantidad_Boletos").val('');
     }
     */
+   cerrarCarga();
 
 });
 
@@ -405,13 +436,16 @@ $(document).on('change','#promocionesCortesias', function(event){
     }
 });
 
+//Se encarga de generar un nuevo registro de la promocion en la interfaz
 $("#nuevo_Registro_Promocion_Descuento").click(function(){
     contadorNuevoDescuento++;
     $(
         '<tr id="contenedor_Descuento_Nuevo_'+contadorNuevoDescuento+'">'+
             '<td>'+
                 '<div class="from-group" id="nombre_Descuentos_'+contadorNuevoDescuento+'">'+
-                nombre_Descuentos_Html+
+                    '<label for="promocionesDescuentos">Nombre de la promocion</label>'+
+                    '<select id="descuentos'+contadorNuevoDescuento+'" class="form-control promocionesDescuentos">'+option_Descuentos_Html+'</select>'+
+                    '<br>'+
                 '</div>'+
                 '<div class="from-group" id="precio_Descuentos_'+contadorNuevoDescuento+'">'+
                     '<label for="cantidad">Cantidad de personas por pase</label>'+
@@ -422,8 +456,8 @@ $("#nuevo_Registro_Promocion_Descuento").click(function(){
                     '<br>'+
                 '</div>'+
                 '<div class="from-group table table-responsive">'+
-                    '<table class="table table-bordered">'+
-                        '<tbody id="contenedor_Nuevos_Descuentos">'+
+                    '<table class="table table-border">'+
+                        '<tbody>'+
                             '<tr>'+
                                 '<td>'+
                                     '<div class="container" id="fechas_Descuentos_'+contadorNuevoDescuento+'">'+
@@ -439,27 +473,36 @@ $("#nuevo_Registro_Promocion_Descuento").click(function(){
                                     '</div>'+
                                 '</td>'+
                                 '<td>'+
-                                    '<table id="tabla_Fechas_Descuentos_'+contadorNuevoDescuento+'" class="table table-bordered table-hover">'+
-                                        '<tr>'+
-                                            '<th>Eliminar</th>'+
-                                            '<th>Hora Inicial</th>'+
-                                            '<th>Hora Final</th>'+
-                                            '<th>Eliminar</th>'+
-                                        '</tr>'+
-                                    '</table>'+
+                                    '<div class="table-wrapper">'+
+                                        '<table id="tabla_Fechas_Desuentos_'+contadorNuevoDescuento+'" class="table table-border table-hover">'+
+                                            '<thead>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Fecha</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Hora Inicial</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Hora Final</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Eliminar</th>'+
+                                            '</thead>'+
+                                            '<tbody id="cuerpo_Fechas_Descuentos_'+contadorNuevoDescuento+'"></tbody>'+
+                                        '</table>'+
+                                    '</div>'+
+                                    '<br>'+
+                                    '<div class="container" id="modificar_Hora_Descuento_'+contadorNuevoDescuento+'">'+
+                                    '</div>'+
                                 '</td>'+
                             '</tr>'+
                         '</tbody>'+
                     '</table>'+
                 '</div>'+
+                '<button id="boton_Eliminar_Descuento'+contadorNuevoDescuento+'" style="float: right;" class="btn btn-danger remover_Registro_Descuento">Eliminar Registro</button>'+
             '</td>'+
         '</tr>'
     ).clone().appendTo("#contenedor_Nuevos_Descuentos");
 });
 
+
+//Se encarga de generar los dias individuales, almacenarlos en el arreglo y pintarlos en la interfaz
 $(document).on('click','.adicionarDescuento', function(){
     iniciarCarga();
-    var registro_Descuento = $(this).parents('div').attr('id').substr(-1);
+    var registro_Descuento = parseInt($(this).parents('div').attr('id').split('_')[2]);
 
     var opcion = $("#descuentos"+registro_Descuento).val();
 
@@ -499,16 +542,14 @@ $(document).on('click','.adicionarDescuento', function(){
             finDia = fecha + ' ' + horaFinal;
 
             //Aqui me quede implementando la opcion de borrar fechas y editar las fechas individualmente
-            fila += '<tr id="descuentos_'+contador_Fila_Descuentos+'"><td id="fecha_Descuento_'+contador_Fila_Descuentos+'"  style="text-align: center; vertical-align: middle;">'+fecha+'</td><td style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td style="text-align: center; vertical-align: middle;"><button type="button" name="remover_Descuento" id="'+contador_Fila_Descuentos+'" class="btn btn-danger remover_Descuento">Remover</button></td></tr>';
+            //fila += '<tr id="descuentos_'+contador_Fila_Descuentos+'"><td id="fecha_Descuento_'+contador_Fila_Descuentos+'"  style="text-align: center; vertical-align: middle;">'+fecha+'</td><td id="'+contador_Fila_Descuentos+'_Descuento_Hora_1" class="modificar_Hora_Descuento" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td id="'+contador_Fila_Descuentos+'_Descuento_Hora_2" class="modificar_Hora_Descuento" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td style="text-align: center; vertical-align: middle;"><button type="button" name="remover_Descuento" id="'+contador_Fila_Descuentos+'" class="btn btn-danger remover_Descuento">Remover</button></td></tr>';
             
-            fechas_Descuentos.push({'FechaInicial':inicioDia,'FechaFinal':finDia,'idDosxUno':opcion,'descuento':registro_Descuento,'idEvento':idEvento});
+            $('<tr id="descuentos_'+contador_Fila_Descuentos+'"><td id="fecha_Descuento_'+contador_Fila_Descuentos+'"  style="text-align: center; vertical-align: middle;">'+fecha+'</td><td id="'+contador_Fila_Descuentos+'_Descuento_Hora_1" class="modificar_Hora_Descuento" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td id="'+contador_Fila_Descuentos+'_Descuento_Hora_2" class="modificar_Hora_Descuento" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td style="text-align: center; vertical-align: middle;"><button type="button" class="btn btn-danger remover_Descuento">Remover</button></td></tr>').clone().appendTo('#cuerpo_Fechas_Descuentos_'+registro_Descuento);
+
+            fechas_Descuentos.push({'FechaInicial':inicioDia,'FechaFinal':finDia,'idDosxUno':opcion,'idRenglon':contador_Fila_Descuentos,'descuento':registro_Descuento,'idEvento':idEvento['idEvento']});
             
             contador_Fila_Descuentos++;
         }
-
-        console.log('Fechas Descuentos: ' + JSON.stringify(fechas_Descuentos));
-
-        $('#tabla_Fechas_Descuentos_'+registro_Descuento+' tr:first').after(fila);
     }
     else{
         alert('Favor de rellenar todos los campos');
@@ -604,14 +645,86 @@ $("#adicionarCreditos").click(function(){
     }
 });
 
+//Se encarga de modificar las horas individuales de las fechas
+$(document).on('click','.modificar_Hora_Descuento', function(){
 
+    var hora = $(this).html();
+
+    var idEventoArreglo =$(this).parents('table').attr('id').split('_')[3];
+    var tr =$(this).parents('tr').attr('id').split('_')[1];
+
+    var fecha  = $("#fecha_Descuento_"+tr).html();
+    var horaIn = $("#"+tr+"_Descuento_Hora_1").html();
+    var horaFi = $("#"+tr+"_Descuento_Hora_2").html();
+
+    var posicion = $(this).attr('id').substr(-1);
+
+    html =
+    '<hr>'+
+    '<input type="hidden" id="modificarFechaDescuento" value="'+fecha+'">'+
+    '<input type="hidden" id="modificarEventoDescuento" value="'+idEventoArreglo+'">'+
+    '<input type="hidden" id="modificarTrDescuento" value="'+tr+'">'+
+    '<input type="hidden" id="posicionDescuento" value="'+posicion+'">'+
+    '<h6 class="modal-title">Modificar: </h6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<label for="modificarHoraInicialDescuento">Hora Inicial: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarHoraInicialDescuento" value="'+horaIn+'" type="time"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<label for="modificarHoraFinalDescuento">Hora Final: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarHoraFinalDescuento" value="'+horaFi+'" type="time"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+
+    '<button type="button" class="btn btn-success modificar_Horario_Descuento"> Aceptar</button>';
+
+    $('#modificar_Hora_Descuento_'+idEventoArreglo).html(html);
+});
+
+$(document).on('click','.modificar_Horario_Descuento', function(){
+
+    var id = $(this).parents('div').attr('id').split('_')[3];
+
+    var idEventoArreglo = $("#modificarEventoDescuento").val();
+    var tr = $("#modificarTrDescuento").val();
+
+    var fecha  = $("#modificarFechaDescuento").val();
+
+    var horaIn = $("#modificarHoraInicialDescuento").val();
+    var horaFi = $("#modificarHoraFinalDescuento").val();
+    console.log('Arreglo antes de moficiar: '+ JSON.stringify(fechas_Descuentos));
+
+    if(horaIn && horaFi){
+        var indiceRenglon = fechas_Descuentos.findIndex((objeto)=>objeto.idRenglon == tr);
+
+        fechas_Descuentos[indiceRenglon]['FechaInicial'] = fecha+' '+ horaIn +':00';
+        fechas_Descuentos[indiceRenglon]['FechaFinal'] = fecha+' '+ horaFi +':00';
+
+        $("#"+tr+"_Descuento_Hora_1").html(horaIn+':00');
+        $("#"+tr+"_Descuento_Hora_2").html(horaFi+':00');
+
+        $("#modificar_Hora_Descuento_"+id).html('');
+    }
+    else{
+        alert('Favor de agregar los horarios');
+    }
+
+    console.log('Arreglo despues de moficar: ' + JSON.stringify(fechas_Descuentos));
+});
+
+//Se encarga de eliminar una fecha individual de la interfaz y del arreglo
 $(document).on('click','.remover_Descuento', function(){
+    /*
     var opcion = ($("#promocionesDescuentos option:selected").val());
     var button_id = $(this).attr("id");
 
     $('#descuentos'+button_id+'').remove();
 
-    fechas_Descuentos.splice(button_id,1);
+    fechas_Descuentos.splice(button_id,1);*/
+
+    var parent =  $(this).parents().get(1);
+
+    var id = $(this).parents('tr').attr('id').split('_')[1];
+    var indiceRenglon = fechas_Descuentos.findIndex((objeto)=>objeto.idRenglon == id);
+
+    fechas_Descuentos.splice(indiceRenglon,1);
+
+    $(parent).remove();
 });
 
 $(document).on('click','.remover_Pulsera',function(){
@@ -639,6 +752,10 @@ $(document).on('click','.remover_Cortesias',function(){
     $('#cortesias'+button_id+'').remove();
 
     fechas_Cortesias.splice(button_id,1);
+});
+
+//Se encarga de eliminar un registro completo de la interfaz de la rpmocion y la informacion del arreglo
+$(document).on('click','.remover_Registro_Descuento', function(){
 });
 
 $("#agregar_Promocion_Evento").click(function(){
@@ -680,7 +797,7 @@ $("#agregar_Promocion_Evento").click(function(){
    });
 });
 
-/**-Segundo Nivel cuando se edita una promocion en el evento */
+/**************************************************-Segundo Nivel cuando se edita una promocion en el evento ***********************************************/
 
 $(document).on('click','.editar_Descuentos', function(){
     iniciarCarga();
@@ -864,7 +981,7 @@ $(document).on('click','.editar_Fecha_Creditos', function(){
     $("#editar_Creditos").val(fechaCredito[id]['Creditos']);
 });
 
-/**-------------------Tercer nivel */
+/********************************-------------------Tercer nivel ************************************************************/
 
 $("#editar_Horario_Descuento").on('click',function(){
     var td = $("#td_Descuento").val();

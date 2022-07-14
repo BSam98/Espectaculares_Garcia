@@ -325,8 +325,6 @@ $(document).on('click','.agregar_Fecha_Evento', function(){
 
     var contador=$(this).parents('td').attr('id').split('_')[1];
 
-    alert('Entra y muestra el id: ' + contador);
-
     var fechaInicio = $('#inicioEvento'+contador).val()+":00";
     var fechaFinal = $('#finEvento'+contador).val()+":00";
 
@@ -441,11 +439,14 @@ $(document).on('click','.remover_Evento' , function(){
     var id= $(this).attr('id').split('_')[2];
 
     console.log('Arreglo Anterior: ' + JSON.stringify(fechas_Evento));
+    var longitud = fechas_Evento.length;
 
-    for(var i =0; i<fechas_Evento.length;i++){
+    for(var i =0; i<longitud;i++){
         indiceRenglon = fechas_Evento.findIndex((objeto)=>objeto.idEvento == id);
 
-        fechas_Evento.splice(indiceRenglon,1);
+        if(indiceRenglon != -1){
+            fechas_Evento.splice(indiceRenglon,1);
+        }
     }
 
     console.log('Arreglo Actual: ' + JSON.stringify(fechas_Evento));

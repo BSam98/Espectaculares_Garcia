@@ -53,7 +53,7 @@
                                                                         <br>
                                                                     </div>
                                                                     <div class="from-group table table-responsive">
-                                                                        <table class="table table-bordered">
+                                                                        <table class="table table-border">
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td>
@@ -70,19 +70,26 @@
                                                                                         </div>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <table id="tabla_Fechas_Descuentos_0" class="table table-bordered table-hover">
-                                                                                            <tr>
-                                                                                                <th>Fecha</th>
-                                                                                                <th>Hora Inicial</th>
-                                                                                                <th>Hora Final</th>
-                                                                                                <th>Eliminar</th>
-                                                                                            </tr>
-                                                                                        </table>
+                                                                                        <div class="table-wrapper">
+                                                                                            <table id="tabla_Fechas_Descuentos_0" class="table table-border table-hover">
+                                                                                                <thead>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Fecha</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Hora Inicial</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Hora Final</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Eliminar</th>
+                                                                                                </thead>
+                                                                                                <tbody id="cuerpo_Fechas_Descuentos_0"></tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="container" id="modificar_Hora_Descuento_0">
+                                                                                        </div>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
+                                                                    
                                                                 </td>
                                                             </tr>
                                                         </tbody>
