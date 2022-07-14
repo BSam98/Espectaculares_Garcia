@@ -235,7 +235,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                             </tr>
 
                             <tr>
-                                <td id="evento0">
+                                <td id="evento_0">
                                     <div class="form-group" id="fechas_Evento">
 
                                         <label for="inicioEvento0">Hora de Inicio</label>
@@ -256,14 +256,14 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                 
                                 <td>
                                     <div class="table-wrapper">
-                                        <table id="tabla_Fechas_Evento0" class="table table-border table-hover">
+                                        <table id="tabla_Fechas_Evento_0" class="table table-border table-hover">
                                             <thead>
                                                 <th style="text-align: center; vertical-align: middle;">Fecha</th>
                                                 <th style="text-align: center; vertical-align: middle;">Hora Inicial</th>
                                                 <th style="text-align: center; vertical-align: middle;">Hora Final</th>
                                                 <th style="text-align: center; vertical-align: middle;">Eliminar</th>
                                             </thead>
-                                            <tbody id="cuerpo_Fechas_Evento0"></tbody>
+                                            <tbody id="cuerpo_Fechas_Evento_0"></tbody>
                                         </table>
                                     </div>
                                 </td>

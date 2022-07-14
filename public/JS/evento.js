@@ -278,7 +278,7 @@ $("#duplicar_Registro").click(function(){
                     '</tr>'+
 
                     '<tr>'+
-                        '<td id="evento'+contadorEvento+'">'+
+                        '<td id="evento_'+contadorEvento+'">'+
                             '<div class="form-group" id="fechas_Evento">'+
 
                                 '<label for="inicioEvento'+contadorEvento+'">Hora de Inicio</label>'+
@@ -299,14 +299,14 @@ $("#duplicar_Registro").click(function(){
                         
                         '<td>'+
                             '<div class="table-wrapper">'+
-                                '<table id="tabla_Fechas_Evento'+contadorEvento+'" class="table table-border table-hover">'+
+                                '<table id="tabla_Fechas_Evento_'+contadorEvento+'" class="table table-border table-hover">'+
                                     '<thead>'+
                                         '<th style="text-align: center; vertical-align: middle;">Fecha</th>'+
                                         '<th style="text-align: center; vertical-align: middle;">Hora Inicial</th>'+
                                         '<th style="text-align: center; vertical-align: middle;">Hora Final</th>'+
                                         '<th style="text-align: center; vertical-align: middle;">Eliminar</th>'+
                                     '</thead>'+
-                                    '<tbody id="cuerpo_Fechas_Evento'+contadorEvento+'"></tbody>'+
+                                    '<tbody id="cuerpo_Fechas_Evento_'+contadorEvento+'"></tbody>'+
                                 '</table>'+
                             '</div>'+
                         '</td>'+
@@ -323,7 +323,9 @@ $(document).on('click','.agregar_Fecha_Evento', function(){
 
     iniciarCarga();
 
-    var contador=$(this).parents('td').attr('id').substr(-1);
+    var contador=$(this).parents('td').attr('id').split('_')[1];
+
+    alert('Entra y muestra el id: ' + contador);
 
     var fechaInicio = $('#inicioEvento'+contador).val()+":00";
     var fechaFinal = $('#finEvento'+contador).val()+":00";
@@ -359,7 +361,7 @@ $(document).on('click','.agregar_Fecha_Evento', function(){
         fechas_Evento.push({'idEvento':contador,'idRenglon':contadorRenglon,'fechaInicial':inicioDia,'fechaFinal':finDia});
 
 
-        $('<tr id="'+contadorRenglon+'"><td id="fecha_renglon_'+contadorRenglon+'" style="text-align: center; vertical-align: middle;">'+fecha+'</td><td href="#horas" data-toggle="modal" id="'+contadorRenglon+'_hora_1" class="modificar_Hora" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td href="#horas" data-toggle="modal" id="'+contadorRenglon+'_hora_2" class="modificar_Hora" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td style="text-align: center; vertical-align: middle;"><button type="button" name="remover_Cortesias" class="btn btn-danger remover_Fecha_Evento">Remover</button></td></tr>').clone().appendTo("#cuerpo_Fechas_Evento"+contador);
+        $('<tr id="'+contadorRenglon+'"><td id="fecha_renglon_'+contadorRenglon+'" style="text-align: center; vertical-align: middle;">'+fecha+'</td><td href="#horas" data-toggle="modal" id="'+contadorRenglon+'_hora_1" class="modificar_Hora" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td href="#horas" data-toggle="modal" id="'+contadorRenglon+'_hora_2" class="modificar_Hora" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td style="text-align: center; vertical-align: middle;"><button type="button" name="remover_Cortesias" class="btn btn-danger remover_Fecha_Evento">Remover</button></td></tr>').clone().appendTo("#cuerpo_Fechas_Evento_"+contador);
     }
 
     cerrarCarga();
@@ -381,8 +383,8 @@ $(document).on('click','.agregar_Fecha_Evento', function(){
 $(document).on('click','.modificar_Hora', function(){
     var dato1 = $(this).html();
 
-    var idEventoArreglo =$(this).parents('table').attr('id').substr(-1);
-    var tr =$(this).parents('tr').attr('id').substr(-1);
+    var idEventoArreglo =$(this).parents('table').attr('id').split('_')[3];
+    var tr =$(this).parents('tr').attr('id');
 
     var fecha  =$("#fecha_renglon_"+tr).html();
 
@@ -403,8 +405,6 @@ $(document).on('click','.modificar_Horario', function(){
     var fecha = $("#modificarFecha").val();
     var hora = $("#modificarHora").val();
 
-    console.log('Arreglo sin modificar: ' + JSON.stringify(fechas_Evento));
-
     if(posicion == 1){
         var indiceRenglon = fechas_Evento.findIndex((objeto)=>objeto.idRenglon == tr);
 
@@ -421,10 +421,6 @@ $(document).on('click','.modificar_Horario', function(){
             $('#'+tr+'_hora_2').html(hora+':00');
         }
     }
-
-    console.log(' ');
-
-    console.log('Arreglo modificado: ' + JSON.stringify(fechas_Evento));
 });
 
 $(document).on('click','.remover_Fecha_Evento', function(){
@@ -442,7 +438,7 @@ $(document).on('click','.remover_Evento' , function(){
 
     iniciarCarga();
 
-    var id= $(this).attr('id').substr(-1);
+    var id= $(this).attr('id').split('_')[2];
 
     console.log('Arreglo Anterior: ' + JSON.stringify(fechas_Evento));
 

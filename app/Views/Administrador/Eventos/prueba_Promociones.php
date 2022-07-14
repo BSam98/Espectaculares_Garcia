@@ -1,5 +1,5 @@
-<div class="modal fade" id="Promociones" style="color:black;">
-    <div class="modal-dialog modal-lg">
+<div class="modal" id="Promociones" style="color:black;">
+    <div>
         <div class="modal-content">
 
             <div class="modal-header">
@@ -39,17 +39,17 @@
                                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                                 <div class="table table-striped table-responsive">
                                                     <table class="table table-borderd" id="tabla_Descuentos">
-                                                        <tbody>
-                                                            <tr>
+                                                        <tbody id="contenedor_Nuevos_Descuentos">
+                                                            <tr id="contenedor_Descuento_Nuevo_0">
                                                                 <td>
-                                                                    <div class="from-group" id="nombre_Descuentos">
+                                                                    <div class="from-group" id="nombre_Descuentos_0">
                                                                     </div>
-                                                                    <div class="from-group" id="precio_Descuentos">
+                                                                    <div class="from-group" id="precio_Descuentos_0">
                                                                         <label for="cantidad">Cantidad de personas por pase</label>
-                                                                        <input type="number" class="form-control" name="cantidadPersonas" id="cantidadPersonas" placeholder="Personas por pase" value="">
+                                                                        <input type="number" class="form-control" name="cantidadPersonas0" id="cantidadPersonas0" placeholder="Personas por pase" value="">
                                                                         <br>
-                                                                        <label for="cantidad_Boletos">Cantidad de pases a cobrar</label>
-                                                                        <input type="number" class="form-control" name="cantidad_Boletos" id="cantidad_Boletos" placeholder="Boletos a cobrar" value="">
+                                                                        <label for="cantidad_Boletos0">Cantidad de pases a cobrar</label>
+                                                                        <input type="number" class="form-control" name="cantidad_Boletos0" id="cantidad_Boletos0" placeholder="Boletos a cobrar" value="">
                                                                         <br>
                                                                     </div>
                                                                     <div class="from-group table table-responsive">
@@ -57,21 +57,22 @@
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <div class="container" id="fechas_Descuentos">
+                                                                                        <div class="container" id="fechas_Descuentos_0">
                                                                                             <center><label>Días</label></center>
                                                                                             <br>
-                                                                                            <label for="inicioDescuento">Hora de Inicio</label>
-                                                                                            <input id="inicioDescuento" class="form-control" type="datetime-local">
+                                                                                            <label for="inicioDescuento0">Hora de Inicio</label>
+                                                                                            <input id="inicioDescuento0" class="form-control" type="datetime-local">
                                                                                             <br>
-                                                                                            <label for="finDescuento">Hora de Finalizacion</label>
-                                                                                            <input id="finDescuento" class="form-control" type="datetime-local">
+                                                                                            <label for="finDescuento0">Hora de Finalizacion</label>
+                                                                                            <input id="finDescuento0" class="form-control" type="datetime-local">
                                                                                             <br>
-                                                                                            <button id="adicionarDescuento" class="btn btn-success" type="button">Agregar</button></center><br>
+                                                                                            <button class="btn btn-success adicionarDescuento" type="button">Agregar</button></center><br>
                                                                                         </div>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <table id="tabla_Fechas_Descuentos" class="table table-bordered table-hover">
+                                                                                        <table id="tabla_Fechas_Descuentos_0" class="table table-bordered table-hover">
                                                                                             <tr>
+                                                                                                <th>Fecha</th>
                                                                                                 <th>Hora Inicial</th>
                                                                                                 <th>Hora Final</th>
                                                                                                 <th>Eliminar</th>
@@ -84,16 +85,15 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                                <button id="nuevo_Registro_Promocion_Descuento" type="button" style="float: left;" class="btn btn-warning"><i class="fa fa-plus-circle"></i>&nbsp;Nuevo Registro </button>
                                             </div>
 
                                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                                 <div class="table table-striped table-responsive">
-                                                <table class="table table-borderd" id="tabla_Pulseras">
+                                                    <table class="table table-borderd" id="tabla_Pulseras">
                                                         <tbody>
                                                             <tr>
                                                                 <td>
@@ -107,7 +107,7 @@
                                                                     <div class="from-group" id="creditos_Pulsera">
                                                                     </div>
                                                                     <div class="from-group table table-responsive">
-                                                                        <table>
+                                                                        <table class="table table-bordered">
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td>
@@ -149,7 +149,7 @@
 
                                             <div class="tab-pane fade" id="nav-tres" role="tabpanel" aria-labelledby="nav-tres-tab">
                                                 <div class="table table-striped responsive">
-                                                <table class="table table-borderd" id="tabla_Juegos">
+                                                    <table class="table table-borderd" id="tabla_Juegos">
                                                         <tbody>
                                                             <tr>
                                                                 <td>
@@ -160,7 +160,7 @@
                                                                     <div class="from-group" id="creditos_Juegos">
                                                                     </div>
                                                                     <div class="from-group table table-responsive">
-                                                                        <table>
+                                                                        <table class="table table-bordered">
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td>
@@ -198,7 +198,7 @@
 
                                             <div class="tab-pane fade" id="nav-cuatro" role="tabpanel" aria-labelledby="nav-cuatro-tab">
                                                 <div class="table table-striped responsive">
-                                                <table class="table table-borderd" id="tabla_Cortesias">
+                                                <table class="table table-bordered" id="tabla_Cortesias">
                                                         <tbody>
                                                             <tr>
                                                                 <td>
@@ -215,7 +215,7 @@
                                                                         <br>
                                                                     </div>
                                                                     <div class="from-group table table-responsive">
-                                                                        <table>
+                                                                        <table class="table table-bordered">
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td>
@@ -268,6 +268,7 @@
 
                             <div class="tab-pane fade" id="nav-segundo" role="tabpanel" aria-labelledby="nav-segundo-tab">
                                 <form enctype="multipart/form-data">
+                                    <br>
                                     <fieldset>
                                         <nav>
                                             <div class="nav nav-tabs" role="tablist">
