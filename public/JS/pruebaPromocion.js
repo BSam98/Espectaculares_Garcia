@@ -323,9 +323,10 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
 $(document).on('change','.promocionesDescuentos', function(event){
     iniciarCarga();
 
-    console.log('Arreglo Inicio: ' + JSON.stringify(fechas_Descuentos));
     //Limpia el registro de cambio 
     var id= $(this).parents('tr').attr('id').split('_')[3];
+
+    alert('Tipo de dato en id: ' + typeof id);
 
     $('#cantidadPersonas'+registro_Descuento).val('');
     $('#cantidad_Boletos'+registro_Descuento).val('');
@@ -335,17 +336,21 @@ $(document).on('change','.promocionesDescuentos', function(event){
     $("#cuerpo_Fechas_Descuentos_"+registro_Descuento).html('');
     $("#modificar_Hora_Descuento_"+registro_Descuento).html('');
 
-    var indiceRenglon;
     var longitud = fechas_Descuentos.length;
-    console.log('En medio la tr: ' + id);
+
+    //console.log('Obtencion del id: ' + id);
+    //console.log('Arreglo antes: ' + JSON.stringify(fechas_Descuentos));
 
     for(var i=0; i<longitud;i++){
-        indiceRenglon = fechas_Descuentos.indexOf((objeto)=>objeto.descuento == id);
+        var indiceRenglon = fechas_Descuentos.findIndex((objeto)=>objeto.descuento == id);
+        console.log('Indice: ' + indiceRenglon);
         if(indiceRenglon != -1){
 
             fechas_Descuentos.splice(indiceRenglon,1);
         }
     }
+
+    console.log('Arreglo despues: ' + JSON.stringify(fechas_Descuentos));
 
 
 
@@ -360,7 +365,7 @@ $(document).on('change','.promocionesDescuentos', function(event){
     registro_Descuento =  $(this).parents('tr').attr('id').split('_')[3];
 
     if(idDosxUno){
-        const indice_Descuento = precio_Descuentos.findIndex((objeto)=>objeto.idDosxUno === idDosxUno);
+        const indice_Descuento = precio_Descuentos.findIndex((objeto)=>objeto.idDosxUno == idDosxUno);
 
        $('#cantidadPersonas'+registro_Descuento).val((precio_Descuentos[indice_Descuento]['Cantidad']));
        $('#cantidad_Boletos'+registro_Descuento).val((precio_Descuentos[indice_Descuento]['Boletos']));
@@ -390,7 +395,8 @@ $(document).on('change','.promocionesDescuentos', function(event){
         $("#cantidad_Boletos").val('');
     }
     */
-   cerrarCarga();
+   
+    cerrarCarga();
 
 });
 
@@ -503,6 +509,10 @@ $("#nuevo_Registro_Promocion_Descuento").click(function(){
 $(document).on('click','.adicionarDescuento', function(){
     iniciarCarga();
     var registro_Descuento = parseInt($(this).parents('div').attr('id').split('_')[2]);
+
+    //var registro_Descuento = $(this).parents('div').attr('id').split('_')[2];
+
+    alert('Tipo de dato en registro descuento: ' + typeof registro_Descuento)
 
     var opcion = $("#descuentos"+registro_Descuento).val();
 
@@ -755,7 +765,34 @@ $(document).on('click','.remover_Cortesias',function(){
 });
 
 //Se encarga de eliminar un registro completo de la interfaz de la rpmocion y la informacion del arreglo
-$(document).on('click','.remover_Registro_Descuento', function(){
+$(document).on('click','.remover_Registro_Descuento', function(event){
+    iniciarCarga();
+    var id = $(this).parents('tr').attr('id').split('_')[3];
+
+    //alert(id);
+
+    console.log('Obtencion del id: ' + id);
+
+    console.log('Arreglo anterior: ' + JSON.stringify(fechas_Descuentos));
+
+    var indiceRenglon;
+    var longitud = fechas_Descuentos.length;
+
+    for(var i=0; i<longitud;i++){
+        indiceRenglon = fechas_Descuentos.findIndex((objeto)=>objeto.descuento == id);
+        console.log('Contador: ' + i);
+        console.log(indiceRenglon);
+        if(indiceRenglon != -1){
+
+            fechas_Descuentos.splice(indiceRenglon,1);
+        }
+    }
+
+    console.log('Arreglo siguiente: ' + JSON.stringify(fechas_Descuentos));
+
+
+    $("#contenedor_Descuento_Nuevo_"+id).remove();
+    cerrarCarga();
 });
 
 $("#agregar_Promocion_Evento").click(function(){
