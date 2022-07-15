@@ -60,9 +60,11 @@ var fecha_Editada_Credito = [];
 var idEvento;
 
 var option_Descuentos_Html ='';
+var option_Pulsera_Html  ='';
 
 //Nuevas variables necesarias para los registros multiples, se necesitaran agregar a l mentodo de .mostrar_Promociones_Evento para que se formaten cada ves que se abre
 var contadorNuevoDescuento = 0;
+var contadorNuevaPulsera = 0;
 
 /****************************************** Primer nivel, para agregar una promoción a un evento ***********************************************************/
 
@@ -131,7 +133,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
     var nombre_Cortesias_Html = '';
     
     option_Descuentos_Html ='';
-    var option_Pulsera_Html = '';
+    option_Pulsera_Html = '';
     var option_Juegos_Html = '';
     var option_Cortesias_Html = '';
 
@@ -295,7 +297,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
             '<br>';
 
             nombre_Pulsera_Html = '<label for="promocionesPulsera">Nombre de la promocion</label>'+
-            '<select name="promocionesPulsera" id="promocionesPulsera" class="form-control">'+option_Pulsera_Html+'</select>'+
+            '<select name="pulsera0" id="pulsera0" class="form-control promocionesPulsera">'+option_Pulsera_Html+'</select>'+
             '<br>';
 
             nombre_Juegos_Html = '<label for="promocionesPulsera">Nombre de la promocion</label>'+
@@ -311,7 +313,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
             $("#tabla_Juegos_Evento").html(tabla_Juegos_Html);
             $("#tabla_Creditos_Evento").html(tabla_Creditos_Html);
             $("#nombre_Descuentos_0").html(nombre_Descuentos_Html);
-            $("#nombre_Pulsera").html(nombre_Pulsera_Html);
+            $("#nombre_Pulsera_0").html(nombre_Pulsera_Html);
             $("#nombre_Juegos").html(nombre_Juegos_Html);
             $("#nombre_Cortesias").html(nombre_Cortesias_Html);
             cerrarCarga();
@@ -326,78 +328,84 @@ $(document).on('change','.promocionesDescuentos', function(event){
     //Limpia el registro de cambio 
     var id= $(this).parents('tr').attr('id').split('_')[3];
 
-    alert('Tipo de dato en id: ' + typeof id);
+    $('#cantidadPersonas'+id).val('');
+    $('#cantidad_Boletos'+id).val('');
 
-    $('#cantidadPersonas'+registro_Descuento).val('');
-    $('#cantidad_Boletos'+registro_Descuento).val('');
-
-    $("#inicioDescuento"+registro_Descuento).val('');
-    $("#finDescuento"+registro_Descuento).val('');
-    $("#cuerpo_Fechas_Descuentos_"+registro_Descuento).html('');
-    $("#modificar_Hora_Descuento_"+registro_Descuento).html('');
+    $("#inicioDescuento"+id).val('');
+    $("#finDescuento"+id).val('');
+    $("#cuerpo_Fechas_Descuentos_"+id).html('');
+    $("#modificar_Hora_Descuento_"+id).html('');
 
     var longitud = fechas_Descuentos.length;
 
-    //console.log('Obtencion del id: ' + id);
-    //console.log('Arreglo antes: ' + JSON.stringify(fechas_Descuentos));
+
+    var indiceRenglon;
 
     for(var i=0; i<longitud;i++){
-        var indiceRenglon = fechas_Descuentos.findIndex((objeto)=>objeto.descuento == id);
-        console.log('Indice: ' + indiceRenglon);
+
+        indiceRenglon = fechas_Descuentos.findIndex((objeto)=>objeto.descuento == id);
+
         if(indiceRenglon != -1){
 
             fechas_Descuentos.splice(indiceRenglon,1);
         }
     }
 
-    console.log('Arreglo despues: ' + JSON.stringify(fechas_Descuentos));
-
-
-
 
     var idDosxUno;
 
     //Almacena el numero del nuevo registro al cual seran enviados los datos
-    var registro_Descuento;
 
     idDosxUno = $(this).val();
-
-    registro_Descuento =  $(this).parents('tr').attr('id').split('_')[3];
 
     if(idDosxUno){
         const indice_Descuento = precio_Descuentos.findIndex((objeto)=>objeto.idDosxUno == idDosxUno);
 
-       $('#cantidadPersonas'+registro_Descuento).val((precio_Descuentos[indice_Descuento]['Cantidad']));
-       $('#cantidad_Boletos'+registro_Descuento).val((precio_Descuentos[indice_Descuento]['Boletos']));
+       $('#cantidadPersonas'+id).val((precio_Descuentos[indice_Descuento]['Cantidad']));
+       $('#cantidad_Boletos'+id).val((precio_Descuentos[indice_Descuento]['Boletos']));
     }
-    else{
-        //Aqui se tiene que implementar cuando regresa a la seleccionar = "Seleccione una promocion", los datos anteriormente guardados
-        //Deben de ser eliminados
-        
-    }
-
-    //console.log('Arreglo Despuesta: ' + JSON.stringify(fechas_Descuentos));
-
-    /*
-    contador_Fila_Descuentos = 0;
-    fechas_Descuentos = [];
-    $("#tabla_Fechas_Descuentos").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Eliminar</th></tr>');
-
-    var idDosxUno = ($("#promocionesDescuentos option:selected").val());
-
-    if(idDosxUno !=""){
-        const indice_Descuento = precio_Descuentos.findIndex((objeto)=>objeto.idDosxUno ==idDosxUno);
-        $("#cantidadPersonas").val(precio_Descuentos[indice_Descuento]['Cantidad']);
-        $("#cantidad_Boletos").val(precio_Descuentos[indice_Descuento]['Boletos']);
-    }
-    else{
-        $("#cantidadPersonas").val('');
-        $("#cantidad_Boletos").val('');
-    }
-    */
-   
+    
     cerrarCarga();
 
+});
+
+$(document).on('change','.promocionesPulsera', function(event){
+    iniciarCarga();
+
+    var idPulseraMagica;
+    
+    var id = $(this).parents('tr').attr('id').split('_')[3];
+
+    $('#precio_Pulsera_'+id).val('');
+
+    $("#inicioPulsera"+id).val('');
+    $("#finPulsera"+id).val('');
+    $("#precioPulsera"+id).val('');
+
+    $("#cuerpo_Fechas_Pulsera_" + id).html('');
+    $("#modificar_Hora_Pulsera_" + id).html('');
+
+    var longitud = fechas_Pulsera.length;
+
+    var indiceRenglon;
+
+    for(var i=0; i<longitud;i++){
+        indiceRenglon = fechas_Pulsera.findIndex((objeto)=>objeto.pulsera == id);
+
+        if(indiceRenglon != -1){
+            fechas_Pulsera.splice(indiceRenglon,1);
+        }
+    }
+
+    idPulseraMagica = $(this).val();
+
+    if(idPulseraMagica){
+        const indice_Pulsera = precio_Pulsera.findIndex((objeto)=>objeto.idPulseraMagica == idPulseraMagica);
+
+        $("#precio_Pulsera_"+id).val(precio_Pulsera[indice_Pulsera]['Precio']);
+    }
+
+    cerrarCarga();
 });
 
 $(document).on('change','#promocionesPulsera', function(event){
@@ -504,6 +512,71 @@ $("#nuevo_Registro_Promocion_Descuento").click(function(){
     ).clone().appendTo("#contenedor_Nuevos_Descuentos");
 });
 
+$("#nuevo_Registro_Promocion_Pulsera").click(function(){
+    contadorNuevaPulsera++;
+
+    $(
+        '<tr id="contenedor_Pulsera_Nueva_'+contadorNuevaPulsera+'">'+
+            '<td>'+
+                '<div class="from-group" id="nombre_Pulsera_'+contadorNuevaPulsera+'">'+
+                    '<label for="promocionesPulsera'+contadorNuevaPulsera+'">Nombre de la promocion</label>'+
+                    '<select name="pulsera'+contadorNuevaPulsera+'" id="pulsera'+contadorNuevaPulsera+'" class="form-control promocionesPulsera">'+option_Pulsera_Html+'</select>'+
+                    '<br>'+
+                '</div>'+
+                '<div class="from-group" id="precio_Pulseras_'+contadorNuevaPulsera+'">'+
+                    '<label for="precio_Pulsera">Precio de la Promoción</label>'+
+                    '<input type="number" class="form-control" name="precio_Pulsera_'+contadorNuevaPulsera+'" id="precio_Pulsera_'+contadorNuevaPulsera+'" placeholder="Precio Promoción" value="">'+
+                    '<br>'+
+                '</div>'+
+                '<div class="from-group" id="creditos_Pulsera_'+contadorNuevaPulsera+'">'+
+                '</div>'+
+                '<div class="from-group table table-responsive">'+
+                    '<table class="table table-border">'+
+                        '<tbody>'+
+                            '<tr>'+
+                                '<td>'+
+                                    '<div class="container" id="fechas_Pulsera_'+contadorNuevaPulsera+'">'+
+                                        '<center><label>Días</label>'+
+                                        '<br>'+
+                                        '<label for="inicioPulsera'+contadorNuevaPulsera+'">Hora de Inicio</label>'+
+                                        '<input id="inicioPulsera'+contadorNuevaPulsera+'" class="form-control" type="datetime-local">'+
+                                        '<br>'+
+                                        '<label for="finPulsera'+contadorNuevaPulsera+'">Hora de Finalizacion</label>'+
+                                        '<input id="finPulsera'+contadorNuevaPulsera+'" class="form-control" type="datetime-local">'+
+                                        '<br>'+
+                                        '<label for="precioPulsera'+contadorNuevaPulsera+'">Precio</label>'+
+                                        '<input id="precioPulsera'+contadorNuevaPulsera+'" class="form-control" type="number" placeholder="Ingresa un precio">'+
+                                        '<br>'+
+                                        '<button  class="btn btn-success adicionarPulsera" type="button">Agregar</button></center><br>'+
+                                    '</div>'+
+                                '</td>'+
+                                '<td>'+
+                                    '<div class="table-wrapper">'+
+                                        '<table id="tabla_Fechas_Pulsera_'+contadorNuevaPulsera+'" class="table table-border table-hover">'+
+                                            '<thead>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Fecha</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Hora Inicial</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Hora Final</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Precio</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Eliminar</th>'+
+                                            '</thead>'+
+                                            '<tbody id="cuerpo_Fechas_Pulsera_'+contadorNuevaPulsera+'">'+
+                                            '</tbody>'+
+                                        '</table>'+
+                                    '</div>'+
+                                    '<br>'+
+                                    '<div class="container" id="modificar_Hora_Pulsera_'+contadorNuevaPulsera+'">'+
+                                    '</div>'+
+                                '</td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                    '</table>'+
+                '</div>'+
+                '<button id="boton_Eliminar_Pulsera'+contadorNuevaPulsera+'" style="float: right;" class="btn btn-danger remover_Registro_Pulsera">Eliminar Registro</button>'+
+            '</td>'+
+        '</tr>'
+    ).clone().appendTo("#contenedor_Nuevas_Pulseras");
+});
 
 //Se encarga de generar los dias individuales, almacenarlos en el arreglo y pintarlos en la interfaz
 $(document).on('click','.adicionarDescuento', function(){
@@ -511,8 +584,6 @@ $(document).on('click','.adicionarDescuento', function(){
     var registro_Descuento = parseInt($(this).parents('div').attr('id').split('_')[2]);
 
     //var registro_Descuento = $(this).parents('div').attr('id').split('_')[2];
-
-    alert('Tipo de dato en registro descuento: ' + typeof registro_Descuento)
 
     var opcion = $("#descuentos"+registro_Descuento).val();
 
@@ -587,28 +658,57 @@ $(document).on('click','.adicionarDescuento', function(){
     cerrarCarga();
 });
 
-$("#adicionarPulsera").click(function(){
-    var opcion = ($("#promocionesPulsera option:selected").val());
+$(document).on('click','.adicionarPulsera', function(){
+    iniciarCarga();
 
-    var inicioPulsera = $("#inicioPulsera").val() + ":00";
-    var finPulsera = $("#finPulsera").val() + ":00";
-    var precioPulsera = $("#precioPulsera").val();
+    var registro_Pulsera = parseInt($(this).parents('div').attr('id').split('_')[2]);
 
-    if(opcion != "" && inicioPulsera !=":00" && finPulsera != ":00"){
+    var opcion = $("#pulsera"+registro_Pulsera).val();
+
+    var inicioPulsera =$("#inicioPulsera"+registro_Pulsera).val() +":00";
+    var finPulsera =$("#finPulsera"+registro_Pulsera).val()+":00";
+
+    var precioPulsera =$("#precioPulsera"+registro_Pulsera).val();
+
+    if(opcion !="" && inicioPulsera != ":00" && finPulsera != ":00"){
 
         if(precioPulsera === ""){
-            precioPulsera = $("#precio_Pulsera").val();
+            precioPulsera = $("#precio_Pulsera_"+registro_Pulsera).val();
         }
 
-        var fila = '<tr id="pulsera'+contador_Fila_Pulsera+'"><td>'+inicioPulsera+'</td><td>'+finPulsera+'</td><td>'+precioPulsera+'</td><td><button type="button" name="remover_Pulsera" id="'+contador_Fila_Pulsera+'" class="btn btn-danger remover_Pulsera">Remover</button></td></tr>';
-        contador_Fila_Pulsera++;
+       var horaInicial =  inicioPulsera.split('T')[1];
+       var horaFinal = finPulsera.split('T')[1];
 
-        $("#tabla_Fechas_Pulsera tr:first").after(fila);
-        fechas_Pulsera.push({'Precio':precioPulsera,'FechaInicial':inicioPulsera,'FechaFinal':finPulsera,'idPulseraMagica':opcion,'idEvento':idEvento});
+       var inicioEvento = new Date(inicioPulsera);
+       var finEvento = new Date(finPulsera);
+
+       var inicioDia, finDia, fecha;
+
+       const dia_Milisegundos = 1000*60*60*24;
+       const intervalo = dia_Milisegundos * 1;
+
+       const formateadorFecha = new Intl.DateTimeFormat('fr-ca',{year:"numeric", month:"2-digit", day:"2-digit"});
+
+       for(let i=inicioEvento; i<=finEvento; i= new Date(i.getTime() + intervalo)){
+            fecha = formateadorFecha.format(i);
+
+            inicioDia = fecha + ' ' + horaInicial;
+
+            finDia = fecha + ' ' + horaFinal;
+
+            fechas_Pulsera.push({'Precio':precioPulsera,'FechaInicial':inicioDia,'FechaFinal':finDia, 'idPulseraMagica':opcion, 'idRenglon':contador_Fila_Pulsera, 'pulsera':registro_Pulsera, 'idEvento':idEvento['idEvento']});
+
+            $('<tr id="pulsera_'+contador_Fila_Pulsera+'"><td id="fecha_Pulsera_'+contador_Fila_Pulsera+'" style="text-align: center; vertical-align: middle;">'+fecha+'</td><td id="'+contador_Fila_Pulsera+'_Pulsera_Hora_1" class="modificar_Hora_Pulsera" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td id="'+contador_Fila_Pulsera+'_Pulsera_Hora_2" class="modificar_Hora_Pulsera" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td id="'+contador_Fila_Pulsera+'_Pulsera_Precio" class="modificar_Hora_Pulsera" style="text-align: center; vertical-align: middle;">'+precioPulsera+'</td><td style="text-align: center; vertical-align: middle;"><button type="button" class="btn btn-danger remover_Pulsera">Remover</button></td></tr>').clone().appendTo("#cuerpo_Fechas_Pulsera_"+registro_Pulsera);
+
+            contador_Fila_Pulsera++;
+       }
     }
     else{
         alert('Favor de rellenar todos los campos');
     }
+
+    cerrarCarga();
+
 });
 
 $("#adicionarJuegos").click(function(){
@@ -697,7 +797,6 @@ $(document).on('click','.modificar_Horario_Descuento', function(){
 
     var horaIn = $("#modificarHoraInicialDescuento").val();
     var horaFi = $("#modificarHoraFinalDescuento").val();
-    console.log('Arreglo antes de moficiar: '+ JSON.stringify(fechas_Descuentos));
 
     if(horaIn && horaFi){
         var indiceRenglon = fechas_Descuentos.findIndex((objeto)=>objeto.idRenglon == tr);
@@ -713,19 +812,69 @@ $(document).on('click','.modificar_Horario_Descuento', function(){
     else{
         alert('Favor de agregar los horarios');
     }
+});
 
-    console.log('Arreglo despues de moficar: ' + JSON.stringify(fechas_Descuentos));
+$(document).on('click', '.modificar_Hora_Pulsera', function(){
+    var hora = $(this).html();
+
+    var idEventoArreglo = $(this).parents('table').attr('id').split('_')[3];
+    var tr = $(this).parents('tr').attr('id').split('_')[1];
+
+    var fecha = $("#fecha_Pulsera_"+tr).html();
+    var horaIn = $("#"+tr+"_Pulsera_Hora_1").html();
+    var horaFi = $("#"+tr+"_Pulsera_Hora_2").html();
+    var precio = $("#"+tr+"_Pulsera_Precio").html();
+
+    html =
+    '<hr>'+
+    '<input type="hidden" id="modificarFechaPulsera'+idEventoArreglo+'" value="'+fecha+'">'+
+    '<input type="hidden" id="modificarEventoPulsera'+idEventoArreglo+'" value="'+idEventoArreglo+'">'+
+    '<input type="hidden" id="modificarTrPulsera'+idEventoArreglo+'" value="'+tr+'">'+
+    '<h6 class="modal-title">Modificar: </h6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<label for="modificarHoraInicialPulsera'+idEventoArreglo+'">Hora Inicial: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarHoraInicialPulsera'+idEventoArreglo+'" value="'+horaIn+'" type="time"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<label for="modificarHoraFinalPulsera'+idEventoArreglo+'">Hora Final: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarHoraFinalPulsera'+idEventoArreglo+'" value="'+horaFi+'" type="time"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<label for="modificarPrecioPulsera'+idEventoArreglo+'">Precio: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarPrecioPulsera'+idEventoArreglo+'" value="'+precio+'" type="numeric"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<button type="button" class="btn btn-success modificar_Horario_Pulsera"> Aceptar</button>';
+
+    $('#modificar_Hora_Pulsera_'+idEventoArreglo).html(html);
+    
+});
+
+$(document).on('click', '.modificar_Horario_Pulsera', function(){
+
+    var id = $(this).parents('div').attr('id').split('_')[3];
+
+    var tr = $("#modificarTrPulsera"+id).val();
+    var fecha =$("#modificarFechaPulsera"+id).val();
+    var horaIn = $("#modificarHoraInicialPulsera"+id).val();
+    var horaFi = $("#modificarHoraFinalPulsera"+id).val();
+    var precio =$("#modificarPrecioPulsera"+id).val();
+
+    if(horaIn && horaFi && precio){
+        var indiceRenglon = fechas_Pulsera.findIndex((objeto)=>objeto.idRenglon == tr);
+
+        console.log('Registro anterior: ' + JSON.stringify(fechas_Pulsera[indiceRenglon]));
+
+        fechas_Pulsera[indiceRenglon]['FechaInicial'] = fecha + ' '+horaIn +':00';
+        fechas_Pulsera[indiceRenglon]['FechaFinal'] = fecha+ ' ' + horaFi + ':00';
+        fechas_Pulsera[indiceRenglon]['Precio'] = precio;
+
+        $("#"+tr+"_Pulsera_Hora_1").html(horaIn+':00');
+        $("#"+tr+"_Pulsera_Hora_2").html(horaFi+':00');
+        $("#"+tr+"_Pulsera_Precio").html(precio);
+
+        $("#modificar_Hora_Pulsera_"+id).html('');
+    }
+    else{
+        alert('Favor de agregar los horarios');
+    }
 });
 
 //Se encarga de eliminar una fecha individual de la interfaz y del arreglo
 $(document).on('click','.remover_Descuento', function(){
-    /*
-    var opcion = ($("#promocionesDescuentos option:selected").val());
-    var button_id = $(this).attr("id");
-
-    $('#descuentos'+button_id+'').remove();
-
-    fechas_Descuentos.splice(button_id,1);*/
 
     var parent =  $(this).parents().get(1);
 
@@ -738,13 +887,15 @@ $(document).on('click','.remover_Descuento', function(){
 });
 
 $(document).on('click','.remover_Pulsera',function(){
-    var opcion=($("#promocionesPulsera option:selected").val());
 
-    var button_id =$(this).attr("id");
+    var parent = $(this).parents().get(1);
 
-    $('#pulsera'+button_id+'').remove();
+    var id =$(this).parents('tr').attr('id').split('_')[1];
+    var indiceRenglon = fechas_Pulsera.findIndex((objeto)=>objeto.idRenglon == id);
 
-    fechas_Pulsera.splice(button_id,1);
+    fechas_Pulsera.splice(indiceRenglon, 1);
+
+    $(parent).remove();
 });
 
 $(document).on('click','.remover_Juegos', function(){
@@ -771,27 +922,39 @@ $(document).on('click','.remover_Registro_Descuento', function(event){
 
     //alert(id);
 
-    console.log('Obtencion del id: ' + id);
-
-    console.log('Arreglo anterior: ' + JSON.stringify(fechas_Descuentos));
-
     var indiceRenglon;
     var longitud = fechas_Descuentos.length;
 
     for(var i=0; i<longitud;i++){
+
         indiceRenglon = fechas_Descuentos.findIndex((objeto)=>objeto.descuento == id);
-        console.log('Contador: ' + i);
-        console.log(indiceRenglon);
+
         if(indiceRenglon != -1){
 
             fechas_Descuentos.splice(indiceRenglon,1);
         }
     }
 
-    console.log('Arreglo siguiente: ' + JSON.stringify(fechas_Descuentos));
-
-
     $("#contenedor_Descuento_Nuevo_"+id).remove();
+    cerrarCarga();
+});
+
+$(document).on('click','.remover_Registro_Pulsera', function(event){
+    iniciarCarga();
+    var id = $(this).parents('tr').attr('id').split('_')[3];
+
+    var indiceRenglon;
+    var longitud  = fechas_Pulsera.length;
+
+    for(var i=0; i<longitud;i++){
+        indiceRenglon = fechas_Pulsera.findIndex((objeto)=>objeto.pulsera == id);
+
+        if(indiceRenglon != -1){
+            fechas_Pulsera.splice(indiceRenglon,1);
+        }
+    }
+
+    $("#contenedor_Pulsera_Nueva_"+id).remove();
     cerrarCarga();
 });
 

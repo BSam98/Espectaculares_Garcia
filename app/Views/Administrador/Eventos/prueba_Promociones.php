@@ -100,47 +100,55 @@
                                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                                 <div class="table table-striped table-responsive">
                                                     <table class="table table-borderd" id="tabla_Pulseras">
-                                                        <tbody>
-                                                            <tr>
+                                                        <tbody id="contenedor_Nuevas_Pulseras">
+                                                            <tr id="contenedor_Pulsera_Nueva_0">
                                                                 <td>
-                                                                    <div class="from-group" id="nombre_Pulsera">
+                                                                    <div class="from-group" id="nombre_Pulsera_0">
                                                                     </div>
-                                                                    <div class="from-group" id="precio_Pulseras">
+                                                                    <div class="from-group" id="precio_Pulseras_0">
                                                                         <label for="precio_Pulsera">Precio de la Promoción</label>
-                                                                        <input type="number" class="form-control" name="precio_Pulsera" id="precio_Pulsera" placeholder="Precio Promoción" value="">
+                                                                        <input type="number" class="form-control" name="precio_Pulsera_0" id="precio_Pulsera_0" placeholder="Precio Promoción" value="">
                                                                         <br>
                                                                     </div>
-                                                                    <div class="from-group" id="creditos_Pulsera">
+                                                                    <div class="from-group" id="creditos_Pulsera_0">
                                                                     </div>
                                                                     <div class="from-group table table-responsive">
-                                                                        <table class="table table-bordered">
+                                                                        <table class="table table-border">
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <div class="container" id="fechas_Pulsera">
+                                                                                        <div class="container" id="fechas_Pulsera_0">
                                                                                             <center><label>Días</label>
                                                                                             <br>
-                                                                                            <label for="inicioPulsera">Hora de Inicio</label>
-                                                                                            <input id="inicioPulsera" class="form-control" type="datetime-local">
+                                                                                            <label for="inicioPulsera0">Hora de Inicio</label>
+                                                                                            <input id="inicioPulsera0" class="form-control" type="datetime-local">
                                                                                             <br>
-                                                                                            <label for="finPulsera">Hora de Finalizacion</label>
-                                                                                            <input id="finPulsera" class="form-control" type="datetime-local">
+                                                                                            <label for="finPulsera0">Hora de Finalizacion</label>
+                                                                                            <input id="finPulsera0" class="form-control" type="datetime-local">
                                                                                             <br>
-                                                                                            <label for="precioPulsera">Precio</label>
-                                                                                            <input id="precioPulsera" class="form-control" type="number" placeholder="Ingresa un precio">
+                                                                                            <label for="precioPulsera0">Precio</label>
+                                                                                            <input id="precioPulsera0" class="form-control" type="number" placeholder="Ingresa un precio">
                                                                                             <br>
-                                                                                            <button id="adicionarPulsera" class="btn btn-success" type="button">Agregar</button></center><br>
+                                                                                            <button  class="btn btn-success adicionarPulsera" type="button">Agregar</button></center><br>
                                                                                         </div>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <table id="tabla_Fechas_Pulsera" class="table table-bordered table-hover">
-                                                                                            <tr>
-                                                                                                <th>Hora Inicial</th>
-                                                                                                <th>Hora Final</th>
-                                                                                                <th>Precio</th>
-                                                                                                <th>Eliminar</th>
-                                                                                            </tr>
-                                                                                        </table>
+                                                                                        <div class="table-wrapper">
+                                                                                            <table id="tabla_Fechas_Pulsera_0" class="table table-border table-hover">
+                                                                                                <thead>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Fecha</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Hora Inicial</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Hora Final</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Precio</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Eliminar</th>
+                                                                                                </thead>
+                                                                                                <tbody id="cuerpo_Fechas_Pulsera_0">
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="container" id="modificar_Hora_Pulsera_0">
+                                                                                        </div>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -151,6 +159,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                                <button id="nuevo_Registro_Promocion_Pulsera" type="button" style="float: left;" class="btn btn-warning"><i class="fa fa-plus-circle">&nbsp;Nuevo Registro </i></button>
                                             </div>
 
                                             <div class="tab-pane fade" id="nav-tres" role="tabpanel" aria-labelledby="nav-tres-tab">
@@ -267,8 +276,8 @@
 
                                         </div>
                                     </fieldset>
-                                    <button type="button" class="btn btn-success" id="agregar_Promocion_Evento" name ="agregar_Promocion_Evento">Guardar</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger" style="float: right;" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-success" style="float: right;" id="agregar_Promocion_Evento" name ="agregar_Promocion_Evento">Guardar</button>
                                 </form>
                             </div>
 
