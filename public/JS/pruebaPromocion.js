@@ -301,7 +301,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
             '<br>';
 
             nombre_Juegos_Html = '<label for="promocionesPulsera">Nombre de la promocion</label>'+
-            '<select name="promocionesJuegos" id="promocionesJuegos" class="form-control">'+option_Juegos_Html+'</select>' +
+            '<select id="juegos0" class="form-control promocionesJuegos">'+option_Juegos_Html+'</select>' +
             '<br>';
             
             nombre_Cortesias_Html = '<label for="promocionesPulsera">Nombre de la promocion</label>'+
@@ -314,7 +314,7 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
             $("#tabla_Creditos_Evento").html(tabla_Creditos_Html);
             $("#nombre_Descuentos_0").html(nombre_Descuentos_Html);
             $("#nombre_Pulsera_0").html(nombre_Pulsera_Html);
-            $("#nombre_Juegos").html(nombre_Juegos_Html);
+            $("#nombre_Juegos_0").html(nombre_Juegos_Html);
             $("#nombre_Cortesias").html(nombre_Cortesias_Html);
             cerrarCarga();
         }
@@ -408,27 +408,31 @@ $(document).on('change','.promocionesPulsera', function(event){
     cerrarCarga();
 });
 
-$(document).on('change','#promocionesPulsera', function(event){
-    contador_Fila_Pulsera = 0;
-    fechas_Pulsera = [];
-    $("#tabla_Fechas_Pulsera").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Eliminar</th></tr>');
-    var idPulseraMagica = ($("#promocionesPulsera option:selected").val());
+$(document).on('change','.promocionesJuegos', function(event){
+    iniciarCarga();
 
-    if(idPulseraMagica !=""){
-        const indice_Pulsera = precio_Pulsera.findIndex((objeto)=>objeto.idPulseraMagica == idPulseraMagica);
+    var id = $(this).parents('tr').attr('id').split('_')[3];
 
-        $("#precio_Pulsera").val(precio_Pulsera[indice_Pulsera]['Precio']);
+    $("#inicioJuegos"+id).val('');
+    $("#finJuegos"+id).val('');
+
+    $("#cuerpo_Fechas_Juegos_"+id).html('');
+    $("#modificar_Hora_Juegos_"+id).html('');
+
+    var longitud  = fechas_Juegos.length;
+    var indiceRenglon;
+
+    for(var i=0;i<longitud;i++){
+        indiceRenglon = fechas_Juegos.findIndex((objeto)=>objeto.juego);
+
+        if(indiceRenglon != -1){
+            fechas_Juegos.splice(indiceRenglon,1);
+        }
     }
-    else{
-        $("#precio_Pulsera").val('');
-    }
-});
 
-$(document).on('change','#promocionesJuegos',function(event){
-    contador_Fila_Juegos = 0;
-    fechas_Juegos = [];
-    $("#tabla_Fechas_Juegos").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Eliminar</th></tr>');
-    var idJuegosGratis =($("#promocionesJuegos option:selected").val());
+    var idJuegosGratis = $(this).val();
+
+    cerrarCarga();
 });
 
 $(document).on('change','#promocionesCortesias', function(event){
@@ -711,22 +715,50 @@ $(document).on('click','.adicionarPulsera', function(){
 
 });
 
-$("#adicionarJuegos").click(function(){
-    var opcion = ($("#promocionesJuegos option:selected").val());
+$(document).on('click','.adicionarJuegos', function(){
+    iniciarCarga();
 
-    var inicioJuegos = $("#inicioJuegos").val() + ":00";
-    var finJuegos = $("#finJuegos").val() + ":00";
+    var registro_Juego  = parseInt($(this).parents('div').attr('id').split('_')[2]);
 
-    if(opcion !="" && inicioJuegos !=":00" && finJuegos != ":00"){
-        var fila = '<tr id="juegos'+contador_Fila_Juegos+'"><td>'+inicioJuegos+'</td><td>'+finJuegos+'</td><td><button type="button" name="remover_Juegos" id="'+contador_Fila_Juegos+'" class="btn btn-danger remover_Juegos">Remover</button></td></tr>';
-        contador_Fila_Juegos++;
+    var opcion = $("#juegos"+registro_Juego).val();
+    
+    var inicioJuego = $("#inicioJuegos"+registro_Juego).val() + ":00";
+    var finJuego = $("#finJuegos"+registro_Juego).val() + ":00";
 
-        $("#tabla_Fechas_Juegos tr:first").after(fila);
-        fechas_Juegos.push({'Precio':0,'FechaInicial':inicioJuegos,'FechaFinal':finJuegos,'idJuegosGratis':opcion,'idEvento':idEvento});
+    if(opcion != "" && inicioJuego != ":00" && finJuego != ":00"){
+
+        var horaInicial = inicioJuego.split('T')[1];
+        var horaFinal = finJuego.split('T')[1];
+
+        var inicioEvento = new Date(inicioJuego);
+        var finEvento = new Date(finJuego);
+
+        var inicioDia, finDia, fecha;
+
+        const dia_Milisegundos = 1000*60*60*24;
+        const intervalo = dia_Milisegundos*1;
+
+        const formateadorFecha = new Intl.DateTimeFormat('fr-ca',{year:"numeric", month:"2-digit", day:"2-digit"});
+
+        for(let i=inicioEvento; i<=finEvento; i= new Date(i.getTime() + intervalo)){
+            fecha = formateadorFecha.format(i);
+
+            inicioDia = fecha + ' '+ horaInicial;
+            finDia = fecha + ' ' + horaFinal;
+
+            fechas_Juegos.push({'Precio':0,'FechaInicial':inicioDia,'FechaFinal':finDia,'idJuegosGratis':opcion, 'idRenglon':contador_Fila_Juegos, 'juego':registro_Juego,'idEvento':idEvento['idEvento']});
+
+            $('<tr id="juegos_'+contador_Fila_Juegos+'"><td id="fecha_Juego_'+contador_Fila_Juegos+'" style="text-align: center; vertical-align: middle;">'+fecha+'</td><td id="'+contador_Fila_Juegos+'_Juego_Hora_1" class="modificar_Hora_Juego" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td id="'+contador_Fila_Juegos+'_Juego_Hora_2" class="modificar_Hora_Juego" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td><button style="text-align: center; vertical-align: middle;" type="button" class="btn btn-danger remover_Juegos">Remover</button></td></tr>').clone().appendTo('#cuerpo_Fechas_Juegos_'+registro_Juego);
+
+            contador_Fila_Juegos++;
+        }
+
     }
     else{
         alert('Favor de rellenar todos los campos');
     }
+
+    cerrarCarga();
 });
 
 $("#adicionarCreditos").click(function(){
@@ -873,6 +905,62 @@ $(document).on('click', '.modificar_Horario_Pulsera', function(){
     }
 });
 
+$(document).on('click', ' .modificar_Hora_Juego', function(){
+    var idEventoArreglo = $(this).parents('table').attr('id').split('_')[3];
+    var tr = $(this).parents('tr').attr('id').split('_')[1];
+
+    var fecha = $("#fecha_Juego_"+tr).html();
+    var horaIn  = $("#"+tr+"_Juego_Hora_1").html();
+    var horaFi = $("#"+tr+"_Juego_Hora_2").html();
+
+    var posicion = $(this).attr('id').substr(-1);
+
+    html=
+    '<hr>'+
+    '<input type="hidden" id="modificarFechaJuego'+idEventoArreglo+'" value="'+fecha+'">'+
+    '<input type="hidden" id="modificarEventoJuego'+idEventoArreglo+'" value="'+idEventoArreglo+'">'+
+    '<input type="hidden" id="modificarTrJuego'+idEventoArreglo+'" value="'+tr+'">'+
+    '<h6 class="modal-title">Modificar: </h6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<label for="modificarHoraInicialJuego'+idEventoArreglo+'">Hora Inicial: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarHoraInicialJuego'+idEventoArreglo+'" value="'+horaIn+'" type="time"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<label for="modificarHoraFinalJuego'+idEventoArreglo+'">Hora Final: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarHoraFinalJuego'+idEventoArreglo+'" value="'+horaFi+'" type="time"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+
+    '<button type="button" class="btn btn-success modificar_Horario_Juego"> Aceptar</button>';
+
+    $("#modificar_Hora_Juegos_"+idEventoArreglo).html(html);
+});
+
+$(document).on('click', '.modificar_Horario_Juego', function(){
+    var id = $(this).parents('div').attr('id').split('_')[3];
+    console.log('Sin modificar: ' + JSON.stringify(fechas_Juegos));
+
+    var tr = $("#modificarTrJuego"+id).val();
+    var fecha = $("#modificarFechaJuego"+id).val();
+
+    var horaIn = $("#modificarHoraInicialJuego"+id).val();
+    var horaFi = $("#modificarHoraFinalJuego"+id).val();
+
+    if(horaIn && horaFi){
+        
+        var indiceRenglon = fechas_Juegos.findIndex((objeto)=>objeto.idRenglon == tr);
+
+        fechas_Juegos[indiceRenglon]['FechaInicial'] = fecha+' '+horaIn +':00';
+        fechas_Juegos[indiceRenglon]['FechaFinal'] = fecha+' '+horaFi +':00';
+
+        $("#"+tr+"_Juego_Hora_1").html(horaIn+':00');
+        $("#"+tr+"_Juego_Hora_2").html(horaFi+':00');
+
+        $("#modificar_Hora_Juegos_"+id).html('');
+    }
+    else{
+        alert('Favor de agregar los horarios');
+    }
+
+    console.log('');
+    console.log('Modificado: ' + JSON.stringify(fechas_Juegos));
+});
+
 //Se encarga de eliminar una fecha individual de la interfaz y del arreglo
 $(document).on('click','.remover_Descuento', function(){
 
@@ -899,12 +987,14 @@ $(document).on('click','.remover_Pulsera',function(){
 });
 
 $(document).on('click','.remover_Juegos', function(){
-    var opcion = ($("#promocionesJuegos option:selected").val());
-    var button_id = $(this).attr("id");
+    var parent = $(this).parents().get(1);
+    
+    var id =$(this).parents('tr').attr('id').split('_')[1];
+    var indiceRenglon  =fechas_Juegos.findIndex((objeto)=>objeto.idRenglon ==id);
 
-    $('#juegos'+button_id+'').remove();
+    fechas_Juegos.splice(indiceRenglon,1);
 
-    fechas_Juegos.splice(button_id,1);
+    $(parent).remove();
 });
 
 $(document).on('click','.remover_Cortesias',function(){

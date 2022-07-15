@@ -165,40 +165,46 @@
                                             <div class="tab-pane fade" id="nav-tres" role="tabpanel" aria-labelledby="nav-tres-tab">
                                                 <div class="table table-striped responsive">
                                                     <table class="table table-borderd" id="tabla_Juegos">
-                                                        <tbody>
-                                                            <tr>
+                                                        <tbody id="contenedor_Nuevo_Juego">
+                                                            <tr id="contenedor_Juego_Nuevo_0">
                                                                 <td>
-                                                                    <div class="from-group" id="nombre_Juegos">
+                                                                    <div class="from-group" id="nombre_Juegos_0">
                                                                     </div>
-                                                                    <div class="from-group" id="precio_Juegos">
+                                                                    <div class="from-group" id="precio_Juegos_0">
                                                                     </div>
-                                                                    <div class="from-group" id="creditos_Juegos">
+                                                                    <div class="from-group" id="creditos_Juegos_0">
                                                                     </div>
                                                                     <div class="from-group table table-responsive">
-                                                                        <table class="table table-bordered">
+                                                                        <table class="table table-border">
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <div class="container" id="fechas_Juegos">
+                                                                                        <div class="container" id="fechas_Juegos_0">
                                                                                             <center><label>Días</label>
                                                                                             <br>
-                                                                                            <label for="inicioJuegos">Hora de Inicio</label>
-                                                                                            <input id="inicioJuegos" class="form-control" type="datetime-local">
+                                                                                            <label for="inicioJuegos0">Hora de Inicio</label>
+                                                                                            <input id="inicioJuegos0" class="form-control" type="datetime-local">
                                                                                             <br>
-                                                                                            <label for="finJuegos">Hora de Finalizacion</label>
-                                                                                            <input id="finJuegos" class="form-control" type="datetime-local">
+                                                                                            <label for="finJuegos0">Hora de Finalizacion</label>
+                                                                                            <input id="finJuegos0" class="form-control" type="datetime-local">
                                                                                             <br>
-                                                                                            <button id="adicionarJuegos" class="btn btn-success" type="button">Agregar</button></center><br>
+                                                                                            <button class="btn btn-success adicionarJuegos" type="button">Agregar</button></center><br>
                                                                                         </div>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <table id="tabla_Fechas_Juegos" class="table table-bordered table-hover">
-                                                                                            <tr>
-                                                                                                <th>Hora Inicial</th>
-                                                                                                <th>Hora Final</th>
-                                                                                                <th>Eliminar</th>
-                                                                                            </tr>
-                                                                                        </table>
+                                                                                        <div class="table-wrapper">
+                                                                                            <table id="tabla_Fechas_Juegos_0" class="table table-border table-hover">
+                                                                                                <thead>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Fecha</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Hora Inicial</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Hora Final</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Eliminar</th>
+                                                                                                </thead>
+                                                                                                <tbody id="cuerpo_Fechas_Juegos_0"></tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="container" id="modificar_Hora_Juegos_0"></div>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
