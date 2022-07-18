@@ -93,11 +93,9 @@ var contadorNuevaCortesia = 0;
 //Checar aqui truena
 //Muestra la interfaz principal de descuentos en evento
 function mostrar_Promociones(a){
+
+    var idEvento = a;
     iniciarCarga();
-
-    var idEvento = a.toString();
-
-    alert(typeof idEvento);
 
     fecha_Inicial_Descuento = '';
     fecha_Final_Descuento = '';
@@ -162,7 +160,7 @@ function mostrar_Promociones(a){
     option_Descuentos_Html ='';
     option_Pulsera_Html = '';
     var option_Juegos_Html = '';
-    var option_Cortesias_Html = '';
+    option_Cortesias_Html = '';
 
     option_Descuentos_Html ='<option value="">Seleccione una promoción</option>';
     option_Pulsera_Html = '<option value="">Seleccione una promoción</option>';
@@ -170,14 +168,13 @@ function mostrar_Promociones(a){
     option_Cortesias_Html = '<option value="">Seleccione una promoción</option>';
 
     //idEvento =$(this).data('book-id');
-    //$("#idEventoPromociones").val(idEvento['idEvento']);
     $("#idEventoPromociones").val(idEvento);
 
-    //Al momento de enviar la peticion por ajax    
+    
     $.ajax({
         type:"POST",
         url:'Eventos/Mostrar_Promociones',
-        data:{'idEvento':idEvento},
+        data:{'idEvento': idEvento} ,
         dataType:'JSON',
         error: function(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
@@ -333,7 +330,7 @@ function mostrar_Promociones(a){
             '<br>';
             
             nombre_Cortesias_Html = '<label for="promocionesPulsera">Nombre de la promocion</label>'+
-            '<select name="promocionesCortesias" id="promocionesCortesias" class="form-control">'+option_Cortesias_Html+'</select>'+
+            '<select id="cortesias0" class="form-control promocionesCortesias">'+option_Cortesias_Html+'</select>'+
             '<br>';
 
             $("#tabla_Descuentos_Evento").html(tabla_Descuentos_Html);
@@ -343,11 +340,13 @@ function mostrar_Promociones(a){
             $("#nombre_Descuentos_0").html(nombre_Descuentos_Html);
             $("#nombre_Pulsera_0").html(nombre_Pulsera_Html);
             $("#nombre_Juegos_0").html(nombre_Juegos_Html);
-            $("#nombre_Cortesias").html(nombre_Cortesias_Html);
+            $("#nombre_Cortesias_0").html(nombre_Cortesias_Html);
             cerrarCarga();
         }
     });
 }
+
+
 $(document).on('click','.mostrar_Promociones_Evento',function(){
     iniciarCarga();
 

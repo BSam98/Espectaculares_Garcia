@@ -103,7 +103,7 @@ class Prueba_Promocion_Model extends Model{
             ON
                 Promocion_Dos_x_Uno.idDosxUno = Calendario_Dos_x_Uno.idDosxUno
             WHERE
-                Calendario_Dos_x_Uno.idEvento = $idEvento[idEvento];"
+                Calendario_Dos_x_Uno.idEvento = $idEvento;"
         );
 
         $descuentos = $query->getResultObject();
@@ -120,7 +120,7 @@ class Prueba_Promocion_Model extends Model{
             ON
                 Promocion_Pulsera_Magica.idPulseraMagica = Calendario_Pulsera_Magica.idPulseraMagica
             WHERE
-                Calendario_Pulsera_Magica.idEvento = $idEvento[idEvento];
+                Calendario_Pulsera_Magica.idEvento = $idEvento;
             "
         );
 
@@ -137,7 +137,7 @@ class Prueba_Promocion_Model extends Model{
             ON
                 Promocion_Juegos_Gratis.idJuegosGratis = Calendario_Juegos_Gratis.idJuegosGratis
             WHERE
-                Calendario_Juegos_Gratis.idEvento = $idEvento[idEvento];
+                Calendario_Juegos_Gratis.idEvento = $idEvento;
             "
         );
 
@@ -154,7 +154,7 @@ class Prueba_Promocion_Model extends Model{
             ON
                 Promocion_Creditos_Cortesia.idCC = Calendario_Creditos_Cortesia.idCC
             WHERE
-                Calendario_Creditos_Cortesia.idEvento = $idEvento[idEvento];
+                Calendario_Creditos_Cortesia.idEvento = $idEvento;
             "
         );
 
