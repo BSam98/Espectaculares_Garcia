@@ -219,55 +219,61 @@
 
                                             <div class="tab-pane fade" id="nav-cuatro" role="tabpanel" aria-labelledby="nav-cuatro-tab">
                                                 <div class="table table-striped responsive">
-                                                <table class="table table-bordered" id="tabla_Cortesias">
-                                                        <tbody>
-                                                            <tr>
+                                                    <table class="table table-borderd" id="tabla_Cortesias">
+                                                        <tbody id="contenedor_Creditos_Cortesia">
+                                                            <tr id="contenedor_Creditos_Cortesia_0">
                                                                 <td>
-                                                                    <div class="from-group" id="nombre_Cortesias">
+                                                                    <div class="from-group" id="nombre_Cortesias_0">
                                                                     </div>
-                                                                    <div class="from-group" id="precio_Cortesia">
-                                                                        <label for="precio_Cortesias">Precio de la Promoción</label>
-                                                                        <input type="number" class="form-control" name="precio_Cortesias" id="precio_Cortesias" placeholder="Precio Promoción" value="">
+                                                                    <div class="from-group" id="precio_Cortesia_0">
+                                                                        <label for="precio_Cortesias_0">Precio de la Promoción</label>
+                                                                        <input type="number" class="form-control" name="precio_Cortesias_0" id="precio_Cortesias_0" placeholder="Precio Promoción" value="">
                                                                         <br>
                                                                     </div>
-                                                                    <div class="from-group" id="creditos_Cortesia">
-                                                                        <label for="creditos_Cortesias">Creditos de la promoción</label>
-                                                                        <input type="number" class="form-control" name="creditos_Cortesias" id="creditos_Cortesias" placeholder="Creditos Promoción">
+                                                                    <div class="from-group" id="creditos_Cortesia_0">
+                                                                        <label for="creditos_Cortesias_0">Creditos de la promoción</label>
+                                                                        <input type="number" class="form-control" name="creditos_Cortesias_0" id="creditos_Cortesias_0" placeholder="Creditos Promoción">
                                                                         <br>
                                                                     </div>
                                                                     <div class="from-group table table-responsive">
-                                                                        <table class="table table-bordered">
+                                                                        <table class="table table-border">
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <div class="container" id="fechas_Cortesias">
+                                                                                        <div class="container" id="fechas_Cortesias_0">
                                                                                             <center><label>Días</label>
                                                                                             <br>
-                                                                                            <label for="inicioCortesias">Hora de Inicio</label>
-                                                                                            <input id="inicioCortesias" class="form-control" type="datetime-local">
+                                                                                            <label for="inicioCortesias0">Hora de Inicio</label>
+                                                                                            <input id="inicioCortesias0" class="form-control" type="datetime-local">
                                                                                             <br>
-                                                                                            <label for="finCortesias">Hora de Finalizacion</label>
-                                                                                            <input id="finCortesias" class="form-control" type="datetime-local">
+                                                                                            <label for="finCortesias0">Hora de Finalizacion</label>
+                                                                                            <input id="finCortesias0" class="form-control" type="datetime-local">
                                                                                             <br>
-                                                                                            <label for="precioCortesias">Precio</label>
-                                                                                            <input id="precioCortesias" class="form-control" type="number" placeholder="Ingresa un precio">
+                                                                                            <label for="precioCortesias0">Precio</label>
+                                                                                            <input id="precioCortesias0" class="form-control" type="number" placeholder="Ingresa un precio">
                                                                                             <br>
-                                                                                            <label for="creditosI">Creditos</label>
-                                                                                            <input id="creditosI" name="creditosI" class="form-control" type="number" placeholder="Creditos cortesia">
+                                                                                            <label for="creditosI0">Creditos</label>
+                                                                                            <input id="creditosI0" name="creditosI0" class="form-control" type="number" placeholder="Creditos cortesia">
                                                                                             <br>
-                                                                                            <button id="adicionarCreditos" class="btn btn-success" type="button">Agregar</button></center><br>
+                                                                                            <button class="btn btn-success adicionarCreditos" type="button">Agregar</button></center><br>
                                                                                         </div>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <table id="tabla_Fechas_Cortesias" class="table table-bordered table-hover">
-                                                                                            <tr>
-                                                                                                <th>Hora Inicial</th>
-                                                                                                <th>Hora Final</th>
-                                                                                                <th>Precio</th>
-                                                                                                <th>Creditos</th>
-                                                                                                <th>Eliminar</th>
-                                                                                            </tr>
-                                                                                        </table>
+                                                                                        <div class="table-wrapper">
+                                                                                            <table id="tabla_Fechas_Cortesias_0" class="table table-border table-hover">
+                                                                                                <thead>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Fecha</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Hora Inicial</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Hora Final</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Precio</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Creditos</th>
+                                                                                                    <th style="text-align: center; vertical-align: middle;">Eliminar</th>
+                                                                                                </thead>
+                                                                                                <tbody id="cuerpo_Promocion_Cortesias_0"></tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="container" id="modificar_Hora_Cortesias_0"></div>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -278,6 +284,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                                <button id="nuevo_Registro_Promocion_Cortesia" type="button" style="float: left;" class="btn btn-warning"><i class="fa fa-plus-circle">&nbsp;Nuevo Registro </i></button>
                                             </div>
 
                                         </div>

@@ -1,3 +1,23 @@
+
+function mostrar_Promociones_Evento(idEvento){
+    div = document.getElementById('contenedor_Promociones_Evento');
+    div.style.display = '';
+
+    prin = document.getElementById('contenedor_Eventos');
+    prin.style.display = 'none';
+
+    mostrar_Promociones(idEvento);
+}
+
+function cerrar_Promociones_Evento(){
+    div = document.getElementById('contenedor_Eventos');
+    div.style.display = '';
+
+    prin = document.getElementById('contenedor_Promociones_Evento');
+    prin.style.display = 'none';
+}
+
+
 var contador_Fila_Descuentos=0;
 var contador_Fila_Pulsera = 0;
 var contador_Fila_Juegos = 0;
@@ -61,16 +81,23 @@ var idEvento;
 
 var option_Descuentos_Html ='';
 var option_Pulsera_Html  ='';
+var option_Cortesias_Html = '';
 
 //Nuevas variables necesarias para los registros multiples, se necesitaran agregar a l mentodo de .mostrar_Promociones_Evento para que se formaten cada ves que se abre
 var contadorNuevoDescuento = 0;
 var contadorNuevaPulsera = 0;
+var contadorNuevaCortesia = 0;
 
 /****************************************** Primer nivel, para agregar una promoción a un evento ***********************************************************/
 
+//Checar aqui truena
 //Muestra la interfaz principal de descuentos en evento
-$(document).on('click','.mostrar_Promociones_Evento',function(){
+function mostrar_Promociones(a){
     iniciarCarga();
+
+    var idEvento = a.toString();
+
+    alert(typeof idEvento);
 
     fecha_Inicial_Descuento = '';
     fecha_Final_Descuento = '';
@@ -142,14 +169,15 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
     option_Juegos_Html = '<option value="">Seleccione una promoción</option>';
     option_Cortesias_Html = '<option value="">Seleccione una promoción</option>';
 
-    idEvento =$(this).data('book-id');
-    $("#idEventoPromociones").val(idEvento['idEvento']);
+    //idEvento =$(this).data('book-id');
+    //$("#idEventoPromociones").val(idEvento['idEvento']);
+    $("#idEventoPromociones").val(idEvento);
 
-    
+    //Al momento de enviar la peticion por ajax    
     $.ajax({
         type:"POST",
         url:'Eventos/Mostrar_Promociones',
-        data:{'idEvento':idEvento} ,
+        data:{'idEvento':idEvento},
         dataType:'JSON',
         error: function(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
@@ -319,6 +347,257 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
             cerrarCarga();
         }
     });
+}
+$(document).on('click','.mostrar_Promociones_Evento',function(){
+    iniciarCarga();
+
+    fecha_Inicial_Descuento = '';
+    fecha_Final_Descuento = '';
+    precios_Descuentos_Html = '';
+
+    fecha_Inicial_Pulsera = '';
+    fecha_Final_Pulsera = '';
+    precio_Pulsera_Html = '';
+
+    fecha_Inicial_Juegos = '';
+    fecha_Final_Juegos = '';
+
+    fecha_Inicial_Creditos = '';
+    fecha_Final_Creditos = '';
+    precio_Creditos_Html= '';
+    creditos_Html= '';
+
+    tabla_Descuentos_Html = '';
+    tabla_Pulsera_Html = '';
+    tabla_Juegos_Html = '';
+    tabla_Creditos_Html = '';
+
+    $("#cantidadPersonas").val('');
+    $("#cantidad_Boletos").val('');
+    $("#inicioDescuento").val('');
+    $("#finDescuentos").val('');
+    contador_Fila_Descuentos = 0;
+    fechas_Descuentos = [];
+    $("#tabla_Fechas_Descuentos").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Eliminar</th></tr>');
+
+    $("#precio_Pulsera").val('');
+    $("#inicioPulsera").val('');
+    $("#finPulsera").val('');
+    $("#precioPulsera").val('');
+    contador_Fila_Pulsera = 0;
+    fechas_Pulsera = [];
+    $("#tabla_Fechas_Pulsera").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Eliminar</th></tr>');
+
+    $("#inicioJuegos").val('');
+    $("#finJuegos").val('');
+    contador_Fila_Juegos = 0;
+    fechas_Juegos = [];
+    $("#tabla_Fechas_Juegos").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Eliminar</th></tr>');
+
+
+    $("#precio_Cortesias").val('');
+    $("#creditos_Cortesias").val('');
+    $("#inicioCortesias").val('');
+    $("#finCortesias").val('');
+    $("#precioCortesias").val('');
+    $("#creditosI").val('');
+    contador_Fila_Cortesias = 0;
+    fechas_Cortesias = [];
+    $("#tabla_Fechas_Cortesias").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Creditos</th><th>Eliminar</th></tr>');
+
+
+    var nombre_Descuentos_Html= '';
+    var nombre_Pulsera_Html = '';
+    var nombre_Juegos_Html = '';
+    var nombre_Cortesias_Html = '';
+    
+    option_Descuentos_Html ='';
+    option_Pulsera_Html = '';
+    var option_Juegos_Html = '';
+    option_Cortesias_Html = '';
+
+    option_Descuentos_Html ='<option value="">Seleccione una promoción</option>';
+    option_Pulsera_Html = '<option value="">Seleccione una promoción</option>';
+    option_Juegos_Html = '<option value="">Seleccione una promoción</option>';
+    option_Cortesias_Html = '<option value="">Seleccione una promoción</option>';
+
+    idEvento =$(this).data('book-id');
+    $("#idEventoPromociones").val(idEvento['idEvento']);
+
+    
+    $.ajax({
+        type:"POST",
+        url:'Eventos/Mostrar_Promociones',
+        data:{'idEvento':idEvento} ,
+        dataType:'JSON',
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            for(var i=0; i<data.msj.descuentos.length;i++){
+                option_Descuentos_Html += '<option value="'+data.msj.descuentos[i]['idDosxUno']+'">'+data.msj.descuentos[i]['Nombre']+'</option>';
+
+                precio_Descuentos.push({'idDosxUno':data.msj.descuentos[i]['idDosxUno'],'Cantidad':data.msj.descuentos[i]['Cantidad'],'Boletos':data.msj.descuentos[i]['Boletos']});
+            }
+
+            for(var i=0; i<data.msj.pulsera.length;i++){
+                option_Pulsera_Html += '<option value="'+data.msj.pulsera[i]['idPulseraMagica']+'">'+data.msj.pulsera[i]['Nombre']+'</option>';
+
+                precio_Pulsera.push({'idPulseraMagica':data.msj.pulsera[i]['idPulseraMagica'],'Precio':data.msj.pulsera[i]['Precio']});
+            }
+
+            for(var i=0; i<data.msj.juegos.length;i++){
+                option_Juegos_Html += '<option value="'+data.msj.juegos[i]['idJuegosGratis']+'">'+data.msj.juegos[i]['Nombre']+'</option>';
+
+                precio_Juegos.push({'idJuegosGratis':data.msj.juegos[i]['idJuegosGratis'],'Precio':data.msj.juegos[i]['Precio']});
+            }
+
+            for(var i=0;i<data.msj.cortesias.length;i++){
+                option_Cortesias_Html +='<option value="'+data.msj.cortesias[i]['idCC']+'">'+data.msj.cortesias[i]['Nombre']+'</option>';
+
+                precio_Cortesias.push({'idCC':data.msj.cortesias[i]['idCC'],'Precio':data.msj.cortesias[i]['Precio'],'Creditos':data.msj.cortesias[i]['Creditos']});
+            }
+
+            for(var i=0; i<data.nombres.descuentos.length;i++){
+                var datos_Descuentos = '';
+                var arreglo = [];
+                
+                for(var j= 0; j<data.listado.listadoDescuentos.length;j++){
+                    if(data.nombres.descuentos[i]['idDosxUno'] == data.listado.listadoDescuentos[j]['idDosxUno']){
+
+                        fecha_Inicial_Descuento += data.listado.listadoDescuentos[j]['FechaInicial']+'<br><br>';
+                        fecha_Final_Descuento += data.listado.listadoDescuentos[j]['FechaFinal']+'<br><br>';
+                        
+                        arreglo.push({'idFechaDosxUno':data.listado.listadoDescuentos[j]['idFechaDosxUno'],'FechaInicial':data.listado.listadoDescuentos[j]['FechaInicial'],'FechaFinal':data.listado.listadoDescuentos[j]['FechaFinal']});
+                    }
+                }
+                datos_Descuentos = JSON.stringify(arreglo);
+
+                tabla_Descuentos_Html += '<tr>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Descuento" class="editar_Descuentos" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Descuentos+','+'"Nombre":"'+data.nombres.descuentos[i]['Nombre']+'",'+'"Cantidad":'+data.nombres.descuentos[i]['Cantidad']+','+'"Boletos":'+data.nombres.descuentos[i]['Boletos']+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;">'+data.nombres.descuentos[i]['Nombre']+'</td>'+
+                '<td style="text-align: center; vertical-align:middle;">'+data.nombres.descuentos[i]['Cantidad']+'</td>'+
+                '<td style="text-align: center; vertical-align:middle;">'+data.nombres.descuentos[i]['Boletos']+'</td>'+
+                '<td>'+fecha_Inicial_Descuento+'</td>'+
+                '<td>'+fecha_Final_Descuento+'</td>'+
+                '</tr>';
+
+                fecha_Inicial_Descuento = '';
+                fecha_Final_Descuento = '';
+            }
+
+            for(var i=0; i<data.nombres.pulsera.length;i++){
+                var datos_Pulsera = '';
+                var arreglo = [];
+                for(var j =0;j<data.listado.listadoPulseras.length;j++){
+                    if(data.nombres.pulsera[i]['idPulseraMagica'] == data.listado.listadoPulseras[j]['idPulseraMagica']){
+                        fecha_Inicial_Pulsera += data.listado.listadoPulseras[j]['FechaInicial']+ '<br><br>';
+                        fecha_Final_Pulsera += data.listado.listadoPulseras[j]['FechaFinal']+ '<br><br>';
+                        precio_Pulsera_Html += data.listado.listadoPulseras[j]['Precio'] + '<br><br>';
+                        
+                        arreglo.push({'idFechaPulseraMagica':data.listado.listadoPulseras[j]['idFechaPulseraMagica'],'Precio':data.listado.listadoPulseras[j]['Precio'],'FechaInicial':data.listado.listadoPulseras[j]['FechaInicial'],'FechaFinal':data.listado.listadoPulseras[j]['FechaFinal']});
+                    }
+                }
+                datos_Pulsera = JSON.stringify(arreglo);
+                tabla_Pulsera_Html +='<tr>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Pulsera" class="editar_Pulseras" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Pulsera+','+'"Nombre":"'+data.nombres.pulsera[i]['Nombre']+'"'+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;">'+data.nombres.pulsera[i]['Nombre']+'</td>'+
+                '<td style="text-align: center; vertical-align:middle;">'+precio_Pulsera_Html+'</td>'+
+                '<td>'+fecha_Inicial_Pulsera+'</td>'+
+                '<td>'+fecha_Final_Pulsera+'</td>'+
+                '</tr>';
+
+                fecha_Inicial_Pulsera = '';
+                fecha_Final_Pulsera = '';
+                precio_Pulsera_Html = '';
+            }
+
+            for(var i =0; i<data.nombres.juegos.length;i++){
+                var datos_Juegos = [];
+                var arreglo = [];
+                for(var j=0;j<data.listado.listadoJuegos.length;j++){
+                    if(data.nombres.juegos[i]['idJuegosGratis'] == data.listado.listadoJuegos[j]['idJuegosGratis']){
+                        fecha_Inicial_Juegos += data.listado.listadoJuegos[j]['FechaInicial'] + '<br><br>';
+                        fecha_Final_Juegos += data.listado.listadoJuegos[j]['FechaFinal'] + '<br><br>';
+                    
+                        arreglo.push({'idFechaJuegosGratis':data.listado.listadoJuegos[j]['idFechaJuegosGratis'],'FechaInicial':data.listado.listadoJuegos[j]['FechaInicial'],'FechaFinal': data.listado.listadoJuegos[j]['FechaFinal']});
+                    }
+                }
+
+                datos_Juegos = JSON.stringify(arreglo);
+
+                tabla_Juegos_Html +='<tr>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Juego" class="editar_Juegos" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Juegos+','+'"Nombre":"'+data.nombres.juegos[i]['Nombre']+'"'+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;">'+data.nombres.juegos[i]['Nombre']+'</td>'+
+                '<td>'+fecha_Inicial_Juegos+'</td>'+
+                '<td>'+fecha_Final_Juegos+'</td>'+
+                '</tr>';
+
+                fecha_Inicial_Juegos = '';
+                fecha_Final_Juegos = '';
+            }
+            
+            for(var i=0;i<data.nombres.creditos.length;i++){
+                var datos_Creditos = '';
+                var arreglo = [];
+
+                for(var j=0;j<data.listado.listadoCreditos.length;j++){
+                    if(data.nombres.creditos[i]['idCC'] == data.listado.listadoCreditos[j]['idCC']){
+                        fecha_Inicial_Creditos += data.listado.listadoCreditos[j]['FechaInicial'] +'<br><br>';
+                        fecha_Final_Creditos += data.listado.listadoCreditos[j]['FechaFinal'] + '<br><br>';
+                        precio_Creditos_Html += data.listado.listadoCreditos[j]['Precio'] +'<br><br>';
+                        creditos_Html += data.listado.listadoCreditos[j]['Creditos'] +'<br><br>';
+                        arreglo.push({'idFechaCreditosCortesia':data.listado.listadoCreditos[j]['idFechaCreditosCortesia'],'Precio':data.listado.listadoCreditos[j]['Precio'],'Creditos':data.listado.listadoCreditos[j]['Creditos'],'FechaInicial':data.listado.listadoCreditos[j]['FechaInicial'],'FechaFinal':data.listado.listadoCreditos[j]['FechaFinal']});
+                    }
+                }
+
+                datos_Creditos = JSON.stringify(arreglo);
+
+                tabla_Creditos_Html += '<tr>'+
+                '<td style="text-align: center; vertical-align:middle;"><a href="#editar_Credito" class="editar_Creditos" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Creditos+','+'"Nombre":"'+data.nombres.creditos[i]['Nombre']+'"'+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '<td style="text-align: center; vertical-align:middle;">'+data.nombres.creditos[i]['Nombre']+'</td>'+
+                '<td style="text-align: center; vertical-align:middle;">'+precio_Creditos_Html+'</td>'+
+                '<td style="text-align: center; vertical-align:middle;">'+creditos_Html+'</td>'+
+                '<td>'+fecha_Inicial_Creditos+'</td>'+
+                '<td>'+fecha_Final_Creditos+'</td>'+
+                '</tr>';
+
+
+                fecha_Inicial_Creditos = '';
+                fecha_Final_Creditos = '';
+                precio_Creditos_Html = '';
+                creditos_Html = '';
+            }
+
+            nombre_Descuentos_Html = '<label for="promocionesDescuentos">Nombre de la promocion</label>'+
+            '<select id="descuentos0" class="form-control promocionesDescuentos">'+option_Descuentos_Html+'</select>'+
+            '<br>';
+
+            nombre_Pulsera_Html = '<label for="promocionesPulsera">Nombre de la promocion</label>'+
+            '<select name="pulsera0" id="pulsera0" class="form-control promocionesPulsera">'+option_Pulsera_Html+'</select>'+
+            '<br>';
+
+            nombre_Juegos_Html = '<label for="promocionesPulsera">Nombre de la promocion</label>'+
+            '<select id="juegos0" class="form-control promocionesJuegos">'+option_Juegos_Html+'</select>' +
+            '<br>';
+            
+            nombre_Cortesias_Html = '<label for="promocionesPulsera">Nombre de la promocion</label>'+
+            '<select id="cortesias0" class="form-control promocionesCortesias">'+option_Cortesias_Html+'</select>'+
+            '<br>';
+
+            $("#tabla_Descuentos_Evento").html(tabla_Descuentos_Html);
+            $("#tabla_Pulsera_Evento").html(tabla_Pulsera_Html);
+            $("#tabla_Juegos_Evento").html(tabla_Juegos_Html);
+            $("#tabla_Creditos_Evento").html(tabla_Creditos_Html);
+            $("#nombre_Descuentos_0").html(nombre_Descuentos_Html);
+            $("#nombre_Pulsera_0").html(nombre_Pulsera_Html);
+            $("#nombre_Juegos_0").html(nombre_Juegos_Html);
+            $("#nombre_Cortesias_0").html(nombre_Cortesias_Html);
+            cerrarCarga();
+        }
+    });
 });
 
 //Se encarga de seleccionar la promocion del usuario y mostrar la informacion de esa promocion
@@ -435,23 +714,42 @@ $(document).on('change','.promocionesJuegos', function(event){
     cerrarCarga();
 });
 
-$(document).on('change','#promocionesCortesias', function(event){
-    contador_Fila_Cortesias = 0;
-    fechas_Cortesias = [];
+$(document).on('change', '.promocionesCortesias', function(event){
+    iniciarCarga();
 
-    $("#precioPulsera").val('');
-    $("#tabla_Fechas_Cortesias").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Creditos</th><th>Eliminar</th></tr>');
-    var idCC =($("#promocionesCortesias option:selected").val());
+    var id = $(this).parents('tr').attr('id').split('_')[3];
 
-    if(idCC != ""){
+    $("#precio_Cortesias_"+id).val('');
+    $("#creditos_Cortesias_"+id).val('');
+    $("#inicioCortesias"+id).val('');
+    $("#finCortesias"+id).val('');
+    $("#precioCortesias"+id).val('');
+    $("#CreditosI"+id).val('');
+    
+    $("#cuerpo_Promocion_Cortesias_"+id).html('');
+    $("#modificar_Hora_Cortesias_"+id).html('');
+    
+    var longitud = fechas_Cortesias.length;
+
+    var indiceRenglon;
+
+    for(var i=0; i<longitud; i++){
+        indiceRenglon = fechas_Cortesias.findIndex((objeto)=>objeto.cortesia == id);
+
+        if(indiceRenglon != -1){
+            fechas_Cortesias.splice(indiceRenglon, 1);
+        }
+    }
+
+    var idCC = $(this).val();
+
+    if(idCC){
         const indice_Cortesias = precio_Cortesias.findIndex((objeto)=>objeto.idCC == idCC);
-        $("#precio_Cortesias").val(precio_Cortesias[indice_Cortesias]['Precio']);
-        $("#creditos_Cortesias").val(precio_Cortesias[indice_Cortesias]['Creditos']);
+
+        $("#precio_Cortesias_"+id).val(precio_Cortesias[indice_Cortesias]['Precio']);
+        $("#creditos_Cortesias_"+id).val(precio_Cortesias[indice_Cortesias]['Creditos']);
     }
-    else{
-        $("#precio_Cortesias").val('');
-        $("#creditos_Cortesias").val('');
-    }
+    cerrarCarga();
 });
 
 //Se encarga de generar un nuevo registro de la promocion en la interfaz
@@ -580,6 +878,77 @@ $("#nuevo_Registro_Promocion_Pulsera").click(function(){
             '</td>'+
         '</tr>'
     ).clone().appendTo("#contenedor_Nuevas_Pulseras");
+});
+
+$("#nuevo_Registro_Promocion_Cortesia").click(function(){
+    contadorNuevaCortesia++;
+    
+    $(
+        '<tr id="contenedor_Creditos_Cortesia_'+contadorNuevaCortesia+'">'+
+            '<td>'+
+                '<div class="from-group" id="nombre_Cortesias_'+contadorNuevaCortesia+'">'+
+                    '<label for="promocionesPulsera'+contadorNuevaCortesia+'">Nombre de la promocion</label>'+
+                    '<select id="cortesias'+contadorNuevaCortesia+'" class="form-control promocionesCortesias">'+option_Cortesias_Html+'</select>'+
+                    '<br>'+
+                '</div>'+
+                '<div class="from-group" id="precio_Cortesia_'+contadorNuevaCortesia+'">'+
+                    '<label for="precio_Cortesias_'+contadorNuevaCortesia+'">Precio de la Promoción</label>'+
+                    '<input type="number" class="form-control" name="precio_Cortesias_'+contadorNuevaCortesia+'" id="precio_Cortesias_'+contadorNuevaCortesia+'" placeholder="Precio Promoción" value="">'+
+                    '<br>'+
+                '</div>'+
+                '<div class="from-group" id="creditos_Cortesia_'+contadorNuevaCortesia+'">'+
+                    '<label for="creditos_Cortesias_'+contadorNuevaCortesia+'">Creditos de la promoción</label>'+
+                    '<input type="number" class="form-control" name="creditos_Cortesias_'+contadorNuevaCortesia+'" id="creditos_Cortesias_'+contadorNuevaCortesia+'" placeholder="Creditos Promoción">'+
+                    '<br>'+
+                '</div>'+
+                '<div class="from-group table table-responsive">'+
+                    '<table class="table table-border">'+
+                        '<tbody>'+
+                            '<tr>'+
+                                '<td>'+
+                                    '<div class="container" id="fechas_Cortesias_'+contadorNuevaCortesia+'">'+
+                                        '<center><label>Días</label>'+
+                                        '<br>'+
+                                        '<label for="inicioCortesias'+contadorNuevaCortesia+'">Hora de Inicio</label>'+
+                                        '<input id="inicioCortesias'+contadorNuevaCortesia+'" class="form-control" type="datetime-local">'+
+                                        '<br>'+
+                                        '<label for="finCortesias'+contadorNuevaCortesia+'">Hora de Finalizacion</label>'+
+                                        '<input id="finCortesias'+contadorNuevaCortesia+'" class="form-control" type="datetime-local">'+
+                                        '<br>'+
+                                        '<label for="precioCortesias'+contadorNuevaCortesia+'">Precio</label>'+
+                                        '<input id="precioCortesias'+contadorNuevaCortesia+'" class="form-control" type="number" placeholder="Ingresa un precio">'+
+                                        '<br>'+
+                                        '<label for="creditosI'+contadorNuevaCortesia+'">Creditos</label>'+
+                                        '<input id="creditosI'+contadorNuevaCortesia+'" name="creditosI'+contadorNuevaCortesia+'" class="form-control" type="number" placeholder="Creditos cortesia">'+
+                                        '<br>'+
+                                        '<button class="btn btn-success adicionarCreditos" type="button">Agregar</button></center><br>'+
+                                    '</div>'+
+                                '</td>'+
+                                '<td>'+
+                                    '<div class="table-wrapper">'+
+                                        '<table id="tabla_Fechas_Cortesias_'+contadorNuevaCortesia+'" class="table table-border table-hover">'+
+                                            '<thead>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Fecha</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Hora Inicial</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Hora Final</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Precio</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Creditos</th>'+
+                                                '<th style="text-align: center; vertical-align: middle;">Eliminar</th>'+
+                                            '</thead>'+
+                                            '<tbody id="cuerpo_Promocion_Cortesias_'+contadorNuevaCortesia+'"></tbody>'+
+                                        '</table>'+
+                                    '</div>'+
+                                    '<br>'+
+                                    '<div class="container" id="modificar_Hora_Cortesias_'+contadorNuevaCortesia+'"></div>'+
+                                '</td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                    '</table>'+
+                '</div>'+
+                '<button type="button" style="float: right;" class="btn btn-danger remover_Registro_Cortesia">Eliminar Registro</button>'+
+            '</td>'+
+        '</tr>'
+    ).clone().appendTo('#contenedor_Creditos_Cortesia');
 });
 
 //Se encarga de generar los dias individuales, almacenarlos en el arreglo y pintarlos en la interfaz
@@ -761,30 +1130,59 @@ $(document).on('click','.adicionarJuegos', function(){
     cerrarCarga();
 });
 
-$("#adicionarCreditos").click(function(){
-    var opcion = ($("#promocionesCortesias option:selected").val());
-    var inicioCortesias = $("#inicioCortesias").val() + ":00";
-    var finCortesias = $("#finCortesias").val() +":00";
-    var precioCortesias = $("#precioCortesias").val();
-    var creditos =$("#creditosI").val();
+$(document).on('click', '.adicionarCreditos', function(){
+    iniciarCarga();
+
+    var registro_Cortesias = parseInt($(this).parents('div').attr('id').split('_')[2]);
+
+    var opcion = $("#cortesias"+registro_Cortesias).val();
+
+    var inicioCortesias = $('#inicioCortesias'+registro_Cortesias).val() + ':00';
+    var finCortesias = $('#finCortesias' + registro_Cortesias).val() + ':00';
+
+    var precio = $('#precioCortesias'+registro_Cortesias).val();
+    var creditos = $('#creditosI'+registro_Cortesias).val();
 
     if(opcion != "" && inicioCortesias != ":00" && finCortesias != ":00"){
-        if(precioCortesias === ""){
-            precioCortesias = $("#precio_Cortesias").val();
+
+        if(precio === ""){
+            precio = $('#precio_Cortesias_'+registro_Cortesias).val();
         }
+    
         if(creditos === ""){
-            creditos = $("#creditos_Cortesias").val();
+            creditos = $('#creditos_Cortesias_'+registro_Cortesias).val();
         }
 
-        var fila = '<tr id="cortesias'+contador_Fila_Cortesias+'"><td>'+inicioCortesias+'</td><td>'+finCortesias+'</td><td>'+precioCortesias+'</td><td>'+creditos+'</td><td><button type="button" name="remover_Cortesias" id="'+contador_Fila_Cortesias+'" class="btn btn-danger remover_Cortesias">Remover</button></td></tr>';
-        contador_Fila_Cortesias++;
+        
+        var horaInicial = inicioCortesias.split('T')[1];
+        var horaFinal = finCortesias.split('T')[1];
 
-        $("#tabla_Fechas_Cortesias tr:first").after(fila);
-        fechas_Cortesias.push({'Precio':precioCortesias,'Creditos':creditos,'FechaInicial':inicioCortesias,'FechaFinal':finCortesias,'idCC':opcion,'idEvento':idEvento});
+        var inicioEvento = new Date(inicioCortesias);
+        var finEvento = new Date(finCortesias);
+
+        var inicioDia, finDia, fecha;
+
+        const dia_Milisegundos = 1000*60*60*24;
+        const intervalo = dia_Milisegundos * 1;
+
+        const formateadorFecha = new Intl.DateTimeFormat('fr-ca',{year:"numeric", month:"2-digit", day:"2-digit"});
+
+        for(let i=inicioEvento; i<=finEvento; i = new Date(i.getTime() + intervalo)){
+            fecha = formateadorFecha.format(i);
+
+            inicioDia = fecha + ' ' + horaInicial;
+            finDia = fecha + ' ' + horaFinal;
+
+            $('<tr id="cortesias_'+contador_Fila_Cortesias+'"><td id="fecha_Cortesia_'+contador_Fila_Cortesias+'" style="text-align: center; vertical-align: middle;">'+fecha+'</td><td id="'+contador_Fila_Cortesias+'_Cortesia_Hora_1" class="modificar_Hora_Cortesia" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td id="'+contador_Fila_Cortesias+'_Cortesia_Hora_2" class="modificar_Hora_Cortesia" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td id="'+contador_Fila_Cortesias+'_Precio_Cortesia" style="text-align: center; vertical-align: middle;">'+precio+'</td><td id="'+contador_Fila_Cortesias+'_Credito_Cortesia" style="text-align: center; vertical-align: middle;">'+creditos+'</td><td><button type="button" name="remover_Cortesias" class="btn btn-danger remover_Cortesias">Remover</button></td></tr>').clone().appendTo('#cuerpo_Promocion_Cortesias_'+registro_Cortesias);
+            fechas_Cortesias.push({'Precio':precio, 'Creditos':creditos,'FechaInicial': inicioDia, 'FechaFinal': finDia, 'idCC':opcion, 'idRenglon': contador_Fila_Cortesias, 'cortesia':registro_Cortesias, 'idEvento':idEvento['idEvento']});
+
+            contador_Fila_Cortesias++;
+        }
     }
     else{
         alert('Favor de rellenar todos los campos');
     }
+    cerrarCarga();
 });
 
 //Se encarga de modificar las horas individuales de las fechas
@@ -803,15 +1201,15 @@ $(document).on('click','.modificar_Hora_Descuento', function(){
 
     html =
     '<hr>'+
-    '<input type="hidden" id="modificarFechaDescuento" value="'+fecha+'">'+
-    '<input type="hidden" id="modificarEventoDescuento" value="'+idEventoArreglo+'">'+
-    '<input type="hidden" id="modificarTrDescuento" value="'+tr+'">'+
-    '<input type="hidden" id="posicionDescuento" value="'+posicion+'">'+
+    '<input type="hidden" id="modificarFechaDescuento'+idEventoArreglo+'" value="'+fecha+'">'+
+    '<input type="hidden" id="modificarEventoDescuento'+idEventoArreglo+'" value="'+idEventoArreglo+'">'+
+    '<input type="hidden" id="modificarTrDescuento'+idEventoArreglo+'" value="'+tr+'">'+
+    '<input type="hidden" id="posicionDescuento'+idEventoArreglo+'" value="'+posicion+'">'+
     '<h6 class="modal-title">Modificar: </h6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-    '<label for="modificarHoraInicialDescuento">Hora Inicial: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-    '<input id="modificarHoraInicialDescuento" value="'+horaIn+'" type="time"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-    '<label for="modificarHoraFinalDescuento">Hora Final: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-    '<input id="modificarHoraFinalDescuento" value="'+horaFi+'" type="time"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<label for="modificarHoraInicialDescuento'+idEventoArreglo+'">Hora Inicial: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarHoraInicialDescuento'+idEventoArreglo+'" value="'+horaIn+'" type="time"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<label for="modificarHoraFinalDescuento'+idEventoArreglo+'">Hora Final: </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarHoraFinalDescuento'+idEventoArreglo+'" value="'+horaFi+'" type="time"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
 
     '<button type="button" class="btn btn-success modificar_Horario_Descuento"> Aceptar</button>';
 
@@ -822,13 +1220,13 @@ $(document).on('click','.modificar_Horario_Descuento', function(){
 
     var id = $(this).parents('div').attr('id').split('_')[3];
 
-    var idEventoArreglo = $("#modificarEventoDescuento").val();
-    var tr = $("#modificarTrDescuento").val();
+    var idEventoArreglo = $("#modificarEventoDescuento"+id).val();
+    var tr = $("#modificarTrDescuento"+id).val();
 
-    var fecha  = $("#modificarFechaDescuento").val();
+    var fecha  = $("#modificarFechaDescuento"+id).val();
 
-    var horaIn = $("#modificarHoraInicialDescuento").val();
-    var horaFi = $("#modificarHoraFinalDescuento").val();
+    var horaIn = $("#modificarHoraInicialDescuento"+id).val();
+    var horaFi = $("#modificarHoraFinalDescuento"+id).val();
 
     if(horaIn && horaFi){
         var indiceRenglon = fechas_Descuentos.findIndex((objeto)=>objeto.idRenglon == tr);
@@ -961,6 +1359,77 @@ $(document).on('click', '.modificar_Horario_Juego', function(){
     console.log('Modificado: ' + JSON.stringify(fechas_Juegos));
 });
 
+$(document).on('click', '.modificar_Hora_Cortesia', function(){
+    
+    var idEventoArreglo = $(this).parents('table').attr('id').split('_')[3]
+    var tr = $(this).parents('tr').attr('id').split('_')[1];
+
+    var fecha = $('#fecha_Cortesia_'+tr).html();
+    var horaIn = $('#'+tr+'_Cortesia_Hora_1').html();
+    var horaFi = $('#'+tr+'_Cortesia_Hora_2').html();
+    var precio = $('#'+tr+'_Precio_Cortesia').html();
+    var credito =$('#'+tr+'_Credito_Cortesia').html();
+
+    //var posicion = $(this).attr('id').substr(-1);
+
+    html = 
+    '<hr>'+
+    '<input type="hidden" id="modificarFechaCortesia'+idEventoArreglo+'" value="'+fecha+'">'+
+    '<input type="hidden" id="modificarEventoCortesia'+idEventoArreglo+'" value="'+idEventoArreglo+'">'+
+    '<input type="hidden" id="modificarTrCortesia'+idEventoArreglo+'" value="'+tr+'">'+
+    '<h6 class="modal-title">Modificar: </h6>'+
+    '<br>'+
+    '<label for="modificarHoraInicialCortesia'+idEventoArreglo+'">Hora Inicial: </label> &nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarHoraInicialCortesia'+idEventoArreglo+'" value="'+horaIn+'" type="time"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<label for="modificarHoraFinalCortesia'+idEventoArreglo+'">Hora Final: </label> &nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarHoraFinalCortesia'+idEventoArreglo+'" value="'+horaFi+'" type="time">'+
+    '<br>'+
+    '<label for="modificarPrecioCortesia'+idEventoArreglo+'">Precio: </label> &nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarPrecioCortesia'+idEventoArreglo+'" value="'+precio+'" type="text" size="7"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+    '<label for="modificarCreditoCortesia'+idEventoArreglo+'">Creditos: </label> &nbsp;&nbsp;&nbsp;'+
+    '<input id="modificarCreditoCortesia'+idEventoArreglo+'" value="'+credito+'" type="text" size="7"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+
+    '<button type="button" class="btn btn-success modificar_Horario_Cortesia"> Aceptar</button>';
+
+    $('#modificar_Hora_Cortesias_'+idEventoArreglo).html(html);
+});
+
+$(document).on('click','.modificar_Horario_Cortesia', function(){
+
+    var id = $(this).parents('div').attr('id').split('_')[3];
+
+    var idEventoArreglo = $("#modificarEventoCortesia"+id).val();
+    var tr = $("#modificarTrCortesia"+id).val();
+
+    var fecha = $("#modificarFechaCortesia"+id).val();
+    var horaIn = $("#modificarHoraInicialCortesia"+id).val();
+    var horaFi = $("#modificarHoraFinalCortesia"+id).val();
+
+    var precio = $("#modificarPrecioCortesia"+id).val();
+    var credito = $("#modificarCreditoCortesia"+id).val();
+
+    if(horaIn && horaFi && precio && credito){
+        var indiceRenglon = fechas_Cortesias.findIndex((objeto)=>objeto.idRenglon == tr);
+
+        fechas_Cortesias[indiceRenglon]['FechaInicial'] = fecha +' '+horaIn + ':00';
+        fechas_Cortesias[indiceRenglon]['FechaFinal'] = fecha + ' ' + horaFi + ':00' ;
+
+        fechas_Cortesias[indiceRenglon]['Precio'] = precio;
+        fechas_Cortesias[indiceRenglon]['Creditos'] = credito;
+
+        $("#"+tr+"_Cortesia_Hora_1").html(horaIn+':00');
+        $("#"+tr+"_Cortesia_Hora_2").html(horaFi+':00');
+
+        $("#"+tr+"_Precio_Cortesia").html(precio);
+        $("#"+tr+"_Credito_Cortesia").html(credito);
+
+        $("#modificar_Hora_Cortesias_"+id).html('');
+    }
+    else{
+        alert('Favor de agregar los datos correspondientes.')
+    }
+
+});
 //Se encarga de eliminar una fecha individual de la interfaz y del arreglo
 $(document).on('click','.remover_Descuento', function(){
 
@@ -998,11 +1467,14 @@ $(document).on('click','.remover_Juegos', function(){
 });
 
 $(document).on('click','.remover_Cortesias',function(){
-    var opcion = ($("#promocionesCortesias option:selected").val());
-    var button_id = $(this).attr("id");
-    $('#cortesias'+button_id+'').remove();
+    var parent = $(this).parents().get(1);
 
-    fechas_Cortesias.splice(button_id,1);
+    var id = $(this).parents('tr').attr('id').split('_')[1];
+    var indiceRenglon = fechas_Cortesias.findIndex((objeto)=>objeto.idCC == id);
+
+    fechas_Cortesias.splice(indiceRenglon, 1);
+
+    $(parent).remove();
 });
 
 //Se encarga de eliminar un registro completo de la interfaz de la rpmocion y la informacion del arreglo
@@ -1045,6 +1517,28 @@ $(document).on('click','.remover_Registro_Pulsera', function(event){
     }
 
     $("#contenedor_Pulsera_Nueva_"+id).remove();
+    cerrarCarga();
+});
+
+$(document).on('click', '.remover_Registro_Cortesia', function(event){
+    iniciarCarga();
+    
+    var id = $(this).parents('tr').attr('id').split('_')[3];
+
+    var indiceRenglon;
+    var longitud = fechas_Cortesias.length;
+
+    for(var i=0;i<longitud;i++){
+
+        indiceRenglon = fechas_Cortesias.findIndex((objeto)=>objeto.cortesia == id);
+
+        if(indiceRenglon != -1){
+            fechas_Cortesias.splice(indiceRenglon, 1);
+        }
+    }
+
+    $("#contenedor_Creditos_Cortesia_"+id).remove();
+    
     cerrarCarga();
 });
 

@@ -50,6 +50,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                                 <li><a href="#AgregarL" class ="mostrarTarjetasEvento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Tarjetas</a></li>
                                                 <li><a href="#tarjetas_Cortesia" class ="mostrar_Cortesias_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>,"idUsuario":<?= $_SESSION['idUsuario']?>,"Nombre":"<?= $_SESSION['Usuario']?>"}'>Cortesías</a></li>
                                                 <li><a href="#Promociones" class ="mostrar_Promociones_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Promociones</a></li>
+                                                <!--<li><a href="javascript:mostrar_Promociones_Evento(<?= $dE->idEvento?>);"  type="button">Promociones</a></li>-->
                                                 <li><a href="#Zonas" class ="mostrar_Zonas_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Zonas</a></li>
                                                 <li><a href="#taquillas" class ="mostrar_Taquillas_Evento" type="button" data-toggle="modal" data-book-id='{"idEvento":<?= $dE->idEvento?>}'>Taquillas</a></li>
                                             </ul>
@@ -277,6 +278,11 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
             </div>
         </form>
 
+    </div>
+
+    <div id="contenedor_Promociones_Evento" style="color:black; display:none;">
+        <form enctype="multipart/form-data" id="formularPromocionesEvento">
+        </form>
     </div>
 
 </fieldset>
