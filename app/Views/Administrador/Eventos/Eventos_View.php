@@ -283,8 +283,11 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
     <div id="contenedor_Promociones_Evento" style="color:black; display:none;">
 
         <form enctype="multipart/form-data" id="formularPromocionesEvento">
-
                     <fieldset id="primer_Fieldset">
+                        <div class="input-group">
+                            <a href="javascript:cerrar_Promociones_Evento();" class="btn btn-danger"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Regresar</a>
+                        </div>
+                        <br>
 
                         <nav>
                             <div class="nav nav-tabs" id="nav-1" role="tablist">

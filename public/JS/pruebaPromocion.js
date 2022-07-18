@@ -94,8 +94,9 @@ var contadorNuevaCortesia = 0;
 //Muestra la interfaz principal de descuentos en evento
 function mostrar_Promociones(a){
 
-    var idEvento = a;
     iniciarCarga();
+
+    idEvento = a;
 
     fecha_Inicial_Descuento = '';
     fecha_Final_Descuento = '';
@@ -999,10 +1000,11 @@ $(document).on('click','.adicionarDescuento', function(){
             
             $('<tr id="descuentos_'+contador_Fila_Descuentos+'"><td id="fecha_Descuento_'+contador_Fila_Descuentos+'"  style="text-align: center; vertical-align: middle;">'+fecha+'</td><td id="'+contador_Fila_Descuentos+'_Descuento_Hora_1" class="modificar_Hora_Descuento" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td id="'+contador_Fila_Descuentos+'_Descuento_Hora_2" class="modificar_Hora_Descuento" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td style="text-align: center; vertical-align: middle;"><button type="button" class="btn btn-danger remover_Descuento">Remover</button></td></tr>').clone().appendTo('#cuerpo_Fechas_Descuentos_'+registro_Descuento);
 
-            fechas_Descuentos.push({'FechaInicial':inicioDia,'FechaFinal':finDia,'idDosxUno':opcion,'idRenglon':contador_Fila_Descuentos,'descuento':registro_Descuento,'idEvento':idEvento['idEvento']});
+            fechas_Descuentos.push({'FechaInicial':inicioDia,'FechaFinal':finDia,'idDosxUno':opcion,'idRenglon':contador_Fila_Descuentos,'descuento':registro_Descuento,'idEvento':idEvento});
             
             contador_Fila_Descuentos++;
         }
+        console.log('Arreglo: ' + JSON.stringify(fechas_Descuentos));
     }
     else{
         alert('Favor de rellenar todos los campos');
@@ -1068,7 +1070,7 @@ $(document).on('click','.adicionarPulsera', function(){
 
             finDia = fecha + ' ' + horaFinal;
 
-            fechas_Pulsera.push({'Precio':precioPulsera,'FechaInicial':inicioDia,'FechaFinal':finDia, 'idPulseraMagica':opcion, 'idRenglon':contador_Fila_Pulsera, 'pulsera':registro_Pulsera, 'idEvento':idEvento['idEvento']});
+            fechas_Pulsera.push({'Precio':precioPulsera,'FechaInicial':inicioDia,'FechaFinal':finDia, 'idPulseraMagica':opcion, 'idRenglon':contador_Fila_Pulsera, 'pulsera':registro_Pulsera, 'idEvento':idEvento});
 
             $('<tr id="pulsera_'+contador_Fila_Pulsera+'"><td id="fecha_Pulsera_'+contador_Fila_Pulsera+'" style="text-align: center; vertical-align: middle;">'+fecha+'</td><td id="'+contador_Fila_Pulsera+'_Pulsera_Hora_1" class="modificar_Hora_Pulsera" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td id="'+contador_Fila_Pulsera+'_Pulsera_Hora_2" class="modificar_Hora_Pulsera" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td id="'+contador_Fila_Pulsera+'_Pulsera_Precio" class="modificar_Hora_Pulsera" style="text-align: center; vertical-align: middle;">'+precioPulsera+'</td><td style="text-align: center; vertical-align: middle;"><button type="button" class="btn btn-danger remover_Pulsera">Remover</button></td></tr>').clone().appendTo("#cuerpo_Fechas_Pulsera_"+registro_Pulsera);
 
@@ -1114,7 +1116,7 @@ $(document).on('click','.adicionarJuegos', function(){
             inicioDia = fecha + ' '+ horaInicial;
             finDia = fecha + ' ' + horaFinal;
 
-            fechas_Juegos.push({'Precio':0,'FechaInicial':inicioDia,'FechaFinal':finDia,'idJuegosGratis':opcion, 'idRenglon':contador_Fila_Juegos, 'juego':registro_Juego,'idEvento':idEvento['idEvento']});
+            fechas_Juegos.push({'Precio':0,'FechaInicial':inicioDia,'FechaFinal':finDia,'idJuegosGratis':opcion, 'idRenglon':contador_Fila_Juegos, 'juego':registro_Juego,'idEvento':idEvento});
 
             $('<tr id="juegos_'+contador_Fila_Juegos+'"><td id="fecha_Juego_'+contador_Fila_Juegos+'" style="text-align: center; vertical-align: middle;">'+fecha+'</td><td id="'+contador_Fila_Juegos+'_Juego_Hora_1" class="modificar_Hora_Juego" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td id="'+contador_Fila_Juegos+'_Juego_Hora_2" class="modificar_Hora_Juego" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td><button style="text-align: center; vertical-align: middle;" type="button" class="btn btn-danger remover_Juegos">Remover</button></td></tr>').clone().appendTo('#cuerpo_Fechas_Juegos_'+registro_Juego);
 
@@ -1173,7 +1175,7 @@ $(document).on('click', '.adicionarCreditos', function(){
             finDia = fecha + ' ' + horaFinal;
 
             $('<tr id="cortesias_'+contador_Fila_Cortesias+'"><td id="fecha_Cortesia_'+contador_Fila_Cortesias+'" style="text-align: center; vertical-align: middle;">'+fecha+'</td><td id="'+contador_Fila_Cortesias+'_Cortesia_Hora_1" class="modificar_Hora_Cortesia" style="text-align: center; vertical-align: middle;">'+horaInicial+'</td><td id="'+contador_Fila_Cortesias+'_Cortesia_Hora_2" class="modificar_Hora_Cortesia" style="text-align: center; vertical-align: middle;">'+horaFinal+'</td><td id="'+contador_Fila_Cortesias+'_Precio_Cortesia" style="text-align: center; vertical-align: middle;">'+precio+'</td><td id="'+contador_Fila_Cortesias+'_Credito_Cortesia" style="text-align: center; vertical-align: middle;">'+creditos+'</td><td><button type="button" name="remover_Cortesias" class="btn btn-danger remover_Cortesias">Remover</button></td></tr>').clone().appendTo('#cuerpo_Promocion_Cortesias_'+registro_Cortesias);
-            fechas_Cortesias.push({'Precio':precio, 'Creditos':creditos,'FechaInicial': inicioDia, 'FechaFinal': finDia, 'idCC':opcion, 'idRenglon': contador_Fila_Cortesias, 'cortesia':registro_Cortesias, 'idEvento':idEvento['idEvento']});
+            fechas_Cortesias.push({'Precio':precio, 'Creditos':creditos,'FechaInicial': inicioDia, 'FechaFinal': finDia, 'idCC':opcion, 'idRenglon': contador_Fila_Cortesias, 'cortesia':registro_Cortesias, 'idEvento':idEvento});
 
             contador_Fila_Cortesias++;
         }
