@@ -287,6 +287,8 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                         <div class="input-group">
                             <a href="javascript:cerrar_Promociones_Evento();" class="btn btn-danger"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Regresar</a>
                         </div>
+
+                        <center><label><h2>Promociones</h2></label></center>
                         <br>
 
                         <nav>
@@ -313,8 +315,8 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                         <div class="tab-content" id="nav-tabContent">
                                             
                                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                                <div class="table table-striped table-responsive">
-                                                    <table class="table table-borderd" id="tabla_Descuentos">
+                                                <div>
+                                                    <table class="table table-borderd" id="tabla_Descuentos" style="border-collapse: collapse;" border=2>
                                                         <tbody id="contenedor_Nuevos_Descuentos">
                                                             <tr id="contenedor_Descuento_Nuevo_0">
                                                                 <td>
@@ -375,7 +377,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
 
                                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                                 <div class="table table-striped table-responsive">
-                                                    <table class="table table-borderd" id="tabla_Pulseras">
+                                                    <table class="table table-borderd" id="tabla_Pulseras" border=2>
                                                         <tbody id="contenedor_Nuevas_Pulseras">
                                                             <tr id="contenedor_Pulsera_Nueva_0">
                                                                 <td>
@@ -440,7 +442,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
 
                                             <div class="tab-pane fade" id="nav-tres" role="tabpanel" aria-labelledby="nav-tres-tab">
                                                 <div class="table table-striped responsive">
-                                                    <table class="table table-borderd" id="tabla_Juegos">
+                                                    <table class="table table-borderd" id="tabla_Juegos" border=2>
                                                         <tbody id="contenedor_Nuevo_Juego">
                                                             <tr id="contenedor_Juego_Nuevo_0">
                                                                 <td>
@@ -495,7 +497,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
 
                                             <div class="tab-pane fade" id="nav-cuatro" role="tabpanel" aria-labelledby="nav-cuatro-tab">
                                                 <div class="table table-striped responsive">
-                                                    <table class="table table-borderd" id="tabla_Cortesias">
+                                                    <table class="table table-borderd" id="tabla_Cortesias" border=2>
                                                         <tbody id="contenedor_Creditos_Cortesia">
                                                             <tr id="contenedor_Creditos_Cortesia_0">
                                                                 <td>
@@ -584,6 +586,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                         </nav>
                                         <br>
                                         <div class="tab-content" id="nav-tabSegundo">
+
                                             <div class="tab-pane fade show active" id="tabla-descuentos" role="tabpanel" aria-labelledby="nav-tabla-descuentos">
                                                 <div class="table table-striped table-responsive">
                                                     <table id="tabla_Descuento_Evento" class="table table-bordered">
@@ -600,6 +603,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                                     </table>
                                                 </div>
                                             </div>
+
                                             <div class="tab-pane fade" id="tabla-pulsera" role="tabpanel" aria-labelledby="nav-tabla-pulsera">
                                                 <div class="table table-striped table-responsive">
                                                     <table id="tabla_Pulseras_Evento" class="table table-bordered">
@@ -615,6 +619,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                                     </table>
                                                 </div>
                                             </div>
+
                                             <div class="tab-pane fade" id="tabla-juegos" role="tabpanel" aria-labelledby="nav-tabla-juegos">
                                                 <div class="table table-striped table-responsive">
                                                     <table class="table table-bordered">
@@ -629,6 +634,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                                     </table>
                                                 </div>
                                             </div>
+
                                             <div class="tab-pane fade" id="tabla-creditos" role="tabpanel" aria-labelledby="nav-tabla-creditos">
                                                 <div class="table table-striped table-responsive">
                                                     <table class="table table-bordered">
@@ -645,6 +651,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                                     </table>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </fieldset>
                                 </form>

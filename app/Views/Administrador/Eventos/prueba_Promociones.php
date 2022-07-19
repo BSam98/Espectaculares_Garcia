@@ -296,8 +296,11 @@
 
                             <div class="tab-pane fade" id="nav-segundo" role="tabpanel" aria-labelledby="nav-segundo-tab">
                                 <form enctype="multipart/form-data">
+                                    
                                     <br>
+
                                     <fieldset>
+
                                         <nav>
                                             <div class="nav nav-tabs" role="tablist">
                                                 <a class="nav-link active" id="nav-tabla-descuentos" data-toggle="tab" href="#tabla-descuentos" role="tab" aria-controls="tabla-descuentos" aria-selected="true">Descuentos</a>
@@ -306,8 +309,11 @@
                                                 <a class="nav-link" id="nav-tabla-creditos" data-toggle="tab" href="#tabla-creditos" role="tab" aria-controls="tabla-creditos" aria-selected="false">Creditos Cortesia</a>
                                             </div>
                                         </nav>
+
                                         <br>
+
                                         <div class="tab-content" id="nav-tabSegundo">
+
                                             <div class="tab-pane fade show active" id="tabla-descuentos" role="tabpanel" aria-labelledby="nav-tabla-descuentos">
                                                 <div class="table table-striped table-responsive">
                                                     <table id="tabla_Descuento_Evento" class="table table-bordered">
@@ -324,6 +330,7 @@
                                                     </table>
                                                 </div>
                                             </div>
+
                                             <div class="tab-pane fade" id="tabla-pulsera" role="tabpanel" aria-labelledby="nav-tabla-pulsera">
                                                 <div class="table table-striped table-responsive">
                                                     <table id="tabla_Pulseras_Evento" class="table table-bordered">
@@ -339,6 +346,7 @@
                                                     </table>
                                                 </div>
                                             </div>
+
                                             <div class="tab-pane fade" id="tabla-juegos" role="tabpanel" aria-labelledby="nav-tabla-juegos">
                                                 <div class="table table-striped table-responsive">
                                                     <table class="table table-bordered">
@@ -353,6 +361,7 @@
                                                     </table>
                                                 </div>
                                             </div>
+
                                             <div class="tab-pane fade" id="tabla-creditos" role="tabpanel" aria-labelledby="nav-tabla-creditos">
                                                 <div class="table table-striped table-responsive">
                                                     <table class="table table-bordered">
@@ -369,7 +378,9 @@
                                                     </table>
                                                 </div>
                                             </div>
+
                                         </div>
+
                                     </fieldset>
                                 </form>
                             </div>

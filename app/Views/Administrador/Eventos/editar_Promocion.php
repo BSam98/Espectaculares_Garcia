@@ -1,5 +1,5 @@
-<div class="modal fade" id="editar_Descuento" style="color:black;">
-    <div class="modal-dialog modal-lg">
+<div class="modal" id="editar_Descuento" style="color:black;">
+    <div>
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Editar Descuento</h4>
@@ -21,7 +21,7 @@
                         <br>
                     </div>
                     <div class="from-group table table-responsive">
-                        <table>
+                        <table class="table table-border">
                             <tbody>
                                 <tr>
                                     <td>
@@ -41,13 +41,15 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <table id="tabla_Editar_Fechas_Descuento" class="table table-bordered table-hover">
-                                            <tr>
-                                                <th>Hora Inicial</th>
-                                                <th>Hora Final</th>
-                                                <th>Editar</th>
-                                            </tr>
-                                        </table>
+                                        <div class="table-wrapper">
+                                            <table id="tabla_Editar_Fechas_Descuento" class="table table-border table-hover">
+                                                <tr>
+                                                    <th>Hora Inicial</th>
+                                                    <th>Hora Final</th>
+                                                    <th>Editar</th>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
