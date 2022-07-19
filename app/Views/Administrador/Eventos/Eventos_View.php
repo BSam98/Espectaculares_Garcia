@@ -181,7 +181,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
 
                 <center><label><h2>Nuevo Evento</h2></label></center>
 
-                <div class="table-responsive" id="contenedorEventos">
+                <div class="table-responsive" id="contenedorEventos" border=2>
 
                     <table class="table table-border" style="color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
 
@@ -312,10 +312,11 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                                 <a class="nav-link" id="nav-cuatro-tab" data-toggle="tab" href="#nav-cuatro" role="tab" aria-controls="nav-cuatro" aria-selected="false">Creditos Cortesia</a>
                                             </div>
                                         </nav>
+                                        <br>
                                         <div class="tab-content" id="nav-tabContent">
                                             
                                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                                <div>
+                                                <div class="table  table-responsive">
                                                     <table class="table table-borderd" id="tabla_Descuentos" style="border-collapse: collapse;" border=2>
                                                         <tbody id="contenedor_Nuevos_Descuentos">
                                                             <tr id="contenedor_Descuento_Nuevo_0">
@@ -376,8 +377,8 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                             </div>
 
                                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                                <div class="table table-striped table-responsive">
-                                                    <table class="table table-borderd" id="tabla_Pulseras" border=2>
+                                                <div class="table table-responsive">
+                                                    <table class="table table-border" id="tabla_Pulseras" border=2>
                                                         <tbody id="contenedor_Nuevas_Pulseras">
                                                             <tr id="contenedor_Pulsera_Nueva_0">
                                                                 <td>
@@ -441,7 +442,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                             </div>
 
                                             <div class="tab-pane fade" id="nav-tres" role="tabpanel" aria-labelledby="nav-tres-tab">
-                                                <div class="table table-striped responsive">
+                                                <div class="table table-responsive">
                                                     <table class="table table-borderd" id="tabla_Juegos" border=2>
                                                         <tbody id="contenedor_Nuevo_Juego">
                                                             <tr id="contenedor_Juego_Nuevo_0">
@@ -496,7 +497,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                                             </div>
 
                                             <div class="tab-pane fade" id="nav-cuatro" role="tabpanel" aria-labelledby="nav-cuatro-tab">
-                                                <div class="table table-striped responsive">
+                                                <div class="table table-responsive">
                                                     <table class="table table-borderd" id="tabla_Cortesias" border=2>
                                                         <tbody id="contenedor_Creditos_Cortesia">
                                                             <tr id="contenedor_Creditos_Cortesia_0">

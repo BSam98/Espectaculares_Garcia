@@ -357,6 +357,9 @@ function mostrar_Promociones(a){
             contenido_Descuentos_Html = 
             '<tr id="contenedor_Descuento_Nuevo_'+contadorNuevoDescuento+'" border=2>'+
                 '<td>'+
+                    '<div>'+
+                        '<center><label><h4>Nuevo Descuento</h4></label></center>'+
+                    '</div>'+
                     '<div class="from-group" id="nombre_Descuentos_'+contadorNuevoDescuento+'">'+
                         '<label for="promocionesDescuentos">Nombre de la promocion</label>'+
                         '<select id="descuentos'+contadorNuevoDescuento+'" class="form-control promocionesDescuentos">'+option_Descuentos_Html+'</select>'+
@@ -413,6 +416,9 @@ function mostrar_Promociones(a){
             contenido_Pulsera_Html =
             '<tr id="contenedor_Pulsera_Nueva_0" border=2>'+
                 '<td>'+
+                    '<div>'+
+                        '<center><label><h4>Nueva Pulsera Magica</h4></label></center>'+
+                    '</div>'+
                     '<div class="from-group" id="nombre_Pulsera_0">'+
                         '<label for="promocionesPulsera0">Nombre de la promocion</label>'+
                         '<select name="pulsera0" id="pulsera0" class="form-control promocionesPulsera">'+option_Pulsera_Html+'</select>'+
@@ -525,6 +531,9 @@ function mostrar_Promociones(a){
             contenido_Cortesias_Html =
             '<tr id="contenedor_Creditos_Cortesia_0" border=2>'+
                 '<td>'+
+                    '<div>'+
+                        '<center><label><h4>Nuevos Creditos de Cortesia</h4></label></center>'+
+                    '</div>'+
                     '<div class="from-group" id="nombre_Cortesias_0">'+
                         '<label for="promocionesPulsera0">Nombre de la promocion</label>'+
                         '<select id="cortesias0" class="form-control promocionesCortesias">'+option_Cortesias_Html+'</select>'+
@@ -1019,6 +1028,9 @@ $("#nuevo_Registro_Promocion_Descuento").click(function(){
     $(
         '<tr id="contenedor_Descuento_Nuevo_'+contadorNuevoDescuento+'" style="height:1px;" border="2" frame="above" rules="none" width="95%" cellspacing="0">'+
             '<td>'+
+                '<div>'+
+                    '<center><label><h4>Nuevo Descuento</h4></label></center>'+
+                '</div>'+
                 '<div class="from-group" id="nombre_Descuentos_'+contadorNuevoDescuento+'">'+
                     '<label for="promocionesDescuentos">Nombre de la promocion</label>'+
                     '<select id="descuentos'+contadorNuevoDescuento+'" class="form-control promocionesDescuentos">'+option_Descuentos_Html+'</select>'+
@@ -1081,6 +1093,9 @@ $("#nuevo_Registro_Promocion_Pulsera").click(function(){
     $(
         '<tr id="contenedor_Pulsera_Nueva_'+contadorNuevaPulsera+'" border=2>'+
             '<td>'+
+                '<div>'+
+                    '<center><label><h4>Nueva Pulsera Magica</h4></label></center>'+
+                '</div>'+
                 '<div class="from-group" id="nombre_Pulsera_'+contadorNuevaPulsera+'">'+
                     '<label for="promocionesPulsera'+contadorNuevaPulsera+'">Nombre de la promocion</label>'+
                     '<select name="pulsera'+contadorNuevaPulsera+'" id="pulsera'+contadorNuevaPulsera+'" class="form-control promocionesPulsera">'+option_Pulsera_Html+'</select>'+
@@ -1147,6 +1162,9 @@ $("#nuevo_Registro_Promocion_Cortesia").click(function(){
     $(
         '<tr id="contenedor_Creditos_Cortesia_'+contadorNuevaCortesia+'" border=2>'+
             '<td>'+
+                '<div>'+
+                    '<center><label><h4>Nuevos Creditos de Cortesia</h4></label></center>'+
+                '</div>'+
                 '<div class="from-group" id="nombre_Cortesias_'+contadorNuevaCortesia+'">'+
                     '<label for="promocionesPulsera'+contadorNuevaCortesia+'">Nombre de la promocion</label>'+
                     '<select id="cortesias'+contadorNuevaCortesia+'" class="form-control promocionesCortesias">'+option_Cortesias_Html+'</select>'+
@@ -1863,9 +1881,9 @@ $(document).on('click','.editar_Descuentos', function(){
     var fila='';
     var contador = 0;
 
-    $('#tabla_Editar_Fechas_Descuento').html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Editar</th></tr>');
+    $('#tabla_Editar_Fechas_Descuento').html('<tr><th style="text-align: center; vertical-align: middle;">Hora Inicial</th><th style="text-align: center; vertical-align: middle;">Hora Final</th><th style="text-align: center; vertical-align: middle;">Editar</th></tr>');
     for(var i=0; i<fechas.length;i++){
-        fila = '<tr id="renglon_Descuento'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td id="'+contador+'"><a id="'+fechas[i]['idFechaDosxUno']+'" class="editar_Fecha_Descuento"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        fila = '<tr id="renglon_Descuento'+contador+'"><td style="text-align: center; vertical-align: middle;">'+fechas[i]['FechaInicial']+'</td><td style="text-align: center; vertical-align: middle;">'+fechas[i]['FechaFinal']+'</td><td style="text-align: center; vertical-align: middle;" id="'+contador+'"><a id="'+fechas[i]['idFechaDosxUno']+'" class="editar_Fecha_Descuento"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
         //$("#renglon_Descuento").val('renglon_Descuento'+contador);
         fechaDescuento.push({'idFechaDosxUno':fechas[i]['idFechaDosxUno'],'FechaInicial':fechas[i]['FechaInicial'],'FechaFinal':fechas[i]['FechaFinal']});
         contador++;
@@ -1896,10 +1914,10 @@ $(document).on('click','.editar_Pulseras',function(){
     var fila = '';
     var contador= 0;
 
-    $("#tabla_Editar_Fechas_Pulsera").html('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Editar</th></tr>');
+    $("#tabla_Editar_Fechas_Pulsera").html('<tr><th style="text-align: center; vertical-align: middle;">Hora Inicial</th><th style="text-align: center; vertical-align: middle;">Hora Final</th><th style="text-align: center; vertical-align: middle;">Precio</th><th style="text-align: center; vertical-align: middle;">Editar</th></tr>');
 
     for(var i=0; i<fechas.length;i++){
-        fila = '<tr id="renglon_Pulsera'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td>'+fechas[i]['Precio']+'</td><td id="'+contador+'"><a id="'+fechas[i]['idFechaPulseraMagica']+'" class="editar_Fecha_Pulsera"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        fila = '<tr id="renglon_Pulsera'+contador+'"><td style="text-align: center; vertical-align: middle;" >'+fechas[i]['FechaInicial']+'</td><td style="text-align: center; vertical-align: middle;">'+fechas[i]['FechaFinal']+'</td><td style="text-align: center; vertical-align: middle;">'+fechas[i]['Precio']+'</td><td style="text-align: center; vertical-align: middle;" id="'+contador+'"><a id="'+fechas[i]['idFechaPulseraMagica']+'" class="editar_Fecha_Pulsera"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
         fechaPulsera.push({'idFechaPulseraMagica':fechas[i]['idFechaPulseraMagica'],'FechaInicial':fechas[i]['FechaInicial'],'FechaFinal':fechas[i]['FechaFinal'],'Precio':fechas[i]['Precio']});
         contador++;
 
@@ -1926,10 +1944,10 @@ $(document).on('click','.editar_Juegos',function(){
     var fila='';
     var contador= 0;
 
-    $("#tabla_Editar_Fechas_Juego").val('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Editar</th></tr>');
+    $("#tabla_Editar_Fechas_Juego").val('<tr><th style="text-align: center; vertical-align: middle;">Hora Inicial</th><th style="text-align: center; vertical-align: middle;">Hora Final</th><th style="text-align: center; vertical-align: middle;">Editar</th></tr>');
 
     for(var i= 0;i<fechas.length;i++){
-        fila = '<tr id="renglon_Juego'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td id="'+contador+'"><a id="'+fechas[i]['idFechaJuegosGratis']+'" class="editar_Fecha_Juego"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        fila = '<tr id="renglon_Juego'+contador+'"><td style="text-align: center; vertical-align: middle;">'+fechas[i]['FechaInicial']+'</td><td style="text-align: center; vertical-align: middle;">'+fechas[i]['FechaFinal']+'</td><td style="text-align: center; vertical-align: middle;" id="'+contador+'"><a id="'+fechas[i]['idFechaJuegosGratis']+'" class="editar_Fecha_Juego"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
         fechaJuego.push({'idFechaJuegosGratis':fechas[i]['idFechaJuegosGratis'],'FechaInicial':fechas[i]['FechaInicial'],'FechaFinal':fechas[i]['FechaFinal']});
         contador++;
 
@@ -1960,10 +1978,10 @@ $(document).on('click','.editar_Creditos',function(){
     var fila='';
     var contador = 0;
 
-    $("#tabla_Editar_Fechas_Creditos").val('<tr><th>Hora Inicial</th><th>Hora Final</th><th>Precio</th><th>Creditos</th><th>Eliminar</th></tr>');
+    $("#tabla_Editar_Fechas_Creditos").val('<tr><th style="text-align: center; vertical-align: middle;">Hora Inicial</th><th style="text-align: center; vertical-align: middle;">Hora Final</th><th style="text-align: center; vertical-align: middle;">Precio</th><th style="text-align: center; vertical-align: middle;">Creditos</th><th style="text-align: center; vertical-align: middle;">Eliminar</th></tr>');
 
     for(var i=0;i<fechas.length;i++){
-        fila = '<tr id="renglon_Creditos'+contador+'"><td>'+fechas[i]['FechaInicial']+'</td><td>'+fechas[i]['FechaFinal']+'</td><td>'+fechas[i]['Precio']+'</td><td>'+fechas[i]['Creditos']+'</td><td id="'+contador+'"><a id="'+fechas[i]['idFechaCreditosCortesia']+'" class="editar_Fecha_Creditos"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
+        fila = '<tr id="renglon_Creditos'+contador+'"><td style="text-align: center; vertical-align: middle;">'+fechas[i]['FechaInicial']+'</td><td style="text-align: center; vertical-align: middle;">'+fechas[i]['FechaFinal']+'</td><td style="text-align: center; vertical-align: middle;">'+fechas[i]['Precio']+'</td><td style="text-align: center; vertical-align: middle;">'+fechas[i]['Creditos']+'</td><td style="text-align: center; vertical-align: middle;" id="'+contador+'"><a id="'+fechas[i]['idFechaCreditosCortesia']+'" class="editar_Fecha_Creditos"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td></tr>';
         fechaCredito.push({'idFechaCreditosCortesia':fechas[i]['idFechaCreditosCortesia'],'FechaInicial':fechas[i]['FechaInicial'],'FechaFinal':fechas[i]['FechaFinal'],'Precio':fechas[i]['Precio'],'Creditos':fechas[i]['Creditos']});
         contador++;
         $("#tabla_Editar_Fechas_Creditos tr:first").after(fila);
@@ -1985,8 +2003,6 @@ $(document).on('click','.editar_Fecha_Descuento',function(){
     //$("#editar_Inicio_Descuento").val(fechaDescuento[id]['FechaInicial'].replace(' ','T'));
     $("#editar_Inicio_Descuento").val(fechaDescuento[id]['FechaInicial'].replace(' ','T').split('.')[0]);
     $("#editar_Final_Descuento").val(fechaDescuento[id]['FechaFinal'].replace(' ','T').split('.')[0]);
-
-    alert('Hora Inicial: ' + $("#editar_Inicio_Descuento").val() + ' Hora Final: ' + $("#editar_Final_Descuento").val());
 
 });
 
@@ -2054,7 +2070,7 @@ $("#editar_Horario_Descuento").on('click',function(){
     $("#editar_Final_Descuento").val('');
     $("#idFechaDosxUno").val('');
 
-    $('#'+id).html('<td>'+inicio+'</td><td>'+final+'</td><td id="'+td+'"><a id="'+idFechaDosxUno+'" class="editar_Fecha_Descuento"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
+    $('#'+id).html('<td style="text-align: center; vertical-align: middle;">'+inicio+'</td><td style="text-align: center; vertical-align: middle;">'+final+'</td><td style="text-align: center; vertical-align: middle;" id="'+td+'"><a id="'+idFechaDosxUno+'" class="editar_Fecha_Descuento"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
     fecha_Editada_Descuento.push({'idFechaDosxUno':idFechaDosxUno,'FechaInicial':inicio,'FechaFinal':final});
     
     //fechaDescuento.splice(id,1,{'idFechaDosxUno':idFechaDosxUno,'FechaInicial':inicio,'FechaFinal':final});
@@ -2075,7 +2091,7 @@ $("#editar_Horario_Pulsera").on('click',function(){
     $("#editar_Precio_Pulsera").val('');
     $("#idFechaPulseraMagica").val('');
 
-    $('#'+id).html('<td>'+inicio+'</td><td>'+final+'</td><td>'+precio+'</td><td id="'+td_Pulsera+'"><a id="'+idFechaPulseraMagica+'" class="editar_Fecha_Pulsera"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
+    $('#'+id).html('<td style="text-align: center; vertical-align: middle;">'+inicio+'</td><td style="text-align: center; vertical-align: middle;">'+final+'</td><td style="text-align: center; vertical-align: middle;">'+precio+'</td><td style="text-align: center; vertical-align: middle;" id="'+td_Pulsera+'"><a id="'+idFechaPulseraMagica+'" class="editar_Fecha_Pulsera"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
     fecha_Editada_Pulsera.push({'idFechaPulseraMagica':idFechaPulseraMagica,'FechaInicial':inicio,'FechaFinal':final,'Precio':precio});
     //console.log('Datos nuevos: ' + JSON.stringify(fecha_Editada_Pulsera));
 });
@@ -2093,7 +2109,7 @@ $("#editar_Horario_Juego").on('click',function(){
     $("#editar_Final_Juego").val('');
     $("#idFechaJuegosGratis").val('');
 
-    $('#'+id).html('<td>'+inicio+'</td><td>'+final+'</td><td id="'+td+'"><a id="'+idFechaJuegosGratis+'" class="editar_Fecha_Juego"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
+    $('#'+id).html('<td style="text-align: center; vertical-align: middle;">'+inicio+'</td><td style="text-align: center; vertical-align: middle;">'+final+'</td><td style="text-align: center; vertical-align: middle;" id="'+td+'"><a id="'+idFechaJuegosGratis+'" class="editar_Fecha_Juego"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
 
     fecha_Editada_Juego.push({'idFechaJuegosGratis':idFechaJuegosGratis,'FechaInicial':inicio,'FechaFinal':final});
 });
@@ -2115,7 +2131,7 @@ $("#editar_Horario_Credito").on('click',function(){
     $("#editar_Creditos").val('')
     $("#idFechaCreditosCortesia").val('');
 
-    $('#'+id).html('<td>'+inicio+'</td><td>'+final+'</td><td>'+precio+'</td><td>'+credito+'</td><td id="'+td+'"><a id="'+idFechaCreditosCortesia+'" class="editar_Fecha_Creditos"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
+    $('#'+id).html('<td style="text-align: center; vertical-align: middle;">'+inicio+'</td><td style="text-align: center; vertical-align: middle;">'+final+'</td><td style="text-align: center; vertical-align: middle;">'+precio+'</td><td style="text-align: center; vertical-align: middle;">'+credito+'</td><td style="text-align: center; vertical-align: middle;" id="'+td+'"><a id="'+idFechaCreditosCortesia+'" class="editar_Fecha_Creditos"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>');
 
     fecha_Editada_Credito.push({'idFechaCreditosCortesia':idFechaCreditosCortesia,'FechaInicial':inicio,'FechaFinal':final,'Precio':precio,'Creditos':credito});
 
