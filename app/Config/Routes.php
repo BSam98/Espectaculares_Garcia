@@ -143,11 +143,11 @@ $routes->get('/Ticket','ticket_Control::ticket');
 $routes->get('/Rol','Rol_Control::rol');
 //$routes->get('/Roles','Rol_Control::rol');
 
-$routes->get('/Ver Atracciones','super_Atracciones_Control::new');
-$routes->get('/Ver Atracciones/Mostrar_Atracciones','super_Atracciones_Control::ciclos');
-$routes->post('/Ver Atracciones/Mostrar_Atracciones','super_Atracciones_Control::ciclos');
-$routes->get('/Ver Atracciones/Mostrar_Detalles','super_Atracciones_Control::detalles');
-$routes->post('/Ver Atracciones/Mostrar_Detalles','super_Atracciones_Control::detalles');
+$routes->get('/Ver Atracciones','Super_Atracciones_Control::new');
+$routes->get('/Ver Atracciones/Mostrar_Atracciones','Super_Atracciones_Control::ciclos');
+$routes->post('/Ver Atracciones/Mostrar_Atracciones','Super_Atracciones_Control::ciclos');
+$routes->get('/Ver Atracciones/Mostrar_Detalles','Super_Atracciones_Control::detalles');
+$routes->post('/Ver Atracciones/Mostrar_Detalles','Super_Atracciones_Control::detalles');
 
 $routes->get('/Ver Taquillas','Taquillas_Control::new');
 

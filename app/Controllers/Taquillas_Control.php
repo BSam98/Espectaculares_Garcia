@@ -89,6 +89,7 @@ class Taquillas_Control extends BaseController {
             echo json_encode(array('respuesta'=>true,'ventanillas'=>$respuesta,'resultado'=>$valor));
         }
         else{
+     
             $valor= false;
 
             $respuesta = $model->ventanillas_Inactivas_2($idTaquilla, $idEvento, $fecha);

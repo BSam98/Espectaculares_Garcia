@@ -236,7 +236,7 @@ $(document).on('click','.ventanillas_Inactivas', function(){
         },
     }).done(function(data){
         if(data.respuesta){
-
+            console.log('Aqui entro de regreso');
 
             if(data.resultado){
                 for(var i=0; i<data.ventanillas.length;i++){

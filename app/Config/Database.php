@@ -28,6 +28,7 @@ class Database extends Config{
      *
      * @var array
      */
+    
     public $default = [
         
         'DSN'      => '',
@@ -35,7 +36,7 @@ class Database extends Config{
         'username' => 'admin',
         'password' => 'KSy&Z%SyP!',
         'database' => 'dbGarcia',
-        'DBDriver' => 'sqlsrv',
+        'DBDriver' => 'SQLSRV',
         'DBPrefix' => '',
         'pConnect' => false,
         'DBDebug'  => (ENVIRONMENT !== 'production'),
@@ -49,6 +50,7 @@ class Database extends Config{
         //'port'     => 3306,
         //'port' => 1433,
     ];
+
 
     /**
      * This database connection is used when
