@@ -1,10 +1,11 @@
-var prev;
+//var prev;
 var previous=[];
 let creditosC = [];
 let metros = [];
 let prec = [];
 let precios = [];
 let preciosC = [];
+let promocionesCreditos=[];
 var acumulador = 0;
 var total;
 let indices = [];
@@ -478,6 +479,12 @@ $(document).on('click', '.pagoEfectivo', function(){
     $(document).on('click', '#agregarFajilla', function(){
         var fI = $('#folioI').val();
         var fF = $('#folioF').val();
+        var evento = $('#e').val();
+        var zona = $('#z').val();
+        var taquilla = $('#t').val();
+        var ventanilla = $('#v').val();
+        var usuario = $('#u').val();
+        var idventanilla = $('#idv').val();
 
         if(fI < fF){
             $.ajax({
@@ -539,24 +546,72 @@ $(document).on('click', '.pagoEfectivo', function(){
                     cobrarCompra();
                     location.reload();
                 }else if(totalIngresado == totalCobrar){
-                    alert('Gracias por su compra');
+                    MENSAJE2 = "Gracias por su compra";
+                    $("#mensaje2").html(MENSAJE2);
+                    $('#alertaCorrecta').modal('show');
                     cobrarCompra();
                     location.reload();
                 }else if(totalIngresado < totalCobrar){
-                    alert('Dinero Insuficiente');
-                    acumulador=0;
+                    MENSAJE = "DINERO INSUFICIENTE";
+                    $("#mensaje").html(MENSAJE);
+                    $('#staticBackdrop').modal('show');
+                    $('#efectivo').val('');
+                    //(function() {cache_clear()}, 2000);
                 }
-            }
-            if(tipo == 2){
+            }else if(tipo == 2){//tarjeta de debito
+                console.log('soy tipo'+tipo);
+
                 var totalCobrar = $('#total').val();
                 var totalIngresado = $('#mtarjeta').val();
+                
+                console.log('soy totalCobrar'+totalCobrar);
+                console.log('soy totalIngresado'+totalIngresado);
+
                 if(totalIngresado < totalCobrar){
-                    alert('Verifica el monto');
-                    location.reload();
-                }else if(totalIngresado == totalCobrar){
-                    alert('Gracias por su compra');
+
+                    MENSAJE = "Verifica el monto";
+                    $("#mensaje").html(MENSAJE);
+                    $('#staticBackdrop').modal('show');
+                    setInterval(function() {cache_clear()}, 2000);
+                    //location.reload();
+                    
+                }else{ //if(totalIngresado == totalCobrar){
+
+                    MENSAJE2 = "Gracias por su compra";
+                    $("#mensaje2").html(MENSAJE2);
+                    $('#alertaCorrecta').modal('show');
+
                     cobrarCompra();
-                    location.reload();
+                    setInterval(function() {cache_clear()}, 2000);
+                    //location.reload();
+                }
+            }else{
+                //tipo 3: tarjeta de crédito
+                console.log('soy tipo'+tipo);
+
+                var totalCobrar = $('#total').val();
+                var totalIngresado = $('#mtarjeta').val();
+                
+                console.log('soy totalCobrar'+totalCobrar);
+                console.log('soy totalIngresado'+totalIngresado);
+
+                if(totalIngresado < totalCobrar){
+
+                    MENSAJE = "Verifica el monto";
+                    $("#mensaje").html(MENSAJE);
+                    $('#staticBackdrop').modal('show');
+                    setInterval(function() {cache_clear()}, 2000);
+                    //location.reload();
+                    
+                }else{ //if(totalIngresado == totalCobrar){
+
+                    MENSAJE2 = "Gracias por su compra";
+                    $("#mensaje2").html(MENSAJE2);
+                    $('#alertaCorrecta').modal('show');
+
+                    cobrarCompra();
+                    setInterval(function() {cache_clear()}, 2000);
+                    //location.reload();
                 }
             }
         }
@@ -564,21 +619,14 @@ $(document).on('click', '.pagoEfectivo', function(){
 /********************************** Cobrar Transaccion*********************************/
 
 /********************************** Iniciar y Cerrar Carga de Pagina *********************************/
-    function inicia_carg(){
-        $('body').loadingModal({
-          position: 'auto',
-          text: 'Espere un momento',
-          color: '#B0AEC6',
-          opacity: '0.7',
-          backgroundColor: 'rgb(1,61,125)', 
-          animation: 'doubleBounce'
-        }); 
+    function modal(){
+        $('#modalCarga').modal('show');
     }
 
-    function cierra_carg(){
-        $('body').loadingModal('hide');
-        $('body').loadingModal('destroy');
-        console.log('adios perros');
+    function modalCerrar(){
+        $('#modalCarga').modal('hide');
+        /*setTimeout(function(){
+            $('#modalCarga').modal('hide');}, 1000);*/
     }
 /********************************** Iniciar y Cerrar Carga de Pagina *********************************/
 
@@ -616,59 +664,100 @@ $(document).on('click', '.pagoEfectivo', function(){
             $('#indice').val(indices);
             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
 
+            var idp = $(this).attr('value');
             metros.push($(this).attr('value'));
 
             $('#arregloP').val(metros);
             var promocion = $(this).val();
             $.ajax({
+                beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                    modal();//funcion que abre la ventana de carga
+                },
                 type:"POST",
                 url:"Productos",
                 data:{'promocion':promocion},
                 dataType: 'JSON',
                 error: function(jqXHR, textStatus, errorThrown){
                     alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+                    modalCerrar();
                 },
             }).done(function(data){
                 var html ='';
                 for(var i = 0;i <data.msj.length; i++){
-                        html += '<tr id="'+data.msj[i]['idFechaPulseraMagica']+'">'+
+                        html += '<tr class="n" id="'+data.msj[i]['idFechaPulseraMagica']+'">'+
                                     '<td style="padding:0px;">'+data.msj[i]['Nombre']+'</td>'+
-                                    '<td style="padding:0px;"><input type="number" class="precioP monto" name="precioP" id="precioP" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value="'+data.msj[i]['Precio']+'"></td>'+
+                                    '<td style="padding:0px;" id="'+data.msj[i]['Precio']+'"><input type="number" class="precioP monto" name="precioP" id="precioP" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value="'+data.msj[i]['Precio']+'"></td>'+
                                     '<td style="padding:0px;"></td>'+
-                                    '<td style="padding:0px;"><a href="#eliminarPromo'+data.msj[i]['idFechaPulseraMagica']+'" class="eliminar" data-toggle="modal"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></a></td>'+
+                                    '<td style="padding:0px;"><button type="button" id="eliminarPromoP" class="btn btn-danger eliminarPromoP" value="'+data.msj[i]["idFechaPulseraMagica"]+'"><i class="fa fa-trash" aria-hidden="true"></i></button></td>'+
                                 '</tr>';
                     $("#productos").append(html);
-                    prec.push(data.msj[i]['Precio']);
+                    prec.push({'promo':idp, 'precio':data.msj[i]['Precio']});
                 }    
                 sumar();
-                $('#arregloPrecioP').val(prec);
+                $('#arregloPrecioP').val(JSON.stringify(prec));
+                modalCerrar();
             });
         }
     });
 /********************************** Agregar Promociones de Pulsera Magica *********************************/
 
+/********************************** Eliminar Promociones de Pulsera Magica ********************************/
+    $(document).on('click', '.eliminarPromoP', function(event){
+        $(this).parent().parent().remove();
+        var valoraBorrar = $(this).val();//trae el valor a eliminar
+        console.log(valoraBorrar);
+        var idBloque = $(this).parents('tr').attr('id');
+        console.log(idBloque);
+        prec.forEach(function(data,index){
+            if(valoraBorrar === data.promo && idBloque === data.promo){
+                prec.splice(index,1);
+                console.log(prec);
+                $('#arregloPrecioP').val(JSON.stringify(prec));
+            }
+        });
+
+        /*var array = $('#arregloP').val();//trae el valor del array de promociones pulsera;
+        let arr = array.split(',');
+        var toRemove = $(this).val();//trae el valor a eliminar
+        let pos = arr.indexOf(toRemove.toString()) // (pos) es la posición para abreviar
+        let elementoEliminado = arr.splice(pos, 1)
+        $(this).parent().parent().remove();
+        $('#arregloP').val(arr);//actualizamos el valor del input
+*/
+        /***************** Elimina el indice que especifica que es promoP en el array principal(indice) ****************/
+        var arreglo = $('#indice').val();//trae el valor del array de promociones pulsera;
+        let arr3 = arreglo.split(',');
+        let pos3 = arr3.indexOf('3') // (pos) es la posición para abreviar
+        let elementoEliminado3 = arr3.splice(pos3, 1);
+        $('#indice').val(arr3);
+    });
+/********************************** Eliminar Promociones de Pulsera Magica ********************************/
+
 /********************************** Agregar Promociones de Creditos de Cortesia*********************************/
     $(document).on('click', '.creditosC', function(event){
-        var fecha = '<?php echo $fecha;?>';
         var tarjeta = $('#tarjetaAdd').val();
         if(tarjeta == ''){
             alert('Ingresa la tarjeta por favor');
         }else{
             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
             indices.push('4');//promo de creditos
-            //alert('Indices' + indices);
             $('#indice').val(indices);
             /********** INSERTAR EL INDICE EN EL ARREGLO SOBRE TIPO DE PROMOCION ELEGIDA **********/
-            creditosC.push($(this).attr('value'));
-            $('#arregloC').val(creditosC);
+            var idpromoCredit = $(this).attr('value');
+            //creditosC.push($(this).attr('value'));
+            //$('#arregloC').val(creditosC);
             var promocionc = $(this).val();
             $.ajax({
+                beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                    modal();//funcion que abre la ventana de carga
+                },
                 type:"POST",
                 url:"creditosCortesia",
                 data:{'promoCreditos':promocionc},
                 dataType: 'JSON',
                 error: function(jqXHR, textStatus, errorThrown){
                     alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+                    modalCerrar();
                 },
             }).done(function(data){
                 var html ='';
@@ -677,18 +766,49 @@ $(document).on('click', '.pagoEfectivo', function(){
                                     '<td style="padding:0px;">'+data.msj[i]['Nombre']+'</td>'+
                                     '<td style="padding:0px;"><input type="number" name="precioC" id="precioC" disabled  style="background : inherit; border:none; text-align:center;" class="monto" value='+data.msj[i]['Precio']+'></td>'+
                                     '<td style="padding:0px;"></td>'+
-                                    '<td style="padding:0px;"><a href="#eliminarPromo'+data.msj[i]['idFechaCreditosCortesia']+'" class="eliminar" data-toggle="modal"><i class="fa fa-trash btn btn-danger" aria-hidden="true"></i></a></td>'+
+                                    '<td style="padding:0px;"><button type="button" id="eliminarPromoC" class="btn btn-danger eliminarPromoC" value="'+data.msj[i]["idFechaCreditosCortesia"]+'"><i class="fa fa-trash" aria-hidden="true"></i></button>'+
                                 '</tr>';
+                    promocionesCreditos.push({'idpromo':idpromoCredit, 'precioC':data.msj[i]['Precio']});
+                    console.log(promocionesCreditos);
                 }
                 $("#productos").append(html);
                 sumar();
-                var prec = $('#precioC').val();
-                preciosC.push(prec);
-                $('#arregloPrecioC').val(preciosC);
+                $('#arregloPrecioC').val(JSON.stringify(promocionesCreditos));
+                modalCerrar();
             });
         }
     });
-/********************************** Agregar Promociones de Creditos de Cortesia*********************************/
+/********************************** Agregar Promociones de Creditos de Cortesia *********************************/
+/********************************** Eliminar Promociones de Creditos de Cortesia ********************************/
+    $(document).on('click', '.eliminarPromoC', function(event){
+        var array = $('#arregloC').val();//trae el valor del array de promociones pulsera;
+        let arr = array.split(',');
+        var toRemove = $(this).val();//trae el valor a eliminar
+        let pos = arr.indexOf(toRemove.toString()) // (pos) es la posición para abreviar
+        let elementoEliminado = arr.splice(pos, 1)
+        /*console.log(elementoEliminado);
+        console.log(pos);
+        console.log(arr);*/
+        $(this).parent().parent().remove();
+        $('#arregloC').val(arr);//actualizamos el valor del input
+
+        /*var data = $('#arregloC').val();//trae el valor del array de promociones pulsera
+        var toRemove = $(this).val();//trae el valor a eliminar
+        let arr = data.split(',');//divide la cadena de texto para regresarla como array
+        arr = arr.filter(function(item){
+            return item !== toRemove;//quita el valor a eliminar si existe en el array
+        });
+        $(this).parent().parent().remove();//eliminar las promos registradas como compra en caso de cancelar
+        $('#arregloC').val(arr);//actualizamos el valor del input*/
+
+        /***************** Elimina el indice que especifica que es promoC en el array principal(indice) ****************/
+        var arreglo1 = $('#indice').val();//trae el valor del array de promociones pulsera;
+        let arr1 = arreglo1.split(',');
+        let pos1 = arr1.indexOf('4'); // (pos) es la posición para abreviar
+        let elementoEliminado1 = arr1.splice(pos1, 1);
+        $('#indice').val(arr1);
+    });
+/********************************** Eliminar Promociones de Creditos de Cortesia ********************************/
 
 
 /********************************** Tipo de Pago Efectivo *********************************/
@@ -755,11 +875,28 @@ $(document).on('click', '.pagoEfectivo', function(){
         document.form_reloj.reloj.value = horaImprimible
         setTimeout("mueveReloj()",1000);
         $('#fecha').val(horaImprimible);
+        $('#fechas').val(horaImprimible);
     }
 /*************************************** FECHA Y HORA************************** */
 
     function actualizar(){
         setTimeout("actualizar()",1000);
     }
-
+/**************************************** Actualizar paginas **********************************/ 
+  function cache_clear() {
+    window.location.reload(true);
+    // window.location.reload(); use this if you do not remove cache
+  }
 /********************************** Cambio de Pagina ******************************************/
+
+/***************************** Actualizar la lista de promociones *****************************/
+    
+       /* var refreshId =  setInterval( function(){
+            console.log('si actualizo');
+        $('#accordionSidebar').load('ModuloCobro?e=1&z=1&t=1&v=104&u=2&idv=1');//actualizas el div
+        }, 1000 );*/
+
+        //$(document).ready(function(){
+            //setInterval(loadClima,5000);
+          //  });
+            

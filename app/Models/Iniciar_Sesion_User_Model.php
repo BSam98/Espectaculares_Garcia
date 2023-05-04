@@ -207,7 +207,7 @@ class Iniciar_Sesion_User_Model extends Model{
         return $datos; 
     }
 
-   /* function insertarTurno($fecha,$fondo,$ventanilla,$usuario){
+    /* function insertarTurno($fecha,$fondo,$ventanilla,$usuario){
         $db = \Config\Database::connect();
         $builder = $db->table('Apertura_Ventanilla');
         $data = [

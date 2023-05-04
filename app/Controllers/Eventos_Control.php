@@ -30,48 +30,51 @@ class Eventos_Control extends BaseController {
     public function agregarEvento(){
         $model = new Eventos_Model();
 
+        $id =$_POST['id'];
         $nombre = $_POST['Nombre'];
         $direccion = $_POST['Direccion'];
         $ciudad = $_POST['Ciudad'];
         $estado = $_POST['Estado'];
-        $fechaInicio = $_POST['fechaInicio'];
-        $fechaFinal = $_POST['fechaFinal'];
         $precio = $_POST['pesos'];
         $creditos = $_POST['creditos'];
+        $costo = $_POST['costo'];
+        $fechas =$_POST['fechas'];
 
         $num_elementos = 0;
         $cantidad =count($nombre);
 
-        if(1 == $cantidad){
+        $cantidadFechas = count($fechas);
+
+
+        while($num_elementos<$cantidad){
             $datos = [
                 'Nombre' => $nombre[$num_elementos],
                 'Direccion' => $direccion[$num_elementos],
                 'Ciudad' => $ciudad[$num_elementos],
                 'Estado' => $estado[$num_elementos],
-                'FechaInicio' => $fechaInicio[$num_elementos],
-                'FechaFinal' => $fechaFinal[$num_elementos],
                 'Precio' => $precio[$num_elementos],
-                'Creditos' => $creditos[$num_elementos]
+                'Creditos' => $creditos[$num_elementos],
+                'precioTarjeta' =>$precio[$num_elementos]
             ];
     
             $respuesta = $model->agregarEvento($datos);
-        }
-        else{
-            while($num_elementos<$cantidad){
-                $datos = [
-                    'Nombre' => $nombre[$num_elementos],
-                    'Direccion' => $direccion[$num_elementos],
-                    'Ciudad' => $ciudad[$num_elementos],
-                    'Estado' => $estado[$num_elementos],
-                    'FechaInicio' => $fechaInicio[$num_elementos],
-                    'FechaFinal' => $fechaFinal[$num_elementos],
-                    'Precio' => $precio[$num_elementos],
-                    'Creditos' => $creditos[$num_elementos]
-                ];
-        
-                $respuesta = $model->agregarEvento($datos);
-                $num_elementos = $num_elementos + 1;
+            if($respuesta != false){
+                $contador= 0;
+                while($contador<$cantidadFechas){
+                    if($id[$num_elementos] == $fechas[$contador]['idEvento']){
+                        $datos = [
+                            'DiaInicial' => $fechas[$contador]['fechaInicial'],
+                            'DiaFinal' => $fechas[$contador]['fechaFinal'],
+                            'idEvento' => $respuesta
+                        ];
+                        $respuesta2 = $model->agregar_Fechas_Evento($datos);
+                    }
+                    $contador = $contador + 1;
+                }
+
+                $respuesta3 = $model->actualizarEvento($respuesta);
             }
+            $num_elementos = $num_elementos + 1;
         }
         echo json_encode(array('respuesta'=>true, 'msj'=>$datos));
     }
@@ -274,13 +277,13 @@ class Eventos_Control extends BaseController {
         $indice_Ventanillas = 0;
         
 
-        if(1 == $cantidad_Zonas){
-        }
-        else{
+       // if(1 == $cantidad_Zonas){
+        //}
+        //else{
             while($indice_Zonas < $cantidad_Zonas){
-                if(1 == $cantidad_Taquillas){
-                }
-                else{
+                //if(1 == $cantidad_Taquillas){
+                //}
+                //else{
                     while($indice_Taquillas < $cantidad_Taquillas){
                         if($indice_Zonas == $taquillas[$indice_Taquillas]["indiceZona"]){
                             $data = [
@@ -290,34 +293,35 @@ class Eventos_Control extends BaseController {
 
                             $idTaquilla = $model->agregar_Taquillas_Evento($data);
 
-                            if(1 == $cantidad_Ventanillas){
-                            }
-                            else{
+                            //if(1 == $cantidad_Ventanillas){
+                            //}
+                            //else{
                                 while($indice_Ventanillas < $cantidad_Ventanillas){
     
                                     if($indice_Taquillas == $ventanillas[$indice_Ventanillas]["indiceTaquilla"]){
                                         $data = [
                                             "Nombre" => $ventanillas[$indice_Ventanillas]["Nombre"],
-                                            "idTaquilla" => $idTaquilla
+                                            "idTaquilla" => $idTaquilla,
+                                            "Status" => 0
                                         ];
                                         $respuesta = $model->agregar_Ventanillas_Evento($data);
                                     }
     
                                     $indice_Ventanillas = $indice_Ventanillas + 1;
                                 }
-                            }
+                            //}
                         }
 
                         $indice_Taquillas = $indice_Taquillas + 1;
                         $indice_Ventanillas = 0;
                     }
-                }
+                //}
 
                 $indice_Zonas = $indice_Zonas + 1;
                 $indice_Taquillas = 0;
                 $indice_Ventanillas = 0;
             }
-        }
+        //}
         
         echo json_encode(array('respuesta'=>true, 'msj'=>$respuesta));
     }
@@ -893,7 +897,7 @@ class Eventos_Control extends BaseController {
         $idLote = $_POST['idLote'];
         $idEvento = $_POST['idEvento'];
 
-        $respuesta = $model->buscar_Tarjetas($idLote,$idEvento['idEvento']);
+        $respuesta = $model->buscar_Tarjetas($idLote,$idEvento);
 
         echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
     }
@@ -901,13 +905,18 @@ class Eventos_Control extends BaseController {
     public function agregar_Cortesias(){
         $model = new Eventos_Model();
 
+        
         $idLote = $_POST['lote_Cortesia'];
         $folios = $_POST['folios_Cortesia'];
         $folioInicial = $_POST['folio_Inicial_Cortesias'];
         $folioFinal = $_POST['folio_Final_Cortesias'];
         $creditos = $_POST['creditos_Otorgados'];
         $descripcion = $_POST['descripcion_Cortesias'];
-
+        $nombre = $_POST['nombre_cortesia'];
+        $idEvento = $_POST['idEvento_Cortesia'];
+        $idUsuario = $_POST['idUsuario'];
+        $fecha = $_POST['fecha_cortesia'];
+        
         $num_elementos = 0;
         $cantidad = count($idLote);
 
@@ -935,7 +944,10 @@ class Eventos_Control extends BaseController {
                             'creditos' => $creditos[$contador],
                             'folioInicial' => $folioInicial[$contador],
                             'folioFinal' => $folioFinal[$contador],
-                            'descripcion' => $descripcion[$contador]
+                            'descripcion' => $descripcion[$contador],
+                            'Fecha'=> $fecha[$contador],
+                            'idUsuario' => $idUsuario[$contador],
+                            'idEvento' => $idEvento[$contador]
                         ];
                         $respuesta = $model->agregar_Cortesias($datos);
                         $contador = $contador + 1;

@@ -35,6 +35,61 @@ class Taquillas_Control extends BaseController {
         echo json_encode($data);
     }
 
+    public function taquillas_Activas(){
+        $model = new Taquillas_Model();
 
+        $idEvento = $_POST['idEvento'];
+
+        $respuesta = $model->taquillas_Activas($idEvento);
+
+        echo json_encode(array('respuesta'=>true,'taquillas'=>$respuesta));
+    }
+
+    public function ventanillas_Activas(){
+        $model = new Taquillas_Model();
+
+        $idEvento = $_POST['idEvento'];
+        $idTaquilla = $_POST['idTaquilla'];
+
+        $respuesta = $model->ventanillas_Activas($idEvento,$idTaquilla);
+
+        $respuesta2 = $model->ventanillas_Activas_2($idEvento,$idTaquilla);
+        
+        echo json_encode(array('respuesta'=>true,'ventanilla1'=>$respuesta2,'ventanilla2'=>$respuesta));
+    }
+
+    public function taquillas_Inactivas(){
+        $model = new Taquillas_Model();
+
+        $idEvento = $_POST['idEvento'];
+        $fecha = $_POST['fecha'];
+
+        $respuesta = $model->taquillas_Inactivas($idEvento,$fecha);
+
+        echo json_encode(array('respuesta'=>true, 'taquillas'=>$respuesta));
+    }
+
+    public function ventanillas_Inactivas(){
+        $model = new Taquillas_Model();
+
+        $idTaquilla = $_POST['idTaquilla'];
+        $idEvento = $_POST['idEvento'];
+        $fecha = $_POST['fecha'];
+
+        $respuesta = $model->ventanillas_Inactivas($idTaquilla,$idEvento,$fecha);
+        $valor = false;
+        if(count($respuesta)){
+
+            $valor= true;
+            echo json_encode(array('respuesta'=>true,'ventanillas'=>$respuesta,'resultado'=>$valor));
+        }
+        else{
+     
+            $valor= false;
+
+            $respuesta = $model->ventanillas_Inactivas_2($idTaquilla, $idEvento, $fecha);
+            echo json_encode(array('respuesta'=>true,'ventanillas'=>$respuesta,'resultado'=>$valor));
+        }
+    }
 
 }

@@ -18,7 +18,10 @@ class Reporte_Venta_Control extends BaseController{
 	public function consultarVentanilla(){
 		$model = new reporte_Ventas_Model;
 		$idv = $_GET['idv'];
-		$data = ['Turno'=>$model->consultarV($idv)];
+		$data = [
+				'Turno'=>$model->consultarV($idv),
+				//'Fondo'=>$model->consultaFondo($idv),
+			];
 		//echo view('../Views/header.php');
 		echo view('Usuarios/reporte_Venta', $data);
 		//echo view('../Views/piePagina.php');
@@ -56,5 +59,44 @@ class Reporte_Venta_Control extends BaseController{
 		$idv = $_POST['idv'];//idApertura ventanilla
 		$data = $model->cerrarCajas($fI,$fF, $efec, $vouch, $idv);
 		echo json_encode(array('respuesta'=>true,'msj'=>$data));
+	}
+
+	public function contarIntentos(){
+		$apeV = $_POST['aperturaV'];
+		$contador = $_POST['contador'];
+		$model = new reporte_Ventas_Model;
+		$data = $model->actualizarContador($apeV, $contador);
+		echo json_encode(array('respuesta'=>true,'msj'=>$data));
+	}
+
+	public function actualizarEstado(){
+		$apeV = $_POST['aperturaV'];
+		$model = new reporte_Ventas_Model;
+		$data = $model->actualizarStatus($apeV);
+		echo json_encode(array('respuesta'=>true,'msj'=>$data));
+	}
+
+	public function forzarCierrec(){
+		$user = $_POST['usuarioFC'];
+		$contra = $_POST['contraseñaFC'];
+		$idApV = $_POST['idAper'];
+		$fecha = $_POST['fecha'];
+		$model = new reporte_Ventas_Model;
+		$data = $model->checarDatos($user, $contra, $idApV, $fecha);
+		echo json_encode(array('respuesta'=>true,'msj'=>$data));
+	}
+
+	public function cerrarTurn(){
+		$model = new reporte_Ventas_Model;
+		$dtI = $_POST['dtI'];
+		$dtF = $_POST['dtF'];
+		$efectivo = $_POST['efectivo'];
+		$vou = $_POST['vou'];
+		$idv = $_POST['idv'];//idFajilla
+		$fecha = $_POST['fecha'];
+		$dinero = $_POST['dinero'];
+		$vouch = $_POST['vouchers'];
+		$data = $model->cerrarTurno($dtI, $dtF, $efectivo, $vou, $idv, $fecha, $dinero, $vouch);
+		echo json_encode(array('respuesta'=>true, 'msj'=>$data));
 	}
 }	

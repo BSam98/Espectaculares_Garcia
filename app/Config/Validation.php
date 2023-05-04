@@ -1,6 +1,4 @@
-<?php
-
-namespace Config;
+<?php namespace Config;
 
 use CodeIgniter\Validation\CreditCardRules;
 use CodeIgniter\Validation\FileRules;

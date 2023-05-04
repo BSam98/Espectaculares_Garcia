@@ -46,8 +46,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Usuario</label>
-                                            <input type="text" class="form-control" id="nombre" value="<?php echo session('Usuario')?>" readonly>
-                                            <input type="hidden" class="form-control" id="user" name="user[]" value="<?php echo session('idUsuario')?>">
+                                            <input type="text" class="form-control" id="nombre" value="<?php echo $_SESSION['Usuario']?>" readonly>
+                                            <input type="hidden" class="form-control" id="user" name="user[]" value="<?php echo $_SESSION['idUsuario']?>">
                                         </div>
                                     </td>
                                     <td class="eliminar-Filasl"><input type="button" value="-"></td>

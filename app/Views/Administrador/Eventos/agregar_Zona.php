@@ -36,8 +36,8 @@
                 <div class="table table-striped table-responsive">
                     <table id="atraccionesAdd" class="table table-bordered">
                         <thead>
-                        <th></th>
-                        <th>Nombre</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;"></th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Nombre</th>
                         </thead>
                         <tbody id = "zonas_Evento">
                         </tbody>

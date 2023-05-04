@@ -1,5 +1,5 @@
-<div class="modal fade" id="editar_Descuento" style="color:black;">
-    <div class="modal-dialog modal-lg">
+<div class="modal" id="editar_Descuento" style="color:black;">
+    <div>
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Editar Descuento</h4>
@@ -21,7 +21,7 @@
                         <br>
                     </div>
                     <div class="from-group table table-responsive">
-                        <table>
+                        <table class="table table-border">
                             <tbody>
                                 <tr>
                                     <td>
@@ -41,13 +41,15 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <table id="tabla_Editar_Fechas_Descuento" class="table table-bordered table-hover">
-                                            <tr>
-                                                <th>Hora Inicial</th>
-                                                <th>Hora Final</th>
-                                                <th>Editar</th>
-                                            </tr>
-                                        </table>
+                                        <div class="table-wrapper">
+                                            <table id="tabla_Editar_Fechas_Descuento" class="table table-border table-hover">
+                                                <tr>
+                                                    <th style="text-align: center; vertical-align: middle;">Hora Inicial</th>
+                                                    <th style="text-align: center; vertical-align: middle;">Hora Final</th>
+                                                    <th style="text-align: center; vertical-align: middle;">Editar</th>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -63,8 +65,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="editar_Pulsera" style="color:black;">
-    <div class="modal-dialog modal-lg">
+<div class="modal" id="editar_Pulsera" style="color:black;">
+    <div>
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Editar Pulsera Magica</h4>
@@ -78,7 +80,7 @@
                         <br>
                     </div>
                     <div class="from-group table table-responsive">
-                        <table>
+                        <table class="table table-border">
                             <tbody>
                                 <tr>
                                     <td>
@@ -101,14 +103,16 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <table id="tabla_Editar_Fechas_Pulsera" class="table table-bordered table-hover">
-                                            <tr>
-                                                <th>Hora Inicial</th>
-                                                <th>Hora Final</th>
-                                                <th>Precio</th>
-                                                <th>Editar</th>
-                                            </tr>
-                                        </table>
+                                        <div class="table table-wrapper">
+                                            <table id="tabla_Editar_Fechas_Pulsera" class="table table-border table-hover">
+                                                <tr>
+                                                    <th style="text-align: center; vertical-align: middle;">Hora Inicial</th>
+                                                    <th style="text-align: center; vertical-align: middle;">Hora Final</th>
+                                                    <th style="text-align: center; vertical-align: middle;">Precio</th>
+                                                    <th style="text-align: center; vertical-align: middle;">Editar</th>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -124,8 +128,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="editar_Juego" style="color:black;">
-    <div class="modal-dialog modal-lg">
+<div class="modal" id="editar_Juego" style="color:black;">
+    <div>
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Editar Juegos Gratis</h4>
@@ -141,7 +145,7 @@
                     <div class="from-group" id="precio_Juegos">
                     </div>
                     <div class="from-group table table-responsive">
-                        <table>
+                        <table class="table table-border">
                             <tbody>
                                 <tr>
                                     <td>
@@ -161,13 +165,15 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <table id="tabla_Editar_Fechas_Juego" class="table table-bordered table-hover">
-                                            <tr>
-                                                <th>Hora Inicial</th>
-                                                <th>Hora Final</th>
-                                                <th>Editar</th>
-                                            </tr>
-                                        </table>
+                                        <div class="table-wrapper">
+                                            <table id="tabla_Editar_Fechas_Juego" class="table table-border table-hover">
+                                                <tr>
+                                                    <th style="text-align: center; vertical-align: middle;">Hora Inicial</th>
+                                                    <th style="text-align: center; vertical-align: middle;">Hora Final</th>
+                                                    <th style="text-align: center; vertical-align: middle;">Editar</th>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -183,8 +189,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="editar_Credito" style="color:black;">
-    <div class="modal-dialog modal-lg">
+<div class="modal" id="editar_Credito" style="color:black;">
+    <div>
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Editar Creditos de Cortesia</h4>
@@ -202,7 +208,7 @@
                     <div class="from-group" id="creditos_Cortesia">
                     </div>
                     <div class="from-group table table-responsive">
-                        <table>
+                        <table class="table table-border">
                             <tbody>
                                 <tr>
                                     <td>
@@ -228,15 +234,17 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <table id="tabla_Editar_Fechas_Creditos" class="table table-bordered table-hover">
-                                            <tr>
-                                                <th>Hora Inicial</th>
-                                                <th>Hora Final</th>
-                                                <th>Precio</th>
-                                                <th>Creditos</th>
-                                                <th>Eliminar</th>
-                                            </tr>
-                                        </table>
+                                        <div class="table-wrapper">
+                                            <table id="tabla_Editar_Fechas_Creditos" class="table table-border table-hover">
+                                                <tr>
+                                                    <th style="text-align: center; vertical-align: middle;">Hora Inicial</th>
+                                                    <th style="text-align: center; vertical-align: middle;">Hora Final</th>
+                                                    <th style="text-align: center; vertical-align: middle;">Precio</th>
+                                                    <th style="text-align: center; vertical-align: middle;">Creditos</th>
+                                                    <th style="text-align: center; vertical-align: middle;">Eliminar</th>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>

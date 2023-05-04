@@ -1,7 +1,7 @@
 <!--Contenedor Superior-->
     <div class="container">
         <nav class="navbar navbar-fixed-top tm_navbar negro" role="navigation">
-            <a href="Menu_Principal_User"><img src = "Img/logo.png" style="width: 70px; height:7   0px;"/></a>
+            <a href="Menu_Principal_User"><img src = "Img/logo.png" style="width: 70px; height:70px;"/></a>
             <ul class="nav navbar-nav sf-menu">
                 <!--li class="dropdown">
                     <a href="Menu_Principal_User" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home" aria-hidden="true"></i>Punto de Venta</a>

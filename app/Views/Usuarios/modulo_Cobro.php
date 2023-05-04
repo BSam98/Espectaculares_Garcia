@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../css/sb-admin-2.css" rel="stylesheet"><!--Esta linea la acabo de agregar, tiene el estilo del radio en tipo pago-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -58,10 +57,10 @@
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
                     <!-- Topbar datos Evento -->
                     
@@ -98,7 +97,6 @@
                                     &nbsp;Cerrar Caja&nbsp;<i class="fa fa-times btn btn-danger" aria-hidden="true"></i>
                                 </a>
                             </div>
-                            <!--a class="nav-link navbar-brand" href="Ticket" target="_blank">Imprimir Ticket</a-->
                         </li>
                     </ul>
                 </nav>
@@ -281,9 +279,11 @@
         </form>
       </div>
     </div>
-  </div>
-</div>
-<!--**********************************Modal Fajilla*********************************-->
+    <style>
+        .bd-example-modal-lg .modal-dialog{ display: table;position: relative;margin: 0 auto;top: calc(50% - 24px);}
+        .bd-example-modal-lg .modal-dialog .modal-content{background-color: transparent;border: none;}
+    </style>
+<!--***************** MODAL DE CARGA ****************-->
 
     <!-- End of Page Wrapper -->
     <!-- Bootstrap core JavaScript-->

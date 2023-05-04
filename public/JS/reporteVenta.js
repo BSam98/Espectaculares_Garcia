@@ -1,21 +1,8 @@
-/********************************** Iniciar y Cerrar Carga de Pagina *********************************/
-function inicia_carg(){
-    $('body').loadingModal({
-      position: 'auto',
-      text: 'Espere un momento',
-      color: '#B0AEC6',
-      opacity: '0.7',
-      backgroundColor: 'rgb(1,61,125)', 
-      animation: 'doubleBounce'
-    }); 
-}
-
-function cierra_carg(){
-    $('body').loadingModal('hide');
-    $('body').loadingModal('destroy');
-    console.log('adios perros');
-}
-/********************************** Iniciar y Cerrar Carga de Pagina *********************************/
+var contador = 0;
+var apertV ='';
+var horaImprimible;
+var vouch ='';
+var dinero ='';
 /*************************************** FECHA Y HORA************************** */
 function mueveReloj(){
     
@@ -123,9 +110,7 @@ $('#cincuentac').change(function () {
     $('#mcincuenta').val(r);
 });
 
-function suma(){
-    
-}
+function suma(){}
 
 $(document).on('click', '#registrar', function(){
     var mil=quin=dosc=cien=cinc=veint=total=md=mc=mdos=mu=mcc=0;
@@ -247,17 +232,20 @@ $(document).on('click', '#registrar', function(){
         $('#cincuentac').prop('disabled', true);
         $('#voucher').prop('disabled', true);
     }*/
-
     ajaxCaja();
-    
 });
 
+
+
 function ajaxCaja(){
+
     var dtI = $('#dtI').val();
     var dtF = $('#dtF').val();
     var efect = $('#money').val();
     var vou = $('#vouch').val();
     var idv = $('#idv').val();
+    var apertV ='';
+
     $.ajax({
         type:"POST",
         url:"cerrarC",
@@ -318,6 +306,70 @@ $(document).on('click', '#cerrarCaja', function(){
     var idv = $('#idv').val();
     $.ajax({
         type:"POST",
+        url:"ForzarCierreC",
+        data: $('#forzarC').serialize() + '&idAper=' + fc + '&fecha=' + horaImprimible,
+        dataType: 'JSON',
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+        },
+    }).done(function(data){
+        $("#mensaje").html('');
+        $("#mensaje2").html('');
+        $('#alertaCorrecta').hide();
+        $('#modalCerr').hide();
+        if(data.msj == true){
+            MENSAJE2 = "La sesion se ha cerrado correctamente";
+            $("#mensaje2").html(MENSAJE2);
+            $('#alertaCorrecta').show();
+            window.location.href = "CerrarSesion";
+        }else{
+            MENSAJE = "Usted no puede forzar el cierre ya que no es un SUPERVISOR";
+            $("#mensaje").html(MENSAJE);
+            $('#modalCerr').show();
+        }
+    });
+});
+
+function cerrarTur(dinero, vouch){
+    var dtI = $('#dtI').val();
+    var dtF = $('#dtF').val();
+    var efect = $('#money').val();
+    var vou = $('#vouch').val();
+    var idv = $('#idv').val();
+    var fecha = $('#fecha').val();
+
+    if((efect >= dinero) && (vou == vouch)){
+        console.log(efect);
+        console.log(dinero);
+        console.log(vou);
+        console.log(vouch);
+
+        $.ajax({
+            type:"POST",
+            url:"cerrarTurno",
+            data:{'dtI':dtI, 'dtF':dtF,'efectivo':efect,'vou':vou, 'idv':idv, 'fecha':fecha, 'dinero':dinero, 'vouchers':vouch},
+            dataType: 'JSON',
+            error: function(jqXHR, textStatus, errorThrown){
+                alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+            },
+        }).done(function(data){
+            console.log('Soy data '+ data.msj);
+            if(data.msj == false){
+                MENSAJE = "Error al cerrar el turno";
+                $("#mensaje").html(MENSAJE);
+                $('#modalCerr').show();
+            }else{
+                console.log('Soy data msj ' + data.msj);
+                window.location.href = "CerrarSesion";
+            }
+        });
+    }else{
+        console.log('Error al cerrar Turno');
+    }
+
+
+    /*$.ajax({
+        type:"POST",
         url:"cerrarTurno",
         data:{'devtI':dtI, 'devtF':dtF, 'efectivo':efect, 'vouch':vou, 'idv':idv},
         dataType: 'JSON',
@@ -327,4 +379,5 @@ $(document).on('click', '#cerrarCaja', function(){
     }).done(function(data){
 
     });
-});
+    */
+}

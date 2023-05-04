@@ -1,4 +1,9 @@
 <?php
+
+// the path you need to follow to access your file
+namespace App\ThirdParty;//agregadp por mi 
+use Exception;//agregado por mi
+
 /*******************************************************************************
 * FPDF                                                                         *
 *                                                                              *
@@ -9,8 +14,7 @@
 
 define('FPDF_VERSION','1.84');
 
-class FPDF
-{
+class FPDF{
 protected $page;               // current page number
 protected $n;                  // current object number
 protected $offsets;            // array of object offsets

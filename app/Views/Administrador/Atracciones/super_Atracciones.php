@@ -1,6 +1,12 @@
-<fieldset id="fieldset">
+<?php 
+if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
+    header('Location: http://localhost/Espectaculares_Garcia/public/');
+    exit();
+}else{
+?>
+<fieldset id="fieldset" data-aos-anchor-placement="top-bottom" data-ais-duration="1000" style="color:black;">
     <center><h2><i class="fa fa-star" aria-hidden="true"></i>&nbsp;REPORTE DE ATRACCIONES</h2></center><hr>
-    <div class="container">
+    <form enctype="multipart/form-data">
         <div class="table table-responsive">
             <table>
                 <tbody>
@@ -17,7 +23,7 @@
                         <td>
                             <form action="#" method="post" target="_blank">
                             <label><h5>Selecciona una Fecha</h5></label><br>
-                                <input type="date" name="fechaesperada" id="fechaesperada"> 
+                                <input type="date" name="fechaesperada" id="fechaesperada">
                                 <!--input type="submit" value="Enviar datos"--></p>
                             </form>
                         </td>
@@ -25,28 +31,32 @@
                 </tbody>
             </table>
         </div>
-    <hr>
+        <hr>
         <div class="table table-striped table-responsive">
-            <table id="tabla_Atracciones_Supervisar" class="tabla table-bordered">
+            <table id="tabla_Atracciones_Supervisar" class="table table-bordered">
                 <thead>
                     <tr>
                         <!--th><center>Evento</center></th-->
-                        <th><center>Validador</center></th>
-                        <th><center>Atracción</center></th>
-                        <th><center>Ciclos</center></th>
-                        <th><center>Créditos</center></th>
-                        <th><center>Cortesias</center></th>
-                        <th><center>Descuentos</center></th>
-                        <th><center>Pulseras Magicas</center></th>
-                        <th><center>Pases</center></th>
-                        <th>Detalles</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Validador</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Atracción</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Ciclos</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Créditos</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Cortesias</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Pases Normales</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Pases de Cortesias</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Pases Mixtos</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Pases con Descuentos</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Pases con Pulseras Magicas</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Pases de Juego Gratis</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Total de Pases</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Detalles</th>
                     </tr>
                 </thead>
                 <tbody id ="supervisarAtracciones">
                 </tbody>
             </table>
         </div>
-    </div>
+    </form>
 </fieldset>
 
 <div class="modal fade" id="verDetalles" style="color:black;">
@@ -64,12 +74,16 @@
                             <thead>
                                 <tr>
                                     <!--th><center>Evento</center></th-->
-                                    <th><center>Personas</center></th>
-                                    <th><center>Creditos</center></th>
-                                    <th><center>Cortesias</center></th>
-                                    <th><center>Descuentos</center></th>
-                                    <th><center>Pulseras Magicas</center></th>
-                                    <th><center>Hora</center></th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><center>Personas</center></th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><center>Creditos</center></th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><center>Cortesias</center></th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><center>Pase Normal</center></th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><center>Pase de Cortesia</center></th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><center>Pase Mixto</center></th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><center>Pase con Descuento</center></th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><center>Pase con Pulsera Magica</center></th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><center>Pase con Juego Gratis</center></th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><center>Hora</center></th>
                                 </tr>
                             </thead>
                             <tbody id="detalles_Ciclo">
@@ -93,3 +107,4 @@
         });
     });
 </script>
+<?php }?>

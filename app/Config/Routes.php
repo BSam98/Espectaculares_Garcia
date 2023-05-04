@@ -1,6 +1,4 @@
-<?php
-
-namespace Config;
+<?php namespace Config;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
@@ -35,8 +33,40 @@ $routes->get('/', 'Home::index');
 
 //$routes->resource('Atracciones_Control');
 
+$routes->get('/Iniciar_Sesion_User','Iniciar_Sesion_User_Control::new');
+
+
+$routes->post('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
+
+$routes->get('/TipoT','Iniciar_Sesion_User_Control::inicioP');
+//$routes->post('/turno','Iniciar_Sesion_User_Control::inicio');
+$routes->get('/turno','Iniciar_Sesion_User_Control::Turno');
+$routes->get('/sAtracciones','Supervisor_Atracciones_Control::new');
+
+
+$routes->get('/Menu_Principal_User','Menu_Principal_User_Control::new');
+$routes->post('/Menu_Principal_User','Menu_Principal_User_Control::new');
+
+
+
+
 $routes->get('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
 $routes->post('/busqueda','Iniciar_Sesion_Administrador_Control::getBusqueda');
+$routes->get('/TipoUsuario','Iniciar_Sesion_Administrador_Control::menuBuscar');
+$routes->post('/subMenus','Iniciar_Sesion_Administrador_Control::bsubMenu');
+//$routes->get('/new','Iniciar_Sesion_Administrador_Control::new');
+//$routes->get('/user','Iniciar_Sesion_Administrador_Control::user');
+//$routes->post('/agregarPrivilegios','Rol_Control::agregarP');
+//$routes->post('/listarModulos','Rol_Control::MRol');
+//$routes->post('/listaSubmodulos','Rol_Control::submodulos');
+$routes->post('/privUser','Rol_Control::ModulRol');
+$routes->post('/editarPrivilegiosUser','Rol_Control::editarPrivilegios');
+$routes->post('/agregarRol','Rol_Control::nuevoRol');
+//$routes->post('/agregarAttSupervisar','Supervisor_Atracciones_Control::agregarAtracciones');
+$routes->post('/consultarAtracc','Supervisor_Atracciones_Control::consultarAt');
+$routes->post('/guardarDat','Supervisor_Atracciones_Control::guardarDatos');
+
+
 
 
 $routes->get('/new','Iniciar_Sesion_Administrador_Control::new');
@@ -47,31 +77,108 @@ $routes->post('/privUser','Usuarios_Control::privilegiosUsuarios');
 $routes->post('/insertarP','Usuarios_Control::insertarPriv');
 //ORIGINAL->  $routes->get('/PuntoVenta','Menu_Principal_User_Control::cobrar');
 $routes->post('/PuntoVenta','Menu_Principal_User_Control::ConsultaTurno');
-
+$routes->get('/ModuloCobro','Menu_Principal_User_Control::Cobro');
 $routes->post('/valida','Iniciar_Sesion_User_Control::valida');
 $routes->get('/valida','Iniciar_Sesion_User_Control::valida');
-$routes->post('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
-$routes->get('/superTaquillas','Iniciar_Sesion_User_Control::superTaquillas');
+
+
+$routes->post('/Supervisar_Taquillas','Iniciar_Sesion_User_Control::superTaquillas');
+$routes->get('/Supervisar_Taquillas','Iniciar_Sesion_User_Control::superTaquillas');
+
+$routes->get('/Supervisar_Taquillas/Ventanillas','Supervisar_Taquillas_Control::ventanillas');
+$routes->post('/Supervisar_Taquillas/Ventanillas','Supervisar_Taquillas_Control::ventanillas');
+
+$routes->get('/Supervisar_Taquillas/Ventanillas_Inactivas','Supervisar_Taquillas_Control::ventanillas_Inactivas');
+$routes->post('/Supervisar_Taquillas/Ventanillas_Inactivas','Supervisar_Taquillas_Control::ventanillas_Inactivas');
+
+$routes->get('/Supervisar_Taquillas/Transacciones','Supervisar_Taquillas_Control::transacciones_Taquillero');
+$routes->post('/Supervisar_Taquillas/Transacciones','Supervisar_Taquillas_Control::transacciones_Taquillero');
+
+$routes->get('/Supervisar_Taquillas/Descripcion_Transaccion','Supervisar_Taquillas_Control::descripcion_Transaccion');
+$routes->post('/Supervisar_Taquillas/Descripcion_Transaccion','Supervisar_Taquillas_Control::descripcion_Transaccion');
+
+$routes->get('/Supervisar_Taquillas/Vouchers','Supervisar_Taquillas_Control::vouchers_Turno');
+$routes->post('/Supervisar_Taquillas/Vouchers','Supervisar_Taquillas_Control::vouchers_Turno');
+
+$routes->get('/Supervisar_Taquillas/Desglose_Fajilla','Supervisar_Taquillas_Control::desglose_Fajilla');
+$routes->post('/Supervisar_Taquillas/Desglose_Fajilla','Supervisar_Taquillas_Control::desglose_Fajilla');
+
+$routes->get('/Supervisar_Taquillas/Validacion_Taquilla','Supervisar_Taquillas_Control::validacion_Taquilla');
+$routes->post('/Supervisar_Taquillas/Validacion_Taquilla','Supervisar_Taquillas_Control::validacion_Taquilla');
+
+$routes->get('/Supervisar_Taquillas/Actualizar_Taquilla','Supervisar_Taquillas_Control::actualizar_Taquilla');
+$routes->post('/Supervisar_Taquillas/Actualizar_Taquilla','Supervisar_Taquillas_Control::actualizar_Taquilla');
+
+$routes->get('/Supervisar_Taquillas/Informacion_Turno','Supervisar_Taquillas_Control::informacion_Turno');
+$routes->post('/Supervisar_Taquillas/Informacion_Turno','Supervisar_Taquillas_Control::informacion_Turno');
+
+$routes->get('/Supervisar_Taquillas/Cerrar_Turno_Taquilla','Supervisar_Taquillas_Control::cerrar_Turno_Taquilla');
+$routes->post('/Supervisar_Taquillas/Cerrar_Turno_Taquilla','Supervisar_Taquillas_Control::cerrar_Turno_Taquilla');
+
+$routes->get('/Supervisar_Taquillas/Validar_Faltante','Supervisar_Taquillas_Control::validar_Faltante');
+$routes->post('/Supervisar_Taquillas/Validar_Faltante','Supervisar_Taquillas_Control::validar_Faltante');
+
+$routes->get('/Supervisar_Taquillas/Validar_Faltante_Turno_Inactivo','Supervisar_Taquillas_Control::validar_Faltante_Turno');
+$routes->post('/Supervisar_Taquillas/Validar_Faltante_Turno_Inactivo','Supervisar_Taquillas_Control::validar_Faltante_Turno');
+
+$routes->get('/Supervisar_Taquillas/Transacciones_Finalizadas','Supervisar_Taquillas_Control::transacciones_Finalizadas');
+$routes->post('/Supervisar_Taquillas/Transacciones_Finalizadas','Supervisar_Taquillas_Control::transacciones_Finalizadas');
+
+$routes->get('/Supervisar_Taquillas/Vouchers_Faltantes','Supervisar_Taquillas_Control::vouchers_Faltantes');
+$routes->post('/Supervisar_Taquillas/Vouchers_Faltantes','Supervisar_Taquillas_Control::vouchers_Faltantes');
+
 $routes->get('/Ingresos x Evento','Menu_Principal_Control::rEvento');
+
+$routes->get('/Utilizacion por Evento','Reporte_Personas_Evento_Control::uEvento');
+
+$routes->get('/Utilizacion por Evento/Reporte','Reporte_Personas_Evento_Control::listado_Eventos');
+$routes->post('/Utilizacion por Evento/Reporte','Reporte_Personas_Evento_Control::listado_Eventos');
+
+
+$routes->get('/Utilizacion por Atracción','Reporte_Atraccion_Evento_Control::uAtraccion');
+
+//$routes->get('/Ticket','reporte_Venta_Control::ticket');
+$routes->get('/Ticket','ticket_Control::ticket');
+
+
+
+
+$routes->get('/Rol','Rol_Control::rol');
+//$routes->get('/Roles','Rol_Control::rol');
 $routes->get('/Utilización por Evento','Menu_Principal_Control::uEvento');
 $routes->get('/Utilización por Atracción','Menu_Principal_Control::uAtraccion');
 $routes->get('/Ticket','reporte_Venta_Control::ticket');
 $routes->get('/Roles','Rol_Control::rol');
 
-$routes->get('/Ver Atracciones','super_Atracciones_Control::new');
-$routes->get('/Ver Atracciones/Mostrar_Atracciones','super_Atracciones_Control::ciclos');
-$routes->post('/Ver Atracciones/Mostrar_Atracciones','super_Atracciones_Control::ciclos');
-$routes->get('/Ver Atracciones/Mostrar_Detalles','super_Atracciones_Control::detalles');
-$routes->post('/Ver Atracciones/Mostrar_Detalles','super_Atracciones_Control::detalles');
+$routes->get('/Ver Atracciones','Super_Atracciones_Control::new');
+$routes->get('/Ver Atracciones/Mostrar_Atracciones','Super_Atracciones_Control::ciclos');
+$routes->post('/Ver Atracciones/Mostrar_Atracciones','Super_Atracciones_Control::ciclos');
+$routes->get('/Ver Atracciones/Mostrar_Detalles','Super_Atracciones_Control::detalles');
+$routes->post('/Ver Atracciones/Mostrar_Detalles','Super_Atracciones_Control::detalles');
 
 $routes->get('/Ver Taquillas','Taquillas_Control::new');
+
+$routes->get('/Ver Taquillas/Taquillas_Activas','Taquillas_Control::taquillas_Activas');
+$routes->post('/Ver Taquillas/Taquillas_Activas','Taquillas_Control::taquillas_Activas');
+
+$routes->get('/Ver Taquillas/Ventanillas_Activas','Taquillas_Control::ventanillas_Activas');
+$routes->post('/Ver Taquillas/Ventanillas_Activas','Taquillas_Control::ventanillas_Activas');
+
+$routes->get('Ver Taquillas/Taquillas_Inactivas','Taquillas_Control::taquillas_Inactivas');
+$routes->post('Ver Taquillas/Taquillas_Inactivas','Taquillas_Control::taquillas_Inactivas');
+
+$routes->get('Ver Taquillas/Ventanillas_Inactivas','Taquillas_Control::ventanillas_Inactivas');
+$routes->post('Ver Taquillas/Ventanillas_Inactivas','Taquillas_Control::ventanillas_Inactivas');
+
 $routes->get('/Ver Supervisores','supervisores_control::new');
 //$routes->post('/modulosRol','Rol_Control::MRol');
 $routes->post('/listarModulos','Rol_Control::MRol');
 $routes->post('/listaSubmodulos','Rol_Control::submodulos');
 $routes->post('/agregarPrivilegios','Rol_Control::agregarP');
 $routes->post('/Productos','Menu_Principal_User_Control::resultados');
+$routes->post('/validarTarjeta','Menu_Principal_User_Control::validar_Tarjeta');
 $routes->post('/creditosCortesia','Menu_Principal_User_Control::creditos_Cortesia');
+$routes->post('/Tipo_Pago','Menu_Principal_User_Control::tipo_Pago');
 
 //$routes->get('/', 'UsersController::index');
 //$routes->post('users/fileUpload', 'archivos_Controler::fileUpload');
@@ -85,11 +192,16 @@ $routes->post('/contratosPolizas','Contratos_Control::contrato_Poliza');
 $routes->post('/eligeZona','Iniciar_Sesion_User_Control::Zonas');
 $routes->post('/eligeTaquilla','Iniciar_Sesion_User_Control::Taquillas');
 $routes->post('/eligeVentanilla','Iniciar_Sesion_User_Control::Ventanillas');
-
+$routes->post('/datosTurno','Iniciar_Sesion_User_Control::guardarDatos');
 $routes->post('/consultaDatos','Iniciar_Sesion_User_Control::consultaDatosT');
+$routes->post('/guardarVentas','Menu_Principal_User_Control::guardar_Ventas');
 $routes->post('/agregarFaj','Menu_Principal_User_Control::agregarFajillas');
 $routes->post('/devolverTarjeta','Menu_Principal_User_Control::devolucion');
 $routes->post('/cerrarC','reporte_Venta_Control::CerrarCaja');
+$routes->post('/cerrarTurno','reporte_Venta_Control::cerrarTurn');
+$routes->post('/contadorIntentos','reporte_Venta_Control::contarIntentos');
+$routes->post('/actualizarStatus','reporte_Venta_Control::actualizarEstado');
+$routes->post('/ForzarCierreC', 'reporte_Venta_Control::forzarCierrec');
 //$routes->post('/ingresoxEvento','Menu_Principal_Control::rEvento');
 //$routes->post('/Ver Atracciones','super_Atracciones_Control::new');
 //$routes->post('/supervisores','supervisores_control::new');
@@ -214,8 +326,23 @@ $routes->post('/Clientes/Tarjetas_Asociadas','Clientes_Control::tarjetasAsociada
 
 $routes->get('/Contratos','Contratos_Control::new');
 
+$routes->get('/Reponer Saldo','Reponer_Saldo_Control::new');
 
 
+$routes->get('/Reponer Saldo/Pulsera_Atraccion','Reponer_Saldo_Control::pulsera_Atraccion');
+$routes->post('/Reponer Saldo/Pulsera_Atraccion','Reponer_Saldo_Control::pulsera_Atraccion');
+
+$routes->get('/Reponer Saldo/Gratis_Atraccion','Reponer_Saldo_Control::gratis_Atraccion');
+$routes->post('/Reponer Saldo/Gratis_Atraccion','Reponer_Saldo_Control::gratis_Atraccion');
+
+$routes->get('/Reponer Saldo/Saldo_Taquilla','Reponer_Saldo_Control::saldo_Taquilla');
+$routes->post('/Reponer Saldo/Saldo_Taquilla','Reponer_Saldo_Control::saldo_Taquilla');
+
+$routes->get('/Reponer Saldo/Pulsera_Taquilla','Reponer_Saldo_Control::pulsera_Taquilla');
+$routes->post('/Reponer Saldo/Pulsera_Taquilla','Reponer_Saldo_Control::pulsera_Taquilla');
+
+$routes->get('/Reponer Saldo/Cortesia_Taquilla','Reponer_Saldo_Control::cortesia_Taquilla');
+$routes->post('/Reponer Saldo/Cortesia_Taquilla','Reponer_Saldo_Control::cortesia_Taquilla');
 $routes->get('/Iniciar_Sesion_User','Iniciar_Sesion_User_Control::new');
 $routes->get('/Menu_Principal_User','Menu_Principal_User_Control::new');
 $routes->post('/Menu_Principal_User','Menu_Principal_User_Control::new');

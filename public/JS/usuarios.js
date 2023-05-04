@@ -1,10 +1,12 @@
 $("#agregarUsuario").click(function(){
     $.ajax({
         beforeSend: function(){
+            iniciarCarga();
         },
         type: "POST",
         url: 'Usuarios/Agregar_Usuario',
         data: $("#formularioAgregarUsuario").serialize(),
+        dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
         },
@@ -14,20 +16,22 @@ $("#agregarUsuario").click(function(){
                 location.reload();
             }
         },
-        dataType: 'JSON'
     });
 });
 
 $("#actualizarUsuario").click(function(){
+    iniciarCarga();
     $.ajax({
         type: "POST",
         url: 'Usuarios/Editar_Usuario',
         data: $("#formularioEditarUsuario").serialize(),
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
         success: function (data){              
             if(data.respuesta)
+                cerrarCarga();
                 location.reload();
         },
         dataType: 'JSON'

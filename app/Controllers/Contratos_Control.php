@@ -15,9 +15,9 @@ class Contratos_Control extends BaseController {
     public function new (){
         $model = new Contratos_Model();
         $data = [
-                    'Contrato' => $model->consultaContrato(),
-                    'Poliza' => $model->consultaPoliza(),
-                ];
+            'Contrato' => $model->consultaContrato(),
+            'Poliza' => $model->consultaPoliza(),
+         ];
         echo view('../Views/header');
         echo view('../Views/menu');
         echo view ('Administrador/Contratos/Contratos_View',$data);

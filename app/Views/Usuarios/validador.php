@@ -13,7 +13,7 @@
         </div>
             <!-- onload function is evoke when page is load -->
         <!--countdown function is called when page is loaded -->
-        <body>
+            <!--body-->
             <div id="tiempos" style="font-size: 20px;">
                 Tiempo de Espera:
             </div>
@@ -37,14 +37,10 @@
        
     </div>
     <div>
-        <button id="cerrarSesion" class="btn btn-danger" style="float:left;">Cerrar Turno</button>
-    </div>
-    <div>
         <button id="iniciarCiclo" class="btn btn-success" style="float:right">Iniciar Ciclo</button>
     </div>
 </fieldset>
-<script src="JS/validar.js">
-</script>
+    <script src="JS/validar.js"></script>
 <script src="JS/carga.js"></script>
 <script>
     $(document).ready(function(){

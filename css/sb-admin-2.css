@@ -1877,7 +1877,7 @@ pre code {
 }
 
 .table-responsive {
-  display: block;
+  /*display: block; estaba habilitada*/
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;

@@ -1,6 +1,5 @@
-<?php
+<?php namespace Config;
 
-namespace Config;
 
 use CodeIgniter\Database\Config;
 
@@ -29,35 +28,15 @@ class Database extends Config{
      *
      * @var array
      */
+    
     public $default = [
-        
-        'DSN'      => '',
-        'hostname' => 'LAPTOP-I50390RP\SQLEXPRESS',
-        'username' => '',
-        'password' => '',
-        'database' => 'dbGarcia',
-        'DBDriver' => 'sqlsrv',
-        'DBPrefix' => '',
-        'pConnect' => false,
-        'DBDebug'  => (ENVIRONMENT !== 'production'),
-        'charset'  => 'utf8',
-        'DBCollat' => 'utf8_general_ci',
-        'swapPre'  => '',
-        'encrypt'  => false,
-        'compress' => false,
-        'strictOn' => false,
-        'failover' => [],
-        //'port'     => 3306,
-        'port' => 1433,
-    ];
-    /*public $default = [
         
         'DSN'      => '',
         'hostname' => 'database-1.cwtvba2lrzgx.us-east-1.rds.amazonaws.com',
         'username' => 'admin',
         'password' => 'KSy&Z%SyP!',
         'database' => 'dbGarcia',
-        'DBDriver' => 'sqlsrv',
+        'DBDriver' => 'SQLSRV',
         'DBPrefix' => '',
         'pConnect' => false,
         'DBDebug'  => (ENVIRONMENT !== 'production'),
@@ -70,30 +49,8 @@ class Database extends Config{
         'failover' => [],
         //'port'     => 3306,
         //'port' => 1433,
-    ];*/
+    ];
 
-
-    
-    /*public $local = [
-        'DSN'      => '',
-        'hostname' => '127.0.0.1',
-        'username' => 'admin',
-        'password' => 'KSy&Z%SyP!',
-        'database' => 'dbGarcia',
-        'DBDriver' => 'sqlsrv',
-        'DBPrefix' => '',
-        'pConnect' => false,
-        'DBDebug'  => (ENVIRONMENT !== 'production'),
-        'charset'  => 'utf8',
-        'DBCollat' => 'utf8_general_ci',
-        'swapPre'  => '',
-        'encrypt'  => false,
-        'compress' => false,
-        'strictOn' => false,
-        'failover' => [],
-        //'port'     => 3306,
-        //'port' => 1433,
-    ];*/
 
     /**
      * This database connection is used when

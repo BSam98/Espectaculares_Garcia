@@ -118,16 +118,21 @@ class validador_Control extends BaseController {
             'Descuentos' => $ciclo[0]['Descuentos'],
             'PulserasMagicas' => $ciclo[0]['PulserasMagicas'],
             'Hora' => $ciclo[0]['Hora'],
-            'idAperturaValidador' => $ciclo[0]['idAperturaValidador']
+            'idAperturaValidador' => $ciclo[0]['idAperturaValidador'],
+            'Gratis' => $ciclo[0]['Gratis'],
+            'entradaNormal' => $ciclo[0]['entradaNormal'],
+            'entradaCortesia' => $ciclo[0]['entradaCortesia'],
+            'entradaMixta' => $ciclo[0]['entradaMixta']
         ];
 
         $idCiclo = $model->Insertar_Ciclo($datos);
+
         if($cantidad === 1){
             switch($datosCiclo[$num_elementos]['indice']){
                 case '1':
                     $datos = [
                         'Folio' => $datosCiclo[$num_elementos]['folio'],
-                        'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionCiclo'],
+                        'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionEvento'],
                         'idFechaJuegosGratis' => $datosCiclo[$num_elementos]['idFechaJuegosGratis'],
                         'idCiclo' => $idCiclo
                     ];
@@ -143,7 +148,7 @@ class validador_Control extends BaseController {
                         'idCiclo' => $idCiclo
                     ];
 
-                    $respuesta = $model->Registro_PulseraMagica($datos);
+                    $respuesta = $model->Registro_Pulsera_Magica($datos);
                 break;
                 case '3':
                     //$resultados += ' Desucentos';
@@ -178,7 +183,7 @@ class validador_Control extends BaseController {
                     case '1':
                         $datos = [
                             'Folio' => $datosCiclo[$num_elementos]['folio'],
-                            'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionCiclo'],
+                            'idAtraccionEvento' => $datosCiclo[$num_elementos]['idAtraccionEvento'],
                             'idFechaJuegosGratis' => $datosCiclo[$num_elementos]['idFechaJuegosGratis'],
                             'idCiclo' => $idCiclo
                         ];

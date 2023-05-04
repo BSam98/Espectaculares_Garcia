@@ -159,7 +159,7 @@ class Atracciones_Control extends BaseController {
             'CapacidadMIN' => $this->request->getVar('CapacidadMIN'),
         ];
         $respuesta = $model->actualizarAtraccion($idAtraccion,$datos);
-        echo json_encode(array('respuesta'=>true,'msj'=>'actualizar modelo'));
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
     }
 
     public function actualizarPropietario(){

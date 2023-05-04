@@ -11,7 +11,7 @@
                 <form  enctype="multipart/form-data" name="formulario" id="formularioNuevaAtraccion">
                     
                     <div class="table table-striped table-responsive">
-                        <table id="atracciones" class="table table-border">
+                        <table id="atracciones" class="table table-bordered">
                             <tbody>
                                 <tr class="a-Atracciones">
                                     <td>

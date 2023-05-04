@@ -35,8 +35,8 @@
                                         </div>
 
                                         <!--TABLA DE FECHAS-->
-                                        <div class=" from-group table table-responsive">
-                                            <table>
+                                        <div class=" form-group table table-responsive">
+                                            <table class="table table-bordered">
                                                 <tbody>
                                                     <tr>
                                                         <td>
