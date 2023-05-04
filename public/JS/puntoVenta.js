@@ -86,8 +86,9 @@ $(document).on("click", ".selectPulsera", function(e){
         data: {'pulseras':pulseraSelect},
         dataType: "JSON",
         success: function (data) {
-            if(data.msj == true){
-                
+            if(data.respuesta == true){
+                $("#productos").empty();
+                $("#productos").append(data.contenido);
             }
         },
     });
