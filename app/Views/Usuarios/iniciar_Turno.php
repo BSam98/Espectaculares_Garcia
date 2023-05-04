@@ -1,49 +1,4 @@
-<?php 
-if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
-    header('Location: http://localhost/Espectaculares_Garcia/public/');
-    exit();
-}else{
-?>
-
-<!DOCTYPE html>
-<html lang = "es">
-    <head>
-        <meta charset = "UTF-8">
-        <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content = "ie=edge"/>
-        <title>Espectaculares García</title>
-        <link href="CSS/cabecera_style.css" rel="stylesheet" type="text/css">
-        <!--link href = "CSS/eventos_style.css" rel = "stylesheet" type="text/css"-->
-
-        <link rel="stylesheet" href="../bootstrap/bootstrap.min.css" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-        <script src="../bootstrap/jquery.min.js"></script>
-        <script src="../bootstrap/jquery.slim.min.js" crossorigin="anonymous"></script>
-        <script src="../bootstrap/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-
-        <link rel="stylesheet" href="../bootstrap/jquery.dataTables.min.css"> 
-        <link rel="stylesheet" href="../bootstrap/buttons.dataTables.min.css"> 
-        <script src="../bootstrap/jquery-3.5.1.js"></script>
-        <script src="../bootstrap/jquery.dataTables.min.js"></script>
-        <script src="../bootstrap/dataTables.buttons.min.js"></script>
-        <script src="../bootstrap/jszip.min.js"></script>
-        <script src="../bootstrap/pdfmake.min.js"></script>
-        <script src="../bootstrap/vfs_fonts.js"></script>
-        <script src="../bootstrap/buttons.html5.min.js"></script>
-        <script src="../bootstrap/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="../bootstrap/bootstrap-icons.css">
-        <link rel="stylesheet" href="../bootstrap/aos.css" />
-        <script src="../bootstrap/aos.js"></script>
-        <script src="../bootstrap/sweetalert.min.js"></script>
-        <script src="../bootstrap/jquery.easing.min.js"></script>
-        <!--link href="../bootstrap/sb-admin-2.min.css" rel="stylesheet"-->
-        <script src="../bootstrap/moment-with-locales.min.js"></script>
-        <script src="../bootstrap/jquery.loadingModal.js"></script>
-        <link rel="stylesheet" href="../bootstrap/jquery.loadingModal.css">
-        <!--link href="CSS/inicio_sesion_style.css" rel="stylesheet" type="text/css"-->
-        <script src="JS/menu.js"></script>
-    </head>
-    <body style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;" onload="mueveReloj()">
+<body onload="mueveReloj()">
     <section style="overflow: hidden;" id="menuUser" >
         <div class="row">
             <div class="card-wrapper col-sm-12 col-md-6 col-lg-5" style="color:white;">
@@ -54,20 +9,31 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                     <img src="./Img/logo.png" alt="image" style="height: 50%; width:60%;">
                 </div>
             </div>
+
+            <?php 
+            $usuario;
+            $idus;
+            $ide;
+            $iden;
+
+            foreach ($eventos->getResultArray() as $row){
+                $usuario = $row['Usuario'];
+                $idus = $row['idUsuario'];
+                $ide = $row['ide'];
+                $iden = $row['nombreEv'];
+            }
+            ?>
+
             <div class="card-wrapper col-sm-12 col-md-6 col-lg-4" style="color:white;">
                 <div class="container-fluid" style="margin: 25px 25px 25px 25px; text-align:center;">
                     <form id="form1">
-                        <center><h2>Bienvenido: <?php echo $_SESSION['Usuario'];?></h2></center>
+                        <center><h2>Bienvenido: <?php echo $usuario;?></h2></center>
                         <label class="reloj" id="clockbox" value=""></label>
                         <input type="hidden" name="fecha" id="fecha">
-                        <input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_SESSION['idUsuario']?>">
-                        <div class="form-group">
-                            <label>Evento</label>
-                            <?php foreach($Eventos as $e):?>
-                                <input type="hidden" name="eventoId" id="eventoId" value="<?php echo $e->idEvento?>">
-                                <input type="text" name="evento" id="evento" value="<?php echo $e->Nombre?>" disabled>
-                            <?php endforeach?>
-                        </div>
+                        <input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $idus?>">
+                        <input type="hidden" name="eventoId" id="eventoId" value="<?php echo $ide?>">
+                        <input type="text" name="evento" id="evento" value="<?php echo $iden?>" disabled>
+
                         <div class="form-group">
                             <label>Zona</label>
                             <select name="zona" id="zona" class="form-control"></select>
@@ -93,13 +59,13 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
                             <input type="number" class="form-control" name="fondo" id="fondo" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="1" placeholder="Ingresa la Cantidad">
                         </div>
                         <input type="button" id="botonenviar" value="Iniciar Sesión" class="btn btn-success">
+                        <input type="button" id="cancelar" value="Cancelar" class="btn btn-danger">
                     </form>
                 </div>
             </div>
         </div>    
     </section>
 </body>
-</html>
 
 <style>
     #menuUser{
@@ -113,8 +79,46 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
 </style>
 
 <script src="JS/iniciarTurno.js"></script>
+<script>
+    /************************************* Boton Iniciar Sesion *******************************************/
+    $("#botonenviar").click( function(){
+        var evento = $("#eventoId").val();
+        var zona =$('#zona').val();  
+        var taquilla = $('#taquilla').val();
+        var ventanilla =$('#ventanilla').val();
+        var usuario =$('#idUsuario').val();
+
+        $.ajax({
+           /* beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
+                inicia_carg();//funcion que abre la ventana de carga
+            },*/
+            type: 'POST',
+            url: 'datosTurno',
+            data: $('#form1').serialize(),
+            dataType: 'JSON',
+            /*error(jqXHR, textStatus, errorThrown){
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+                cierra_carg();
+            },*/
+        }).done(function(data){
+            console.log(data.msj);
+            if(data.msj == 0){
+                alert('No puede ingresar tarjetas ya registradas');
+                location.href='turno?u='+usuario;
+                //cierra_carg();
+            }else{
+                alert('Acceso Correcto');
+                location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&idF="+data.idFaj+"&u="+usuario+"&idv="+ventanilla;
+                //location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&u="+usuario+"&idv="+ventanilla;
+                //cierra_carg();
+            }
+        });
+    });
+
+</script>
 
 <script>
+
     function mueveReloj(){
         var d = new Date();
         var month = d.getMonth()+1;
@@ -140,4 +144,3 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))) {
         $('#fecha').val(horaImprimible);
     }
 </script>
-<?php }?>

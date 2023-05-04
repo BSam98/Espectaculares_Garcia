@@ -1,10 +1,4 @@
-<?php 
-if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
-    header('Location: http://localhost/Espectaculares_Garcia/public/');
-    exit();
-}else{
-?>
-<fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000" style="color:black;">
+<fieldset id="fieldset" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000" style="background-color: white;color:black;">
     <center><label><h2>Utilizacion por Evento</h2></label></center>
     <form enctype="multipart/form-data">
         <div>
@@ -33,4 +27,4 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
 
 <script src="JS/reportesPersonas.js"></script>
 <script src="JS/carga.js"></script>
-<?php }?>
+

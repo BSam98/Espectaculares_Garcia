@@ -3,16 +3,13 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-use Mpdf\Tag\Select;
 
 class Reporte_Ventas_Model extends Model{
     protected $model;
     protected $request;
 
     function consultarV($idv){
-        
         $db = \Config\Database::connect();
-
         $query = $db->query("SELECT av.fondoCaja, e.Nombre, z.Nombre, t.Nombre, v.Nombre
                             FROM Eventos e, Zona z, Taquilla t, Ventanilla v, Apertura_Ventanilla av, Fajillas f 
                             WHERE f.idFajilla = ".$idv." and f.idAperturaVentanilla = av.idAperturaVentanilla 
@@ -22,7 +19,6 @@ class Reporte_Ventas_Model extends Model{
         }else{
             return false;
         }
-
     }
 
     /*function consultaFondo($idv){
@@ -50,12 +46,11 @@ class Reporte_Ventas_Model extends Model{
             /********** Selecciono todas las fajillas que tiene el mismo idAperturaVentanilla ***********/
             $builder = $db->table('Fajillas');
             $builder-> select(
-                    'idFajilla, idStatus, folioInicial, folioFinal'
+                    'idFajilla, idStatus, folioInicial, folioFinal, idAperturaVentanilla'
                 );
             $builder->where('idAperturaVentanilla', $idApVen);
             $query = $builder->get();
             $datosT = $query->getResultArray();
-
             foreach($datosT as $d2){
                 $fajilla = $d2['idFajilla'];//idFajilla
                 $estado = $d2['idStatus'];//Status de la fajilla

@@ -1,8 +1,9 @@
-
         </div>
         <!--/Contenedor Principal-->
-        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>       
-        <script>AOS.init();</script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+ <script>
+ AOS.init();
+ </script>
     </body>
     <!--/Cuerpo-->
 </html>

@@ -70,58 +70,10 @@ $(document).ready(function () {
         var ventanilla = $(this).val();
     });
 
-    /************************************* Boton Iniciar Sesion *******************************************/
-    $("#botonenviar").click( function(){
-        
-        var evento = $("#eventoId").val();
-        var zona =$('#zona').val();  
-        var taquilla = $('#taquilla').val();
-        var ventanilla =$('#ventanilla').val();
-        var usuario =$('#idUsuario').val();
-
-        $.ajax({
-            beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
-                inicia_carg();//funcion que abre la ventana de carga
-            },
-            type: 'POST',
-            url: 'datosTurno',
-            data: $('#form1').serialize(),
-            dataType: 'JSON',
-            error(jqXHR, textStatus, errorThrown){
-                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
-            },
-        }).done(function(data){
-            var idV=data.msj;
-            if(data.msj == false){
-                alert('No puede ingresar tarjetas ya registradas');
-                location.reload();
-                //location.href='turno';
-                cierra_carg();
-            }else{
-                //console.log(data.msj);
-                location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&v="+idV+"&u="+usuario+"&idv="+ventanilla;
-                
-                /*$.ajax({
-                    beforeSend:function () {//antes de cargar la info, abrimos una ventana de carga
-                        inicia_carg();//funcion que abre la ventana de carga
-                    },
-                    url:"PuntoVenta",
-                    type:"POST",
-                    dataType:"JSON ",
-                    data:{'evento':evento, 'zona':zona, 'taquilla':taquilla, 'ventanilla':ventanilla, 'usuario':usuario}
-                }).done(function(data){
-                    console.log('si entro aqui');
-                    console.log(data);
-                    if(data.msj == true){
-                        location.href ="ModuloCobro?e="+evento+"&z="+zona+"&t="+taquilla+"&v="+idV+"&u="+usuario+"&idv="+ventanilla;
-                    }else{
-                        alert('Error al ingresar');
-                        location.reload();
-                    }
-                    cierra_carg();
-                });*/
-            }
-        });
+    
+    /************************************* Cancelar *******************************************/
+    $("#cancelar").click( function(){
+        location.href='CerrarSesion';
     });
 
     /**********************************************************************************************************/

@@ -142,6 +142,8 @@ $routes->get('/Ticket','ticket_Control::ticket');
 
 $routes->get('/Rol','Rol_Control::rol');
 //$routes->get('/Roles','Rol_Control::rol');
+$routes->get('/Utilización por Evento','Menu_Principal_Control::uEvento');
+$routes->get('/Utilización por Atracción','Menu_Principal_Control::uAtraccion');
 
 $routes->get('/Ver Atracciones','Super_Atracciones_Control::new');
 $routes->get('/Ver Atracciones/Mostrar_Atracciones','Super_Atracciones_Control::ciclos');
@@ -165,6 +167,7 @@ $routes->post('Ver Taquillas/Ventanillas_Inactivas','Taquillas_Control::ventanil
 
 $routes->get('/Ver Supervisores','supervisores_control::new');
 //$routes->post('/modulosRol','Rol_Control::MRol');
+$routes->post('/listarModulos','Rol_Control::MRol');
 
 
 $routes->post('/Productos','Menu_Principal_User_Control::resultados');
@@ -335,6 +338,35 @@ $routes->post('/Reponer Saldo/Pulsera_Taquilla','Reponer_Saldo_Control::pulsera_
 
 $routes->get('/Reponer Saldo/Cortesia_Taquilla','Reponer_Saldo_Control::cortesia_Taquilla');
 $routes->post('/Reponer Saldo/Cortesia_Taquilla','Reponer_Saldo_Control::cortesia_Taquilla');
+$routes->get('/Iniciar_Sesion_User','Iniciar_Sesion_User_Control::new');
+$routes->get('/Menu_Principal_User','Menu_Principal_User_Control::new');
+$routes->post('/Menu_Principal_User','Menu_Principal_User_Control::new');
+
+
+/************************************************************** Login Usuario ********************************************************/
+$routes->post('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
+$routes->get('/Busuarios','Iniciar_Sesion_User_Control::getBusqueda');
+/************************************************************** Verificar rol *********************************************************/
+//$routes->get('/CheckRol','Iniciar_Sesion_User_Control::veriRol');
+$routes->post('/CheckRol','Iniciar_Sesion_User_Control::veriRol');
+/************************************************************ Ingresa la jornada ******************************************************/
+$routes->post('/datosTurno','Iniciar_Sesion_User_Control::guardarDatos');
+/******************************************************** Ingresa al modulo de cobro **************************************************/
+$routes->get('/ModuloCobro','Menu_Principal_User_Control::MCobro');
+/********************************************************* Validar Tarjeta ************************************************************/
+$routes->post('/validarTarjeta','Menu_Principal_User_Control::validar_Tarjeta');
+/********************************************************* Pagar Compra ***************************************************************/
+$routes->post('/Tipo_Pago','Menu_Principal_User_Control::tipo_Pago');
+/********************************************************* Guardar Ventas ***************************************************************/
+$routes->post('/guardarVentas','Menu_Principal_User_Control::guardar_Ventas');
+/********************************************************* Agregamos recargas ***************************************************************/
+$routes->post('/addRecarga','Menu_Principal_User_Control::agregarRecarga');
+
+
+
+
+
+
 
 $routes->post('/Cobro','Menu_Principal_User_Control::cobrar');
 $routes->get('/Cobro','Menu_Principal_User_Control::cobrar');
