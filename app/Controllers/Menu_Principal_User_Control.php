@@ -288,35 +288,42 @@ class Menu_Principal_User_Control extends BaseController {
         $model = new mcobro_model;
         $pul = $_POST['pulseras'];
         $ide = $this->registros->get('idEvento');
+        $precioTar =0;
 
         $sql ="SELECT * FROM Eventos WHERE idEvento =".$ide; 
         $queryc = $model->consultarBD($sql);
         $result = $queryc->getResultArray();
-
-        $contenido .='<tr>
-                    <td>
-                        <div id="result">
-                            <input type="number" class="m-0 font-weight-bold text-primary" id="tarjeta" name="tarjeta" value="'.count($pul).'" style="background : inherit; border:none; text-align:center;">
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <label  class=" m-0 font-weight-bold text-success">$</label> 
-                            <input type="number" class="monto m-0 font-weight-bold text-success" id="precioT" name="precioT" value="" style="background : inherit; border:none; text-align:center;">
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <input type="number" class="monto m-0 font-weight-bold text-warning" id="precarga" name="precarga" value="0" style="background : inherit; border:none; text-align:center;">
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <button type="button" class="btn btn-danger cancelar" value="" tyle="background : inherit; border:none; text-align:center;">X</button>
-                        </div>
-                    </td>
-                </tr>';  
-        $resp = TRUE;
+        if($result){
+            foreach($result as $e){
+                $precioTar += $e['PrecioTarjeta'];
+            }
+            $contenido .='<tr>
+                            <td>
+                                <div id="result">
+                                    <input type="number" class="m-0 font-weight-bold text-primary" id="tarjeta" name="tarjeta" value="'.count($pul).'" style="background : inherit; border:none; text-align:center;">
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <label  class=" m-0 font-weight-bold text-success">$</label> 
+                                    <input type="number" class="monto m-0 font-weight-bold text-success" id="precioT" name="precioT" value="'.$precioTar.'" style="background : inherit; border:none; text-align:center;">
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <input type="number" class="monto m-0 font-weight-bold text-warning" id="precarga" name="precarga" value="0" style="background : inherit; border:none; text-align:center;">
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <button type="button" class="btn btn-danger cancelar" value="" tyle="background : inherit; border:none; text-align:center;">X</button>
+                                </div>
+                            </td>
+                        </tr>';  
+                $resp = TRUE;
+        }
+        
+        echo json_encode(array('respuesta'=>$resp,'contenido'=>$contenido));
     }
 
     function agregarRecarga(){
