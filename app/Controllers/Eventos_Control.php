@@ -1,7 +1,6 @@
 <?php namespace App\Controllers;
 
 use App\Models\Eventos_Model;
-use App\Models\Iniciar_Sesion_Administrador_Model;
 
 class Eventos_Control extends BaseController {
 
@@ -14,25 +13,16 @@ class Eventos_Control extends BaseController {
     }
 
     public function new (){
-        session_start([
-            'use_only_cookies' => 1,
-            'cookie_lifetime' => 0,
-            'cookie_secure' => 1,
-            'cookie_httponly' => 1
-        ]);
-        $model2 = new Iniciar_Sesion_Administrador_Model();
-        $rango = $_GET['idT'];
         $model = new Eventos_Model();
 
         $datos = [
             'Eventos' => $model->listadoEventos(),
             'Lotes' => $model->listadoLotes(),
-            'AtraccionesEvento' => $model->listado_Atracciones_Por_Evento(),
-            'Privilegios' => $model2->consultarPrivilegiosR($rango),
+            'AtraccionesEvento' => $model->listado_Atracciones_Por_Evento()
         ];
 
-        echo view('../Views/header',$datos);
-        //echo view('../Views/menu');
+        echo view('../Views/header');
+        echo view('../Views/menu');
         echo view ('Administrador/Eventos/Eventos_View', $datos);
         echo view('../Views/piePagina');
     }

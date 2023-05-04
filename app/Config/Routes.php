@@ -69,9 +69,12 @@ $routes->post('/guardarDat','Supervisor_Atracciones_Control::guardarDatos');
 
 
 
+$routes->get('/new','Iniciar_Sesion_Administrador_Control::new');
+$routes->get('/user','Iniciar_Sesion_Administrador_Control::user');
+$routes->get('/turno','Iniciar_Sesion_User_Control::Turno');
 $routes->get('/turnoValidador','Iniciar_Sesion_User_Control::turnoValidador');
-
-//$routes->post('/insertarP','Usuarios_Control::insertarPriv');
+$routes->post('/privUser','Usuarios_Control::privilegiosUsuarios');
+$routes->post('/insertarP','Usuarios_Control::insertarPriv');
 //ORIGINAL->  $routes->get('/PuntoVenta','Menu_Principal_User_Control::cobrar');
 $routes->post('/PuntoVenta','Menu_Principal_User_Control::ConsultaTurno');
 $routes->get('/ModuloCobro','Menu_Principal_User_Control::Cobro');
@@ -144,6 +147,8 @@ $routes->get('/Rol','Rol_Control::rol');
 //$routes->get('/Roles','Rol_Control::rol');
 $routes->get('/Utilización por Evento','Menu_Principal_Control::uEvento');
 $routes->get('/Utilización por Atracción','Menu_Principal_Control::uAtraccion');
+$routes->get('/Ticket','reporte_Venta_Control::ticket');
+$routes->get('/Roles','Rol_Control::rol');
 
 $routes->get('/Ver Atracciones','Super_Atracciones_Control::new');
 $routes->get('/Ver Atracciones/Mostrar_Atracciones','Super_Atracciones_Control::ciclos');
@@ -168,8 +173,8 @@ $routes->post('Ver Taquillas/Ventanillas_Inactivas','Taquillas_Control::ventanil
 $routes->get('/Ver Supervisores','supervisores_control::new');
 //$routes->post('/modulosRol','Rol_Control::MRol');
 $routes->post('/listarModulos','Rol_Control::MRol');
-
-
+$routes->post('/listaSubmodulos','Rol_Control::submodulos');
+$routes->post('/agregarPrivilegios','Rol_Control::agregarP');
 $routes->post('/Productos','Menu_Principal_User_Control::resultados');
 $routes->post('/validarTarjeta','Menu_Principal_User_Control::validar_Tarjeta');
 $routes->post('/creditosCortesia','Menu_Principal_User_Control::creditos_Cortesia');

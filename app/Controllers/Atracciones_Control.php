@@ -1,7 +1,6 @@
 <?php namespace App\Controllers;
 
 use App\Models\Atracciones_Model;
-use App\Models\Iniciar_Sesion_Administrador_Model;
 
 class Atracciones_Control extends BaseController {
 
@@ -14,25 +13,16 @@ class Atracciones_Control extends BaseController {
         $this->request = \Config\Services::request();
     }
 
-    public function new(){
-        session_start([
-            'use_only_cookies' => 1,
-            'cookie_lifetime' => 0,
-            'cookie_secure' => 1,
-            'cookie_httponly' => 1
-        ]);
+    public function new (){
         $model = new Atracciones_Model();
-        $model2 = new Iniciar_Sesion_Administrador_Model();
-        $rango = $_GET['idT'];
+
+        //$datos["Atraccion"] = $model->listadoAtracciones();
         $datos =[
             'Atraccion' => $model->listadoAtracciones(),
-            'Propietario' => $model->listadoPropietartios(),
-            'Privilegios' => $model2->consultarPrivilegiosR($rango),
+            'Propietario' => $model->listadoPropietartios()
         ];
-
-        echo view('../Views/header',$datos);
-        //echo view('../Views/menu');
-        //echo view('Administrador/Menu_Principal_View');
+        echo view('../Views/header');
+        echo view('../Views/menu');
         echo view ('Administrador/Atracciones/Atracciones_View', $datos);
         echo view('../Views/piePagina');
     }
