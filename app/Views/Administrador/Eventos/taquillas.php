@@ -9,11 +9,11 @@
             <div class="modal-body">
                 <form enctype="multipart/form-data" name="formulario_Taquilla_Evento" id="formulario_Taquilla_Evento">
                     <div class="table table-striped table-responsive">
-                        <table class="table table-bordered" id="agregarTaq">
+                        <table class="table table-bordered">
                             <thead>
-                                <th scope="col" style="vertical-align: middle;">Nombre</th>
+                                <th scope="col" style="vertical-align: middle;"></th>
                             </thead>
-                            <tbody>
+                            <tbody id="agregarTaq">
                                 <tr class="filas" id="0">
                                     <td>
                                         <div class="form-group" id="selectZonas">
@@ -59,9 +59,9 @@
                     <table id="tablaTaquillas" class="table table-bordered">
                         <thead>
                         <th></th>
-                        <th>Zona</th>
-                        <th>Taquilla</th>
-                        <th>Ventanilla</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Zona</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Taquilla</th>
+                        <th scope="col" style="text-align: center; vertical-align: middle;">Ventanilla</th>
                         </thead>
                         <tbody id = "taquillasEvento">
                         </tbody>

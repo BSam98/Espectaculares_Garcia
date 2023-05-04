@@ -7,8 +7,117 @@ use Mpdf\Tag\Tr;
 
 class Iniciar_Sesion_User_Model extends Model{
 
+    //ejecutar consultas en la base de datos
+    function consultarBD($sql){
+        $db= \Config\Database::Connect('default', true);
+        $query = $db->query($sql);
+        return $query;
+    }
 
-    /*function consulta($datos){
+    function get_usuario($usr,$contras) {
+        $db= \Config\Database::Connect('default', true);
+        $sql = "SELECT * FROM Usuarios WHERE Usuario='".$usr."' and Contraseña='".$contras."'";
+        $query = $db->query($sql);
+        $result = $query->getResult();
+        if($result){
+            //echo "Entro a if";
+            foreach ($query->getResult() as $row) {
+                    $data = array('idUsuario'=> trim($row->idUsuario),					   	
+                        'nombre'=> trim($row->Nombre),
+                        'apellidos'=> trim($row->Apellidos),	
+                        'correoE'=> trim($row->CorreoE),
+                        'idRango'=> trim($row->idRango),
+                        'pass'=> trim($row->Contraseña),
+                        'usuario'=> trim($row->Usuario),
+                        'idEvento'=> trim($row->idEvento),
+                        'resultado'=> true
+                    );
+                }
+        }else{
+           // echo "Entro a else";
+            $data = array('idUsuario'=>'',					   	
+                             'nombre'=>'',
+                             'usuario'=>'',	
+                             'pass'=>'',					 
+                             'resultado'=>false,
+                             'msg'=>'El usuario y/o la contraseña no existe, verifique sus datos por favor'
+			);
+        }
+        return $data;   
+    }
+
+    function insertarAV($sql){
+        $db= \Config\Database::Connect('default', true);
+        $query = $db->query($sql);
+        $id = $db->insertID();
+        return $id;
+    }
+
+   /* function agregarFajilla($fondo,$ventanilla,$usuario,$fecha,$folioI,$folioF){
+        $db = \Config\Database::connect();
+        **************************************** VERIFICAR EL ESTATUS DE LA VENTANILLA *****************
+        $builder = $db->table('Ventanilla');
+        $builder-> select(
+                'idVentanilla, Status'
+            );
+        $builder->where('idVentanilla', $ventanilla);
+        $query = $builder->get();
+        $datosV = $query->getResultArray();
+        foreach($datosV as $vent){
+            if($vent['Status'] == '1'){
+                return false;
+            }else{
+                ***** Obtengo el id de las tarjetas con los folios que me ingreso y los comparo con los que ya estan registrados en Fajillas ******
+                $query1= $db->query(
+                                "SELECT DISTINCT(folioInicial), Folio, folioFinal  from Tarjetas t, Fajillas av
+                                WHERE folioInicial = (SELECT DISTINCT(idTarjeta) from Tarjetas t,Fajillas WHERE Folio = ".$folioI." and idTarjeta=folioInicial)
+                                and folioFinal = (SELECT DISTINCT(idTarjeta) from Tarjetas t, Fajillas WHERE Folio  = ".$folioF." and idTarjeta=folioFinal)
+                                and idTarjeta = folioInicial"
+                            );
+                $result = $query1->getResult();
+                if($result){
+                    ********************************************** Ya existen datos Registrados **********************************************
+                    return false;
+                }else{
+                        ********************************************** NO existen datos Registrados **********************************************
+                        $builder = $db->table('Apertura_Ventanilla');
+                        $data = [
+                            'fondoCaja' => $fondo,
+                            'horaApertura' => $fecha,
+                            'idUsuario' => $usuario,
+                            'idVentanilla' => $ventanilla,
+                        ];
+                        if($builder->insert($data)){
+                            $idAperturaVent =  $db->insertID();//id apertura ventanilla
+                            // insertar las tarjetas a fajillas
+                                $query= $db->query(
+                                    "INSERT INTO Fajillas (fecha,idStatus,folioInicial,folioFinal,idAperturaVentanilla)
+                                            VALUES('$fecha','6',(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),$idAperturaVent)"
+                                );
+                                if($query){
+                                    $builder = $db->table('Ventanilla');
+                                    $data = [
+                                        //'idVentanilla' => $ventanilla,
+                                        'Status' => '1',
+                                    ];
+                                    $builder->where('idVentanilla', $ventanilla);
+                                    $builder->update($data);
+                                    return $db->insertID();
+                                }else{
+                                    return FALSE;
+                                }
+                        }else{
+                            return false;
+                        }            
+                    }
+            }
+        }
+    }*/
+
+
+
+    /**************************************** creo que no se usara *********************************************/
+    function consulta($datos){
         $db= \Config\Database::Connect();
         $query = $db->query(
                 "SELECT * FROM Rangos"
@@ -17,63 +126,19 @@ class Iniciar_Sesion_User_Model extends Model{
         $datos = $query->getResultObject();
     
         return $datos;
-    }*/
-    function consultaPrivilegios($rango){
-        $db= \Config\Database::Connect();
-        $query = $db->query("SELECT idPrivilegio, idModulo, idRango , Nombre, modulo FROM Privilegios p, Rangos r, Modulos m
-                            WHERE p.rango_Id = r.idRango and p.privilegio_Modulo = m.idModulo and r.idRango = ".$rango);
-        $datos = $query->getResultObject();
-        return $datos;
     }
 
-    function buscarUsuarios($username,$password){
-        $db = \Config\Database::connect();
-        $builder = $db->table('Usuarios');
-        $builder-> select(
-            'idUsuario, Nombre, Apellidos, CorreoE, Usuario, Contraseña, idRango, idEvento'
-        );
-        $builder->where('Usuario', $username);
-        $builder->where('Contraseña', $password);
-        $query = $builder->get();
-        $datos = $query->getResultArray();
-        
-        if($datos){
-            foreach($datos as $u){
-                $data = array('idUsuario'=> trim($u['idUsuario']),					   	
-                                'Nombre'=> trim($u['Nombre']),
-                                'Apellidos'=> trim($u['Apellidos']),	
-                                'CorreoE'=> trim($u['CorreoE']),
-                                'Usuario'=> trim($u['Usuario']),
-                                'Contraseña'=> trim($u['Contraseña']),
-                                'idRango'=> trim($u['idRango']),
-                                'idEvento'=> trim($u['idEvento']),
-                                'resultado'=> true
-                            );
-            }
-        }else{
-            $data = array('idUsuario'=>'',					   	
-                            'Nombre'=>'',
-                            'Usuario'=>'',	
-                            'Contraseña'=>'',					 
-                            'resultado'=>false,
-                            'msg'=>'El usuario y/o la contraseña no existe, verifique sus datos por favor'
-			);
-        }
-        return $data; 
-        //echo var_dump($data);
-    }
-
-   /* protected $table = 'Usuarios';
+    protected $table = 'Usuarios';
     protected $primaryKey = 'idUsuario';
     protected $returnType = 'array';
-    protected $allowedFields = ['CorreoE','Usuario', 'Contraseña', 'idRango'];*/
-
+    protected $allowedFields = ['CorreoE','Usuario', 'Contraseña', 'idRango'];
 
     function Eventos($idUser){
         $db = \Config\Database::connect();
         $builder = $db->table('Usuarios');
 
-        $builder-> select('
+        $builder-> select(
+                '
                 Usuarios.idUsuario, 
                 Eventos.idEvento, 
                 Usuarios.idEvento, 
@@ -90,6 +155,7 @@ class Iniciar_Sesion_User_Model extends Model{
         $datos = $query->getResultObject();
         return $datos; 
     }
+    /*************************************** creo que no se usara ***************************************************/
 
     function zonasEvento($evento){
         $db = \Config\Database::connect();
@@ -157,66 +223,7 @@ class Iniciar_Sesion_User_Model extends Model{
         }
     }
     */
-    function agregarFajilla($fondo,$ventanilla,$usuario,$fecha,$folioI,$folioF){
-        $db = \Config\Database::connect();
-        /**************************************** VERIFICAR EL ESTATUS DE LA VENTANILLA *****************/
-        $builder = $db->table('Ventanilla');
-        $builder-> select(
-                'idVentanilla, Status'
-            );
-        $builder->where('idVentanilla', $ventanilla);
-        $query = $builder->get();
-        $datosV = $query->getResultArray();
-        foreach($datosV as $vent){
-            if($vent['Status'] == '1'){
-                return false;
-            }else{
-                /***** Obtengo el id de las tarjetas con los folios que me ingreso y los comparo con los que ya estan registrados en Fajillas ******/
-                $query1= $db->query(
-                                "SELECT DISTINCT(folioInicial), Folio, folioFinal  from Tarjetas t, Fajillas av
-                                WHERE folioInicial = (SELECT DISTINCT(idTarjeta) from Tarjetas t,Fajillas WHERE Folio = ".$folioI." and idTarjeta=folioInicial)
-                                and folioFinal = (SELECT DISTINCT(idTarjeta) from Tarjetas t, Fajillas WHERE Folio  = ".$folioF." and idTarjeta=folioFinal)
-                                and idTarjeta = folioInicial"
-                            );
-                $result = $query1->getResult();
-                if($result){
-                    /********************************************** Ya existen datos Registrados **********************************************/
-                    return false;
-                }else{
-                        /********************************************** NO existen datos Registrados **********************************************/
-                        $builder = $db->table('Apertura_Ventanilla');
-                        $data = [
-                            'fondoCaja' => $fondo,
-                            'horaApertura' => $fecha,
-                            'idUsuario' => $usuario,
-                            'idVentanilla' => $ventanilla,
-                        ];
-                        if($builder->insert($data)){
-                            $idAperturaVent =  $db->insertID();//id apertura ventanilla
-                            // insertar las tarjetas a fajillas
-                                $query= $db->query(
-                                    "INSERT INTO Fajillas (fecha,idStatus,folioInicial,folioFinal,idAperturaVentanilla)
-                                            VALUES('$fecha','6',(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioI),(SELECT idTarjeta FROM Tarjetas WHERE Folio = $folioF),$idAperturaVent)"
-                                );
-                                if($query){
-                                    $builder = $db->table('Ventanilla');
-                                    $data = [
-                                        //'idVentanilla' => $ventanilla,
-                                        'Status' => '1',
-                                    ];
-                                    $builder->where('idVentanilla', $ventanilla);
-                                    $builder->update($data);
-                                    return $db->insertID();
-                                }else{
-                                    return FALSE;
-                                }
-                        }else{
-                            return false;
-                        }            
-                    }
-            }
-        }
-    }
+    
 }
 
 

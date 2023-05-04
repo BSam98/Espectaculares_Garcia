@@ -281,14 +281,14 @@
                                         <div class="tab-content" id="nav-tabSegundo">
                                             <div class="tab-pane fade show active" id="tabla-descuentos" role="tabpanel" aria-labelledby="nav-tabla-descuentos">
                                                 <div class="table table-striped table-responsive">
-                                                    <table class="table table-bordered">
+                                                    <table id="tabla_Descuento_Evento" class="table table-bordered">
                                                         <thead>
-                                                            <th></th>
-                                                            <th>Promocion</th>
-                                                            <th>Cantidad</th>
-                                                            <th>Boletos</th>
-                                                            <th>Hora Inicial</th>
-                                                            <th>Hora Final</th>
+                                                            <th scope="col" style="vertical-align: middle;"></th>
+                                                            <th scope="col" style="vertical-align: middle;">Promocion</th>
+                                                            <th scope="col" style="vertical-align: middle;">Cantidad</th>
+                                                            <th scope="col" style="vertical-align: middle;">Boletos</th>
+                                                            <th scope="col" style="vertical-align: middle;">Hora Inicial</th>
+                                                            <th scope="col" style="vertical-align: middle;">Hora Final</th>
                                                         </thead>
                                                         <tbody id="tabla_Descuentos_Evento">
                                                         </tbody>
@@ -297,7 +297,7 @@
                                             </div>
                                             <div class="tab-pane fade" id="tabla-pulsera" role="tabpanel" aria-labelledby="nav-tabla-pulsera">
                                                 <div class="table table-striped table-responsive">
-                                                    <table class="table table-bordered">
+                                                    <table id="tabla_Pulseras_Evento" class="table table-bordered">
                                                         <thead>
                                                             <th></th>
                                                             <th>Promocion</th>

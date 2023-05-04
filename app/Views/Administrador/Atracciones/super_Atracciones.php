@@ -1,9 +1,3 @@
-<?php 
-if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
-    header('Location: http://localhost/Espectaculares_Garcia/public/');
-    exit();
-}else{
-?>
 <fieldset id="fieldset">
     <center><h2><i class="fa fa-star" aria-hidden="true"></i>&nbsp;REPORTE DE ATRACCIONES</h2></center><hr>
     <div class="container">
@@ -33,7 +27,7 @@ if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
         </div>
     <hr>
         <div class="table table-striped table-responsive">
-            <table>
+            <table id="tabla_Atracciones_Supervisar" class="tabla table-bordered">
                 <thead>
                     <tr>
                         <!--th><center>Evento</center></th-->
@@ -64,9 +58,9 @@ if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
             </div>
             <div class="modal-body">
                 <form enctype="multipart/form-data" name="formularioAgregarTarjetasEvento" id="formularioAgregarTarjetasEvento">
-                    <div class="table table-responsive" style="color: black;">
+                    <div class="table table-striped table-responsive" style="color: black;">
                         <center><h5><i class="fa fa-window-restore" aria-hidden="true"></i>&nbsp;Ciclos</h5></center>                        
-                        <table>
+                        <table id="tabla_Ciclo" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <!--th><center>Evento</center></th-->
@@ -99,4 +93,3 @@ if((!isset($_SESSION['Usuario']))  || (!isset($_SESSION['idUsuario']))){
         });
     });
 </script>
-<?php }?>

@@ -307,7 +307,6 @@ $(document).on('click','.mostrar_Promociones_Evento',function(){
             $("#nombre_Pulsera").html(nombre_Pulsera_Html);
             $("#nombre_Juegos").html(nombre_Juegos_Html);
             $("#nombre_Cortesias").html(nombre_Cortesias_Html);
-
             cerrarCarga();
         }
     });

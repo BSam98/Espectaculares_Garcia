@@ -11,68 +11,10 @@ class Iniciar_Sesion_Administrador_Model extends Model{
                 $Usuario->where($data);
                 return $Usuario->get()->getResultArray();
         }*/
-        /*protected $table = 'Usuarios';
+        protected $table = 'Usuarios';
         protected $primaryKey = 'idUsuario';
         protected $returnType = 'array';
-        protected $allowedFields = ['CorreoE','Usuario', 'Contraseña', 'idRango'];*/
-
-        function buscarUserAdm($username,$password){
-                $db = \Config\Database::connect();
-                $builder = $db->table('Usuarios');
-                $builder-> select(
-                    'idUsuario, Nombre, Apellidos, CorreoE, Usuario, Contraseña, idRango, idEvento'
-                );
-                $builder->where('Usuario', $username);
-                $builder->where('Contraseña', $password);
-                $query = $builder->get();
-                $datos = $query->getResultArray();
-                
-                if($datos){
-                    foreach($datos as $u){
-                        $data = array('idUsuario'=> trim($u['idUsuario']),					   	
-                                        'Nombre'=> trim($u['Nombre']),
-                                        'Apellidos'=> trim($u['Apellidos']),	
-                                        'CorreoE'=> trim($u['CorreoE']),
-                                        'Usuario'=> trim($u['Usuario']),
-                                        'Contraseña'=> trim($u['Contraseña']),
-                                        'idRango'=> trim($u['idRango']),
-                                        'idEvento'=> trim($u['idEvento']),
-                                        'resultado'=> true
-                                    );
-                    }
-                }else{
-                    $data = array('idUsuario'=>'',					   	
-                                    'Nombre'=>'',
-                                    'Usuario'=>'',	
-                                    'Contraseña'=>'',					 
-                                    'resultado'=>false,
-                                    'msg'=>'El usuario y/o la contraseña no existe, verifique sus datos por favor'
-                                );
-                }
-                return $data;
-        }
-
-        function consultarPrivilegiosR($rango){
-                $db = \Config\Database::connect();
-                $query = $db->query("SELECT idModulo,modulo FROM Privilegios p, Modulos m WHERE rango_Id =".$rango." and idModulo = privilegio_Modulo ;");
-               /* $query = $db->query("SELECT modulo, subModulo FROM Privilegios p, Modulos m, SubModulos sm 
-                                WHERE rango_Id =".$rango." and idModulo = privilegio_Modulo and idModulo = idmoduloPrin
-                                GROUP by modulo, subModulo;");*/
-                $datos = $query->getResultObject();
-                return $datos; 
-        }
-
-        function submenuP($id){
-                $db = \Config\Database::connect();
-                $query = $db->query("SELECT subModulo fROM SubModulos sm WHERE idmoduloPrin =".$id);
-                $datos = $query->getResultObject();
-                return $datos; 
-        }
-
-
-
-
-
+        protected $allowedFields = ['CorreoE','Usuario', 'Contraseña', 'idRango'];
 
         function consulta($datos){
                 $db= \Config\Database::Connect();

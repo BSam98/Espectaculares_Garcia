@@ -1,7 +1,6 @@
 <?php namespace App\Controllers;
 
 use App\Models\Contratos_Model;
-use App\Models\Iniciar_Sesion_Administrador_Model;
 
 class Contratos_Control extends BaseController {
 
@@ -14,22 +13,13 @@ class Contratos_Control extends BaseController {
     }
 
     public function new (){
-      session_start([
-         'use_only_cookies' => 1,
-         'cookie_lifetime' => 0,
-         'cookie_secure' => 1,
-         'cookie_httponly' => 1
-     ]);
         $model = new Contratos_Model();
-        $model2 = new Iniciar_Sesion_Administrador_Model();
-        $rango = $_GET['idT'];
         $data = [
-            'Contrato' => $model->consultaContrato(),
-            'Poliza' => $model->consultaPoliza(),
-            'Privilegios' => $model2->consultarPrivilegiosR($rango),
-         ];
-        echo view('../Views/header',$data);
-        //echo view('../Views/menu');
+                    'Contrato' => $model->consultaContrato(),
+                    'Poliza' => $model->consultaPoliza(),
+                ];
+        echo view('../Views/header');
+        echo view('../Views/menu');
         echo view ('Administrador/Contratos/Contratos_View',$data);
         echo view('../Views/piePagina');
     }

@@ -115,11 +115,10 @@
                 },
             }).done(function(data){
                 if(data.respuesta){
-            //cerrarCarga();
-                         //window.location.replace('http://localhost/Espectaculares_Garcia/public/Validacion_Interfaz');
-            //window.location.href='http://localhost/Espectaculares_Garcia/public/Validacion_Interfaz'+'?dato='+data.msj;
-            window.location.href='Validacion_Interfaz'+'?dato='+data.msj;
-                            //window.location.href='http://espectacularesgarcia.com.mx/web/public/Validacion_Interfaz'+'?dato='+data.msj;
+                    cerrarCarga();
+                    //window.location.replace('http://localhost/Espectaculares_Garcia/public/Validacion_Interfaz');
+                    window.location.href='http://localhost/Espectaculares_Garcia/public/Validacion_Interfaz'+'?dato='+data.msj;
+                    //window.location.href='http://espectacularesgarcia.com.mx/web/public/Validacion_Interfaz'+'?dato='+data.msj;
                 }
                 else{
                     alert(data.msj);

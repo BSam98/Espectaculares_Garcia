@@ -7,7 +7,6 @@ session_start([
               ]);
 if (!isset($_SESSION['idUsuario'])) { //not logged in
     //redirect to homepage
-    //header("Location: https://www.masboletos.mx/proyecto/");
-    header("http://localhost/Espectaculares_Garcia/public/");
+    header("Location: http://localhost/Espectaculares_Garcia/public/");
     exit(); // NOT DIE :P
 }

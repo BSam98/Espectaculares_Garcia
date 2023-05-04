@@ -7,55 +7,21 @@ use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class mcobro_model extends Model{
 
-    public function promoPulsera($fecha){
-        $db = \Config\Database::connect();
-        $builder = $db->table('Promocion_Pulsera_Magica');
-        /*$query= $db->query(
-                    "SElECT ppp.idPulseraMagica,ppp.Nombre, cpm.Precio, (SELECT convert(varchar, FechaInicial, 120)) as fechaI,
-                    (SELECT convert(varchar, FechaFinal, 120)) as fechaF, cpm.idFechaPulseraMagica FROM Promocion_Pulsera_Magica ppp
-                    JOIN Calendario_Pulsera_Magica cpm on (ppp.idPulseraMagica = cpm.idPulseraMagica)
-                    where cpm.FechaInicial > ".$fecha." and  cpm.FechaFinal >".$fecha
-        );
-        $datos = $query->getResultObject();
-        return $datos;*/
-
-        $builder-> select(
-            'Promocion_Pulsera_Magica.idPulseraMagica, 
-             Promocion_Pulsera_Magica.Nombre, 
-             Calendario_Pulsera_Magica.Precio,
-             (SELECT convert(varchar, FechaInicial, 120)) as fechaI,
-             (SELECT convert(varchar, FechaFinal, 120)) as fechaF,
-             Calendario_Pulsera_Magica.idFechaPulseraMagica, 
-            '
-        );
-        $builder->join('Calendario_Pulsera_Magica', 'Promocion_Pulsera_Magica.idPulseraMagica = Calendario_Pulsera_Magica.idPulseraMagica');
-        $builder->where('Calendario_Pulsera_Magica.FechaInicial <=',$fecha);
-        $builder->where('Calendario_Pulsera_Magica.FechaFinal >=',$fecha);
-        $query = $builder->get();
-        $datos = $query->getResultObject();
-        return $datos;
+    //ejecutar consultas en la base de datos
+    function consultarBD($sql){
+        $db= \Config\Database::Connect('default', true);
+        $query = $db->query($sql);
+        return $query;
     }
 
-    function Creditos($fecha){
-        $db= \Config\Database::Connect();
-        $builder = $db->table('Promocion_Creditos_Cortesia');
-        $builder-> select('
-                    Calendario_Creditos_Cortesia.idFechaCreditosCortesia, 
-                    Promocion_Creditos_Cortesia.Nombre, 
-                    Calendario_Creditos_Cortesia.Creditos, 
-                    (SELECT convert( varchar, Calendario_Creditos_Cortesia.FechaInicial, 120)) as fechaI, 
-                    (SELECT convert(varchar, Calendario_Creditos_Cortesia.FechaFinal,120)) as fechaF
-                    '
-                    );
-        $builder->join('Calendario_Creditos_Cortesia', 'Calendario_Creditos_Cortesia.idCC = Promocion_Creditos_Cortesia.idCC');
-        $builder->where('Calendario_Creditos_Cortesia.FechaInicial <=',$fecha);
-        $builder->where('Calendario_Creditos_Cortesia.FechaFinal >=',$fecha);
-        $query = $builder->get();
-        $datos = $query->getResultObject();
-        return $datos;
+    function insertarAV($sql){
+        $db= \Config\Database::Connect('default', true);
+        $query = $db->query($sql);
+        $id = $db->insertID();
+        return $id;
     }
 
-    public function promoMostrar($idPromo, $fecha){
+    function promoMostrar($idPromo, $fecha){
         $db = \Config\Database::connect();
         $builder = $db->table('Promocion_Pulsera_Magica');
         $builder-> select(
@@ -90,7 +56,7 @@ class mcobro_model extends Model{
         return $datos;*/
     }
 
-    public function PromoCreditos($creditos, $fecha){
+    function PromoCreditos($creditos, $fecha){
         $db = \Config\Database::connect();
         $builder = $db->table('Promocion_Creditos_Cortesia');
         $builder-> select(
@@ -112,20 +78,6 @@ class mcobro_model extends Model{
         return $datos;
     }
 
-    function formaPago(){
-        $db = \Config\Database::connect();
-        $builder = $db->table('Formas_Pago');
-        $builder-> select(
-            ' idFormasPago,
-              Nombre,
-              PorcentajeCosto,
-              CostoFijo
-            '
-        );
-        $query = $builder->get();
-        $datos = $query->getResultObject();
-        return $datos;
-    }
 
     // creo que ya no va
     /*function consultarTurno($evento,$zona, $taquilla,$ventanilla,$usuario){
@@ -155,13 +107,12 @@ class mcobro_model extends Model{
         return $datos; 
     }   */ 
 
-    function consultarTurno2($evento,$zona,$taquilla,$idApven,$ventanilla,$usuario){
+    // creo que ya no va
+
+    /************************************************************** CODIGO ORIGINAL INICIA ****************************************************/
+
+   /* function consultarTurno2($evento,$zona,$taquilla,$idApven,$ventanilla,$usuario){
         $db = \Config\Database::connect();
-        /*$query =$db->query("SELECT e.Nombre, z.Nombre, t.Nombre, v.Nombre,e.PrecioTarjeta 
-                            FROM Eventos e, Zona z, Taquilla t, Ventanilla v, Apertura_Ventanilla av, Fajillas f 
-                            WHERE e.idEvento = ".$evento." and z.idEvento = e.idEvento and z.idZona =".$zona." and z.idZona = t.idZona and t.idTaquilla =".$taquilla." and v.idTaquilla = t.idTaquilla 
-                            and v.idVentanilla = ".$ventanilla." and v.idVentanilla = av.idVentanilla and av.idUsuario =".$usuario." and f.idAperturaVentanilla = av.idAperturaVentanilla 
-                            and av.idAperturaVentanilla =".$idApven);*/
         $query =$db->query("SELECT e.Nombre, z.Nombre, t.Nombre, v.Nombre,e.PrecioTarjeta 
                             FROM Eventos e, Zona z, Taquilla t, Ventanilla v, Apertura_Ventanilla av, Fajillas f 
                             WHERE e.idEvento = ".$evento." and z.idEvento = e.idEvento and z.idZona =".$zona." and z.idZona = t.idZona and t.idTaquilla =".$taquilla." and v.idTaquilla = t.idTaquilla 
@@ -171,7 +122,63 @@ class mcobro_model extends Model{
             return $query->getResultObject();
         }
         
-    }
+    }*/
+
+    /*public function promoPulsera($fecha){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Promocion_Pulsera_Magica');
+
+        $builder-> select(
+            'Promocion_Pulsera_Magica.idPulseraMagica, 
+             Promocion_Pulsera_Magica.Nombre, 
+             Calendario_Pulsera_Magica.Precio,
+             (SELECT convert(varchar, FechaInicial, 120)) as fechaI,
+             (SELECT convert(varchar, FechaFinal, 120)) as fechaF,
+             Calendario_Pulsera_Magica.idFechaPulseraMagica, 
+            '
+        );
+        $builder->join('Calendario_Pulsera_Magica', 'Promocion_Pulsera_Magica.idPulseraMagica = Calendario_Pulsera_Magica.idPulseraMagica');
+        $builder->where('Calendario_Pulsera_Magica.FechaInicial <=',$fecha);
+        $builder->where('Calendario_Pulsera_Magica.FechaFinal >=',$fecha);
+        $query = $builder->get();
+        $datos = $query->getResultObject();
+        return $datos;
+    }*/
+
+    /*function Creditos($fecha){
+        $db= \Config\Database::Connect();
+        $builder = $db->table('Promocion_Creditos_Cortesia');
+        $builder-> select('
+                    Calendario_Creditos_Cortesia.idFechaCreditosCortesia, 
+                    Promocion_Creditos_Cortesia.Nombre, 
+                    Calendario_Creditos_Cortesia.Creditos, 
+                    (SELECT convert( varchar, Calendario_Creditos_Cortesia.FechaInicial, 120)) as fechaI, 
+                    (SELECT convert(varchar, Calendario_Creditos_Cortesia.FechaFinal,120)) as fechaF
+                    '
+                    );
+        $builder->join('Calendario_Creditos_Cortesia', 'Calendario_Creditos_Cortesia.idCC = Promocion_Creditos_Cortesia.idCC');
+        $builder->where('Calendario_Creditos_Cortesia.FechaInicial <=',$fecha);
+        $builder->where('Calendario_Creditos_Cortesia.FechaFinal >=',$fecha);
+        $query = $builder->get();
+        $datos = $query->getResultObject();
+        return $datos;
+    }*/
+
+    /*function formaPago(){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Formas_Pago');
+        $builder-> select(
+            ' idFormasPago,
+              Nombre,
+              PorcentajeCosto,
+              CostoFijo
+            '
+        );
+        $query = $builder->get();
+        $datos = $query->getResultObject();
+        return $datos;
+    }*/
+/************************************************************** CODIGO ORIGINAL TERMINA ****************************************************/
 
     function guardarTransaccion($totalPago,$fecha,$v){
         $db = \Config\Database::connect();
@@ -731,7 +738,7 @@ class mcobro_model extends Model{
 
 
     /*************************************************** AGREGAR TARJETA *********************************************/
-    function agregarTarjeta($idtarjeta, $gtran, $precioTa){
+    /*function agregarTarjeta($idtarjeta, $gtran, $precioTa){
         $db = \Config\Database::connect();
         $builder = $db->table('Pago');
         $data = [
@@ -748,7 +755,7 @@ class mcobro_model extends Model{
             $builder->where('idTarjeta', $idtarjeta);
             $builder->update($data);
         };
-    }
+    }*/
 
     /*************************************************** AGREGAR RECARGA *********************************************/
     function agregarRecarga($idtarjeta, $recarga, $gtran, $precioTa, $evento){//venta sin promociones
@@ -1247,16 +1254,14 @@ class mcobro_model extends Model{
         $builder-> select(
             'folioInicial,
             folioFinal,
-            idAperturaVentanilla,
-            idFajilla'
+            idAperturaVentanilla'
         );
-        $builder->where('idFajilla', $v);
+        $builder->where('idAperturaVentanilla', $v);
         $query = $builder->get();
         $datos = $query->getResultArray();
         foreach($datos as $d){
             $folioi = $d['folioInicial'];
             $foliof = $d['folioFinal'];
-            $idApVentanilla = $d['idAperturaVentanilla'];
         }
 
         $query = $db->query("SELECT count(*) as vendidas, (SELECT COUNT(*) from Tarjetas WHERE idStatus ='1' and idTarjeta BETWEEN ".$folioi." and ".$foliof.") as sobrantes, 
@@ -1273,7 +1278,7 @@ class mcobro_model extends Model{
             $data = [
                 'idStatus' => '3'
             ];
-            $builder->where('idFajilla', $v);
+            $builder->where('idAperturaVentanilla', $v);
             if($builder->update($data)){
 
                 $builder = $db->table('Fajillas');
@@ -1282,7 +1287,7 @@ class mcobro_model extends Model{
                     'idStatus' => '6',
                     'folioInicial' => $folii,
                     'folioFinal'=>$folff,
-                    'idAperturaVentanilla' => $idApVentanilla
+                    'idAperturaVentanilla' => $v
                 ];
                 if($builder->insert($data)){
                     return true;
@@ -1303,18 +1308,15 @@ class mcobro_model extends Model{
         $builder-> select(
             'folioInicial,
              folioFinal,
-             idAperturaVentanilla,
-             idFajilla
+             idAperturaVentanilla
             '
         );
-        //$builder ->where('idAperturaVentanilla', $idAp);
-        $builder ->where('idFajilla', $idAp);
+        $builder ->where('idAperturaVentanilla', $idAp);
         $query = $builder->get();
         $datos = $query->getResultArray();
         foreach($datos as $idTurno){
             $folInicialTurno = $idTurno['folioInicial'];
             $folFinalTurno = $idTurno['folioFinal'];
-            $idAperturaV = $idTurno['idAperturaVentanilla'];
         }
 
         /******************************************* Sacar el id de la tarjeta con el folio de la tarjeta a devolver ******************/
@@ -1344,7 +1346,7 @@ class mcobro_model extends Model{
             $builder = $db->table('Devolucion_Tarjetas');
             $data = [
                 'idTarjeta' => $idTar,
-                'idAperturaVentanilla' => $idAperturaV,
+                'idAperturaVentanilla' => $idAp,
                 'Descripcion' => $descripcion,
             ];
             if($builder->insert($data)){

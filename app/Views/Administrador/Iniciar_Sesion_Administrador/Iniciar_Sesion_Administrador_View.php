@@ -7,38 +7,15 @@
         <title>Inicio de Sesion</title>
         <link href="CSS/inicio_sesion_style.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="../bootstrap/bootstrap.min.css" crossorigin="anonymous">
-        <link rel="stylesheet" href="../bootstrap/bootstrap.min.css" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-        <script src="../bootstrap/jquery.min.js"></script>
-        <script src="../bootstrap/jquery.slim.min.js" crossorigin="anonymous"></script>
-        <script src="../bootstrap/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+      
+        <!--<link rel = "stylesheet" type = "text/css" href = "<?= base_url()?> /CSS/inicio_sesion_style.css">-->
 
-        <link rel="stylesheet" href="../bootstrap/jquery.dataTables.min.css"> 
-        <link rel="stylesheet" href="../bootstrap/buttons.dataTables.min.css"> 
-        <script src="../bootstrap/jquery-3.5.1.js"></script>
-        <script src="../bootstrap/jquery.dataTables.min.js"></script>
-        <script src="../bootstrap/dataTables.buttons.min.js"></script>
-        <script src="../bootstrap/jszip.min.js"></script>
-        <script src="../bootstrap/pdfmake.min.js"></script>
-        <script src="../bootstrap/vfs_fonts.js"></script>
-        <script src="../bootstrap/buttons.html5.min.js"></script>
-        <script src="../bootstrap/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="../bootstrap/bootstrap-icons.css">
-        <link rel="stylesheet" href="../bootstrap/aos.css" />
-        <script src="../bootstrap/aos.js"></script>
-        <script src="../bootstrap/sweetalert.min.js"></script>
-        <script src="../bootstrap/jquery.easing.min.js"></script>
-        <!--link href="../bootstrap/sb-admin-2.min.css" rel="stylesheet"-->
-        <script src="../bootstrap/moment-with-locales.min.js"></script>
-        <script src="../bootstrap/jquery.loadingModal.js"></script>
-        <link rel="stylesheet" href="../bootstrap/jquery.loadingModal.css">
-        <link href="CSS/inicio_sesion_style.css" rel="stylesheet" type="text/css">
     </head>
     <body class="body">
         <div class="container">
             <div class="row">
                 <div class="col-xl-6 col-md-6 col-sm-6">
-                    <form id="formAdmin" class="form-horizontal">
+                    <form method="POST" action="busqueda" class="form-horizontal">
                         <center><img src="./Img/logo.png" class="logo" alt="logo"></center><br>
                             <div class="form-group col-sm-4 col-md-8 col-lg-12">
                                 <label class="Usuario" for="Usuario">USUARIO</label>
@@ -53,7 +30,7 @@
                             </div>
                             <br><br>
                             <!--button class="btn btn-success botac" onClick="window.location.href='Menu_Principal_Administrador'" href='menu_Principal.html'>Acceder</button-->
-                            <button class="btn btn-success" type="button" name="registrar" id="registrar">Iniciar Sesion</button>
+                            <button class="btn btn-success botac" type="submit" name="register" value="register">Iniciar Sesion</button>
                     </form>
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-6" id="textoTitulo">SISTEMA INTEGRAL DE ACCESO</div>
@@ -61,23 +38,3 @@
         </div>
     </body>
 </html>
-
-<script>
-    $(document).on('click','#registrar', function(){
-     // alert($("#formularioLogin").serialize());
-       $.ajax({
-            type: "POST",
-            url: "busqueda",
-            dataType: 'JSON',
-            data: $("#formAdmin").serialize(),
-            success: function(data){ 
-                console.log('soy data'+data.idUsuario);
-                if(data.resultado == true){
-                    location.href="TipoUsuario?idT="+data.idRango;              
-                }else{
-                    alert(data.msg);
-                }
-            }
-        });
-    });
-</script>

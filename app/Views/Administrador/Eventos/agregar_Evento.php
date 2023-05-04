@@ -59,7 +59,7 @@
                         <button id="duplicar_Registro" name="nuevaAt" type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>&nbsp;Nuevo Registro </button>
                     </div>
                     <div class="modal-footer">
-                        <button name="a" type="button" class="btn btn-success" id="agregarEvento">Agregar </button>
+                        <button name="a" type="submit" class="btn btn-success" id="agregarEvento">Agregar </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                 </form>

@@ -20,6 +20,8 @@
                     </div>
                     <div class="form-group" id="poliza_Atraccion" name="poliza_Atraccion" value="">
                     </div>
+                    <div class="form-group" id="zonas_Atraccion" name="zona_Atraccion" value="">
+                    </div>
                     <div class="form-group">
                         <div class="form-group" id="promocion_Descuentos_Atraccion">
                         </div>

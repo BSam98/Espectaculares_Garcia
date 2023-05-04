@@ -1,7 +1,6 @@
 <?php namespace App\Controllers;
 
 use App\Models\Eventos_Model;
-use App\Models\Iniciar_Sesion_Administrador_Model;
 
 class Eventos_Control extends BaseController {
 
@@ -14,25 +13,16 @@ class Eventos_Control extends BaseController {
     }
 
     public function new (){
-        session_start([
-            'use_only_cookies' => 1,
-            'cookie_lifetime' => 0,
-            'cookie_secure' => 1,
-            'cookie_httponly' => 1
-        ]);
-        $model2 = new Iniciar_Sesion_Administrador_Model();
-        $rango = $_GET['idT'];
         $model = new Eventos_Model();
 
         $datos = [
             'Eventos' => $model->listadoEventos(),
             'Lotes' => $model->listadoLotes(),
-            'AtraccionesEvento' => $model->listado_Atracciones_Por_Evento(),
-            'Privilegios' => $model2->consultarPrivilegiosR($rango),
+            'AtraccionesEvento' => $model->listado_Atracciones_Por_Evento()
         ];
 
-        echo view('../Views/header',$datos);
-        //echo view('../Views/menu');
+        echo view('../Views/header');
+        echo view('../Views/menu');
         echo view ('Administrador/Eventos/Eventos_View', $datos);
         echo view('../Views/piePagina');
     }
@@ -134,7 +124,8 @@ class Eventos_Control extends BaseController {
                 'Polizas' => $model->listadoPolizas(),
                 'Descuentos' => $model->listado_Descuentos($datos),
                 'Pulsera' => $model->listado_Pulsera_Magica($datos),
-                'Juegos' => $model->listado_Juegos_Gratis($datos)
+                'Juegos' => $model->listado_Juegos_Gratis($datos),
+                'Zonas' => $model->mostrar_Zonas_Evento($datos)
             )
         );
     }
@@ -712,10 +703,16 @@ class Eventos_Control extends BaseController {
     }
 
     public function actualizar_Atraccion(){
+
+        $model  = new Eventos_Model();
+        
         $idAtraccionEvento = $_POST['idAtraccionEvento'];
+
         $creditos = $_POST['creditos'];
         $idContrato = $_POST['idContrato'];
         $idPoliza = $_POST['idPoliza'];
+        $idZona =$_POST['idZona'];
+
         $descuentosNuevos = $_POST['descuentosNuevos'];
         $pulserasNuevas = $_POST['pulserasNuevas'];
         $juegosNuevos = $_POST['juegosNuevos'];
@@ -724,10 +721,236 @@ class Eventos_Control extends BaseController {
         $eliminarJuegos = $_POST['eliminarJuegos'];
 
         $datos = [
+            'idAtraccionEvento' => $idAtraccionEvento,
             'idContrato' => $idContrato,
             'idPoliza' => $idPoliza,
             'Creditos' => $creditos,
+            'idZona' => $idZona
         ];
+
+        $respuesta = $model->actualizar_Atraccion_Evento($datos);
+
+        if($eliminarDescuentos != "0"){
+
+            $num_elementos = 0;
+            $cantidad = count($eliminarDescuentos);
+            while($num_elementos<$cantidad){
+                $datos = [
+                    'idAtraccionEvento' =>$idAtraccionEvento,
+                    'idDosxUno' => $eliminarDescuentos[$num_elementos]
+                ];
+                $respuesta  = $model->eliminar_Descuento_Atraccion($datos);
+                $num_elementos = $num_elementos + 1;
+
+            }
+        }
+
+        if($eliminarPulseras !="0"){
+            $num_elementos = 0;
+            $cantidad =count($eliminarPulseras);
+
+            while($num_elementos<$cantidad){
+                $datos = [
+                    'idAtraccionEvento' => $idAtraccionEvento,
+                    'idPulseraMagica' => $eliminarPulseras[$num_elementos]
+                ]; 
+    
+                $respuesta = $model->eliminar_Pulseras_Atraccion($datos);
+                $num_elementos = $num_elementos + 1;
+            }
+        }
+
+        if($eliminarJuegos !="0"){
+            $num_elementos = 0;
+            $cantidad = count($eliminarJuegos);
+
+            while($num_elementos<$cantidad){
+                $datos= [
+                    'idAtraccionEvento' =>$idAtraccionEvento,
+                    'idJuegosGratis' =>$eliminarJuegos[$num_elementos]
+                ];
+
+                $model->eliminar_Gratis_Atraccion($datos);
+                $num_elementos = $num_elementos + 1;
+            }
+        }
+
+        if($descuentosNuevos != "0"){
+            $num_elementos =0;
+            $cantidad = count($descuentosNuevos);
+            while($num_elementos<$cantidad){
+                $datos = [
+                    'idAtraccionEvento' => $idAtraccionEvento,
+                    'idDosxUno' => $descuentosNuevos[$num_elementos]
+                ];
+    
+                $model->agregar_Promociones_Atraccion('Atracciones_Incluidas_Dos_x_Uno',$datos);
+                $num_elementos = $num_elementos + 1;
+            }
+        }
+
+        if($pulserasNuevas !="0"){
+            $num_elementos = 0;
+            $cantidad = count($pulserasNuevas);
+            
+            while($num_elementos<$cantidad){
+                $datos = [
+                    'idPulseraMagica' => $pulserasNuevas[$num_elementos],
+                    'idAtraccionEvento' => $idAtraccionEvento
+                ];
+    
+                $model->agregar_Promociones_Atraccion('Atracciones_Incluidas_Pulsera_Magica',$datos);
+                $num_elementos = $num_elementos + 1;
+            }
+        }
+
+        if($juegosNuevos !="0"){
+            $num_elementos = 0;
+            $cantidad = count($juegosNuevos);
+            while($num_elementos <$cantidad){
+                $datos = [
+                    'idJuegosGratis' => $juegosNuevos[$num_elementos],
+                    'idAtraccionEvento' => $idAtraccionEvento
+                ];
+    
+                $model->agregar_Promociones_Atraccion('Atracciones_Incluidas_Juegos_Gratis',$datos);
+                $num_elementos = $num_elementos + 1;
+            }
+        }
+
+        echo json_encode(array('respuesta'=>true));
+
+    }
+
+    public function editar_Taquillas(){
+        $model = new Eventos_Model();
+
+        $taquilla = $_POST['taquilla'];
+        $ventanilla = $_POST['ventanillas'];
+        $nuevo = $_POST['nuevos'];
+
+        $datos = [
+            'Nombre' => $taquilla[0]['Nombre'],
+            'idZona' => $taquilla[0]['idZona'],
+            'idTaquilla' => $taquilla[0]['idTaquilla']
+        ];
+
+        $respuesta = $model ->editar_Taquillas($datos);
+
+        
+        $num_elementos = 0;
+        $contador = count($ventanilla);
+
+        while($num_elementos<$contador){
+
+            $datos=[
+                'idVentanilla' => $ventanilla[$num_elementos]['idVentanilla'],
+                'Nombre' => $ventanilla[$num_elementos]['Nombre']
+            ];
+            $respuesta = $model->editar_Ventanillas($datos);
+            $num_elementos = $num_elementos + 1;
+        }
+        
+
+        
+        if($nuevo!="0"){
+            $num_elementos = 0;
+            $contador = count($nuevo);
+    
+            while($num_elementos<$contador){
+                $datos = [
+                    'Nombre' => $nuevo[$num_elementos]['Nombre'],
+                    'idTaquilla' => $nuevo[$num_elementos]['idTaquilla'],
+                    'Status' =>0
+                ];
+    
+                $respuesta = $model->agregar_Ventanillas_Evento($datos);
+                $num_elementos = $num_elementos + 1;
+            }   
+        }
+        
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+
+    }
+
+
+    public function buscar_Lotes(){
+        $model = new Eventos_Model();
+
+        $idEvento = $_POST['idEvento'];
+
+        $datos = $model->mostrar_Cortesias($idEvento);
+
+        $respuesta = $model->buscar_Lotes($idEvento);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta,'datos'=>$datos));
+    }
+
+    public function buscar_Tarjetas(){
+        $model = new Eventos_Model();
+
+        $idLote = $_POST['idLote'];
+        $idEvento = $_POST['idEvento'];
+
+        $respuesta = $model->buscar_Tarjetas($idLote,$idEvento['idEvento']);
+
+        echo json_encode(array('respuesta'=>true,'msj'=>$respuesta));
+    }
+
+    public function agregar_Cortesias(){
+        $model = new Eventos_Model();
+
+        $idLote = $_POST['lote_Cortesia'];
+        $folios = $_POST['folios_Cortesia'];
+        $folioInicial = $_POST['folio_Inicial_Cortesias'];
+        $folioFinal = $_POST['folio_Final_Cortesias'];
+        $creditos = $_POST['creditos_Otorgados'];
+        $descripcion = $_POST['descripcion_Cortesias'];
+
+        $num_elementos = 0;
+        $cantidad = count($idLote);
+
+        while($num_elementos<$cantidad){
+
+            $datos = [
+                'idLote' => $idLote[$num_elementos],
+                'folioInicial' => $folioInicial[$num_elementos],
+                'folioFinal' => $folioFinal[$num_elementos],
+            ];
+
+            $respuesta = $model->evaluar_Folios($datos);
+
+            
+            if($respuesta){
+
+                $num_elementos = $num_elementos + 1;
+
+                if($num_elementos == $cantidad){
+                    $contador = 0;
+                    $tamaño = count($idLote);
+        
+                    while($contador<$tamaño){
+                        $datos=[
+                            'creditos' => $creditos[$contador],
+                            'folioInicial' => $folioInicial[$contador],
+                            'folioFinal' => $folioFinal[$contador],
+                            'descripcion' => $descripcion[$contador]
+                        ];
+                        $respuesta = $model->agregar_Cortesias($datos);
+                        $contador = $contador + 1;
+
+                        if($contador == $tamaño){
+                            echo json_encode(array('respuesta'=> true));
+                        }
+                    }
+                }
+            }
+            else{
+                echo json_encode(array('respuesta'=>false,'folioInicial' =>$folioInicial[$num_elementos],'folioFinal'=>$folioFinal[$num_elementos]));
+                $num_elementos = $cantidad + 1;
+            };
+        }
     }
 
     public function create(){

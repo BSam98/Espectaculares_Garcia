@@ -1,10 +1,3 @@
-<?php 
-if(!isset($_SESSION['Usuario'])) {
-    header('Location: http://localhost/Espectaculares_Garcia/public/');
-    exit();
-}else{
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -47,7 +40,7 @@ if(!isset($_SESSION['Usuario'])) {
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black; font-size:14px;">
-                                    <i class="fa fa-user" aria-hidden="true"></i>&nbsp;<?php echo $_SESSION['Usuario']; ?>
+                                    <i class="fa fa-user" aria-hidden="true"></i>&nbsp;<?php echo session('Usuario'); ?>
                                 </a>
                                 <!-- Dropdown - menu deslizable -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -71,11 +64,11 @@ if(!isset($_SESSION['Usuario'])) {
                                     &nbsp;&nbsp;<center><h5 class="m-0 font-weight-bold"><i class="fa fa-share" aria-hidden="true"></i>&nbsp;Devolver Tarjetas:&nbsp;&nbsp;</h5></center>
                                         <label>Folio Inicial:&nbsp;</label>
                                         <div class="input-group-append">
-                                            <input type="text" class="form-control" name="dtI" id="dtI" minlength="8" maxlength="8" style="width:150px;">
+                                            <input type="number" class="form-control" name="dtI" id="dtI" style="width:150px;">
                                         </div>
                                         <label>Folio Final:&nbsp;</label>
                                         <div class="input-group-append">
-                                            <input type="text" class="form-control" name="dtF" id="dtF" minlength="8" maxlength="8" style="width:150px;">
+                                            <input type="number" class="form-control" name="dtF" id="dtF" style="width:150px;">
                                         </div>
                                     </div>
                                 </div>
@@ -270,4 +263,3 @@ if(!isset($_SESSION['Usuario'])) {
 </html>
 
 <script src="JS/reporteVenta.js"></script>
-<?php } ?>

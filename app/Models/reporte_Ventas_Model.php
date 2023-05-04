@@ -3,158 +3,75 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-use Mpdf\Tag\Select;
 
 class Reporte_Ventas_Model extends Model{
     protected $model;
     protected $request;
 
     function consultarV($idv){
-        
         $db = \Config\Database::connect();
-
         $query = $db->query("SELECT av.fondoCaja, e.Nombre, z.Nombre, t.Nombre, v.Nombre
                             FROM Eventos e, Zona z, Taquilla t, Ventanilla v, Apertura_Ventanilla av, Fajillas f 
                             WHERE f.idFajilla = ".$idv." and f.idAperturaVentanilla = av.idAperturaVentanilla 
                             and av.idVentanilla = v.idVentanilla and v.idTaquilla = t.idTaquilla and t.idZona = z.idZona and z.idZona = e.idEvento");
         if($query){
-
             return $query->getResultObject();
-
         }else{
-
             return false;
-
         }
-
     }
 
     function cerrarCajas($fI,$fF, $efec, $vouch, $idv){
-
         $db = \Config\Database::connect();
+        $builder = $db->table('Fajillas');
+        $builder-> select(
+                'idFajilla, idAperturaVentanilla'
+            );
+        $builder->where('idFajilla', $idv);
+        $query = $builder->get();
+        $datosV = $query->getResultArray();
+        foreach($datosV as $d){
+            $idApVen = $d['idAperturaVentanilla'];
+        }
 
-            $query7 = $db->query("SELECT idAperturaVentanilla from Fajillas f WHERE idFajilla =" . $idv);
-            $res = $query7->getResultArray();
-            foreach($res as $re){
-                $idApVen = $re['idAperturaVentanilla'];
-            }
-
+        $query2 = $db->query("SELECT DISTINCT(f.idAperturaVentanilla), f.fecha, f.idStatus, cast(av.fondoCaja as decimal) fondoCaja,
+                            (SELECT SUM(cast(Monto as decimal)) FROM Cobro c2 JOIN Transaccion t2 on(c2.idTransaccion=t2.idTransaccion) JOIN Fajillas f2 on(t2.idFajilla  = f2.idFajilla)
+                            WHERE idFormasPago='1' and f2.idFajilla=".$idv.") as totalEfectivo,
+                            (SELECT SUM(cast(Monto as decimal)) FROM Cobro c3 JOIN Transaccion t3 on(c3.idTransaccion=t3.idTransaccion) JOIN Fajillas f3 on(t3.idFajilla  = f3.idFajilla)
+                            WHERE idFormasPago='2' and f3.idFajilla=".$idv.") as totalTarjeta
+                            FROM Fajillas f JOIN Apertura_Ventanilla av on(f.idAperturaVentanilla = av.idAperturaVentanilla)
+                            JOIN Transaccion t on(f.idFajilla  = t.idFajilla) JOIN Cobro c on(t.idTransaccion = c.idTransaccion)
+                            WHERE f.idFajilla =".$idv);
+        $result = $query2->getResultObject();
+        if($result){
+            
             $builder = $db->table('Fajillas');
             $builder-> select(
-                    'idFajilla, idStatus, folioInicial, folioFinal'
+                    'idFajilla, idStatus, folioInicial, folioFinal, idAperturaVentanilla'
                 );
             $builder->where('idAperturaVentanilla', $idApVen);
             $query = $builder->get();
             $datosT = $query->getResultArray();
-
             foreach($datosT as $d2){
-                //$fajilla = $d2['idFajilla'];
+                $fajilla = $d2['idFajilla'];
                 $estado = $d2['idStatus'];
-                /*$folioI = $d2['folioInicial'];
-                $folioF = $d2['folioFinal'];*/
-
-                if($estado == 6){
-                    $array =[];
-                    $query4 = $db->query("SELECT t.idStatus, idTarjeta, (SELECT TOP 1  idTarjeta FROM Fajillas f, Tarjetas t WHERE idFajilla =".$idv." and idTarjeta BETWEEN folioInicial and folioFinal and t.idStatus != '0') as primero,
-                                        (SELECT TOP 1 idTarjeta FROM Fajillas f, Tarjetas t WHERE idFajilla =".$idv." and idTarjeta BETWEEN folioInicial and folioFinal and t.idStatus != '0' ORDER BY idTarjeta  DESC) as ultimo
-                                        FROM Fajillas f, Tarjetas t WHERE idFajilla = ".$idv." and idTarjeta BETWEEN folioInicial and folioFinal and t.idStatus != '0'");
-                    $result2 = $query4->getResultArray();
-                    for ($i = 0; $i < count($result2) ; $i++){
-                        if(in_array($result2[$i]['primero'], $array)){
-                        }else{
-                            array_push($array,$result2[$i]['primero']);
-                        }
-                        if(in_array($result2[$i]['ultimo'], $array)){
-                        }else{
-                            array_push($array,$result2[$i]['ultimo']);
-                        }
-                    }
-                    $query5 = $db->query("SELECT (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio = ".$fI.") as ingresadoI,
-                                        (SELECT DISTINCT(idTarjeta) from Tarjetas t WHERE Folio = ".$fF.") as ingresadoF
-                                        FROM Fajillas f WHERE idFajilla =".$idv);
-                    $result3 = $query5->getResultArray();
-
-                    foreach($result3 as $rr){
-
-                        if((in_array($rr['ingresadoI'], $array)) && (in_array($rr['ingresadoF'], $array))){
-                            //echo 'Si existen';
-                            $builder = $db->table('Fajillas');
-
-                            $builder-> select(
-                                    'idFajilla, idAperturaVentanilla'
-                                );
-
-                            $builder->where('idFajilla', $idv);
-                            $query = $builder->get();
-                            $datosV = $query->getResultArray();
-                            
-                            foreach($datosV as $d){
-                                $idApVen = $d['idAperturaVentanilla'];
-                            }
-
-                            $query2 = $db->query("SELECT DISTINCT(f.idAperturaVentanilla), f.fecha, f.idStatus, cast(av.fondoCaja as decimal) fondoCaja,
-                                            (SELECT SUM(cast(Monto as decimal)) FROM Cobro c2 JOIN Transaccion t2 on(c2.idTransaccion=t2.idTransaccion) JOIN Fajillas f2 on(t2.idFajilla  = f2.idFajilla)
-                                            WHERE idFormasPago='1' and f2.idFajilla=".$idv.") as totalEfectivo,
-                                            (SELECT SUM(cast(Monto as decimal)) FROM Cobro c3 JOIN Transaccion t3 on(c3.idTransaccion=t3.idTransaccion) JOIN Fajillas f3 on(t3.idFajilla  = f3.idFajilla)
-                                            WHERE idFormasPago='2' and f3.idFajilla=".$idv.") as totalTarjeta
-                                            FROM Fajillas f JOIN Apertura_Ventanilla av on(f.idAperturaVentanilla = av.idAperturaVentanilla)
-                                            JOIN Transaccion t on(f.idFajilla  = t.idFajilla) JOIN Cobro c on(t.idTransaccion = c.idTransaccion)
-                                            WHERE f.idFajilla =".$idv);
-
-                            $result = $query2->getResultObject();
-
-                            if($result){
-                                return $result;
-                            }
-                        }else{
-                            return 0 ;
-                        }
-                    }
-                }
-            } 
-            
-    }
-
-    function cerrarTurno($idv){
-        $db = \Config\Database::connect();
-        $builder = $db->table('Fajillas');
-        $builder->select('idAperturaVentanilla');
-        $builder->where('idFajilla', $idv);
-        $query = $builder->get();
-        $datos = $query->getResultArray();
-        foreach($datos as $id){
-            $aperturaV = $id['idAperturaVentanilla'];
-        }
-
-        $builder = $db->table('Apertura_Ventanilla');
-        $builder -> select('idVentanilla');
-        $builder -> where('idAperturaVentanilla',$aperturaV);
-        $query2 = $builder->get();
-        $datos2 = $query2->getResultArray();
-        foreach($datos2 as $id2){
-            $idventa = $id2['idVentanilla'];
-        }
-
-        $builder = $db->table('Ventanilla');
-        $builder -> select('Status');
-        $builder -> where('idVentanilla', $idventa);
-        $query3 = $builder->get();
-        $datos3 = $query3->getResultArray();
-        foreach($datos3 as $id3){
-            $estado = $id3['Status'];
-            if($estado == 1){
-                $builder = $db->table('Ventanilla');
-                $data = [
-                    'Status' => 0,//cambio el estado a tarjeta vendida
-                ];
-                $builder->where('idVentanilla', $idventa);
-                if($builder->update($data)){
-                    return TRUE;
-                }else{
-                    return FALSE;
-                }
+                $folioI = $d2['folioInicial'];
+                $folioF = $d2['folioFinal'];
             }
-        }
+
+
+            $query3 = $db->query("Select idTarjeta, idStatus FROM Tarjetas WHERE idTarjeta BETWEEN " . $folioI . " and " . $folioF);
+            $datosTT = $query3->getResultArray();
+            foreach($datosTT as $d3){
+                echo var_dump($d3['idTarjeta']);
+                echo var_dump($d3['idStatus']);
+            }
+
+                return $result;
+            }
+        
+        
+
     }
 
 }

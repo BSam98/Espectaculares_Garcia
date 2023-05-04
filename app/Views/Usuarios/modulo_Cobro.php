@@ -1,9 +1,3 @@
-<?php 
-if(!isset($_SESSION['Usuario'])) {
-    header('Location: http://localhost/Espectaculares_Garcia/public/');
-    exit();
-}else{
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,47 +8,45 @@ if(!isset($_SESSION['Usuario'])) {
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../css/sb-admin-2.css" rel="stylesheet"><!--Esta linea la acabo de agregar, tiene el estilo del radio en tipo pago-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script>
+    
 </head>
 <body id="page-top" style="background-image: url('./Img/mainbg.png'); background-repeat:repeat;" onload="mueveReloj()">
    <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"><br>
-            <form name="form_reloj">
+        <!-- Barra laterial izquierda -->
+        <!--ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"><br-->
+            <!--form name="form_reloj">
                 <input type="text" name="reloj" size="25" style="color:white;background : inherit; border:none; font-family : Arial; font-size : 14px; text-align:right;" onload="window.document.form_reloj.reloj.blur()">
-            </form>
-            <hr class="sidebar-divider">
+            </!--form-->
+            <!--hr class="sidebar-divider"-->
         <!--ESTE ES EL LOGO QUE APARECE EN LA BARRA DE NAVEGACION IZQUIERDA-->
             <!--li class="nav-item active">
                 <div class="sidebar-brand-icon">
                     <center><img src = "Img/logo.png" style="width: 50%;"/></center>
                 </div><br>
-            </li-->
+            </!--li>
 
-            <!-- Divider -->
-            <!--hr class="sidebar-divider my-0"-->
-
-            <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <center><b><label>RECARGAS:</label></b></center>
-                    <?php foreach($Creditos as $key => $cred){ ?>
-                        <button type="button" id="creditos" class="btn btn-success creditosC" style="margin:5px;" value="<?= $cred->idFechaCreditosCortesia?>"><?= $cred->Nombre?></button>
+                    <?php foreach($creditos->getResultArray() as $cred){ ?>
+                        <button type="button" id="creditos" class="btn btn-success creditosC" style="margin:5px;" value="<?= $cred['idFechaCreditosCortesia']?>"><?= $cred['Nombre']?></button>
                     <?php } ?>
             </li><br>
 
-            <!-- Divider -->
             <hr class="sidebar-divider">
 
             <li class="nav-item active">
                 <center><b><label>PROMOCIONES: &nbsp;</label></b></center>
-                <?php foreach($Pulsera as $key => $pu){ ?>
-                    <button type="button" id="promocionn" class="btn btn-success promocionnn" onblur="actualizar()" style="margin:5px;"  value="<?= $pu->idFechaPulseraMagica?>"><?= $pu->Nombre?></button>
+                <?php
+                foreach($pulsera->getResultArray() as $pu){ 
+                    ?>
+                    <button type="button" id="promocionn" class="btn btn-success promocionnn" onblur="actualizar()" style="margin:5px;"  value="<?php echo $pu['idPulseraMagica']?>"><?php echo  $pu['Nombre']?></button>
                 <?php }?>
                 <div id="log"></div>
             </li>
-        </ul>
+        </ul-->
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -73,25 +65,33 @@ if(!isset($_SESSION['Usuario'])) {
 
                     <!-- Topbar datos Evento -->
                     
-                    <?php foreach($Turno as $d){?>
+                    <?php 
+                    
+                    $usuario;
+                
+                    foreach($turno->getResultArray() as $t){
+                        $usuario=$t['Usuario'];
+                        ?>
                         <a aria-expanded="false" aria-controls="collapseTwo" style="font-family: monospace; color:black; font-size:16px;">
-                        <?php echo '<b>Zona:</b>&nbsp;'.$d->Nombre.'&nbsp;<b>Taquilla:</b>&nbsp;'.$d->Nombre.'&nbsp;<b>Ventanilla:</b>&nbsp;'.$d->Nombre?>
+                        <?php echo '<b>Zona:</b>&nbsp;'.$t["nombreZ"].'&nbsp;<b>Taquilla:</b>&nbsp;'.$t["nombreT"].'&nbsp;<b>Ventanilla:</b>&nbsp;'.$t["nombreV"]?>
                         </a>
                     <?php }?>
                     
+                    
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <form name="form_reloj" style="color:black;">
+                            <input type="text" name="reloj"  size="25" style="color:black; background : inherit; border:none; font-family : Arial; font-size : 14px; text-align:right;" onload="window.document.form_reloj.reloj.blur()">
+                        </form>
                     
                         <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black; font-size:14px;">
                                 <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
-                                    <?php echo $_SESSION['Usuario']; ?>
+                                    <?php echo $usuario;?>
                             </a>
-                            <!-- Dropdown - menu deslizable -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item btn btn-danger" id="cerrarCaja" style="font-family: monospace; font-size:14px;">
@@ -102,256 +102,133 @@ if(!isset($_SESSION['Usuario'])) {
                         </li>
                     </ul>
                 </nav>
-                <!-- End of Topbar -->
-               
-                <!-- Begin Page Content -->
                 <div class="container-fluid" id="puntoVenta">
+                        <div class="row">
+                            <div class="col-xl-12 col-md-12 mb-12">
+                                <div class="card h-100 py-2">
+                                    <div class="input-group">
+                                        <div class="col-xs-2 col-sm-3">
+                                            <div class="card">
+                                                <button type="button" class="btn btn-outline-info selectPulsera" style="margin:5px;" value="1">Pulsera
+                                                    <img class="card-img-top" src="../img/mano.jpg" height="100" width="50" alt="Card image cap">
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-3">
+                                            <?php foreach($pulsera->getResultArray() as $pu){ ?>
+                                                <div class="card">
+                                                    <button type="button" class="btn btn-outline-warning pulseraMagic" style="margin:5px;" value="<?php echo $pu['idPulseraMagica']?>" ><?php echo  $pu['Nombre']?>
+                                                        <img class="card-img-top" src="../img/pm.jpg" height="100" width="50" alt="Card image cap">
+                                                    </button>
+                                                </div>
+                                            <?php }?>
+                                            <!--div id="log"></!--div-->
+                                        </div> 
+                                        <div class="col-xs-2 col-sm-3">
+                                            <div class="card">
+                                                <button type="button" class="btn btn-outline-success addRecarga" style="margin:5px;" value="" >Recarga
+                                                    <img class="card-img-top" src="../img/recarga.jpg" height="100" width="50" alt="Card image cap">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Tarjeta y Recarga -->
-                    <form id="formPuntoVenta">
-                            <input type="hidden" name="ventanillaa" id="ventanillaa" value="<?php echo $_GET["v"]?>">
-                            <input type="hidden" name="idventani" id="idventani" value="<?php echo $_GET["idv"]?>">
-                            <input type="hidden" name="evento" id="evento" value="<?php echo $_GET["e"]?>">
-                            <input type="hidden" name="arregloP" id="arregloP" value="">
-                            <input type="hidden" name="arregloPrecioP" id="arregloPrecioP" value="">
-                            <input type="hidden" name="arregloC" id="arregloC" value="">
-                            <input type="hidden" name="arregloPrecioC" id="arregloPrecioC" value="">
-                            <input type="hidden" name="idTarjeta" id="idTarjeta" value="">
-                            <input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_SESSION['idUsuario']?>">
-                            <input type="hidden" name="precioTa" id="precioTa" value="">
-                            <input type="hidden" name="indice" id="indice" value="">
-                            <input type="hidden" name="fecha" id="fecha" value="">
-                            <div class="row">
-                                <!-- Pending Requests Card Example -->
-                                <div class="col-xl-12 col-md-12 mb-12">
-                                    <div class="card border-left-warning shadow h-100 py-2">
-                                        <div class="input-group">
-                                            <div class="col-xs-4 col-sm-4">
-                                                <h5 class="m-0 font-weight-bold text-primary"><i class="fa fa-credit-card" aria-hidden="true" style="margin:5px;"></i>&nbsp;Tarjeta:</h5>
-                                                <input type="text" class="form-control" name="tarjetaAdd" id="tarjetaAdd" minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" onblur="ingresarTarjeta()" autofocus>
-                                            </div>
-                                            <div class="col-xs-4 col-sm-4">
-                                                <h5 class="m-0 font-weight-bold text-primary"><i class="fa fa-retweet" aria-hidden="true"  style="margin:5px;"></i>&nbsp;Recarga:</h5>
-                                                <input class="form-control" type="number" name="recargaAdd" id="recargaAdd" onblur="ingresarRecarga()">&nbsp;
-                                            </div>
-                                            <!-- Optional: clear the XS cols if their content doesn't match in height -->
-                                            <div class="col-xs-4 col-sm-4">
-                                                <!--a href="#" id="celular" class="btn btn-success">Tarjeta Electónica</a-->  
-                                                <button type="button" style="margin: 1px;" class="btn btn-danger" data-toggle="modal" data-target="#modal_Devolucion" value=""><i class="fa fa-reply-all" aria-hidden="true"></i>&nbsp;Devolucion de Tarjeta</button>
-                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_Fajilla" value=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar Fajilla</button>
-                                            </div>
+                        <!--div class="row">
+                            <div class="col-xl-12 col-md-12 mb-12">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="input-group">
+                                        <div class="col-xs-4 col-sm-4">
+                                            <h5 class="m-0 font-weight-bold text-primary"><i class="fa fa-qrcode" aria-hidden="true" style="margin:5px;"></i>&nbsp;Escanear código:</h5>
+                                            <input type="number" class="form-control" name="tarjetaAdd" id="tarjetaAdd" onblur="ingresarTarjeta()" autofocus>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4">
+                                            <h5 class="m-0 font-weight-bold text-primary"><i class="fa fa-retweet" aria-hidden="true"  style="margin:5px;"></i>&nbsp;Recarga:</h5>
+                                            <input class="form-control" type="number" name="recargaAdd" id="recargaAdd" onblur="ingresarRecarga()">&nbsp;
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4">
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_Fajilla" value=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar Fajilla</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                         <!-- Content Row -->
-
-                            <div class="row">
-
-                                <!-- Area Chart -->
-                                <div class="col-xl-8 col-lg-7">
-                                    <div class="card shadow mb-5">
-                                        <!-- Card Header - Dropdown -->
-                                        <div class="card-header py-4 d-flex flex-row align-items-center justify-content-between">
-                                            <h6><center><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Descripcion</center></h6>
-                                            <h6><center><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="30px" height="30px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-                                                        <g><path d="M256,0C114.625,0,0,114.625,0,256s114.625,256,256,256s256-114.625,256-256S397.375,0,256,0z M256,480
-                                                        C132.5,480,32,379.5,32,256S132.5,32,256,32s224,100.5,224,224S379.5,480,256,480z M335.562,265.844
-                                                        c6.095,10.313,9.156,22.344,9.156,36.125c0,21.156-6.312,38.781-18.906,52.875c-12.594,14.125-30.78,22.438-54.562,24.938V416
-                                                        h-30.313v-36.031c-39.656-4.062-64.188-27.125-73.656-69.125l46.875-12.219c4.344,26.406,18.719,39.594,43.125,39.594
-                                                        c11.406,0,19.844-2.812,25.219-8.469s8.062-12.469,8.062-20.469c0-8.281-2.688-14.563-8.062-18.813
-                                                        c-5.375-4.28-17.344-9.688-35.875-16.25c-16.656-5.78-29.688-11.469-39.063-17.155c-9.375-5.625-17-13.531-22.844-23.688
-                                                        c-5.844-10.188-8.781-22.063-8.781-35.563c0-17.719,5.25-33.688,15.688-47.875c10.438-14.156,26.875-22.813,49.313-25.969V96
-                                                        h30.313v27.969c33.875,4.063,55.813,23.219,65.781,57.5l-41.75,17.125c-8.156-23.5-20.72-35.25-37.781-35.25
-                                                        c-8.563,0-15.438,2.625-20.594,7.875c-5.188,5.25-7.781,11.625-7.781,19.094c0,7.625,2.5,13.469,7.5,17.563
-                                                        c4.969,4.063,15.688,9.094,32.063,15.125c18,6.563,32.125,12.781,42.344,18.625C321.281,247.469,329.438,255.563,335.562,265.844z"
-                                                        /></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>&nbsp;Precio</center></h6>
-                                            <h6><center><svg id="Layer_1" style="width:30px; height:30px;" version="1.1" viewBox="0 0 30 30" xml:space="preserve"><style type="text/css"> .st0{fill:#FD6A7E;} .st1{fill:#17B978;} .st2{fill:#8797EE;} .st3{fill:#41A6F9;} .st4{fill:#37E0FF;}
-                                                        .st5{fill:#2FD9B9;}.st6{fill:#F498BD;}.st7{fill:#FFDF1D;} .st8{fill:#C6C9CC;}</style><path class="st4" d="M24.9,24.1l-0.4-5c-0.4-4.5-2.8-7.5-6.5-10l1-6h-5l-0.8,1H11l0.6,3.2l4.4,0.6c0.4,0.1,0.6,0.4,0.6,0.7  c0,0.3-0.3,0.6-0.7,0.6l-4-0.1c-3.7,2.5-6.1,5.5-6.4,10l-0.4,5C4.5,24.3,4,24.8,4,25.5C4,26.3,4.7,27,5.5,27h19  c0.8,0,1.5-0.7,1.5-1.5C26,24.8,25.5,24.3,24.9,24.1z M11.4,17.6l2.2-0.3l1-2c0.2-0.3,0.6-0.3,0.8,0l1,2l2.2,0.3  c0.4,0.1,0.5,0.5,0.3,0.8L17.3,20l0.4,2.2c0.1,0.4-0.3,0.7-0.7,0.5l-2-1l-2,1c-0.3,0.2-0.7-0.1-0.7-0.5l0.4-2.2l-1.6-1.6  C10.9,18.1,11,17.7,11.4,17.6z"/></svg>Créditos</center></h6>
-                                            <h6 class="m-0 font-weight-bold text-primary"></h6>
-                                        </div>
-                                        <!-- Card Body -->
-                                        <div class="card-body">
-                                            <div class="chart-area table table-responsive table-wrapper" style=" color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
-                                                <table id="compras">
-                                                    <!--thead>
-                                                    <th style="width: 15%;"></th>
-                                                    </thead-->
-                                                    <tbody id="productos">
-                                                        <tr>
-                                                            <td><div id="result"><!--label for="">Tarjeta: &nbsp;</label--><input type="number" id="tarjeta" name="tarjeta" value="" style="background : inherit; border:none; text-align:center;" disabled></td></div>
-                                                            <td><input type="number" class="monto" id="precioT" name="precioT" value="" style="background : inherit; border:none; text-align:center;" disabled></td>
-                                                        </tr>
-                                                        <tr id="recargaTr" style="display: none;">
-                                                            <td>
-                                                                <label name="tituloRec" id="tituloRec">Recarga</label>
-                                                            </td>   
-                                                            <td>
-                                                                <div id="recarga">
-                                                                    <input type="number" class="monto" name="recargaP" value="" id="recargaP" style="background : inherit; border:none; text-align:center;" disabled>
-                                                                </div>
-                                                            </td> 
-                                                            <td>
-                                                                <div id="recargaC">
-                                                                    <input type="number" name="recargaCred" id="recargaCred" value="" style="background : inherit; border:none; text-align:center;" disabled>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                        </!--div-->
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-7">
+                                <div class="card shadow mb-5">
+                                    <div class="card-header d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="font-weight-bold text-dark"><center><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Folio</center></h6>
+                                        <h6 class="font-weight-bold text-info"><center><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                                                                                            <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+                                                                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                                                            <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                                                                                            </svg>&nbsp;Precio</center></h6>
+                                        <h6 class="font-weight-bold text-warning"><center><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                                                                                            <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+                                                                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                                                            <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                                                                                            </svg>&nbsp;Precio P.Mágica</center></h6>
+                                        <h6 class="font-weight-bold text-success"><center><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Recarga</center></h6>
+                                        <!--h6 class="font-weight-bold text-warning"><center><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Créditos</center></!--h6-->
+                                        <h6 class="font-weight-bold text-danger"><center><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Cancelar</center></h6>
                                     </div>
-                                    <!--button type="button" id="cobrar" class="btn btn-success cobrar" data-toggle="modal" data-target="#modal_Cobrar">Cobrar</    button-->
-                                </div>
-
-                                <!-- Pie Chart -->
-                                <div class="col-xl-4 col-lg-5">
-                                    <div class="card shadow mb-4">
-                                        <!-- Card Header - Dropdown -->
-                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                            <div class="input-group">
-                                                <div class="col-xs-2 col-sm-4">
-                                                    <label>Total: $</label>
-                                                </div>
-                                                <div class="col-xs-2 col-sm-6">
-                                                    <input class="form-control" type="number" name="total" id="total" value="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Card Body -->
-                                        <div class="card-body">
-                                            <center><h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">TIPO PAGO</h6><br></center>
-                                            <?php foreach($tipoPago as $tipo):?>
-                                                <button type="button" class="btn btn-warning pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="<?php echo $tipo->idFormasPago?>"><?php echo $tipo->Nombre?></button>
-                                            <?php endforeach ?>
-                                            <!--div id="container">
-                                                <ul class="donate-now">
-                                                    <li>
-                                                        <input type="radio" id="rad1" value="1" class="pagoEfectivo" name="rad" />
-                                                        <label for="rad1">Efectivo</label>
-                                                    </li>
-                                                    <li>
-                                                        <input type="radio" id="rad2" value="2" class="pagoTarjeta" name="rad" />
-                                                        <label for="rad2">Tarjeta de Crédito</label>
-                                                    </li>
-                                                    <li>
-                                                        <input type="radio" id="rad3" value="3" name="rad"/>
-                                                        <label for="rad3">Tarjeta de Débito</label>
-                                                    </li>
-                                                </ul>
-                                            </div-->
-                                            <!--table class="table table-responsive">
-                                                <thead>
-                                                    <th colspan="3"><h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">Tipo Pago</h6></th>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
+                                    <div class="card-body">
+                                        <div class="chart-area table table-responsive table-wrapper" style=" color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
+                                            <table id="compras">
+                                                <tbody id="productos">
+                                                    <!--tr id="recargaTr" style="display: none;">
                                                         <td>
-                                                            <button type="button" class="btn btn-warning pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="1">Efectivo</button>
-                                                        </td>
+                                                            <label name="tituloRec" id="tituloRec">Recarga</label>
+                                                        </td>   
                                                         <td>
-                                                            <button type="button" class="btn btn-warning pagoTerjeta" data-toggle="modal" data-target="#modal_Tarjeta" value="2">Tarjeta</button>
-                                                        </td>
-                                                        <td>
-                                                            
-                                                            <div class="form-group" style="display: none;" id="efectivo" >
-                                                                
-                                                                <label>Efectivo:</label>
-                                                                <input type="number" class="form-control" name="efectivo" placeholder="Ingresa la cantidad">
+                                                            <div id="recarga">
+                                                                <input type="number" class="monto" name="recargaP" value="" id="recargaP" style="background : inherit; border:none; text-align:center;" disabled>
                                                             </div>
-                                                            <button class="btn btn-success float-right" onclick="myFunction()" >Cobrar</button>
+                                                        </td> 
+                                                        <td>
+                                                            <div id="recargaC">
+                                                                <input type="number" name="recargaCred" id="recargaCred" value="" style="background : inherit; border:none; text-align:center;" disabled>
+                                                            </div>
                                                         </td>
-                                                    </tr>
+                                                    </tr-->
                                                 </tbody>
-                                            </table-->
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    </form>
+                            <div class="col-xl-4 col-lg-5">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <div class="input-group">
+                                            <div class="col-xs-2 col-sm-4">
+                                                <label>Total: $</label>
+                                            </div>
+                                            <div class="col-xs-2 col-sm-6">
+                                                <input class="form-control" type="number" name="total" id="total" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <!--button type="button" class="btn btn-success pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="">PAGAR</button-->
+                                        <button type="button" class="btn btn-success pagoEfectivo" value="">PAGAR</button>
+                                        <button type="button" class="btn btn-danger pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="">CANCELAR VENTA</button>
+                                        <!--center><h6 class="m-0 font-weight-bold text-primary" style="vertical-align: middle ;">TIPO PAGO</h6><br></!--center-->
+                                         <!--button type="button" class="btn btn-warning pagoEfectivo" data-toggle="modal" data-target="#modal_Efectivo" value="<?php //echo $tipo['idFormasPago']?>"><?php //echo $tipo['Nombre']?></!--button-->
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- End of Main Content -->
         </div>
-        <!-- End of Content Wrapper -->
     </div>
 
-
-
-<!-- Button trigger modal -->
-<!--button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-  Launch static backdrop modal
-</button-->
-                                            
-
-
-<!--***************************************** Alertas *************************************************-->
-<div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
-  <div class="modal-dialog modal-dialog-centered">
-        <div class="row no-gutters fixed-center">
-            <div class="alert alert-danger fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="True">&times;</span>
-                </button>
-                <p id="mensaje"></p>
-                <center><span class="badge badge-danger" type="button" data-dismiss="modal">Aceptar</span></center>
-            </div>
-        </div>
-  </div>
-</div>
-
-
-<div class="modal fade" id="alertaCorrecta" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display:none;">
-  <div class="modal-dialog modal-dialog-centered">
-        <div class="row no-gutters fixed-center">
-            <div class="alert alert-success fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="True">&times;</span>
-                </button>
-                <p id="mensaje"></p>
-                <center><span class="badge badge-success" type="button" data-dismiss="modal">Aceptar</span></center>
-            </div>
-        </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!--**********************************Modal Efectivo*********************************-->
-<div class="modal fade" id="modal_Efectivo">
+<!--div class="modal fade" id="modal_Efectivo">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -372,38 +249,8 @@ if(!isset($_SESSION['Usuario'])) {
             </div>
         </div>
     </div>
-</div>
+</div-->
 <!--**********************************Modal Efectivo*********************************-->
-
-<!--**********************************Modal Devolver Tarjeta*********************************-->
-<div class="modal fade" id="modal_Devolucion">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Devolución de Tarjeta</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <form id="formDevolucion" action="">
-                <input type="hidden" name="idv" id="idv" value="<?php echo $_GET["v"]?>">
-                    <div class="form-group">
-                        <label>Tarjeta</label>
-                        <input type="number" name="tarjetD" id="tarjetD" required minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" class="form-control" placeholder="Ingresa la tarjeta a devolver">
-                    </div>
-                    <div class="form-group">
-                        <label>Descripción</label>
-                        <input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="Motivo de devolución">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="devolucion" id="devolucion" value="">Devolver</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--**********************************Modal Devolver Tarjeta*********************************-->
 
 <!--**********************************Modal Fajilla*********************************-->
 <div class="modal fade" id="modal_Fajilla">
@@ -417,16 +264,16 @@ if(!isset($_SESSION['Usuario'])) {
       <div class="modal-body">
         <form id="fajillaNueva">
             <input type="hidden" name="fecha" id="fecha" value="">
-            <input type="hidden" name="v" id="v" value="<?php echo $_GET["v"]?>">
+            <input type="hidden" name="v" id="v" value="<?php echo $_GET["idv"]?>">
             <input type="hidden" name="idv" id="id" value="<?php echo $_GET["idv"]?>">
             <input type="hidden" name="e" id="e" value="<?php echo $_GET["e"]?>">
             <div class="form-group">
                 <label>Folio Inicial</label>
-                <input type="text" class="form-control" name="folioI" id="folioI" required minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                <input type="number" class="form-control" name="folioI" id="folioI">
             </div>
             <div class="form-group">
                 <label>Folio Final</label>
-                <input type="text" class="form-control" name="folioF" id="folioF" required minlength="8" maxlength="8" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                <input type="number" class="form-control" name="folioF" id="folioF">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregarFajilla" id="agregarFajilla" value="">Agregar</button>
@@ -448,6 +295,5 @@ if(!isset($_SESSION['Usuario'])) {
 
 </body>
 </html>
-<script src="JS/puntoVenta.js"></script>
-<?php }?>
 
+<script src="JS/puntoVenta.js"></script>

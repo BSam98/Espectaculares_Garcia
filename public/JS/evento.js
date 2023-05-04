@@ -2,8 +2,12 @@ var contadorAtraccion=0;
 var contadorTaquilla=0;
 var contadorVentanilla=0;
 var contadorPromociones=0;
+var contadorCortesias=0;
 var precio_Promocion =[];
+var string= [];
 var select_Zonas_Html = '';
+var option_Zonas_Html = '';
+var select_Lote = '';
 var opcion;
 var contadorFila=0; //contador para asignar id al boton que borrara la fila
 var diaInicial=[],diaFinal=[],precio=[];
@@ -34,6 +38,7 @@ var zonas = [];
 var descuentos_Atraccion = [];
 var pulsera_Atraccion = [];
 var juegos_Atraccion = [];
+var datos;
 
 $("#agregarEvento").click(function(){
     $.ajax({
@@ -606,6 +611,7 @@ $(document).on('click', '.btn_remove', function() {
 /*------------------------------Atracciones_Evento--------------------------------------------------------*/
 $(document).on('click','.mostrar_Atracciones_Evento', function(){
     iniciarCarga();
+    $("#atraccionesAdd").DataTable().destroy();
     atraccion_Promocion_Descuentos = [];
     atraccion_Promocion_Pulsera = [];
     atraccion_Promocion_Juegos = [];
@@ -689,7 +695,7 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
 
 
                 html += '<tr>'+
-                '<td><a href="#editar_Atraccion_Evento" class="editar_Atraccion" data-toggle="modal" data-book-id='+"'{"+'"idAtraccionEvento":'+data.msj.Atraccion[i]['idAtraccionEvento']+','+'"idAtraccion":'+data.msj.Atraccion[i]['idAtraccion']+','+'"atraccion":"'+data.msj.Atraccion[i]['Atraccion']+'",'+'"creditos":'+data.msj.Atraccion[i]['Creditos']+','+'"idContrato":'+data.msj.Atraccion[i]['idContrato']+','+'"contrato":"'+data.msj.Atraccion[i]['Contrato']+'",'+'"idPoliza":'+data.msj.Atraccion[i]['idPoliza']+','+'"poliza":"'+data.msj.Atraccion[i]['Poliza']+'"'+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '<td><a href="#editar_Atraccion_Evento" class="editar_Atraccion" data-toggle="modal" data-book-id='+"'{"+'"idAtraccionEvento":'+data.msj.Atraccion[i]['idAtraccionEvento']+','+'"idAtraccion":'+data.msj.Atraccion[i]['idAtraccion']+','+'"atraccion":"'+data.msj.Atraccion[i]['Atraccion']+'",'+'"creditos":'+data.msj.Atraccion[i]['Creditos']+','+'"idContrato":'+data.msj.Atraccion[i]['idContrato']+','+'"contrato":"'+data.msj.Atraccion[i]['Contrato']+'",'+'"idPoliza":'+data.msj.Atraccion[i]['idPoliza']+','+'"poliza":"'+data.msj.Atraccion[i]['Poliza']+'",'+'"idZona":'+data.msj.Atraccion[i]['idZona']+','+'"Zona":"'+data.msj.Atraccion[i]['Zona']+'"'+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
                 '<td>'+data.msj.Atraccion[i]['Atraccion']+'</td>'+
                 '<td>'+data.msj.Atraccion[i]['Creditos']+'</td>'+
                 '<td>'+html_Promociones+'</td>'+
@@ -739,6 +745,22 @@ $(document).on('click','.mostrar_Atracciones_Evento', function(){
         $("#promocion_Pulsera").html(pulsera_Html);
         $("#promocion_Juegos_Gratis").html(juegos_Gratis_Html);
         $("#idEventoAtraccion").val(idEvento['idEvento']);
+
+        $('#atraccionesAdd').DataTable( {
+            "aProcessing": true,//Activamos el procesamiento del datatables
+            "aServerSide": true,//Paginación y filtrado realizados por el servidor
+            dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [		          
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+            "bDestroy": true,
+            "iDisplayLength": 15,//Paginación
+            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+        });
+
         cerrarCarga();
     });
 });
@@ -876,27 +898,38 @@ $("#nuevaAt").click(function(){
     contadorAtraccion = contadorAtraccion + 1;
     $("#agregarAtracciones tbody tr:eq(0)").clone().attr('id',contadorAtraccion).removeClass('f-Atracciones').appendTo("#agregarAtracciones");
 });
-
 /**--- Aqui seguimos */
 $(document).on('click','.editar_Atraccion', function(){
     var idAtraccionEvento_Html = '';
     var contrato_Seleccionado_Html ='';
     var poliza_Seleccionada_Html = '';
+    var zona_Seleccionada_Html = '';
     var contratos_Html = '';
     var polizas_Html = '';
+    var zonas_Html = '';
     var descuentos_Html= '';
     var pulsera_Html = '';
     var juegos_Html = '';
     var select_Contratos_Html = '';
     var select_Polizas_Html='';
+    var select_Zona_Html = '';
     var nombre_Html="";
     var datos_Atraccion = $(this).data('book-id');
     var idEvento =  $("#idEventoAtraccion").val();
 
-    idAtraccionEvento_Html += '<input class="form-control" type="text" id="idAtraccionEvento" name="idAtraccionEvento" value="'+datos_Atraccion['idAtraccionEvento']+'">';
+    promocion_Descuentos_Atraccion_Nuevo = [];
+    promocion_Descuentos_Atraccion_Eliminar = [];
+    promocion_Pulsera_Atraccion_Nuevo = [];
+    promocion_Pulsera_Atraccion_Eliminar = [];
+    promocion_Juegos_Atraccion_Nuevo = [];
+    promocion_Juegos_Atraccion_Eliminar = [];
+
+    idAtraccionEvento_Html += '<input class="form-control" type="hidden" id="idAtraccionEvento" name="idAtraccionEvento" value="'+datos_Atraccion['idAtraccionEvento']+'">';
 
     contrato_Seleccionado_Html = '<option value="'+datos_Atraccion['idContrato']+'">"'+datos_Atraccion['contrato']+'"</Option>';
     poliza_Seleccionada_Html = '<option value="'+datos_Atraccion['idPoliza']+'">"'+datos_Atraccion['poliza']+'"</option>';
+    zona_Seleccionada_Html = '<option value="'+datos_Atraccion['idZona']+'">'+datos_Atraccion['Zona']+'</option>';
+
 
     $.ajax({
         beforeSend:function(){
@@ -923,11 +956,18 @@ $(document).on('click','.editar_Atraccion', function(){
             polizas_Html +='<option value="'+data.Polizas[i]['idPoliza']+'">"'+data.Polizas[i]['Nombre']+'"</option>';
         }
 
+        for(var i=0; i<data.Zonas.length;i++){
+            zonas_Html +='<option value="'+data.Zonas[i]['idZona']+'">'+data.Zonas[i]['Nombre']+'</option>'
+        }
+
         select_Contratos_Html += '<label for="contrato">Contratos</label><br>'+
         '<select class="form-control" type="text" name="contrato_Atraccion[]" id="contrato_Atraccion">'+contrato_Seleccionado_Html+''+contratos_Html+'</select>';
 
         select_Polizas_Html +='<label for="contrato">Polizas</label><br>'+
         '<select class="form-control" type="text" name="poliza[]" id="poliza_Atraccion">'+poliza_Seleccionada_Html+''+polizas_Html+'</select>';
+
+        select_Zona_Html += '<label>Zonas</label>'+
+        '<select class="form-control" type="text" name="zona[]" id="zona_Atraccion">'+zona_Seleccionada_Html+''+zonas_Html+'</select>';
 
 
 
@@ -970,6 +1010,7 @@ $(document).on('click','.editar_Atraccion', function(){
         $("#promocion_Juegos_Gratis_Atraccion").html(juegos_Html);
         $("#contrato_Atraccion").html(select_Contratos_Html);
         $("#poliza_Atraccion").html(select_Polizas_Html);
+        $("#zonas_Atraccion").html(select_Zona_Html);
         $("#id_AtraccionEvento").html(idAtraccionEvento_Html);
         $("#creditos_Atraccion").val(datos_Atraccion['creditos']);
         cerrarCarga();
@@ -1086,35 +1127,70 @@ $(document).on('click','.juegos_Gratis_Atraccion', function(){
 });
 
 $("#editar_Atraccion").click(function(){
+    iniciarCarga();
     var idAtraccionEvento = $("#idAtraccionEvento").val();
     var creditos = $("#creditos_Atraccion").val();
     var idContrato = $("#contrato_Atraccion option:selected").val();
     var idPoliza = $("#poliza_Atraccion option:selected").val();
+    var idZona = $("#zona_Atraccion option:selected").val();
+
+    if(!promocion_Descuentos_Atraccion_Nuevo.length){
+        promocion_Descuentos_Atraccion_Nuevo = 0;
+    }
+
+    if(!promocion_Pulsera_Atraccion_Nuevo.length){
+        promocion_Pulsera_Atraccion_Nuevo = 0;
+    }
+
+    if(!promocion_Juegos_Atraccion_Nuevo.length){
+        promocion_Juegos_Atraccion_Nuevo = 0;
+    }
+
+    if(!promocion_Descuentos_Atraccion_Eliminar.length){
+        promocion_Descuentos_Atraccion_Eliminar = 0;
+    }
+
+    if(!promocion_Pulsera_Atraccion_Eliminar.length){
+        promocion_Pulsera_Atraccion_Eliminar = 0;
+    }
+
+    if(!promocion_Juegos_Atraccion_Eliminar.length){
+        promocion_Juegos_Atraccion_Eliminar = 0;
+    }
 
     $.ajax({
         type: "POST",
         url: 'Eventos/Editar_Atraccion',
-        data: {'idAtraccionEvento':idAtraccionEvento,'creditos':creditos,'idContrato':idContrato,'idPoliza':idPoliza,'descuentosNuevos':promocion_Descuentos_Atraccion_Nuevo,'pulserasNuevas':promocion_Pulsera_Atraccion_Nuevo,'juegosNuevos':promocion_Juegos_Atraccion_Nuevo,'eliminarDescuentos':promocion_Descuentos_Atraccion_Eliminar,'eliminarPulseras':promocion_Pulsera_Atraccion_Eliminar,'eliminarJuegos':promocion_Juegos_Atraccion_Eliminar},
+        data: {'idAtraccionEvento':idAtraccionEvento,'creditos':creditos,'idZona':idZona,'idContrato':idContrato,'idPoliza':idPoliza,'descuentosNuevos':promocion_Descuentos_Atraccion_Nuevo,'pulserasNuevas':promocion_Pulsera_Atraccion_Nuevo,'juegosNuevos':promocion_Juegos_Atraccion_Nuevo,'eliminarDescuentos':promocion_Descuentos_Atraccion_Eliminar,'eliminarPulseras':promocion_Pulsera_Atraccion_Eliminar,'eliminarJuegos':promocion_Juegos_Atraccion_Eliminar},
         dataType: 'JSON',
         error: function(jqXHR, textStatus, errorThrown){
             alert('Se produjo un error: a'+ errorThrown + ' ' + textStatus);
+            cerrarCarga();
         },
     }).done(function(data){
-        alert('Se ha actualizado');
+        if(data.respuesta){
+            cerrarCarga();
+            location.reload();
+        }
     });
 });
 
 /*-----------------------------Tarjetas_Evento------------------------------------------------------*/
 
 $(document).on('click','.mostrarTarjetasEvento', function(){
+    $("#tabla_Tarjetas_Evento").DataTable().destroy();
     var idEvento = $(this).data('book-id');
     $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
         type: "POST",
         url: 'Eventos/Mostrar_Tarjetas',
         data: idEvento,
         dataType: 'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
         },
     }).done(function(data){
 
@@ -1123,7 +1199,7 @@ $(document).on('click','.mostrarTarjetasEvento', function(){
 
             
             html += '<tr>'+
-            '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="bi bi-pencil-square btn btn-warning"></i></a></td>'+
+            '<td><a href="#editar_Cliente" class="editar" data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
             '<td>'+data.msj[i]['Nombre']+'</td>'+
             '<td>'+data.msj[i]['Folio']+'</td>'+
             '<td>'+data.msj[i]['FechaActivacion']+'</td>'+
@@ -1135,7 +1211,21 @@ $(document).on('click','.mostrarTarjetasEvento', function(){
         
         $("#idEventoLote").val(idEvento['idEvento']);
         $("#tarjetasEvento").html(html);
-
+        $('#tabla_Tarjetas_Evento').DataTable( {
+            "aProcessing": true,//Activamos el procesamiento del datatables
+            "aServerSide": true,//Paginación y filtrado realizados por el servidor
+            dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [		          
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+            "bDestroy": true,
+            "iDisplayLength": 10,//Paginación
+            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+        });
+        cerrarCarga();
     });
 });
 /*--------------------------Asociacion_Evento---------------------------------------------*/
@@ -1239,11 +1329,14 @@ $("#agregar_Zona").click(function(){
 /**--------------------------Taquillas Evento------------------------------------------- */
 
 $(document).on('click','.mostrar_Taquillas_Evento', function(){
+    $("#tablaTaquillas").DataTable().destroy();
     var idEvento = $(this).data('book-id');
-    var option_Zonas_Html = '';
+    option_Zonas_Html = '';
     select_Zonas_Html = '';
     var tabla_Taquilla_Html = '';
     var ventanillas_Html = '';
+    contadorTaquilla = 0;
+    contadorVentanilla = 0;
 
     $.ajax({
         beforeSend: function(){
@@ -1264,18 +1357,23 @@ $(document).on('click','.mostrar_Taquillas_Evento', function(){
             }
 
             for(var i=0; i<data.Taquilla.length; i++){
+                var arreglo = [];
+                var datos_Ventanilla = '';
 
                 for(var j=0; j<data.Ventanilla.length; j++){
                     if(data.Taquilla[i]['idTaquilla'] == data.Ventanilla[j]['idTaquilla']){
                         ventanillas_Html += data.Ventanilla[j]['Nombre']+', ';
+                        arreglo.push({'idVentanilla':data.Ventanilla[j]['idVentanilla'],'Nombre':data.Ventanilla[j]['Nombre']});
                     }
                 }
 
+                datos_Ventanilla = JSON.stringify(arreglo);
+
                 tabla_Taquilla_Html +='<tr>'+
-                '<td></td>'+
-                '<td>'+data.Taquilla[i]['Zona']+'</td>'+
-                '<td>'+data.Taquilla[i]['Nombre']+'</td>'+
-                '<td>'+ventanillas_Html+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;"><a href="#modal_Editar_Taquillas" class="editar_Taquillas" data-toggle="modal" data-book-id='+"'{"+'"datos":'+datos_Ventanilla+','+'"idTaquilla":'+data.Taquilla[i]['idTaquilla']+','+'"Nombre":"'+data.Taquilla[i]['Nombre']+'",'+'"idZona":'+data.Taquilla[i]['idZona']+','+'"Zona":"'+data.Taquilla[i]['Zona']+'",'+'"idEvento":'+JSON.stringify(idEvento)+''+"}'"+'><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.Taquilla[i]['Zona']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+data.Taquilla[i]['Nombre']+'</td>'+
+                '<td style="text-align: center; vertical-align: middle;">'+ventanillas_Html+'</td>'+
                 '</tr>';
                 ventanillas_Html ='';
             }
@@ -1284,8 +1382,56 @@ $(document).on('click','.mostrar_Taquillas_Evento', function(){
         select_Zonas_Html += '<label for="selectZona">Selecciona la zona</label>'+
         '<select class="form-control" type="text" name ="selectZona[]" id="selectZona">'+option_Zonas_Html+'</select>';
 
+        $("#agregarTaq").html(
+            '<tr class="filas" id=0>'+
+            '<td>'+
+                '<div class="form-group" id="selectZonas">'+
+                '</div>'+
+                '<div class ="form-group">'+
+                    '<label for="">Nombre Taquilla</label>'+
+                    '<input type="text" name="nombre_Taquilla[]" id="nombre_Taquilla" class="form-control">'+
+
+                    '<table id="tablaVentanilla" class="table table-bordered">'+
+                        '<thead>'+
+                            '<th style="vertical-align: middle;" colspan="2">Ventanilla</th>'+
+                            '<br>'+
+                        '</thead>'+
+                        '<tbody id=1>'+
+                            '<tr>'+
+                                '<td colspan="2">'+
+                                '<button name="adicional" type="button" class="btn btn-warning ventanillas"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Ventanilla</button>'+
+                                '</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>'+
+                                    '<input type="text" name="nombre_Ventanilla[]" id="nombre_Ventanilla" placeholder="Nombre de la ventanilla">'+
+                                '</td>'+
+                                '<td class="elimAsoci"><input type="button"   value="-"/></td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                    '</table>'+
+                '</div>'+
+            '</td>'+
+            '<td class="deletef"><input type="button" value="-"></td>'+
+        '</tr>' 
+        );
         $("#selectZonas").html(select_Zonas_Html);
         $("#taquillasEvento").html(tabla_Taquilla_Html);
+
+        $('#tablaTaquillas').DataTable( {
+            "aProcessing": true,//Activamos el procesamiento del datatables
+            "aServerSide": true,//Paginación y filtrado realizados por el servidor
+            dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [		          
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+            "bDestroy": true,
+            "iDisplayLength": 15,//Paginación
+            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+        });
         cerrarCarga();
     });
 });
@@ -1334,7 +1480,7 @@ $("#addf").on('click',function(){
                 '</div>'+
             '</td>'+
             '<td class="deletef"><input type="button" value="-"></td>'+
-        '<tr>' 
+        '</tr>' 
     ).clone().appendTo("#agregarTaq");
     cerrarCarga();
 });
@@ -1346,6 +1492,7 @@ $(parent).remove();
 
 
 $("#guardarTaquilla").click(function(){
+    iniciarCarga();
     var indice = -1;
     var indice2 = -1;
 
@@ -1364,20 +1511,8 @@ $("#guardarTaquilla").click(function(){
             ventanillas.push({"Nombre":n.value,"indiceTaquilla": indice2});
         }
     });
-
-    console.log('Zona');
-    console.log(JSON.stringify(zonas));
-
-    console.log('Taquillas');
-    console.log(JSON.stringify(taquillas));
-
-    console.log('Ventanillas');
-    console.log(JSON.stringify(ventanillas));
     
     $.ajax({
-        beforeSend: function(){
-            iniciarCarga();
-        },
         type: "POST",
         url: 'Eventos/Agregar_Taquillas_Evento',
         data: {"zonas":zonas,"taquillas":taquillas,"ventanillas":ventanillas},
@@ -1395,4 +1530,288 @@ $("#guardarTaquilla").click(function(){
         
     });
     
+});
+
+
+$(document).on('click','.editar_Taquillas', function(){
+
+    datos = $(this).data('book-id');
+    var ventanillas = datos['datos'];
+    var html = '';
+    var opt = '';
+    var select= '';
+
+    opt = '<option value="'+datos['idZona']+'">'+datos['Zona']+'</option>';
+    $.ajax({
+        beforeSend: function(){
+            iniciarCarga();
+        },
+        type:"POST",
+        url: 'Eventos/Mostrar_Zonas',
+        data: datos['idEvento'],
+        dataType: 'JSON',
+        error(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            for(var i = 0; i<data.msj.length; i++){
+                opt +='<option value="'+data.msj[i]['idZona']+'">'+data.msj[i]['Nombre']+'</option>';
+            }
+            html =
+            '<tr>'+
+                '<td colspan="2">'+
+                    '<button name="adicional" type="button" class="btn btn-warning nueva_Ventanilla"><i class="bi bi-plus-circle"></i>&nbsp;Agregar Ventanilla</button>'+
+                '</td>'+
+            '</tr>';
+        
+            for(var i=0;i<ventanillas.length;i++){
+                html += '<tr>'+
+                '<td>'+
+                    '<input value="'+ventanillas[i]['idVentanilla']+'" type="hidden" name="editar_idVentanilla[]" id="editar_idVentanilla">'+
+                    '<input value="'+ventanillas[i]['Nombre']+'" type="text" name ="editar_Nombre_Ventanilla[]" id="editar_Nombre_Ventanilla" placeholder="Nombre de la ventanilla">'+
+                '</td>'+
+                '<td class=""></td>'+
+            '</tr>';
+            }
+
+            select = '<label for="selectZona">Selecciona la zona</label>'+
+            '<select class="form-control" type="text" name ="editar_Zona_Taquilla[]" id="editar_Zona_Taquilla">'+opt+'</select>';
+            $("#editar_Select_Zona").html(select);
+            $("#editar_Nombre_Taquilla").val(datos['Nombre']);
+            $("#editar_Tabla_Ventanilla").html(html);
+        }
+        cerrarCarga();
+    });
+});
+
+$(document).on('click','.nueva_Ventanilla', function(){
+    var id  = $(this).parents('tbody').attr('id');
+            
+    $(
+        '<tr>'+
+            '<td>'+
+                '<input type="text" name ="nuevo_Nombre_Ventanilla[]" id="nuevo_Nombre_Ventanilla" placeholder="Nombre de la ventanilla">'+
+            '</td>'+
+            '<td class="elimAsoci"><input type="button" value="-"></td>'+
+        '</tr>'
+    ).clone().appendTo($('#'+id));
+});
+
+$("#guardar_Taquilla_Editada").on('click',function(){
+    iniciarCarga();
+    var editar_Taquilla = [];
+    var editar_Ventanilla= [];
+    var nuevas_Ventanillas =[];
+    var idVentanilla;
+    var idZona;
+    var Nombre;
+
+    $.each(($("#formulario_Taquilla_Editada").serializeArray()),function(i,n){
+        if("editar_Zona_Taquilla[]" === n.name){
+            idZona = n.value;
+        }
+        if("editar_Nombre_Taquilla[]" === n.name){
+            editar_Taquilla.push({'idTaquilla': datos['idTaquilla'],'Nombre':n.value,'idZona':idZona});
+        }
+
+        if("editar_idVentanilla[]" === n.name){
+            idVentanilla = n.value;
+        }
+
+        if("editar_Nombre_Ventanilla[]" === n.name){
+            editar_Ventanilla.push({'idVentanilla':idVentanilla,'Nombre':n.value});
+        }
+
+        if("nuevo_Nombre_Ventanilla[]" === n.name){
+            nuevas_Ventanillas.push({'idTaquilla': datos['idTaquilla'],'Nombre':n.value});
+        }
+    });
+
+    if(!nuevas_Ventanillas.length){
+        nuevas_Ventanillas = 0;
+    }
+
+    $.ajax({
+        type:"POST",
+        url: 'Eventos/Editar_Taquillas',
+        data:{'taquilla':editar_Taquilla,'ventanillas':editar_Ventanilla,'nuevos':nuevas_Ventanillas},
+        dataType: 'JSON',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+            cerrarCarga();
+            location.reload();
+        }
+    });
+});
+
+/**----------------------------Tarjetas Cortesia------------------------------------------------ */
+$(document).on('click','.mostrar_Cortesias_Evento', function(){
+    iniciarCarga();
+
+    $("#cuerpo_agregar_Cortesias").html(
+        '<tr>'+
+        '<td>'+
+            '<div id="lote_Cortesias0" class="form-group">'+
+            '</div>'+
+            '<div id="folios_Disponibles0" class="form-group">'+
+                '<label for="folios_Cortesia">Folios Diposnibles</label>'+
+                '<br>'+
+                '<textarea id="folios_Cortesia" name="folios_Cortesia[]" cols="70",rows="70" class="form-control" readonly>'+
+                '</textarea>'+
+            '</div>'+
+            '<div id="folios_Seleccionados0" class="form-group">'+
+                '<label for="b">Folio Inicial</label>'+
+                '<input id="folio_Inicial_Cortesias" name="folio_Inicial_Cortesias[]" class="form-control">'+
+                '<br>'+
+                '<label for="c">Folio Final</label>'+
+                '<input id="folio_Final_Cortesias" name="folio_Final_Cortesias[]" class="form-control">'+
+            '</div>'+
+            '<div id="creditos_Otorgados0" class="form-group">'+
+                '<label>Creditos a otorgar</label>'+
+                '<input id="creditos_Otorgados" name="creditos_Otorgados[]" class="form-control" type="number">'+
+            '</div>'+
+            '<div id="descripción_Cortesias0" >'+
+                '<label>Concepto</label>'+
+                '<textarea id="descripcion_Cortesias" name="descripcion_Cortesias[]" cols="10", rows="2" class="form-control"></textarea>'+
+            '</div>'+
+        '</td>'+
+        '<td class="eliminar_Registro_Cortesias"><input type="button" value="-"/></td>'+
+    '</tr>'
+    );
+    contadorCortesias=0;
+    datos = $(this).data('book-id');
+    select_Lote ='';
+    var option_Lote = '';
+
+    option_Lote = '<option>Lotes</option>';
+
+    $.ajax({
+        type:'POST',
+        url: 'Eventos/Lotes_Cortesias',
+        data: datos,
+        dataType: 'JSON',
+        error(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        },
+    }).done(function(data){
+        if(data.respuesta){
+
+            for(var i=0;i<data.datos.length;i++){
+                
+            }
+            for(var i=0; i<data.msj.length;i++){
+                option_Lote +='<option value="'+data.msj[i]['idLote']+'">'+data.msj[i]['Nombre']+'</option>'
+            }
+            select_Lote ='<label>Seleccione un lote disponible</label>'+ 
+            '<select id="lote_Cortesia" name="lote_Cortesia[]" class="lote_Cortesias form-control">'+option_Lote+'</select>'
+            
+            $("#lote_Cortesias0").html(select_Lote);
+            cerrarCarga();
+        }
+    });
+    
+});
+
+
+$('#agregar_Registro').on('click', function(){
+    contadorCortesias++;
+    
+    $(
+        '<tr>'+
+            '<td>'+
+                '<div id="lote_Cortesias'+contadorCortesias+'" class="form-group">'+
+                    select_Lote+
+                '</div>'+
+                '<div id="folios_Disponibles'+contadorCortesias+'" class="form-group">'+
+                    '<label for="folios_Cortesia">Folios Diposnibles</label>'+
+                    '<br>'+
+                    '<textarea id="folios_Cortesia" name="folios_Cortesia[]" cols="70",rows="70" class="form-control" readonly>'+
+                    '</textarea>'+
+                '</div>'+
+                '<div id="folios_Seleccionados'+contadorCortesias+'" class="form-group">'+
+                    '<label for="b">Folio Inicial</label>'+
+                    '<input id="folio_Inicial_Cortesias" name="folio_Inicial_Cortesias[]" class="form-control">'+
+                    '<br>'+
+                    '<label for="c">Folio Final</label>'+
+                    '<input id="folio_Final_Cortesias" name="folio_Final_Cortesias[]" class="form-control">'+
+                '</div>'+
+                '<div id="creditos_Otorgados'+contadorCortesias+'" class="form-group">'+
+                    '<label>Creditos a otorgar</label>'+
+                    '<input id="creditos_Otorgados" name="creditos_Otorgados[]" class="form-control" type="number">'+
+                '</div>'+
+                '<div id="descripción_Cortesias'+contadorCortesias+'" class="form-group">'+
+                    '<label>Concepto</label>'+
+                    '<textarea id="descripcion_Cortesias" name="descripcion_Cortesias[]" cols="10", rows="2" class="form-control"></textarea>'+
+                '</div>'+
+            '</td>'+
+            '<td class="eliminar_Registro_Cortesias"><input type="button" value="-"/></td>'+
+        '</tr>'
+    ).clone().appendTo("#agregar_Cortesias");
+});
+
+$(document).on('change','.lote_Cortesias', function(){
+    var lote = $(this).val();
+    var id = $(this).parents('div').attr('id').substr(-1);
+
+    if(lote != "Lotes"){
+        $.ajax({
+            beforSend: function(){
+                iniciarCarga();
+            },
+            type:'POST',
+            url:'Eventos/Tarjetas_Cortesias',
+            data:{'idLote':lote,'idEvento':datos},
+            dataType:'JSON',
+            error(jqXHR, textStatus, errorThrown){
+                alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+                cerrarCarga();
+            }
+        }).done(function(data){
+            if(data.respuesta){
+                string= [];
+                for(var i=0; i<data.msj.length;i++){
+                    string[i] = data.msj[i]['Folio'];
+                }
+                $('#folios_Disponibles'+id).html('<label for="folios_Cortesia">Folios Disponibles</label><br><textarea id="folios_Cortesia" name="folios_Cortesia" cols="70",rows="70" class="form-control" readonly>'+string+'</textarea>');
+                cerrarCarga();
+            }
+        });
+    }
+});
+
+$(document).on('click','.eliminar_Registro_Cortesias', function(){
+    var parent = $(this).parents().get(0);
+    $(parent).remove();
+});
+
+$("#guardarCortesias").on('click',function(){
+    iniciarCarga();
+
+    $.ajax({
+        type:'POST',
+        url:'Eventos/Agregar_Cortesias',
+        data: $("#formulario_Cortesias_Evento").serialize(),
+        dataType: 'JSON',
+        error(jqXHR, textStatus, errorThrown){
+            alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
+            cerrarCarga();
+        }
+    }).done(function(data){
+        if(data.respuesta){
+            //location.reload();
+            location.reload();
+            cerrarCarga(); 
+        }
+        else{
+            alert('Favor de verificar los rangos de los folios, folio inicial: ' + JSON.stringify(data.folioInicial) + ' folio final: ' +JSON.stringify( data.folioFinal));
+            cerrarCarga();
+        }
+    });
 });

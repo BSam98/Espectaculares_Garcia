@@ -10,57 +10,21 @@ use Mpdf\Tag\Legend;
 
 class Iniciar_Sesion_Administrador_Control extends BaseController {
 
-    public function  _construct(){
+    public $load=null;
+    public function  __construct(){
         $this->request = \Config\Services::request();
         $this->load->model('Iniciar_Sesion_Administrador_Model');
         //$this->model = new Iniciar_Sesion_Administrador_Model();
     }
-
-    public function menuBuscar(){
-        $model = new Iniciar_Sesion_Administrador_Model();
-        $rango = $_GET['idT'];
-        session_start([
-            'use_only_cookies' => 1,
-            'cookie_lifetime' => 0,
-            'cookie_secure' => 1,
-            'cookie_httponly' => 1
-        ]);
-        $datos = [ 
-            'Privilegios' => $model->consultarPrivilegiosR($rango),
-        ];
-        echo view('../Views/header',$datos);
-        //echo view('../Views/menu',$datos);
-        //echo view('Administrador/Menu_Principal_Administrador/Menu_Principal_View');
-        echo view('../Views/piePagina');
-	}
+    
+    public function login(){
+        
+    }
 
     public function getBusqueda(){
-        session_start([
-            'use_only_cookies' => 1,
-            'cookie_lifetime' => 0,
-            'cookie_secure' => 1,
-            'cookie_httponly' => 1
-        ]);
 
-        $username = $_POST['usuario'];
-        $password = $_POST['pass'];
         $model = new Iniciar_Sesion_Administrador_Model();
 
-        $datos = $model->buscarUserAdm($username,$password);
-        if($datos['resultado'] == true){
-            $_SESSION['idUsuario']=$datos["idUsuario"];
-            $_SESSION['Nombre']=$datos['Nombre'];
-            $_SESSION['CorreoE']=$datos['CorreoE'];
-            $_SESSION['Usuario']=$datos['Usuario'];
-            $_SESSION['Contraseña']=$datos['Contraseña'];
-            $_SESSION['idRango']=$datos['idRango'];
-            $_SESSION['idEvento']=$datos['idEvento'];
-        }
-        echo json_encode($datos);
-
-        /*
-            $model = new Iniciar_Sesion_Administrador_Model();
-        
         $username = $this->request->getVar('usuario');
         $password = $this->request->getVar('pass');
 
@@ -80,24 +44,7 @@ class Iniciar_Sesion_Administrador_Control extends BaseController {
         }else{
             echo "<script>alert('Usuario Incorrecto'); window.location= 'SesionAdmin'</script>";
         }
-
-
-        */
-
     }
-
-    public function bsubMenu(){
-        $id = $_POST['mP'];
-        $model = new Iniciar_Sesion_Administrador_Model();
-        $data = $model->submenuP($id);
-        echo json_encode(array('respuesta'=>true,'msj'=>$data));
-    }
-
-
-
-
-
-
 
     public function new (){
         /*if (!session()->get('isLoggedIn')){
@@ -255,15 +202,11 @@ class Iniciar_Sesion_Administrador_Control extends BaseController {
     }
 
     public function logout(){
-        session_start();
-        session_unset(); 
-        session_destroy(); 
-        return $this->response->redirect(site_url(''));
-        /*$session = session();
+        $session = session();
         //echo $session->Usuario;
         $session->destroy();
 		//session()->remove('username');
-		return $this->response->redirect(site_url(''));*/
+		return $this->response->redirect(site_url(''));
 	}
 
 

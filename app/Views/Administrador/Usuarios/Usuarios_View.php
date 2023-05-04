@@ -1,11 +1,5 @@
     <!--/Contenedor Superior-->
-<?php 
-    if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
-        header('Location: http://localhost/Espectaculares_Garcia/public/');
-        exit();
-    }else{
-?>
-    <fieldset id="fieldset" style="color:black;" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+    <fieldset id="fieldset" style="background-color: white;color:black;" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
         <center><label><h1>USUARIOS</h1></label></center>
         <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Nuevo Usuario</a>
         <!--button onClick="">Nuevo Usuario</button-->
@@ -15,35 +9,79 @@
                 <table id="example" class="table table-striped">
                     <thead>
                         <th></th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Correo electronico</th>
-                        <th>NSS</th>
-                        <th>CURP</th>
-                        <th>Usuario</th>
-                        <th>Contraseña</th>
-                        <th>Rango</th>
-                        <th>Evento</th>
+                        <th style="text-align: center; vertical-align: middle;">Nombre</th>
+                        <th style="text-align: center; vertical-align: middle;">Apellidos</th>
+                        <th style="text-align: center; vertical-align: middle;">Correo electronico</th>
+                        <th style="text-align: center; vertical-align: middle;">NSS</th>
+                        <th style="text-align: center; vertical-align: middle;">CURP</th>
+                        <th style="text-align: center; vertical-align: middle;">Usuario</th>
+                        <th style="text-align: center; vertical-align: middle;">Contraseña</th>
+                        <th style="text-align: center; vertical-align: middle;">Rango</th>
+                        <th style="text-align: center; vertical-align: middle;"> Evento</th>
                     </thead>
                     <tbody>
                         <?php foreach ($Usuario as $key => $dU) : ?>
                             <tr>
-                                <td><a href="#eUsuario" class="editarUsuario" data-book-id='{"idUsuario":<?=$dU->idUsuario?>,"UsuarioNombre":"<?=$dU->UsuarioNombre?>","UsuarioApellido":"<?=$dU->UsuarioApellido?>","CorreoE":"<?=$dU->CorreoE?>","NSS":<?=$dU->NSS?>,"CURP":"<?=$dU->CURP?>","Usuario":"<?=$dU->Usuario?>","Contraseña":"<?=$dU->Contraseña?>"}' data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
-                                <td><?= $dU->UsuarioNombre?></td>
-                                <td><?= $dU->UsuarioApellido?></td>
-                                <td><?= $dU->CorreoE?></td>
-                                <td><?= $dU->NSS?></td>
-                                <td><?= $dU->CURP?></td>
-                                <td><?= $dU->Usuario?></td>
-                                <td><?= $dU->Contraseña?></td>
-                                <td><?= $dU->Nombre?></td>
-                                <td><?= $dU->Ciudad?></td>
+                                <td style="text-align: center; vertical-align: middle;"><a href="#eUsuario" class="editarUsuario" data-book-id='{"idUsuario":<?=$dU->idUsuario?>,"UsuarioNombre":"<?=$dU->UsuarioNombre?>","UsuarioApellido":"<?=$dU->UsuarioApellido?>","CorreoE":"<?=$dU->CorreoE?>","NSS":<?=$dU->NSS?>,"CURP":"<?=$dU->CURP?>","Usuario":"<?=$dU->Usuario?>","Contraseña":"<?=$dU->Contraseña?>"}' data-toggle="modal"><i class="fa fa-paint-brush btn btn-outline-warning" aria-hidden="true"></i></a></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->UsuarioNombre?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->UsuarioApellido?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->CorreoE?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->NSS?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->CURP?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->Usuario?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->Contraseña?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->Nombre?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $dU->Ciudad?></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>
                 </table>
             </div>
         </div>
+
+        <div class="table table-stripped table-responsive">
+            <table>
+                <th></th>
+                <th>Rol</th>
+                <th>Privilegios</th>
+                <tbody>
+                    <?php foreach ($Privilegios as $key => $dP) : ?>
+                        <tr>
+                            <td><button type="button" class="btn btn-warning editarRol" value="<?= $dP->idRango?>" data-toggle="modal" data-target="#modal_privilegios">Editar</button></td>
+                            <!--td><a href="#editar_Rol<?php echo $dP->idRango?>" class="btn btn-warning" value="<?= $dP->idRango?>" data-toggle="modal">Editar</a></td-->
+                            <?php include 'editarRol.php'?>
+                            <td><?= $dP->Nombre?></td>
+                            <td><?= $dP->modulo?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+
+<!--**********************************EDITAR ROL*********************************-->
+<div class="modal fade" id="modal_privilegios">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 class="modal-title">Privilegios</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <table>
+            <tbody id="privilegios">
+            </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success pull-left" data-dismiss="modal" name="agregar" id="agregar" value="<?php echo $dP->idRango?>">Guardar</button>
+        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" name="cerrar" id="cerrar">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--**********************************EDITAR ROL*********************************-->
+
         <!--AGREGAR USUARIOS-->
         <div class="modal fade" id="myModal" style="color:black;">
             <div class="modal-dialog modal-lg">
@@ -134,21 +172,21 @@
 <script src="JS/usuarios.js"></script>
 <script src="JS/carga.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#example').DataTable( {
-            "aProcessing": true,//Activamos el procesamiento del datatables
-            "aServerSide": true,//Paginación y filtrado realizados por el servidor
-            dom: 'Bfrtip',//Definimos los elementos del control de tabla
-            buttons: [		          
-                        'copyHtml5',
-                        'excelHtml5',
-                        'csvHtml5',
-                        'pdf'
-                    ],
-            "bDestroy": true,
-            "iDisplayLength": 15,//Paginación
-            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                "aProcessing": true,//Activamos el procesamiento del datatables
+                "aServerSide": true,//Paginación y filtrado realizados por el servidor
+                dom: 'Bfrtip',//Definimos los elementos del control de tabla
+                buttons: [		          
+                            'copyHtml5',
+                            'excelHtml5',
+                            'csvHtml5',
+                            'pdf'
+                        ],
+                "bDestroy": true,
+                "iDisplayLength": 15,//Paginación
+                "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+            });
         });
-    });
-</script>
-<?php }?>
+    </script>
