@@ -133,6 +133,7 @@ $routes->post('/Utilizacion por Evento/Reporte','Reporte_Personas_Evento_Control
 
 
 $routes->get('/Utilizacion por Atracción','Reporte_Atraccion_Evento_Control::uAtraccion');
+$routes->post('/Utilizacion por Atracción/Reporte','Reporte_Atraccion_Evento_Control::mostrar_Atracciones');
 
 //$routes->get('/Ticket','reporte_Venta_Control::ticket');
 $routes->get('/Ticket','ticket_Control::ticket');

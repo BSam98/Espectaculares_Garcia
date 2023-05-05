@@ -135,7 +135,7 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
         <div class="input-group">
             <a href="javascript:cerra_Contenedor_Ventanillas_Inactivas();" class="btn btn-danger"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Regresar</a>
         </div> 
-        <center><label><h2>Ventanillas Inactivas</h2></label></center>
+       
         <!-- Content Row -->
 
         <div class="container-fluid">
@@ -144,24 +144,28 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
             <!--<div class="col-xl-8 col-lg-7">-->
                 <div class="card shadow mb-5">
                     <!-- Card Header - Dropdown -->
-                    <div class="card-header py-4 d-flex flex-row align-items-center justify-content-between">
-                        <h6 scope="col" style="text-align: center; vertical-align: middle;"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Status</h6>
-                        <h6 scope="col" style="text-align: center; vertical-align: middle;"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Ventanilla</h6>
-                        <h6 scope="col" style="text-align: center; vertical-align: middle;"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Taquillero</h6>
-                        <h6 scope="col" style="text-align: center; vertical-align: middle;"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Efectivo Total</h6>
-                        <h6 scope="col" style="text-align: center; vertical-align: middle;"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Tarjeta Total</h6>
-                        <h6 scope="col" style="text-align: center; vertical-align: middle;"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Taquillero</h6>
-                        <h6 scope="col" style="text-align: center; vertical-align: middle;"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Taquillero</h6>
-                        <h6 scope="col" style="text-align: center; vertical-align: middle;"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Taquillero</h6>
-                        <h6 scope="col" style="text-align: center; vertical-align: middle;"><i aria-hidden="true"></i>&nbsp;</h6>
-                        <!--<h6 scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;</h6>-->
-                        <h6 class="m-0 font-weight-bold text-primary"></h6>
+                    <div id="cabecera_Tabla" class="card-header">
+                        
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
                         <div class="chart-area table table-responsive table-wrapper">
-                            <table id="tabla_Ventanillas_Inactivas" class="table table-border"style=" color: black; background-image: url('../../../Espectaculares_Garcia/public/Img/logog.png'); background-repeat:no-repeat; background-position: center;">
-
+                            <table id="tabla_Ventanillas_Inactivas" class="table table-border"style=" color: black; background-image: url('./Img/logog.png'); background-repeat:no-repeat; background-position:center;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Status</th>
+                                        <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Ventanilla</th>
+                                        <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Taquillero</th>
+                                        <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Efectivo Total</th>
+                                        <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Tarjeta Total</th>
+                                        <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Apertura</th>
+                                        <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Cierre</th>
+                                        <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Detalles</th>
+                                        <th scope="col" style="text-align: center; vertical-align: middle;"><i aria-hidden="true"></i>&nbsp;</th>
+                                        <!--<h6 scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;</h6>-->
+                                        <th class="m-0 font-weight-bold text-primary"></th>
+                                    </tr>
+                                </thead>
                                 <tbody id="body_Ventanillas_Inactivas">
                                 </tbody>
                             </table>
@@ -171,6 +175,59 @@ if((!isset($_SESSION['Usuario'])) || (!isset($_SESSION['idUsuario']))){
                 </div>
                 <!--button type="button" id="cobrar" class="btn btn-success cobrar" data-toggle="modal" data-target="#modal_Cobrar">Cobrar</    button-->
             <!--</div>-->
+        </div>
+    </div>
+
+    <div class="contenedor_Mostrar_Ventanilla_Inactiva_Detalle" id="contenedor_Mostrar_Ventanilla_Inactiva_Detalle" style="color:black; display:none;">
+        <div class ="input-group">
+            <a href="javascript:cerrar_Contenedor_Ventanilla_Detalle();" class="btn btn-danger"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Regresar</a>
+        </div>
+
+        <div class="table table-responsive">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label><h5><i class="fa fa-search" aria-hidden="true"></i>Elige un Evento: </h5></label><br>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+
+        <div class="container-fluid">
+            <div class="card shadow mb-5">
+                <!-- Card Header - Dropdown -->
+                <div id="head_ventanilla_Inactiva" class="card-header">
+                    
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area table table-responsive table-wrapper">
+                        <table id="tabla_Ventanilla_Inactiva_Detalle" class="table table-border"style=" color: black; background-image: url('./Img/logog.png'); background-repeat:no-repeat; background-position:center;">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i></th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Precio</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Producto</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Hora</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Tarjeta Total</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Apertura</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Cierre</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;Detalles</th>
+                                    <th scope="col" style="text-align: center; vertical-align: middle;"><i aria-hidden="true"></i>&nbsp;</th>
+                                    <!--<h6 scope="col" style="text-align: center; vertical-align: middle;"><i  aria-hidden="true"></i>&nbsp;</h6>-->
+                                    <th class="m-0 font-weight-bold text-primary"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="body_Ventanilla_Inactiva_Detalle">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer" id="tota_Ventanilla_Inactiva"></div>
+            </div>
         </div>
     </div>
 

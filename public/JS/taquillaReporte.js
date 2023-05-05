@@ -88,7 +88,9 @@ $("#fechaesperada").change(function(){
     
 
     var idEvento = $("#evento option:selected").val();
+    var nombre_Evento = $("#evento option:selected").text();
     var fecha = $("#fechaesperada").val();
+
 
     html_Taquilla = '';
     html_Color = '';
@@ -124,7 +126,7 @@ $("#fechaesperada").change(function(){
                         '<td style="text-align: center; vertical-align: middle;">'+data.taquillas[i]['Nombre']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.taquillas[i]['Efectivo']+'</td>'+
                         '<td style="text-align: center; vertical-align: middle;">'+data.taquillas[i]['Tarjeta']+'</td>'+
-                        '<td style="text-align: center; vertical-align: middle;"><a href="javascript:mostrar_Contenedor_Ventanillas_Inactivas()" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Inactivas" data-book-id='+"'{"+'"idTaquilla":'+data.taquillas[i]['idTaquilla']+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
+                        '<td style="text-align: center; vertical-align: middle;"><a href="javascript:mostrar_Contenedor_Ventanillas_Inactivas()" style="transition-duration: 3s, 5s;" class ="btn btn-outline-success ventanillas_Inactivas" data-book-id='+"'{"+'"idTaquilla":'+data.taquillas[i]['idTaquilla']+','+'"evento":"'+nombre_Evento+'",'+'"taquilla":"'+data.taquillas[i]['Nombre']+'"'+"}'"+'><i class="fa fa-eye" aria-hidden="true"></i></a></button></td>'+
                     '</tr>'
                     ;
                 }
@@ -156,6 +158,7 @@ $(document).on('click','.ventanillas_Activas', function (){
     var idTaquilla = $(this).data('book-id');
     var idEvento = $("#evento option:selected").val();
     var html_Ventanillas = '';
+
     
     $.ajax({
         type:'POST',
@@ -219,22 +222,24 @@ $(document).on('click','.ventanillas_Inactivas', function(){
     iniciarCarga();
     //$("#tabla_Ventanillas_Inactivas").DataTable().destroy();
     
-    var idTaquilla = $(this).data('book-id');
+    var datos = $(this).data('book-id');
     var idEvento = $("#evento option:selected").val();
     var fecha = $("#fechaesperada").val();
     var html_Ventanillas = '';
     var html_Color = '';
+    var titulo_Html = '';
 
     $.ajax({
         type:'POST',
         url:'Ver Taquillas/Ventanillas_Inactivas',
-        data:{'idTaquilla':idTaquilla['idTaquilla'],'idEvento':idEvento,'fecha':fecha},
+        data:{'idTaquilla':datos['idTaquilla'],'idEvento':idEvento,'fecha':fecha},
         dataType:'JSON',
         error: function (jqXHR, textStatus, errorThrown) {
             alert('Se produjo un error : a'+ errorThrown + ' '+ textStatus);
             cerrarCarga;
         },
     }).done(function(data){
+        titulo_Html = '<center><label><h4>'+datos['evento'] + ' - '+datos['taquilla']+' - '+'Ventanillas Inactivas</h4></label></center>';
         if(data.respuesta){
             console.log('Aqui entro de regreso');
 
@@ -288,8 +293,9 @@ $(document).on('click','.ventanillas_Inactivas', function(){
                 }
             }
         }
-
+        $("#cabecera_Tabla").html(titulo_Html);
         $("#body_Ventanillas_Inactivas").html(html_Ventanillas);
+        
         /*
         $('#tabla_Ventanillas_Inactivas').DataTable( {
             "aProcessing": true,//Activamos el procesamiento del datatables
